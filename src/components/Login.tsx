@@ -1,33 +1,32 @@
-import { Button } from '../stories/Button';
+import { Label } from '@radix-ui/react-label';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 
 export default function Login() {
   return (
     <>
-      <div className='bg-green-100 h-screen w-screen'>
-        <div className='absolute w-2/5 h-2/3 p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-          <div className='bg-yellow-400 mb-5'>
-            <h1 className='text-center'>dIA</h1>
-          </div>
-
-          <div className='flex flex-row'>
-            <div className='flex flex-col justify-center w-full p-4 rounded-xl shadow-md bg-white'>
-              <div className='text-center'>
-                <h1 className='text-2xl text-green-500 mt-5 mb-10'>LOG IN</h1>
-                <input
-                  className='p-3 mb-8 border w-2/3 outline-0 border-white border-b-gray-400'
-                  type='text'
-                  placeholder='사원번호를 입력해주세요.'
-                />
-                <input
-                  className='p-3 mb-8 border w-2/3 outline-0 border-white border-b-gray-400'
-                  type='password'
-                  placeholder='비밀번호를 입력해주세요.'
-                />
-              </div>
-
-              <div className='text-center'>
-                <Button label={'Log In'}></Button>
-              </div>
+      <div className='h-screen w-screen'>
+        <div className='absolute w-2/5 h-2/3 p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2/3'>
+          <div className='flex flex-col h-full justify-between mb-5'>
+            <div className='flex justify-center'>
+              <img src='/logo.png' alt='dIA logo' />
+            </div>
+            <div className='flex flex-col gap-5 justify-between p-7 h-full'>
+              <div className='text-3xl text-hanaindigo mb-5'>LOG-IN</div>
+              <Input
+                className='mb-2 border-gray-300'
+                type='text'
+                placeholder='사원번호 입력'
+              ></Input>
+              <Input
+                className='mb-2 border-gray-300'
+                type='password'
+                placeholder='비밀번호 입력'
+              ></Input>
+              <Button className='bg-hanaindigo text-xl'>로그인</Button>
+              <Label className='text-xs text-center text-gray-300'>
+                copyright @dIA
+              </Label>
             </div>
           </div>
         </div>
