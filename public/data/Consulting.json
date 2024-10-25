@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 2,
+        "customer_pb_id": 4,
+        "category_id": 2,
+        "status_id": 2,
+        "title": "Retirement Planning",
+        "date": "2024-10-04",
+        "content": "4444444444Reviewed retirement options."
+    },
+    {
+        "id": 3,
+        "customer_pb_id": 2,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Risk Assessment",
+        "date": "2024-10-05",
+        "content": "Evaluated risk tolerance."
+    },
+    {
+        "id": 4,
+        "customer_pb_id": 1,
+        "category_id": 2,
+        "status_id": 1,
+        "title": "Wealth Management",
+        "date": "2024-10-06",
+        "content": "Discussed wealth management strategies."
+    },
+    {
+        "id": 5,
+        "customer_pb_id": 1,
+        "category_id": 3,
+        "status_id": 2,
+        "title": "Tax Planning",
+        "date": "2024-10-07",
+        "content": "Analyzed tax implications."
+    },
+    {
+        "id": 6,
+        "customer_pb_id": 2,
+        "category_id": 3,
+        "status_id": 1,
+        "title": "Financial Review",
+        "date": "2024-10-08",
+        "content": "Conducted a comprehensive financial review."
+    }
+]
