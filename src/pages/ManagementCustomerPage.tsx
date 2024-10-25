@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import GL from '../components/GuestList';
 import SCL from '../components/ScheduledConsultationList';
-import CR from '../components/ConsultationRequest';
-import D from '../components/ConsultationJournalList';
+import CJL from '../components/ConsultationJournalList';
 import CI from '../components/CustomerInformation';
 
-function ManagementCustomerPage() {
+export default function ManagementCustomerPage() {
   const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(null); // 선택된 고객 ID 상태
   const [customers, setCustomers] = useState<any[]>([]); // 고객 데이터 상태
 
@@ -46,23 +45,10 @@ function ManagementCustomerPage() {
         
         <div className="flex flex-col">
             <div className="w-[25rem] h-[56rem] bg-white rounded-3xl shadow-lg">
-            <D customerId={selectedCustomerId} />{/* 상담 일지 */}
+            <CJL customerId={selectedCustomerId} />{/* 상담 일지 */}
             </div>
         </div>
         
     </div>
   );
 }
-
-export default ManagementCustomerPage;
-
-
-
-
-
-    //    {/* 손님 목록 */}
-    //     <div className="flex flex-col">
-    //         <div className="w-[25rem] h-[56rem] bg-white rounded-3xl shadow-lg">
-    //             <A customers={customers} onSelectCustomer={setSelectedCustomerId} />
-    //         </div>
-    //     </div>
