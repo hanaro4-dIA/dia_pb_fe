@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Login from './components/Login';
 import Consulting from './components/Consulting';
-
+import MainPage from './pages/MainPage';
+import ManagementCustomerPage from './pages/ManagementCustomerPage';
 
 // 로그인 상태 확인을 위한 함수 (localStorage 사용)
 function isLoggedIn() {
@@ -25,6 +26,8 @@ function App() {
     <Routes>
       <Route path='/login' element={<Login />} />
       <Route path='/consulting' element={<Consulting />} />
+      <Route path='/mainpage' element={<MainPage />} />
+      <Route path='/mainpage/managementcustomerpage' element={<ManagementCustomerPage/>} />
     </Routes>
   );
 }
