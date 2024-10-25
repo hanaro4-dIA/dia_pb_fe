@@ -14,7 +14,7 @@ type PbProfile = {
 export default function PbProfile() {
   const [profile, setProfile] = useState<PbProfile>({
     name: '안유진',
-    tags: ['부동산', '안유진'],
+    tags: ['부동산', '안유진','ㅋ'],
     bio: '안녕하세요 부동산 투자 전문 PB 안유진입니다.',
     image:
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
@@ -80,12 +80,12 @@ export default function PbProfile() {
   };
 
   return (
-    <div className='w-96 h-auto bg-[#f4f2e5] rounded-lg shadow-lg overflow-hidden'>
-      <div className='bg-[#005645] flex justify-between items-center text-2xl text-[#f2f4f6] font-bold py-2 px-4 rounded-t-lg'>
+    <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
+      <div className='bg-hanaindigo text-[#fff] text-[1.5rem] font-extrabold p-4 pl-5 rounded-t-lg'>
         <span>내 프로필</span>
 
         <button
-          className='text-sm text-red-600 hover:underline '
+          className='text-sm text-red-600 hover:underline ml-3'
           onClick={() => setIsEditing(!isEditing)}
         >
           {isEditing ? (
@@ -98,7 +98,7 @@ export default function PbProfile() {
         </button>
       </div>
 
-      <div className='flex items-center p-6'>
+      <div className='flex items-center pl-3 pr-3'>
         <input
           type='file'
           style={{ display: 'none' }}
@@ -118,10 +118,10 @@ export default function PbProfile() {
           }}
         />
 
-        <div className='flex flex-col ml-6 w-full'>
+        <div className='flex flex-col ml-3 mt-3 w-full'>
           <div className='flex items-center'>
             <input
-              className='bg-[#f4f2e5] w-16 text-xl placeholder-black mb-2'
+              className='bg-[#fff] w-16 text-xl placeholder-black mb-2 font-bold'
               type='text'
               name='name'
               value={profile.name}
@@ -149,11 +149,11 @@ export default function PbProfile() {
             {profile.tags?.map((tag, index) => (
               <div
                 key={index}
-                className='flex w-16 items-center bg-[#005645] rounded-lg mr-2'
+                className='items-center bg-hanaindigo rounded-lg mr-2 p-1  inline-flex'
               >
-                <p className='text-[#f2f4f6] ml-1'>#</p>
+                <p className='text-[#fff] ml-1'>#</p>
                 <input
-                  className='bg-transparent text-[#f2f4f6] w-12'
+                  className='bg-transparent text-[#fff] w-12'
                   type='text'
                   value={tag}
                   onChange={(e) => handleTagChange(index, e.target.value)}
@@ -173,7 +173,7 @@ export default function PbProfile() {
             ))}
             {isEditing && (
               <button
-                className='text-[#005645] border border-[#005645] px-2 py-1 rounded-full text-sm'
+                className='text-hanaindigo border border-hanaindigo px-2 py-1 rounded-full text-sm'
                 type='button'
                 onClick={handleAddTag}
               >
@@ -183,14 +183,16 @@ export default function PbProfile() {
           </div>
 
           <textarea
-            className='bg-[#007b62] w-auto py-4 mt-2 text-xs text-[#f2f4f6] resize-none rounded-tr-3xl rounded-bl-3xl rounded-br-3xl'
+            className='bg-hanaindigo w-auto p-3 mt-2 text-xs text-[#fff] resize-none rounded-tr-3xl rounded-bl-3xl rounded-br-3xl'
             name='bio'
             value={profile.bio}
             onChange={handleInputChange}
             disabled={!isEditing}
             placeholder={profile.bio}
           />
-          <div className='text-center text-black text-sm py-2'>로그아웃</div>
+          <div className='flex justify-end py-2 mr-1'>
+            <div className='text-black text-sm font-bold'>로그아웃</div>
+          </div>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import GL from '../components/GuestList';
 import SCL from '../components/ScheduledConsultationList';
 import CR from '../components/ConsultationRequest';
+import PP from '../components/pbProfile';
 
 export default function MainPage() {
   const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(null); // 선택된 고객 ID 상태
@@ -29,7 +30,7 @@ export default function MainPage() {
         
         <div className="flex flex-col mr-5 mb-5">
             <div className="w-[25rem] h-[16rem] bg-white rounded-3xl shadow-lg ml-2 mr-2">
-                프로필 {/* 프로필 */}
+                <PP/> {/* 프로필 */}
             </div>
             <div className="w-[25rem] h-[39rem] bg-white rounded-3xl shadow-lg ml-2 mr-2 mt-4">
                 <CR /> {/* 들어온 상담 요청 */}
