@@ -1,0 +1,22 @@
+[
+    {
+        "id": 101,
+        "password": "pb_password1",
+        "name": "조경은",
+        "sex": "Male",
+        "birthday": "1980-06-12",
+        "image_url": "https://example.com/images/alexkim.jpg",
+        "introduce": "Expert in wealth management and tax planning.",
+        "office_id": 1
+    },
+    {
+        "id": 102,
+        "password": "pb_password2",
+        "name": "야야야",
+        "sex": "Male",
+        "birthday": "1980-06-12",
+        "image_url": "https://example.com/images/alexkim.jpg",
+        "introduce": "Expert in wealth management and tax planning.",
+        "office_id": 2
+    }
+]
