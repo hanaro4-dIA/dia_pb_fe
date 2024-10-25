@@ -25,16 +25,16 @@ export default function ConsultationRequest() {
   };
 
   return (
-    <div className="flex flex-col w-[25rem] h-[39rem] bg-[#fff] rounded-lg shadow-lg">
+    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200">
       {/* 헤더 */}
       <div className="bg-hanaindigo text-[#fff] text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5">
         들어온 상담 요청
       </div>
 
       {/* 상담 데이터 리스트 */}
-      <div className="flex-1 overflow-auto p-4">
+      <div className="overflow-auto p-4">
         {consultationData.map((consultation, index) => (
-          <div key={index} className="bg-[#fff] rounded-lg border border-gray-200 p-4 mb-4 shadow-lg">
+          <div key={index} className="bg-[#fff] rounded-lg border border-gray-200 p-4 mb-4 shadow-lg ">
             <div className="flex justify-between items-center">
               {/* Topic */}
               <span className="text-[1rem] font-bold text-ellipsis overflow-hidden whitespace-nowrap" style={{ maxWidth: '15rem' }}>

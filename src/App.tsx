@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Consulting from './components/Consulting';
 import MainPage from './pages/MainPage';
 import ManagementCustomerPage from './pages/ManagementCustomerPage';
+import ConsultingPage from './pages/ConsultingPage';
 
 // 로그인 상태 확인을 위한 함수 (localStorage 사용)
 function isLoggedIn() {
@@ -28,6 +29,7 @@ function App() {
       <Route path='/consulting' element={<Consulting />} />
       <Route path='/mainpage' element={<MainPage />} />
       <Route path='/mainpage/managementcustomerpage' element={<ManagementCustomerPage/>} />
+      <Route path='/consultingpage' element={<ConsultingPage />} />
     </Routes>
   );
 }

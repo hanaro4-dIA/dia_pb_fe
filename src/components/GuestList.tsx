@@ -55,7 +55,7 @@ export default function GuestList({ customers, onSelectCustomer }: GuestListProp
 
       {/* 검색 입력 필드 */}
       <div className="flex justify-center mt-4">
-        <div className="relative w-[23rem]">
+        <div className="relative w-11/12">
           <input
             type="text"
             placeholder="손님 이름 검색"

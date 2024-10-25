@@ -1,8 +1,5 @@
-type HeightProps = {
-  height: string; // height는 string 또는 number 타입으로 지정
-};
 
-export default function ScheduledConsultationList({height}:HeightProps) {
+export default function ScheduledConsultationList() {
   const consultationData = [
     { name: '조경은', topic: '@성수 AK프라자 부동산 건 상담요청합니다.', hopeDay: '@2024.10.22 16:30' },
     { name: '김철수', topic: '#성수 AK프라자 부동산 건 상담요청합니다.ddddddddddddddddddddddddddddd', hopeDay: '#2024.10.22 16:30'  },
@@ -17,7 +14,7 @@ export default function ScheduledConsultationList({height}:HeightProps) {
   ];
 
   return (
-    <div className={`flex flex-col w-[25rem] bg-[#fff] rounded-lg shadow-lg`} style={{ height }}>
+    <div className={`flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200`}>
       {/* 헤더 */}
       <div className="bg-hanaindigo text-[#fff] text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5">
         예정된 상담 일정
