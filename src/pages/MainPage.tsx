@@ -14,7 +14,6 @@ export default function MainPage() {
     []
   );
 
-
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
@@ -60,11 +59,11 @@ export default function MainPage() {
         <div className='bg-hanaindigo text-white font-bold text-xl p-3 pl-5 rounded-t-lg'>
           캘린더
         </div>
-        <div className='flex w-full h-5/6 mb-5'>
+        <div className='flex w-full h-1/2 mb-5'>
           <PbCalendar />
         </div>
         {/* 예정된 상담 일정 */}
-        <div className='h-full'>
+        <div className='flex flex-col h-1/2 overflow-y-auto'>
           <SCL consultations={scheduledConsultations} />
         </div>
       </div>
@@ -73,7 +72,7 @@ export default function MainPage() {
       <div className='flex flex-col w-1/4 h-full'>
         {/* 손님 목록 */}
         <div className='overflow-y-auto'>
-          <GL customers={customers}/>
+          <GL customers={customers} />
         </div>
       </div>
     </div>
