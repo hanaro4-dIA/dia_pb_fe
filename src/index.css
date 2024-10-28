@@ -10,17 +10,17 @@
 
 /*캘린더*/
 .react-calendar {
-  width: 300px;
+  @apply h-full w-full rounded-b-lg p-5 shadow-lg;
 }
 
 /*캘린더nav 년도,월 색깔 */
 .react-calendar__navigation button {
-  @apply text-[#f87171];
+  @apply text-2xl text-hanaindigo;
 }
 
 /*캘린더 오늘 날짜*/
 .react-calendar__tile--now {
-  @apply rounded-full bg-[#f87171] text-white;
+  @apply bg-red-500 text-white;
 }
 
 /*
@@ -32,22 +32,14 @@
 
 /*캘린더 클릭한 날짜*/
 .react-calendar__tile:enabled:focus {
-  @apply rounded-full bg-[#FFFA76] text-black;
-}
-.react-calendar__tile:enabled:hover {
-  @apply rounded-full bg-[#FFFA76];
+  @apply bg-yellow-200 text-black;
 }
 
 .react-calendar__tile--active {
-  @apply rounded-full bg-[#FFFA76] text-black;
+  @apply bg-yellow-200 text-black;
 }
 
 /* 캘린더 일정 표시 */
 .dot {
-  height: 8px;
-  width: 8px;
-  background-color: #f87171;
-  border-radius: 50%;
-  display: flex;
-  margin-left: 3px;
+  @apply border-b-2 border-red-400;
 }

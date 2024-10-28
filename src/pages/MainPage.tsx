@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import CR from '../components/ConsultationRequest';
 import GL from '../components/GuestList';
-import PP from '../components/PbProfile';
+import PbCalendar from '../components/PbCalendar';
 import SCL from '../components/ScheduledConsultationList';
+import PP from '../components/pbProfile';
 import { Button } from '../components/ui/button';
 
 export default function MainPage() {
@@ -36,37 +37,42 @@ export default function MainPage() {
   };
 
   return (
-    <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
+    <div className='flex flex-row justify-between w-full h-screen p-5'>
       {/* 프로필과 들어온 상담 요청 */}
-      <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
+      <div className='flex flex-col flex-grow w-1/4 h-full mr-10'>
         {/* 프로필 */}
-        <div className='overflow-y-auto min-h-[250px]'>
+        <div className='overflow-y-auto w-full h-3/5 mb-5'>
           <PP />
         </div>
         {/* Dictionary 버튼 */}
         <Link className='w-full' to={'/dictionary'}>
-          <Button className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'>
+          <Button className='w-full mb-5 bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'>
             딕셔너리 바로가기
           </Button>
         </Link>
         {/* 들어온 상담 요청 */}
-        <div className='overflow-y-auto'>
+        <div className='overflow-y-auto h-full'>
           <CR onApprove={handleApproveConsultation} />
         </div>
       </div>
 
       {/* 캘린더와 예정된 상담 일정 */}
-      <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
+      <div className='flex flex-col w-5/12 h-full mr-10'>
         {/* 캘린더 */}
-        <div className='overflow-y-auto min-h-[400px] bg-red-600'>캘린더</div>
+        <div className='bg-hanaindigo text-white font-bold text-xl p-3 pl-5 rounded-t-lg'>
+          캘린더
+        </div>
+        <div className='flex w-full h-5/6 mb-5'>
+          <PbCalendar />
+        </div>
         {/* 예정된 상담 일정 */}
-        <div className='overflow-y-auto'>
+        <div className='h-full'>
           <SCL consultations={scheduledConsultations} />
         </div>
       </div>
 
       {/* 손님 목록 */}
-      <div className='flex flex-col flex-grow w-1/4 h-full'>
+      <div className='flex flex-col w-1/4 h-full'>
         {/* 손님 목록 */}
         <div className='overflow-y-auto'>
           <GL customers={customers} onSelectCustomer={setSelectedCustomerId} />
