@@ -1,25 +1,24 @@
 import { Switch } from '@radix-ui/react-switch';
 import { useState, useRef } from 'react';
 
-//import profileImage from './assets/profileImage.jpg';
-
 type PbProfile = {
   //id: number;
   image: string;
   name: string;
-  tags?: string[];
+  tags: string[];
   bio: string;
 };
 
 export default function PbProfile() {
   const [profile, setProfile] = useState<PbProfile>({
     name: '안유진',
-    tags: ['부동산', '안유진','ㅋ'],
+    tags: ['부동산', '안유진', 'ㅋ'],
     bio: '안녕하세요 부동산 투자 전문 PB 안유진입니다.',
     image:
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
   });
 
+  // console.log('**************', profile.tags?.length);
   const [isEditing, setIsEditing] = useState(false);
   const [isWorking, setIsWorking] = useState(false);
   const [Image, setImage] = useState(profile.image);
@@ -45,6 +44,7 @@ export default function PbProfile() {
   };
 
   const handleAddTag = () => {
+    // 태그 입력값이 비어있으면 새로운 태그 추가 안 됨
     setProfile((prev) => ({
       ...prev,
       tags: [...(prev.tags || []), ''],
@@ -59,8 +59,9 @@ export default function PbProfile() {
   };
 
   const handleSubmit = () => {
-    //서버전송
-    console.log('Profile updated:', profile);
+    // 서버전송
+    // 태그 입력값이 비어있으면 프로필 저장 안 됨
+    // console.log('Profile updated:', profile);
     setIsEditing(false); //수정완
   };
 
@@ -81,7 +82,7 @@ export default function PbProfile() {
 
   return (
     <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
-      <div className='bg-hanaindigo text-[#fff] text-[1.5rem] font-extrabold p-4 pl-5 rounded-t-lg'>
+      <div className='bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         <span>내 프로필</span>
 
         <button
@@ -118,7 +119,7 @@ export default function PbProfile() {
           }}
         />
 
-        <div className='flex flex-col ml-3 mt-3 w-full'>
+        <div className='flex flex-col ml-3 mt-3 w-full justify-between'>
           <div className='flex items-center'>
             <input
               className='bg-[#fff] w-16 text-xl placeholder-black mb-2 font-bold'
@@ -145,24 +146,25 @@ export default function PbProfile() {
             </Switch>
           </div>
 
-          <div className='flex flex-wrap gap-2'>
+          <div className='flex flex-wrap gap-1'>
             {profile.tags?.map((tag, index) => (
               <div
                 key={index}
-                className='items-center bg-hanaindigo rounded-lg mr-2 p-1  inline-flex'
+                className='flex items-center bg-hanaindigo rounded-lg mr-2 h-8 p-1 w-[28%]'
               >
-                <p className='text-[#fff] ml-1'>#</p>
+                <p className='text-[#fff] text-xs mx-1'>#</p>
                 <input
-                  className='bg-transparent text-[#fff] w-12'
+                  className='bg-transparent text-[#fff] text-xs w-full'
                   type='text'
                   value={tag}
                   onChange={(e) => handleTagChange(index, e.target.value)}
                   disabled={!isEditing}
-                  placeholder='태그'
+                  placeholder='입력'
+                  maxLength={5}
                 />
                 {isEditing && (
                   <button
-                    className='text-red-600 ml-2'
+                    className='text-red-600 ml-3 mr-2'
                     type='button'
                     onClick={() => handleRemoveTag(index)}
                   >
@@ -171,7 +173,7 @@ export default function PbProfile() {
                 )}
               </div>
             ))}
-            {isEditing && (
+            {isEditing && profile.tags?.length < 3 && (
               <button
                 className='text-hanaindigo border border-hanaindigo px-2 py-1 rounded-full text-sm'
                 type='button'
@@ -182,6 +184,7 @@ export default function PbProfile() {
             )}
           </div>
 
+          {/* 한줄 자기소개 */}
           <textarea
             className='bg-hanaindigo w-auto p-3 mt-2 text-xs text-[#fff] resize-none rounded-tr-3xl rounded-bl-3xl rounded-br-3xl'
             name='bio'
@@ -190,8 +193,9 @@ export default function PbProfile() {
             disabled={!isEditing}
             placeholder={profile.bio}
           />
+
           <div className='flex justify-end py-2 mr-1'>
-            <div className='text-black text-sm font-bold'>로그아웃</div>
+            <button className='text-black text-sm font-bold'>로그아웃</button>
           </div>
         </div>
       </div>

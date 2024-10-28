@@ -13,15 +13,18 @@ export default function ConsultingPage() {
           <div className='flex justify-between p-3 items-center border-b border-black'>
             <div className='text-2xl font-bold text-hanagold'>조경은 손님</div>
             <div>
-              <Button className='border border-hanaindigo bg-white text-black'>
+              <Button className='border border-hanaindigo bg-white text-black hover:text-white'>
                 전화
               </Button>
             </div>
           </div>
-          <div className='overflow-y-auto min-h-[500px]'>
+          
+          {/* 손님 정보 */}
+          <div className='overflow-y-auto min-h-[300px]'>
             <CI customerId={1} />
           </div>
-
+          
+          {/* 상담일지 리스트 */}
           <div className='overflow-y-auto'>
             <CJL customerId={1} />
           </div>
