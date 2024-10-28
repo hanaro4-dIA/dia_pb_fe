@@ -1,27 +1,24 @@
 import { IoMdSearch } from 'react-icons/io';
-import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-type Customer = {
+type TCustomer = {
   id: number;
   name: string;
 };
 
-type Customer_PB = {
+type TCustomerPb = {
   customer_id: number;
   memo: string;
 };
 
-interface GuestListProps {
-  customers: Customer[];
-  // param: Number;
-}
+type TGuestListProps = {
+  customers: TCustomer[];
+};
 
-export default function GuestList({
-  customers,
-}: GuestListProps) {
+export default function GuestList({ customers }: TGuestListProps) {
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
-  const [memo, setMemo] = useState<Customer_PB[]>([]); // 고객_PB 메모 데이터
+  const [memo, setMemo] = useState<TCustomerPb[]>([]); // 고객_PB 메모 데이터
   const navigate = useNavigate();
   const params = useParams();
 
@@ -78,45 +75,43 @@ export default function GuestList({
           <div
             key={customer.id}
             className='mb-4'
-            onClick={ () => navigate(`/customerDetail/${customer.id}`) }
+            onClick={() => navigate(`/customerDetail/${customer.id}`)}
           >
             {customer.id === Number(params.id) ? (
               <div className='bg-hanagold rounded-lg p-4 border shadow-lg cursor-pointer'>
-              {/* 고객 이름 */}
-              <div className='text-white text-lg font-bold'>
-                {customer.name} 손님
-              </div>
+                {/* 고객 이름 */}
+                <div className='text-white text-lg font-bold'>
+                  {customer.name} 손님
+                </div>
 
-              {/* 고객별 메모 내용 */}
-              <div className='bg-hanaindigo text-[#fff] p-2 mt-2 rounded-lg'>
-                <div
-                  className='overflow-hidden text-ellipsis whitespace-nowrap'
-                  style={{ maxWidth: '100%' }}
-                >
-                  {getMemo(customer.id)}
+                {/* 고객별 메모 내용 */}
+                <div className='bg-hanaindigo text-[#fff] p-2 mt-2 rounded-lg'>
+                  <div
+                    className='overflow-hidden text-ellipsis whitespace-nowrap'
+                    style={{ maxWidth: '100%' }}
+                  >
+                    {getMemo(customer.id)}
+                  </div>
                 </div>
               </div>
-            </div>
-            ) 
-            : (
+            ) : (
               <div className='bg-[#fff] rounded-lg p-4 border shadow-lg cursor-pointer'>
-              {/* 고객 이름 */}
-              <div className='text-black text-lg font-bold'>
-                {customer.name} 손님
-              </div>
+                {/* 고객 이름 */}
+                <div className='text-black text-lg font-bold'>
+                  {customer.name} 손님
+                </div>
 
-              {/* 고객별 메모 내용 */}
-              <div className='bg-hanaindigo text-[#fff] p-2 mt-2 rounded-lg'>
-                <div
-                  className='overflow-hidden text-ellipsis whitespace-nowrap'
-                  style={{ maxWidth: '100%' }}
-                >
-                  {getMemo(customer.id)}
+                {/* 고객별 메모 내용 */}
+                <div className='bg-hanaindigo text-[#fff] p-2 mt-2 rounded-lg'>
+                  <div
+                    className='overflow-hidden text-ellipsis whitespace-nowrap'
+                    style={{ maxWidth: '100%' }}
+                  >
+                    {getMemo(customer.id)}
+                  </div>
                 </div>
               </div>
-            </div>
-            )
-            }
+            )}
           </div>
         ))}
       </div>

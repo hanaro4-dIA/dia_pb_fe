@@ -1,34 +1,16 @@
 import { useEffect, useState } from 'react';
+import { type TJournalsProps } from '../lib/types';
 
-type CustomerPB = {
-  id: number;
-  customer_id: number;
-};
-
-type PB = {
-  id: number;
-  name: string;
-};
-
-type ConsultationJournal = {
-  customer_pb_id: number;
-  category_id: number;
-  status_id: number;
-  title: string;
-  date: string;
-  content: string;
-};
-
-type ConsultationJournalListProps = {
+type TConsultationJournalListProps = {
   customerId: number | null;
   className?: string; // 추가된 className prop
 };
 
 export default function ConsultationJournalList({
   customerId,
-}: ConsultationJournalListProps) {
+}: TConsultationJournalListProps) {
   const [consultationJourData, setConsultationJourData] = useState<
-    ConsultationJournal[]
+    TJournalsProps[]
   >([]);
   const [pbName, setPbName] = useState<string | null>(null);
   const [pbId, setPbId] = useState<number | null>(null);
@@ -38,7 +20,8 @@ export default function ConsultationJournalList({
       const response = await fetch('../../public/data/Customer_PB.json');
       const customerPBData = await response.json();
       const customerPB = customerPBData.find(
-        (pb: CustomerPB) => pb.customer_id === customerId
+        (pb: { id: number; customer_id: number }) =>
+          pb.customer_id === customerId
       );
 
       if (customerPB) {
@@ -54,7 +37,9 @@ export default function ConsultationJournalList({
     try {
       const response = await fetch('../../public/data/PB.json');
       const pbData = await response.json();
-      const pb = pbData.find((pb: PB) => pb.id === pbId);
+      const pb = pbData.find(
+        (pb: { id: number; name: string }) => pb.id === pbId
+      );
 
       if (pb) {
         setPbName(pb.name);
@@ -71,8 +56,7 @@ export default function ConsultationJournalList({
       const response = await fetch('../../public/data/Journals.json');
       const data = await response.json();
       const filteredData = data.filter(
-        (consultation: ConsultationJournal) =>
-          consultation.customer_pb_id === pbId
+        (consultation: TJournalsProps) => consultation.customer_pb_id === pbId
       );
       setConsultationJourData(filteredData);
     } catch (error) {

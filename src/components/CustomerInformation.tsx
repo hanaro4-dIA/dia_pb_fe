@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-type Customer = {
+type TCustomer = {
   id: number;
   name: string;
   sex: string;
 };
 
-type CustomerPB = {
+type TCustomerPB = {
   id: number;
   customer_id: number;
   date: string;
@@ -14,16 +14,16 @@ type CustomerPB = {
   memo: string;
 };
 
-type CustomerInformationProps = {
+type TCustomerInformationProps = {
   customerId: number | null;
   className?: string; // 추가된 className prop
 };
 
 export default function CustomerInformation({
   customerId,
-}: CustomerInformationProps) {
+}: TCustomerInformationProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [customerData, setCustomerData] = useState<Customer | null>(null);
+  const [customerData, setCustomerData] = useState<TCustomer | null>(null);
   const [memo, setMemo] = useState<string>('');
   const [count, setCount] = useState<number | null>(null);
   const [meetDate, setMeetDate] = useState<string>('');
@@ -45,7 +45,7 @@ export default function CustomerInformation({
       try {
         const response = await fetch('../../public/data/Customer.json');
         const data = await response.json();
-        const customer = data.find((c: Customer) => c.id === customerId);
+        const customer = data.find((c: TCustomer) => c.id === customerId);
         setCustomerData(customer || null);
       } catch (error) {
         console.error('Error fetching customer data:', error);
@@ -57,7 +57,7 @@ export default function CustomerInformation({
         const response = await fetch('../../public/data/Customer_PB.json');
         const data = await response.json();
         const customerMemo = data.find(
-          (c: CustomerPB) => c.customer_id === customerId
+          (c: TCustomerPB) => c.customer_id === customerId
         );
         if (customerMemo) {
           setMemo(customerMemo.memo);

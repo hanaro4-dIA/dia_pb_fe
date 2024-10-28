@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
-import { RequestedConsultationsProps } from '../lib/types';
+import { type TRequestedConsultationsProps } from '../lib/types';
 
-type ConsultationRequestProps = {
-  onApprove: (consultation: RequestedConsultationsProps) => void;
+type TConsultationRequestProps = {
+  onApprove: (consultation: TRequestedConsultationsProps) => void;
 };
 
-export default function ConsultationRequest({ onApprove }: ConsultationRequestProps) {
-  const [consultationData, setConsultationData] = useState<RequestedConsultationsProps[]>([]);
+export default function ConsultationRequest({
+  onApprove,
+}: TConsultationRequestProps) {
+  const [consultationData, setConsultationData] = useState<
+    TRequestedConsultationsProps[]
+  >([]);
 
   useEffect(() => {
     const fetchNotConsultingData = async () => {
       try {
-        const response = await fetch('/data/Consultings.json'); // 경로 수정
-        const data: RequestedConsultationsProps[] = await response.json();
-        
+        const response = await fetch('/data/Consultings.json');
+        const data: TRequestedConsultationsProps[] = await response.json();
+
         // 필터 조건: Standby 상태이면서 finishStatus가 false인 항목만
         const filteredData = data.filter(
-          (consultation) => consultation.approvalStatus === 'Standby' && consultation.finishStatus === false
+          (consultation) =>
+            consultation.approvalStatus === 'Standby' &&
+            consultation.finishStatus === false
         );
-        
-        setConsultationData(filteredData); // 필터링된 데이터 설정
+
+        setConsultationData(filteredData);
       } catch (error) {
         console.error('Error fetching consultation data:', error);
       }
@@ -33,7 +39,10 @@ export default function ConsultationRequest({ onApprove }: ConsultationRequestPr
     setConsultationData((prevData) =>
       prevData.filter((consultation, i) => {
         if (i === index && consultation.approvalStatus === 'Standby') {
-          const updatedConsultation = { ...consultation, approvalStatus: 'Approved' };
+          const updatedConsultation = {
+            ...consultation,
+            approvalStatus: 'Approved',
+          };
           onApprove(updatedConsultation); // 승인된 상담을 전달
           return false; // 승인된 항목을 제거
         }
@@ -51,16 +60,24 @@ export default function ConsultationRequest({ onApprove }: ConsultationRequestPr
       {consultationData.length > 0 ? (
         <div className='overflow-auto p-4'>
           {consultationData.map((consultation, index) => (
-            <div key={index} className='bg-[#fff] rounded-lg border border-gray-200 p-4 mb-4 shadow-lg'>
+            <div
+              key={index}
+              className='bg-[#fff] rounded-lg border border-gray-200 p-4 mb-4 shadow-lg'
+            >
               <div className='flex justify-between items-center'>
-                <span className='text-[1rem] font-bold text-ellipsis overflow-hidden whitespace-nowrap' style={{ maxWidth: '15rem' }}>
+                <span
+                  className='text-[1rem] font-bold text-ellipsis overflow-hidden whitespace-nowrap'
+                  style={{ maxWidth: '15rem' }}
+                >
                   {consultation.topic}
                 </span>
                 <button
                   className={`w-[6rem] h-[2rem] text-[#fff] text-[1rem] rounded-lg ${consultation.approvalStatus === 'Standby' ? 'bg-hanaindigo' : 'bg-hanasilver'}`}
                   onClick={() => toggleApprovalStatus(index)}
                 >
-                  {consultation.approvalStatus === 'Standby' ? '승인대기' : '승인완료'}
+                  {consultation.approvalStatus === 'Standby'
+                    ? '승인대기'
+                    : '승인완료'}
                 </button>
               </div>
               <div className='flex justify-between text-black text-sm mt-2'>

@@ -1,26 +1,19 @@
 import { Switch } from '@radix-ui/react-switch';
 import { useState, useRef } from 'react';
-
-type PbProfile = {
-  //id: number;
-  image: string;
-  name: string;
-  tags: string[];
-  bio: string;
-};
+import { type TPbProps } from '../lib/types';
 
 export default function PbProfile() {
-  const [profile, setProfile] = useState<PbProfile>({
+  const [profile, setProfile] = useState<TPbProps>({
     name: '안유진',
     tags: ['부동산', '안유진', 'ㅋ'],
-    bio: '안녕하세요 부동산 투자 전문 PB 안유진입니다.',
-    image:
+    introduce: '안녕하세요 부동산 투자 전문 PB 안유진입니다.',
+    image_url:
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
   });
 
   const [isEditing, setIsEditing] = useState(false);
   const [isWorking, setIsWorking] = useState(false);
-  const [Image, setImage] = useState(profile.image);
+  const [Image, setImage] = useState(profile.image_url);
 
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -198,11 +191,11 @@ export default function PbProfile() {
           {/* 한줄 자기소개 */}
           <textarea
             className='bg-hanaindigo w-auto p-3 mt-2 text-xs text-[#fff] resize-none rounded-tr-3xl rounded-bl-3xl rounded-br-3xl'
-            name='bio'
-            value={profile.bio}
+            name='introduce'
+            value={profile.introduce}
             onChange={handleInputChange}
             disabled={!isEditing}
-            placeholder={profile.bio}
+            placeholder={profile.introduce}
           />
 
           <div className='flex justify-end py-2 mr-1'>
