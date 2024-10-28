@@ -2,10 +2,9 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
 import Login from './components/Login';
-import Consulting from './components/Consulting';
+import ConsultingPage from './pages/ConsultingPage';
 import MainPage from './pages/MainPage';
 import ManagementCustomerPage from './pages/ManagementCustomerPage';
-import ConsultingPage from './pages/ConsultingPage';
 
 // 로그인 상태 확인을 위한 함수 (localStorage 사용)
 function isLoggedIn() {
@@ -26,9 +25,11 @@ function App() {
   return (
     <Routes>
       <Route path='/login' element={<Login />} />
-      <Route path='/consulting' element={<Consulting />} />
       <Route path='/mainpage' element={<MainPage />} />
-      <Route path='/mainpage/managementcustomerpage' element={<ManagementCustomerPage/>} />
+      <Route
+        path='/mainpage/managementcustomerpage'
+        element={<ManagementCustomerPage />}
+      />
       <Route path='/consultingpage' element={<ConsultingPage />} />
     </Routes>
   );
