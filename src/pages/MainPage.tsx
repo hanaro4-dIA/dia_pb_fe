@@ -8,13 +8,11 @@ import SCL from '../components/ScheduledConsultationList';
 import { Button } from '../components/ui/button';
 
 export default function MainPage() {
-  const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(
-    null
-  );
   const [customers, setCustomers] = useState<any[]>([]);
   const [scheduledConsultations, setScheduledConsultations] = useState<any[]>(
     []
   );
+
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -69,7 +67,7 @@ export default function MainPage() {
       <div className='flex flex-col flex-grow w-1/4 h-full'>
         {/* 손님 목록 */}
         <div className='overflow-y-auto'>
-          <GL customers={customers} onSelectCustomer={setSelectedCustomerId} />
+          <GL customers={customers}/>
         </div>
       </div>
     </div>

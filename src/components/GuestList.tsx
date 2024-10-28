@@ -1,5 +1,6 @@
 import { IoMdSearch } from 'react-icons/io';
 import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 type Customer = {
   id: number;
@@ -13,15 +14,16 @@ type Customer_PB = {
 
 interface GuestListProps {
   customers: Customer[];
-  onSelectCustomer: (id: number) => void; // 선택된 고객 ID를 부모에 전달하는 함수
+  // param: Number;
 }
 
 export default function GuestList({
   customers,
-  onSelectCustomer,
 }: GuestListProps) {
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
   const [memo, setMemo] = useState<Customer_PB[]>([]); // 고객_PB 메모 데이터
+  const navigate = useNavigate();
+  const params = useParams();
 
   // 고객 및 상담 메모 데이터를 가져오는 함수
   useEffect(() => {
@@ -76,9 +78,28 @@ export default function GuestList({
           <div
             key={customer.id}
             className='mb-4'
-            onClick={() => onSelectCustomer(customer.id)}
+            onClick={ () => navigate(`/customerDetail/${customer.id}`) }
           >
-            <div className='bg-[#fff] rounded-lg p-4 border shadow-lg cursor-pointer'>
+            {customer.id === Number(params.id) ? (
+              <div className='bg-hanagold rounded-lg p-4 border shadow-lg cursor-pointer'>
+              {/* 고객 이름 */}
+              <div className='text-white text-lg font-bold'>
+                {customer.name} 손님
+              </div>
+
+              {/* 고객별 메모 내용 */}
+              <div className='bg-hanaindigo text-[#fff] p-2 mt-2 rounded-lg'>
+                <div
+                  className='overflow-hidden text-ellipsis whitespace-nowrap'
+                  style={{ maxWidth: '100%' }}
+                >
+                  {getMemo(customer.id)}
+                </div>
+              </div>
+            </div>
+            ) 
+            : (
+              <div className='bg-[#fff] rounded-lg p-4 border shadow-lg cursor-pointer'>
               {/* 고객 이름 */}
               <div className='text-black text-lg font-bold'>
                 {customer.name} 손님
@@ -94,6 +115,8 @@ export default function GuestList({
                 </div>
               </div>
             </div>
+            )
+            }
           </div>
         ))}
       </div>

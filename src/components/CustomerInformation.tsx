@@ -1,4 +1,3 @@
-// // 😭😭😭😭😭😭😭😭한 손님이 여러명의 pb와 상담을 한 일지가 나오게끔 수정을 해야해여!
 import { useEffect, useState } from 'react';
 
 type Customer = {
@@ -79,13 +78,13 @@ export default function CustomerInformation({
   }, [customerId]);
 
   return (
-    <div className='flex flex-col bg-white rounded-lg shadow-lg border-gray-200 h-[300px]'>
-      <div className='bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
+    <div className='flex flex-col bg-white rounded-lg shadow-lg border border-gray-200'>
+      <div className='bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg border'>
         {customerData?.name} 손님 정보
       </div>
 
       {customerData ? (
-        <div className='p-2'>
+        <div className='p-2 '>
           <div className='bg-[#fff] rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
             <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
               <span className='text-sm'>손님과 만난 날짜</span>
@@ -142,11 +141,11 @@ export default function CustomerInformation({
                 <textarea
                   value={memo}
                   onChange={(e) => setMemo(e.target.value)}
-                  className='w-full rounded h-[30px] resize-none border outline-none px-2 py-1'
+                  className='w-full rounded resize-none border outline-none px-2 py-1'
                   maxLength={200}
                 />
               ) : (
-                <div className='px-2 py-1 h-[30px] overflow-y-auto'>{memo}</div>
+                <div className='px-2 py-1 overflow-y-auto'>{memo}</div>
               )}
             </div>
           </div>

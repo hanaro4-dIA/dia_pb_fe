@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import CJL from '../components/ConsultationJournalList';
 import CI from '../components/CustomerInformation';
 import GL from '../components/GuestList';
 import SCL from '../components/ScheduledConsultationList';
 
 export default function CustomerDetailPage() {
-  const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(
-    null
-  );
   const [customers, setCustomers] = useState<any[]>([]);
+  const [scheduledConsultations, ] = useState<any[]>([]);
 
+  const params = useParams();
+  
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
@@ -17,7 +18,7 @@ export default function CustomerDetailPage() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        alert("손님 정보를 불러오지 못했습니다.");
       }
     };
 
@@ -29,22 +30,24 @@ export default function CustomerDetailPage() {
       {/* 첫 번째 열: 손님 목록 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
         <div className='overflow-y-auto'>
-          <GL customers={customers} onSelectCustomer={setSelectedCustomerId} />
+          <GL customers={customers} />
         </div>
       </div>
 
       {/* 두 번째 열: 손님 정보와 상담 일정 */}
       <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
-        <div className='overflow-y-auto min-h-[500px]'>
-          <CI customerId={selectedCustomerId} />
+        <div className='overflow-y-auto'>
+          <CI customerId={Number(params.id)} />
         </div>
-        <div className='overflow-y-auto'>{/* <SCL /> */}</div>
+        <div className='overflow-y-auto'>
+          <SCL consultations={scheduledConsultations}/>
+        </div>
       </div>
 
       {/* 세 번째 열: 상담 일지 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
         <div className='overflow-y-auto'>
-          <CJL customerId={selectedCustomerId} />
+          <CJL customerId={Number(params.id)} />
         </div>
       </div>
     </div>

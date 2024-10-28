@@ -1,49 +1,81 @@
+import { useEffect, useState } from 'react';
+import { RequestedConsultationsProps } from '../lib/types';
+import { useParams } from 'react-router-dom';
+
 type ScheduledConsultationListProps = {
   consultations: any[];
-}
+};
 
 export default function ScheduledConsultationList({
   consultations,
 }: ScheduledConsultationListProps) {
-  const defaultConsultationData = [
-    {
-      name: '가나다',
-      topic: '가다다 건 상담요청합니다.',
-      hopeDay: '2024.10.22 16:30',
-    },
-    {
-      name: '마바사',
-      topic: '마바사 건 상담요청합니다.',
-      hopeDay: '2024.10.22 16:30',
-    }
-  ];
+  const [consultationData, setConsultationData] = useState<RequestedConsultationsProps[]>([]);
+  const [customerName, setCustomerName] = useState<string | null>(null); // customerName 상태 추가
+  const { id } = useParams();
 
-  // 기본 데이터와 추가 데이터를 병합
-  const allConsultations = [...defaultConsultationData, ...consultations];
+  useEffect(() => {
+    setConsultationData([]); // ID가 바뀔 때마다 데이터 초기화
+    setCustomerName(null); // 고객 이름 초기화
+
+    const fetchNotConsultingData = async () => {
+      try {
+        const response = await fetch('/data/Consultings.json');
+        const data: RequestedConsultationsProps[] = await response.json();
+
+        // ID가 있을 경우 해당 고객의 데이터만 필터링, 없을 경우 조건에 맞는 모든 데이터 가져오기
+        const filteredData = data.filter((consultation) =>
+          id
+            ? consultation.approvalStatus === 'Approved' &&
+              consultation.finishStatus === false &&
+              consultation.customer_id === Number(id)
+            : consultation.approvalStatus === 'Approved' &&
+              consultation.finishStatus === false
+        );
+
+        setConsultationData(filteredData);
+
+        // ID가 있을 경우 해당 고객의 이름 설정
+        if (id) {
+          const customer = data.find((consultation) => consultation.customer_id === Number(id));
+          setCustomerName(customer ? customer.name : null); // 고객 이름 설정
+        }
+      } catch (error) {
+        console.error('Error fetching consultation data:', error);
+      }
+    };
+
+    fetchNotConsultingData();
+  }, [id, consultations]);
+
+  const allConsultations = [...consultationData, ...consultations];
 
   return (
     <div className="flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200">
-      {/* 헤더 */}
       <div className="bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5">
-        예정된 상담 일정
+        {id && customerName ? `${customerName} 손님의 예정된 상담 일정` : 'PB의 예정된 전체 상담 일정'}
       </div>
 
-      {/* 상담 목록 */}
       <div className="p-4 overflow-auto">
-        {allConsultations.map((consultation, index) => (
-          <div
-            key={index}
-            className="bg-[#fff] rounded-lg p-4 mb-4 border border-gray-200 shadow-lg"
-          >
-            <div className="flex justify-between text-black text-[1rem] font-light">
-              <span>{consultation.name} 손님</span>
-              <span>{consultation.hopeDay}</span>
+        {allConsultations.length > 0 ? (
+          allConsultations.map((consultation, index) => (
+            <div
+              key={index}
+              className="bg-[#fff] rounded-lg p-4 mb-4 border border-gray-200 shadow-lg"
+            >
+              <div className="flex justify-between text-black text-[1rem] font-light">
+                <span>{consultation.name} 손님</span>
+                <span>{consultation.hopeDay}</span>
+              </div>
+              <div className="text-black text-[1rem] font-extrabold overflow-hidden text-ellipsis whitespace-nowrap mt-2">
+                {consultation.topic}
+              </div>
             </div>
-            <div className="text-black text-[1rem] font-extrabold overflow-hidden text-ellipsis whitespace-nowrap mt-2">
-              {consultation.topic}
-            </div>
+          ))
+        ) : (
+          <div className="text-center text-gray-500 text-[1rem] font-light">
+            일정이 없습니다
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
