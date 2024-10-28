@@ -10,6 +10,7 @@ export default function MainPage() {
     null
   );
   const [customers, setCustomers] = useState<any[]>([]);
+  const [scheduledConsultations, setScheduledConsultations] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -25,6 +26,11 @@ export default function MainPage() {
     fetchCustomers();
   }, []);
 
+  // 상담 요청을 예정된 일정에 추가하는 함수
+  const handleApproveConsultation = (approvedConsultation: any) => {
+    setScheduledConsultations((prev) => [...prev, approvedConsultation]);
+  };
+
   return (
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
       {/* 프로필과 들어온 상담 요청 */}
@@ -35,7 +41,7 @@ export default function MainPage() {
         </div>
         {/* 들어온 상담 요청 */}
         <div className='overflow-y-auto'>
-          <CR />
+          <CR onApprove={handleApproveConsultation} />
         </div>
       </div>
 
@@ -45,7 +51,7 @@ export default function MainPage() {
         <div className='overflow-y-auto min-h-[400px] bg-red-600'>캘린더</div>
         {/* 예정된 상담 일정 */}
         <div className='overflow-y-auto'>
-          <SCL />
+          <SCL consultations={scheduledConsultations} />
         </div>
       </div>
 
