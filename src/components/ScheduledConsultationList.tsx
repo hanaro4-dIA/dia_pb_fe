@@ -4,17 +4,18 @@ import { useParams } from 'react-router-dom';
 
 type ScheduledConsultationListProps = {
   consultations: any[];
-  onApprove: (consultation: RequestedConsultationsProps) => void;
 };
 
 export default function ScheduledConsultationList({
-  consultations
+  consultations,
 }: ScheduledConsultationListProps) {
   const [consultationData, setConsultationData] = useState<RequestedConsultationsProps[]>([]);
+  const [customerName, setCustomerName] = useState<string | null>(null); // customerName 상태 추가
   const { id } = useParams();
 
   useEffect(() => {
     setConsultationData([]); // ID가 바뀔 때마다 데이터 초기화
+    setCustomerName(null); // 고객 이름 초기화
 
     const fetchNotConsultingData = async () => {
       try {
@@ -32,6 +33,12 @@ export default function ScheduledConsultationList({
         );
 
         setConsultationData(filteredData);
+
+        // ID가 있을 경우 해당 고객의 이름 설정
+        if (id) {
+          const customer = data.find((consultation) => consultation.customer_id === Number(id));
+          setCustomerName(customer ? customer.name : null); // 고객 이름 설정
+        }
       } catch (error) {
         console.error('Error fetching consultation data:', error);
       }
@@ -45,7 +52,7 @@ export default function ScheduledConsultationList({
   return (
     <div className="flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200">
       <div className="bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5">
-        예정된 상담 일정
+        {id && customerName ? `${customerName} 손님의 예정된 상담 일정` : 'PB의 예정된 전체 상담 일정'}
       </div>
 
       <div className="p-4 overflow-auto">
