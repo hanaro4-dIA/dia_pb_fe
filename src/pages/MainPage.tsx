@@ -60,7 +60,7 @@ import { useState, useEffect } from 'react';
 import GL from '../components/GuestList';
 import SCL from '../components/ScheduledConsultationList';
 import CR from '../components/ConsultationRequest';
-import PP from '../components/pbProfile';
+import PP from '../components/PbProfile';
 
 export default function MainPage() {
   const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(null);

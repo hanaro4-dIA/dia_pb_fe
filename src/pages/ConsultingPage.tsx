@@ -1,50 +1,46 @@
-import { Button } from '../components/ui/button';
-import CI from '../components/CustomerInformation';
 import CJL from '../components/ConsultationJournalList';
+import CI from '../components/CustomerInformation';
+import MJ from '../components/MakeJournal';
 import S from '../components/Stt';
-import MJ from '../components/MakeJoural';
+import { Button } from '../components/ui/button';
 
 export default function ConsultingPage() {
-
-  
   return (
     <>
-    <div className="flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden">
-      {/* 프로필과 들어온 상담 요청 */}
-      <div className="flex flex-col flex-grow w-1/4 h-full space-y-4">
-        <div className="flex justify-between p-3 items-center border-b border-black">
-          <div className='text-2xl font-bold text-hanagold'>조경은 손님</div>
-              <div>
-                <Button className='border border-hanaindigo bg-white text-black'>
-                  전화
-                </Button>
-              </div> 
-        </div>
-        <div className="overflow-y-auto min-h-[500px]">
-          <CI customerId={1} />
+      <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
+        {/* 프로필과 들어온 상담 요청 */}
+        <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
+          <div className='flex justify-between p-3 items-center border-b border-black'>
+            <div className='text-2xl font-bold text-hanagold'>조경은 손님</div>
+            <div>
+              <Button className='border border-hanaindigo bg-white text-black'>
+                전화
+              </Button>
+            </div>
+          </div>
+          <div className='overflow-y-auto min-h-[500px]'>
+            <CI customerId={1} />
+          </div>
+
+          <div className='overflow-y-auto'>
+            <CJL customerId={1} />
+          </div>
         </div>
 
-        <div className="overflow-y-auto">
-          <CJL customerId={1} />
+        {/* STT 자동 작성란 */}
+        <div className='flex flex-col flex-grow w-1/4 h-full'>
+          <div className='overflow-y-auto'>
+            <S />
+          </div>
+        </div>
+
+        {/* 상담일지 작성하기 */}
+        <div className='flex flex-col flex-grow w-1/4 h-full'>
+          <div className='overflow-y-auto'>
+            <MJ />
+          </div>
         </div>
       </div>
-
-      {/* STT 자동 작성란 */}
-      <div className="flex flex-col flex-grow w-1/4 h-full">
-        <div className="overflow-y-auto">
-          <S/>
-        </div>
-      </div>
-
-      {/* 상담일지 작성하기 */}
-      <div className="flex flex-col flex-grow w-1/4 h-full">
-        <div className="overflow-y-auto">
-          <MJ/>
-        </div>
-      </div>
-    </div>
-
-
     </>
   );
 }
