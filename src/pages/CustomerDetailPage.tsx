@@ -18,7 +18,7 @@ export default function CustomerDetailPage() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        alert("손님 정보를 불러오지 못했습니다.");
       }
     };
 
@@ -46,7 +46,7 @@ export default function CustomerDetailPage() {
           );
           setScheduledConsultations(filteredConsultations);
         } catch (error) {
-          console.error('Error fetching scheduled consultations:', error);
+          alert("상담 일정을 불러오지 못했습니다.");
         }
       }
     };
