@@ -3,13 +3,16 @@ import CR from '../components/ConsultationRequest';
 import GL from '../components/GuestList';
 import PP from '../components/PbProfile';
 import SCL from '../components/ScheduledConsultationList';
+import { useNavigate } from 'react-router-dom';
 
 export default function MainPage() {
-  const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(
-    null
-  );
   const [customers, setCustomers] = useState<any[]>([]);
   const [scheduledConsultations, setScheduledConsultations] = useState<any[]>([]);
+  const navigate = useNavigate();
+
+  const handleSelectCustomer = (id: number) => {
+    navigate('/customerDetail', { state: { selectedCustomerId: id } });
+  };
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -58,7 +61,7 @@ export default function MainPage() {
       <div className='flex flex-col flex-grow w-1/4 h-full'>
         {/* 손님 목록 */}
         <div className='overflow-y-auto'>
-          <GL customers={customers} onSelectCustomer={setSelectedCustomerId} />
+          <GL customers={customers} onSelectCustomer={handleSelectCustomer} />
         </div>
       </div>
     </div>
