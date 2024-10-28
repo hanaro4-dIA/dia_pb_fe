@@ -72,18 +72,14 @@ export default function PbCalendar() {
   };
 
   return (
-    <div className='w-96 h-92 ml-5 mt-5 rounded-lg shadow-lg overflow-hidden'>
-      <div className='bg-[#3B4259] flex justify-between items-center text-2xl text-[#f2f4f6] font-bold py-2 px-4 rounded-t-lg'>
-        캘린더
-      </div>
-
+    <div className='flex justify-center w-full h-full'>
       <Calendar
         onChange={setSelectedDate}
         onClickDay={clickScheduledDate}
         formatDay={(locale, date) => format(date, 'dd')}
         tileContent={({ date }) => getScheduledDate(date)}
         value={selectedDate}
-        className='rounded-lg  border border-gray-300 ml-10 mb-3 mt-3'
+        className='border border-gray-300 '
       />
 
       {dateModal && (

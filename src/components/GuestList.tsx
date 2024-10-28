@@ -54,7 +54,7 @@ export default function GuestList({
   return (
     <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
       {/* 헤더 */}
-      <div className='bg-hanaindigo text-white text-2xl font-extrabold p-3 pl-5 rounded-t-lg'>
+      <div className='bg-hanaindigo text-white text-xl font-extrabold p-3 pl-5 rounded-t-lg'>
         손님 목록
       </div>
 

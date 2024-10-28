@@ -91,8 +91,8 @@ export default function PbProfile() {
   };
 
   return (
-    <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
-      <div className='flex items-center bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
+    <div className='flex flex-col w-full h-full bg-white rounded-lg shadow-lg border border-gray-200'>
+      <div className='flex items-center bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         <span>내 프로필</span>
 
         {isEditing ? (
