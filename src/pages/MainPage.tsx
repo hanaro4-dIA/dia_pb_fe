@@ -4,6 +4,7 @@ import GL from '../components/GuestList';
 import SCL from '../components/ScheduledConsultationList';
 import PP from '../components/pbProfile';
 
+
 export default function MainPage() {
   const [selectedCustomerId, setSelectedCustomerId] = useState<number | null>(
     null

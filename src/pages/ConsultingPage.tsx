@@ -1,6 +1,6 @@
 import CJL from '../components/ConsultationJournalList';
 import CI from '../components/CustomerInformation';
-import MJ from '../components/MakeJoural';
+import MJ from '../components/MakeJournal';
 import S from '../components/Stt';
 import { Button } from '../components/ui/button';
 
@@ -18,12 +18,12 @@ export default function ConsultingPage() {
               </Button>
             </div>
           </div>
-
+          
           {/* 손님 정보 */}
           <div className='overflow-y-auto min-h-[300px]'>
             <CI customerId={1} />
           </div>
-
+          
           {/* 상담일지 리스트 */}
           <div className='overflow-y-auto'>
             <CJL customerId={1} />
