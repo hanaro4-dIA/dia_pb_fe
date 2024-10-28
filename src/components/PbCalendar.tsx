@@ -8,10 +8,12 @@ import { useState } from 'react';
 import React from 'react';
 
 type DateTile = Date | null;
-
 type SelectedDate = DateTile | [DateTile, DateTile];
 
-//CR : ConsultingReservation
+// type TRequestedConsultationsProps 사용할 것!!!
+// Consultings.json 중 approvalStatus = "Approved"인 모든 데이터 사용할 것!!!
+
+// CR : ConsultingReservation
 type CR = {
   customerName: string;
   crDate: string;
@@ -20,13 +22,11 @@ type CR = {
   title: string;
   inquiryDetails: string | null;
 };
-
 export default function PbCalendar() {
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
   const [dateModal, setDateModal] = useState(false);
   const [schedule, setSchedule] = useState<CR[]>([]);
   const [accordian, setAccordian] = useState<number | null>(null);
-
   const cr: CR[] = [
     {
       customerName: '장원영',
@@ -59,18 +59,15 @@ export default function PbCalendar() {
     const hasEvent = cr.some((cr) => cr.crDate === scheduledDate);
     return hasEvent ? <div className='dot'></div> : null;
   };
-
   const clickScheduledDate = (date: Date) => {
     const scheduledDate = format(date, 'yyyy-MM-dd');
     const schedule = cr.filter((cr) => cr.crDate === scheduledDate);
     setSchedule(schedule);
     setDateModal(true);
   };
-
   const handleAccordian = (index: number) => {
     setAccordian((prev) => (prev === index ? null : index));
   };
-
   return (
     <div className='flex justify-center w-full h-full'>
       <Calendar
@@ -81,7 +78,6 @@ export default function PbCalendar() {
         value={selectedDate}
         className='border border-gray-300 '
       />
-
       {dateModal && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center'>
           <div className='bg-white p-5 rounded-lg shadow-lg relative w-3/5'>
@@ -91,11 +87,9 @@ export default function PbCalendar() {
             >
               x
             </button>
-
             <h2 className='text-lg font-bold mb-4 text-center'>
               {format(selectedDate as Date, 'MM월 dd일')} 상담 일정
             </h2>
-
             {schedule.length > 0 ? (
               <table className='w-full border-collapse'>
                 <thead>
