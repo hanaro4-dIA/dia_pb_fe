@@ -68,7 +68,7 @@ export default function ConsultationJournalList({
     if (pbId === null) return;
 
     try {
-      const response = await fetch('../../public/data/Consulting.json');
+      const response = await fetch('../../public/data/Journals.json');
       const data = await response.json();
       const filteredData = data.filter(
         (consultation: ConsultationJournal) =>
