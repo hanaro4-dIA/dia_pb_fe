@@ -1,8 +1,9 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
-import Login from './components/Login';
 import Consulting from './components/Consulting';
+import Login from './components/Login';
+import PbCalendar from './components/PbCalendar';
 import MainPage from './pages/MainPage';
 import ManagementCustomerPage from './pages/ManagementCustomerPage';
 
@@ -23,12 +24,17 @@ function App() {
   }, [navigate]);
 
   return (
-    <Routes>
-      <Route path='/login' element={<Login />} />
-      <Route path='/consulting' element={<Consulting />} />
-      <Route path='/mainpage' element={<MainPage />} />
-      <Route path='/mainpage/managementcustomerpage' element={<ManagementCustomerPage/>} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path='/login' element={<Login />} />
+        <Route path='/consulting' element={<Consulting />} />
+        <Route path='/mainpage' element={<MainPage />} />
+        <Route
+          path='/mainpage/managementcustomerpage'
+          element={<ManagementCustomerPage />}
+        />
+      </Routes>
+    </>
   );
 }
 

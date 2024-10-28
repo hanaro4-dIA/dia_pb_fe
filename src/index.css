@@ -1,8 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
+}
+
+/*캘린더*/
+.react-calendar {
+  width: 300px;
+}
+
+/*캘린더nav 년도,월 색깔 */
+.react-calendar__navigation button {
+  @apply text-[#f87171];
+}
+
+/*캘린더 오늘 날짜*/
+.react-calendar__tile--now {
+  @apply rounded-full bg-[#f87171] text-white;
+}
+
+/*
+오늘 날짜 hover 컬러 
+.react-calendar__tile--now:enabled:hover {
+  @apply rounded-full bg-green-400;
+}
+*/
+
+/*캘린더 클릭한 날짜*/
+.react-calendar__tile:enabled:focus {
+  @apply rounded-full bg-[#FFFA76] text-black;
+}
+.react-calendar__tile:enabled:hover {
+  @apply rounded-full bg-[#FFFA76];
+}
+
+.react-calendar__tile--active {
+  @apply rounded-full bg-[#FFFA76] text-black;
+}
+
+/* 캘린더 일정 표시 */
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: #f87171;
+  border-radius: 50%;
+  display: flex;
+  margin-left: 3px;
 }
