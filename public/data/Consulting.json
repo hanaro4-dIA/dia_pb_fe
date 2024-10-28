@@ -52,5 +52,104 @@
         "title": "Financial Review",
         "date": "2024-10-08",
         "content": "Conducted a comprehensive financial review."
+    },
+    {
+        "id": 7,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 8,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 9,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 10,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 11,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 12,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 13,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 14,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 15,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 16,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
+    },
+    {
+        "id": 17,
+        "customer_pb_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "Investment Strategy",
+        "date": "2024-10-03",
+        "content": "Discussed various investment strategies."
     }
 ]
