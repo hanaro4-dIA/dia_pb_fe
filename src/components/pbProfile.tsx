@@ -1,6 +1,4 @@
 import { Switch } from '@radix-ui/react-switch';
-import { Tag } from 'lucide-react';
-import { RxValue } from 'react-icons/rx';
 import { useState, useRef } from 'react';
 
 type PbProfile = {
@@ -58,7 +56,6 @@ export default function PbProfile() {
       ...prev,
       tags: [...(prev.tags || []), ''],
     }));
-    // }
   };
 
   const handleRemoveTag = (index: number) => {

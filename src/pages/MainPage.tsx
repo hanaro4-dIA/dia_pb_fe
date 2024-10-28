@@ -1,9 +1,12 @@
+// PR TEST
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import CR from '../components/ConsultationRequest';
 import GL from '../components/GuestList';
 import PP from '../components/PbProfile';
 import SCL from '../components/ScheduledConsultationList';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../components/ui/button';
 
 export default function MainPage() {
   const [customers, setCustomers] = useState<any[]>([]);
@@ -13,6 +16,7 @@ export default function MainPage() {
   const handleSelectCustomer = (id: number) => {
     navigate('/customerDetail', { state: { selectedCustomerId: id } });
   };
+
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -41,6 +45,12 @@ export default function MainPage() {
         <div className='overflow-y-auto min-h-[250px]'>
           <PP />
         </div>
+        {/* Dictionary 버튼 */}
+        <Link className='w-full' to={'/dictionary'}>
+          <Button className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'>
+            딕셔너리 바로가기
+          </Button>
+        </Link>
         {/* 들어온 상담 요청 */}
         <div className='overflow-y-auto'>
           <CR onApprove={handleApproveConsultation} />
