@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Login from './components/Login';
 import ConsultingPage from './pages/ConsultingPage';
+import CustomerDetailPage from './pages/CustomerDetailPage';
+import DictionaryPage from './pages/DictionaryPage';
 import MainPage from './pages/MainPage';
-import ManagementCustomerPage from './pages/ManagementCustomerPage';
 
 // 로그인 상태 확인을 위한 함수 (localStorage 사용)
 function isLoggedIn() {
@@ -18,19 +19,17 @@ function App() {
 
   useEffect(() => {
     if (!isLoggedIn()) {
-      navigate('/login'); // 로그인되어 있지 않으면 /login으로 이동
+      navigate('/login');
     }
   }, [navigate]);
 
   return (
     <Routes>
       <Route path='/login' element={<Login />} />
-      <Route path='/mainpage' element={<MainPage />} />
-      <Route
-        path='/mainpage/managementcustomerpage'
-        element={<ManagementCustomerPage />}
-      />
-      <Route path='/consultingpage' element={<ConsultingPage />} />
+      <Route path='/' element={<MainPage />} />
+      <Route path='/customerDetail' element={<CustomerDetailPage />} />
+      <Route path='/consulting' element={<ConsultingPage />} />
+      <Route path='/dictionary' element={<DictionaryPage />} />
     </Routes>
   );
 }
