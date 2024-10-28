@@ -1,4 +1,6 @@
 import { Switch } from '@radix-ui/react-switch';
+import { Tag } from 'lucide-react';
+import { RxValue } from 'react-icons/rx';
 import { useState, useRef } from 'react';
 
 type PbProfile = {
@@ -18,7 +20,6 @@ export default function PbProfile() {
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
   });
 
-  // console.log('**************', profile.tags?.length);
   const [isEditing, setIsEditing] = useState(false);
   const [isWorking, setIsWorking] = useState(false);
   const [Image, setImage] = useState(profile.image);
@@ -43,12 +44,21 @@ export default function PbProfile() {
     });
   };
 
+  function isNullTag(tag: string) {
+    return tag.trim() === '';
+  }
+
   const handleAddTag = () => {
-    // 태그 입력값이 비어있으면 새로운 태그 추가 안 됨
+    if (profile.tags.some(isNullTag)) {
+      alert('새로운 태그를 추가하기 전에 이미 존재하는 태그를 채워주세요');
+      return;
+    }
+
     setProfile((prev) => ({
       ...prev,
       tags: [...(prev.tags || []), ''],
     }));
+    // }
   };
 
   const handleRemoveTag = (index: number) => {
@@ -60,9 +70,12 @@ export default function PbProfile() {
 
   const handleSubmit = () => {
     // 서버전송
-    // 태그 입력값이 비어있으면 프로필 저장 안 됨
-    // console.log('Profile updated:', profile);
-    setIsEditing(false); //수정완
+    if (profile.tags.some(isNullTag)) {
+      alert('tag가 비어있습니다!');
+      return;
+    }
+
+    setIsEditing(false);
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,21 +95,21 @@ export default function PbProfile() {
 
   return (
     <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
-      <div className='bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
+      <div className='flex items-center bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         <span>내 프로필</span>
 
-        <button
-          className='text-sm text-red-600 hover:underline ml-3'
-          onClick={() => setIsEditing(!isEditing)}
-        >
-          {isEditing ? (
-            <button className=' text-red-600 ' onClick={handleSubmit}>
-              저장
-            </button>
-          ) : (
-            'EDIT'
-          )}
-        </button>
+        {isEditing ? (
+          <button className='text-sm text-red-600 ml-3' onClick={handleSubmit}>
+            저장
+          </button>
+        ) : (
+          <button
+            className='text-sm text-red-600 ml-3'
+            onClick={() => setIsEditing(!isEditing)}
+          >
+            EDIT
+          </button>
+        )}
       </div>
 
       <div className='flex items-center pl-3 pr-3'>
@@ -157,6 +170,7 @@ export default function PbProfile() {
                   className='bg-transparent text-[#fff] text-xs w-full'
                   type='text'
                   value={tag}
+                  id='tag'
                   onChange={(e) => handleTagChange(index, e.target.value)}
                   disabled={!isEditing}
                   placeholder='입력'
