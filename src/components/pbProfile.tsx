@@ -58,7 +58,6 @@ export default function PbProfile() {
       ...prev,
       tags: [...(prev.tags || []), ''],
     }));
-    // }
   };
 
   const handleRemoveTag = (index: number) => {
