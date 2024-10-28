@@ -1,5 +1,6 @@
 import { IoMdSearch } from 'react-icons/io';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type Customer = {
   id: number;
@@ -13,15 +14,15 @@ type Customer_PB = {
 
 interface GuestListProps {
   customers: Customer[];
-  onSelectCustomer: (id: number) => void; // 선택된 고객 ID를 부모에 전달하는 함수
+  // param: Number;
 }
 
 export default function GuestList({
   customers,
-  onSelectCustomer,
 }: GuestListProps) {
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
   const [memo, setMemo] = useState<Customer_PB[]>([]); // 고객_PB 메모 데이터
+  const navigate = useNavigate();
 
   // 고객 및 상담 메모 데이터를 가져오는 함수
   useEffect(() => {
@@ -76,7 +77,7 @@ export default function GuestList({
           <div
             key={customer.id}
             className='mb-4'
-            onClick={() => onSelectCustomer(customer.id)}
+            onClick={ () => navigate(`/customerDetail/${customer.id}`) }
           >
             <div className='bg-[#fff] rounded-lg p-4 border shadow-lg cursor-pointer'>
               {/* 고객 이름 */}

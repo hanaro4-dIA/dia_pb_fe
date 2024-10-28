@@ -4,8 +4,15 @@ type ConsultationRequestProps = {
   onApprove: (consultation: any) => void;
 }
 
-export default function ConsultationRequest({ onApprove }: ConsultationRequestProps) {
-  const [consultationData, setConsultationData] = useState([
+type RequestedConsultationsProps = {
+  name: string;
+  topic: string;
+  hopeDay: string;
+  requestDay: string;
+  approvalStatus: string;
+}
+
+const RequestedConsultations:RequestedConsultationsProps[] =[
     {
       name: '1번이름',
       topic: '1번주제',
@@ -34,7 +41,10 @@ export default function ConsultationRequest({ onApprove }: ConsultationRequestPr
       requestDay: '2024.10.21 09:00:01',
       approvalStatus: 'Standby',
     },
-  ]);
+  ]
+
+export default function ConsultationRequest({ onApprove }: ConsultationRequestProps) {
+  const [consultationData, setConsultationData] = useState(RequestedConsultations);
 
   // 버튼 클릭 시 approvalStatus를 변경하는 함수
   const toggleApprovalStatus = (index: number) => {
