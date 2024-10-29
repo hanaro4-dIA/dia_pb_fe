@@ -76,7 +76,7 @@ export default function ConsultationJournalList({
     <div
       className={`flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200`}
     >
-      <div className='bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
+      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
         상담일지 리스트
       </div>
       <div className='overflow-auto'>
@@ -85,7 +85,7 @@ export default function ConsultationJournalList({
             consultationJourData.map((consultation, index) => (
               <div
                 key={index}
-                className='bg-[#fff] rounded-lg p-4 mb-4 shadow-lg flex items-center border border-gray-200'
+                className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border border-gray-200'
               >
                 <div className='text-hanaindigo text-[1rem] font-bold mr-4'>
                   {index + 1}
