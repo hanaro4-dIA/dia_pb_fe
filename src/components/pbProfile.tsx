@@ -8,7 +8,7 @@ export default function PbProfile() {
     id: 1,
     businessId: 101,
     name: '안유진',
-    tags: ['부동산', '안유진', 'ㅋ'],
+    tags: ['부동산', '대출', '보험'],
     introduce: '안녕하세요 부동산 투자 전문 PB 안유진입니다.',
     image_url:
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import CJL from '../components/ConsultationJournalList';
-import CI from '../components/CustomerInformation';
-import GL from '../components/GuestList';
-import SCL from '../components/ScheduledConsultationList';
+import ConsultationJournalList from '../components/ConsultationJournalList';
+import CustomerInformation from '../components/CustomerInformation';
+import GuestList from '../components/GuestList';
+import ScheduledConsultationList from '../components/ScheduledConsultationList';
 
 export default function CustomerDetailPage() {
   const [customers, setCustomers] = useState<any[]>([]);
@@ -14,7 +14,7 @@ export default function CustomerDetailPage() {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await fetch('../../public/data/Customer.json');
+        const response = await fetch('/data/Customers.json');
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
@@ -30,24 +30,24 @@ export default function CustomerDetailPage() {
       {/* 첫 번째 열: 손님 목록 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
         <div className='overflow-y-auto'>
-          <GL customers={customers} />
+          <GuestList customers={customers} />
         </div>
       </div>
 
       {/* 두 번째 열: 손님 정보와 상담 일정 */}
       <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
         <div className='overflow-y-auto'>
-          <CI customerId={Number(params.id)} />
+          <CustomerInformation customerId={Number(params.id)} />
         </div>
         <div className='overflow-y-auto'>
-          <SCL consultations={scheduledConsultations}/>
+          <ScheduledConsultationList consultations={scheduledConsultations}/>
         </div>
       </div>
 
       {/* 세 번째 열: 상담 일지 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
         <div className='overflow-y-auto'>
-          <CJL customerId={Number(params.id)} />
+          <ConsultationJournalList customerId={Number(params.id)} />
         </div>
       </div>
     </div>

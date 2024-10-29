@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "email": "yjhong@example.com",
+        "password": "hashed_password1",
+        "name": "강재준",
+        "sex": "남성",
+        "birth": "1990.01.01",
+        "tel": "010-1234-5678",
+        "address": "서울특별시 강남구"
+    },
+    {
+        "id": 2,
+        "email": "kjkim@example.com",
+        "password": "hashed_password2",
+        "name": "김미진",
+        "sex": "남성",
+        "birth": "1985.05.05",
+        "tel": "010-9876-5432",
+        "address": "경기도 성남시 분당구"
+    },
+    {
+        "id": 3,
+        "email": "sjpark@example.com",
+        "password": "hashed_password3",
+        "name": "길유정",
+        "sex": "여성",
+        "birth": "1992.03.15",
+        "tel": "010-1111-2222",
+        "address": "부산광역시 해운대구"
+    },
+    {
+        "id": 4,
+        "email": "shchoi@example.com",
+        "password": "hashed_password4",
+        "name": "김현수",
+        "sex": "남성",
+        "birth": "1988.07.20",
+        "tel": "010-3333-4444",
+        "address": "서울특별시 서초구"
+    },
+    {
+        "id": 5,
+        "email": "sjlee@example.com",
+        "password": "hashed_password5",
+        "name": "장다연",
+        "sex": "남성",
+        "birth": "1980.09.30",
+        "tel": "010-5555-6666",
+        "address": "전라남도 여수시"
+    },
+    {
+        "id": 6,
+        "email": "jiyeon@example.com",
+        "password": "hashed_password6",
+        "name": "김은서",
+        "sex": "여성",
+        "birth": "1995.11.25",
+        "tel": "010-7777-8888",
+        "address": "서울특별시 마포구"
+    }
+]
