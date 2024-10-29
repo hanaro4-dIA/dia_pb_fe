@@ -14,16 +14,20 @@ export type TRequestedConsultationsProps = {
   id: number;
   customer_id: number;
   name: string; // 손님 이름
-  topic: string; // 손님이 선택한 카테고리
+  title: string; // 손님이 선택한 제목
+  category: string; // 손님이 선택한 카테고리
   hopeDay: string; // 상담 희망일
+  hopeTime: string; // 상담 희망 시각
+  inquiryDetails: string; // 상담 문의 내용
   requestDay: string; // 상담 신청일
-  approvalStatus: string; // 상담 승인 여부
+  approvalStatus: boolean; // 상담 승인 여부
   finishStatus: boolean; // 상담 완료 여부
 };
 
 // PB 개인정보 타입 (PB.json)
 export type TPbProps = {
-  id?: number;
+  id: number;
+  businessId: number; // 사번
   password?: string;
   name: string;
   sex?: string;
@@ -31,7 +35,7 @@ export type TPbProps = {
   image_url: string;
   tags: string[];
   introduce: string; // 한줄소개
-  office_id?: number;
+  office_id: number;
 };
 
 // PB가 관리하는 손님 (Customer_PB.json)

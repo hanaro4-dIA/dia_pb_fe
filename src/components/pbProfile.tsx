@@ -4,6 +4,8 @@ import { type TPbProps } from '../lib/types';
 
 export default function PbProfile() {
   const [profile, setProfile] = useState<TPbProps>({
+    id: 1,
+    businessId: 101,
     name: '안유진',
     tags: ['부동산', '안유진', 'ㅋ'],
     introduce: '안녕하세요 부동산 투자 전문 PB 안유진입니다.',

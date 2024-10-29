@@ -56,7 +56,7 @@ export default function MainPage() {
       {/* 캘린더와 예정된 상담 일정 */}
       <div className='flex flex-col w-5/12 h-full mr-10'>
         {/* 캘린더 */}
-        <div className='bg-hanaindigo text-white font-bold text-xl p-3 pl-5 rounded-t-lg'>
+        <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
           캘린더
         </div>
         <div className='flex w-full h-1/2 mb-5'>
