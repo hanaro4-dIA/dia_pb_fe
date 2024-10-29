@@ -4,25 +4,12 @@ import { format } from 'date-fns';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import React from 'react';
 import { type TRequestedConsultationsProps } from '../lib/types';
 
 type DateTile = Date | null;
 type SelectedDate = DateTile | [DateTile, DateTile];
-
-// type TRequestedConsultationsProps 사용할 것!!!
-// Consultings.json 중 approvalStatus = "Approved"인 모든 데이터 사용할 것!!!
-
-// CR : ConsultingReservation
-/*type CR = {
-  customerName: string;
-  crDate: string;
-  crTime: string;
-  category: string;
-  title: string;
-  inquiryDetails: string | null;
-};*/
 
 export default function PbCalendar() {
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
@@ -32,6 +19,8 @@ export default function PbCalendar() {
     TRequestedConsultationsProps[]
   >([]);
   const [accordian, setAccordian] = useState<number | null>(null);
+
+  const modalExternal = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchConsultings = async () => {
@@ -66,6 +55,14 @@ export default function PbCalendar() {
   const handleAccordian = (index: number) => {
     setAccordian((prev) => (prev === index ? null : index));
   };
+
+  const sortedSchedules = useMemo(() => {
+    return [...selectedSchedules].sort((a, b) => {
+      const timeA = new Date(`1970-01-01T${a.hopeTime}:00`).getTime();
+      const timeB = new Date(`1970-01-01T${b.hopeTime}:00`).getTime();
+      return timeA - timeB;
+    });
+  }, [selectedSchedules]);
   return (
     <div className='flex justify-center w-full h-full'>
       <Calendar
@@ -76,9 +73,18 @@ export default function PbCalendar() {
         value={selectedDate}
         className='border border-gray-300 '
       />
+
       {dateModal && (
-        <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center'>
-          <div className='bg-white p-5 rounded-lg shadow-lg relative w-3/5'>
+        <div
+          className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center'
+          ref={modalExternal}
+          onClick={(e) => {
+            if (e.target === modalExternal.current) {
+              setDateModal(false);
+            }
+          }}
+        >
+          <div className='bg-white p-5 rounded-lg shadow-lg relative w-3/5 '>
             <button
               onClick={() => setDateModal(false)}
               className=' text-[#f87171] text-xl absolute top-2 right-2 leading-none p-1'
@@ -99,16 +105,16 @@ export default function PbCalendar() {
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedSchedules.map((schedule, index) => (
+                  {sortedSchedules.map((schedule, index) => (
                     <React.Fragment key={index}>
                       <tr
                         className='border-b cursor-pointer'
                         onClick={() => handleAccordian(index)}
                       >
-                        <td className='p-2'>{schedule.hopeTime}</td>
+                        <td className='p-2 text-center'>{schedule.hopeTime}</td>
                         <td className='p-2 text-center'>{schedule.name}</td>
                         <td className='p-2 text-center'>{schedule.category}</td>
-                        <td className='p-2'>{schedule.title}</td>
+                        <td className='p-2 text-center'>{schedule.title}</td>
                         <td className='p-2'>
                           {accordian === index ? (
                             <ChevronUp color='#f87171' size={16} />
