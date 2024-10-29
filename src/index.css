@@ -43,3 +43,9 @@
 .dot {
   @apply border-b-2 border-red-400;
 }
+
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
