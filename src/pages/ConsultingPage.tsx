@@ -50,26 +50,26 @@ export default function ConsultingPage() {
               {customerName} 손님
             </div>
             <div>
-              <Button className='border border-hanaindigo bg-white text-black hover:text-white'>
+              <Button className='border border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white'>
                 전화
               </Button>
             </div>
           </div>
 
           {/* 손님 정보 */}
-          <div className='overflow-y-auto min-h-[300px]'>
+          <div className='h-1/2'>
             <CustomerInformation customerId={Number(params.id)} />
           </div>
 
           {/* Dictionary 버튼 */}
           <Link className='w-full' to={'/dictionary'}>
             <Button className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'>
-              딕셔너리 바로가기
+              키워드 DB 목록 바로가기
             </Button>
           </Link>
 
           {/* 상담일지 리스트 */}
-          <div className='h-full'>
+          <div className='h-1/2'>
             <ConsultationJournalList customerId={Number(params.id)} />
           </div>
         </div>

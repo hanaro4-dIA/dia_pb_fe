@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import ReadJournal from './ReadJournal'; 
 import { type TPbProps } from '../lib/types';
 import { type TCustomerPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
+import ReadJournal from './ReadJournal';
 
 type TConsultationJournalListProps = {
   customerId: number | null;
@@ -12,12 +12,15 @@ type TConsultationJournalListProps = {
 export default function ConsultationJournalList({
   customerId,
 }: TConsultationJournalListProps) {
-  const [consultationJourData, setConsultationJourData] = useState<TJournalsProps[]>([]);
+  const [consultationJourData, setConsultationJourData] = useState<
+    TJournalsProps[]
+  >([]);
   const [pbName, setPbName] = useState<string | null>(null);
   const [pbId, setPbId] = useState<number | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedConsultation, setSelectedConsultation] = useState<TJournalsProps | null>(null);
+  const [selectedConsultation, setSelectedConsultation] =
+    useState<TJournalsProps | null>(null);
 
   const fetchCustomerPB = async () => {
     try {
@@ -86,11 +89,11 @@ export default function ConsultationJournalList({
   };
 
   return (
-    <div className={`flex flex-col h-full bg-white`}>
+    <div className='flex flex-col h-full bg-white'>
       <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
         상담일지 리스트
       </div>
-      <div className='overflow-auto border-x border-b border-gray-200'>
+      <div className='h-full overflow-auto border-x border-b border-gray-200'>
         <div className='p-4'>
           {consultationJourData.length > 0 ? (
             consultationJourData.map((consultation, index) => (
@@ -129,7 +132,7 @@ export default function ConsultationJournalList({
         >
           <div
             className='relative bg-white rounded-lg w-[90%] max-w-2xl'
-            onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 닫히지 않도록 
+            onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 닫히지 않도록
           >
             <button
               onClick={closeModal}
@@ -141,7 +144,6 @@ export default function ConsultationJournalList({
           </div>
         </div>
       )}
-
     </div>
   );
 }
