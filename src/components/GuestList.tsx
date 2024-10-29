@@ -26,7 +26,7 @@ export default function GuestList({ customers }: TGuestListProps) {
   useEffect(() => {
     const fetchMemos = async () => {
       try {
-        const memoResponse = await fetch('../../public/data/Customer_PB.json'); // Customer_PB.json 가져오기
+        const memoResponse = await fetch('/data/Customer_PB.json');
         const memoData = await memoResponse.json();
         setMemo(memoData);
       } catch (error) {
@@ -51,7 +51,7 @@ export default function GuestList({ customers }: TGuestListProps) {
   return (
     <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
       {/* 헤더 */}
-      <div className='bg-hanaindigo text-white text-xl font-extrabold p-3 pl-5 rounded-t-lg'>
+      <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         손님 목록
       </div>
 
@@ -86,12 +86,7 @@ export default function GuestList({ customers }: TGuestListProps) {
 
                 {/* 고객별 메모 내용 */}
                 <div className='bg-hanaindigo text-white p-2 mt-2 rounded-lg'>
-                  <div
-                    className='overflow-hidden text-ellipsis whitespace-nowrap'
-                    style={{ maxWidth: '100%' }}
-                  >
-                    {getMemo(customer.id)}
-                  </div>
+                  <div className='truncate w-full'>{getMemo(customer.id)}</div>
                 </div>
               </div>
             ) : (
@@ -102,13 +97,8 @@ export default function GuestList({ customers }: TGuestListProps) {
                 </div>
 
                 {/* 고객별 메모 내용 */}
-                <div className='bg-hanaindigo text-white p-2 mt-2 rounded-lg'>
-                  <div
-                    className='overflow-hidden text-ellipsis whitespace-nowrap'
-                    style={{ maxWidth: '100%' }}
-                  >
-                    {getMemo(customer.id)}
-                  </div>
+                <div className='bg-hanagold/40 text-black p-3 mt-2 rounded-lg'>
+                  <div className='truncate w-full'>{getMemo(customer.id)}</div>
                 </div>
               </div>
             )}

@@ -129,12 +129,7 @@ export default function DictionaryPage() {
 
                     {/* 키워드 내용 */}
                     <div className='bg-hanaindigo text-white p-2 mt-2 rounded-lg'>
-                      <div
-                        className='overflow-hidden text-ellipsis whitespace-nowrap'
-                        style={{ maxWidth: '100%' }}
-                      >
-                        {item.content}
-                      </div>
+                      <div className='truncate w-full'>{item.content}</div>
                     </div>
                   </div>
                 </div>

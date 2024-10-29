@@ -96,7 +96,7 @@ export default function PbProfile() {
           <span>내 프로필</span>
           {isEditing ? (
             <button
-              className='text-sm text-red-600 ml-3'
+              className='text-sm text-green-600 ml-3'
               onClick={handleSubmit}
             >
               저장
@@ -111,7 +111,7 @@ export default function PbProfile() {
           )}
         </div>
 
-        <button className='text-white text-sm font-bold border border-white rounded px-3 py-2'>
+        <button className='text-white text-xs font-bold border border-white rounded px-2 py-1'>
           로그아웃
         </button>
       </div>
@@ -215,10 +215,6 @@ export default function PbProfile() {
             disabled={!isEditing}
             placeholder={profile.introduce}
           />
-
-          {/* <div className='flex justify-end py-2 mr-1 mb-1 border border-pink-400'>
-            <button className='text-black text-sm font-bold'>로그아웃</button>
-          </div> */}
         </div>
       </div>
     </div>

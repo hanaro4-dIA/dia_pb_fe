@@ -72,7 +72,7 @@ export default function ScheduledConsultationList({
                 <span>{consultation.name} 손님</span>
                 <span>{consultation.hopeDay}</span>
               </div>
-              <div className='text-black text-[1rem] font-extrabold overflow-hidden text-ellipsis whitespace-nowrap mt-2'>
+              <div className='text-black text-[1rem] font-extrabold truncate mt-2'>
                 {consultation.topic}
               </div>
             </div>
