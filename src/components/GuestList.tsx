@@ -30,7 +30,7 @@ export default function GuestList({ customers }: TGuestListProps) {
         const memoData = await memoResponse.json();
         setMemo(memoData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        alert('Error fetching data:');
       }
     };
 

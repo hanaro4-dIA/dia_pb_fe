@@ -26,7 +26,7 @@ export default function ConsultationRequest({
 
         setConsultationData(filteredData);
       } catch (error) {
-        console.error('Error fetching consultation data:', error);
+        alert('Error fetching consultation data:');
       }
     };
 
