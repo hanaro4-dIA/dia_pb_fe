@@ -58,12 +58,12 @@ export default function ScheduledConsultationList({
   };
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200">
+    <div className="flex flex-col h-full bg-white">
       <div className="bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5">
         {id && customerName ? `${customerName} 손님의 예정된 상담 일정` : 'PB의 예정된 전체 상담 일정'}
       </div>
 
-      <div className="p-4 overflow-auto">
+      <div className="p-4 overflow-auto border-x border-b border-gray-200">
         {allConsultations.length > 0 ? (
           allConsultations.map((consultation, index) => (
             <div

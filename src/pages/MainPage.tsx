@@ -5,7 +5,7 @@ import ConsultationRequest from '../components/ConsultationRequest';
 import GuestList from '../components/GuestList';
 import PbCalendar from '../components/PbCalendar';
 import ScheduledConsultationList from '../components/ScheduledConsultationList';
-import PbProfile from '../components/pbProfile';
+import PbProfile from '../components/PbProfile';
 import { Button } from '../components/ui/button';
 
 export default function MainPage() {
