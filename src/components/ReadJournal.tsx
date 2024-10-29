@@ -65,16 +65,17 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
 
   return (
     <div className='flex items-start justify-center w-full h-full space-x-4 overflow-hidden'>
-      <div className='relative flex flex-col w-full h-full border shadow-lg border-gray-200 rounded-lg'>
+      <div className='relative flex flex-col w-full h-full '>
         {/* 자세히보기 */}
         <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
           상담일지 자세히보기
         </div>
 
-        <div className='p-10 space-y-4 overflow-y-auto'>
-          <div className='flex justify-between border-b border-hanaindigo border-b-3 pb-2'>
+        <div className='p-10 space-y-4 over flow-y-auto bg-white'>
+          
+          <div className='flex justify-between border-b border-black border-b-3 pb-2'>
             <div className='flex gap-3'>
-              <div className='text-lg font-extrabold'>카테고리</div>
+              <div className='text-lg font-extrabold w-20 text-right'>카테고리</div>
               <div className='text-lg'>{categoryName}</div>
             </div>
             <div className='flex gap-3'>
@@ -85,7 +86,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
 
           <div className='flex justify-between border-b border-hanaindigo border-b-3 pb-2'>
             <div className='flex gap-3'>
-              <div className='text-lg font-extrabold'>상담일시</div>
+              <div className='text-lg font-extrabold w-20 text-right'>상담일시</div>
               <div className='text-lg'>{consultation.date}</div>
             </div>
             <div className='flex gap-3'>
@@ -95,12 +96,14 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
           </div>
 
           <div className='flex gap-3 border-b border-hanaindigo border-b-3 pb-2'>
-            <div className='text-lg font-extrabold'>제목</div>
+            <div className='text-lg font-extrabold w-20 text-right'>제목</div>
+
             <div className='text-lg'>{consultation.title}</div>
           </div>
 
           <div className='flex gap-3 border-b border-hanaindigo border-b-3 pb-2 '>
-            <div className='text-lg font-extrabold w-10'>내용</div>
+            <div className='text-lg font-extrabold w-20 text-right'>내용</div>
+
             <div className='text-lg border border-hanaindigo border-opacity-40 min-h-32 max-h-60 p-2 overflow-auto flex-grow'>
               {consultation.content}
             </div>
@@ -109,7 +112,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
 
           <div className='flex justify-between'>
             <div className='flex gap-3'>
-              <div className='text-lg font-extrabold'>첨부파일</div>
+              <div className='text-lg font-extrabold w-20 text-right'>첨부파일</div>
               <div className='text-lg'>(첨부파일명)</div>
             </div>
 
