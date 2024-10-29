@@ -20,7 +20,7 @@
     "category": "대출",
     "hopeDay": "2024.11.23",
     "hopeTime": "16:30",
-    "requestDay": "2024.10.29 11:00",
+    "requestDay": "2024.10.10 11:00",
     "approvalStatus": false,
     "finishStatus": false,
     "inquiryDetails": "자동차 구매 시 할부 조건 및 이자율에 대해 상담을 요청합니다."
@@ -162,7 +162,7 @@
     "title": "자동차 보험 선택 상담",
     "category": "상속",
     "hopeDay": "2024.10.22",
-    "hopeTime": "13:30",
+    "hopeTime": "16:30",
     "requestDay": "2024.10.21 09:00",
     "approvalStatus": true,
     "finishStatus": true,

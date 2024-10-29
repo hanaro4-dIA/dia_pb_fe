@@ -23,14 +23,16 @@ export default function ScheduledConsultationList({
         const response = await fetch('/data/Consultings.json');
         const data: TRequestedConsultationsProps[] = await response.json();
 
-        const filteredData = data.filter(
-          ({ approvalStatus, finishStatus, customer_id }) =>
-            id
-              ? approvalStatus === true &&
-                finishStatus === false &&
-                customer_id === Number(id)
-              : approvalStatus === true && finishStatus === false
-        );
+        const filteredData = data
+          .filter(
+            ({ approvalStatus, finishStatus, customer_id }) =>
+              id
+                ? approvalStatus === true &&
+                  finishStatus === false &&
+                  customer_id === Number(id)
+                : approvalStatus === true && finishStatus === false
+          )
+          .sort((a, b) => new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime());
 
         setConsultationData(filteredData);
 
