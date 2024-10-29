@@ -7,7 +7,7 @@ export default function LoginPage() {
       <div className='h-screen w-screen bg-slate-200'>
         <div className='absolute w-2/5 h-f p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
           <div className='flex flex-col h-full justify-between'>
-            <div className='flex flex-col border border-gray-300 shadow-lg p-5 h-full bg-white'>
+            <div className='flex flex-col border border-gray-300 shadow-lg p-6 h-full bg-white'>
               <div className='flex justify-center'>
                 <img src='/logo.png' alt='dIA logo' />
               </div>
