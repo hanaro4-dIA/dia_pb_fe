@@ -208,7 +208,7 @@ export default function PbProfile() {
 
           {/* 한줄 자기소개 */}
           <textarea
-            className=' border-2 border-hanaindigo w-auto p-3 mt-2 text-xs text-hanaindigo resize-none '
+            className=' border-2 border-hanaindigo w-full mb-1 p-3 mt-2 text-xs text-hanaindigo resize-none '
             name='introduce'
             value={profile.introduce}
             onChange={handleInputChange}
