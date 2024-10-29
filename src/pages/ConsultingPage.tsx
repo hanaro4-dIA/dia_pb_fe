@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ConsultationJournalList from '../components/ConsultationJournalList';
 import CustomerInformation from '../components/CustomerInformation';
@@ -59,6 +60,13 @@ export default function ConsultingPage() {
           <div className='overflow-y-auto min-h-[300px]'>
             <CustomerInformation customerId={Number(params.id)} />
           </div>
+
+          {/* Dictionary 버튼 */}
+          <Link className='w-full' to={'/dictionary'}>
+            <Button className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'>
+              딕셔너리 바로가기
+            </Button>
+          </Link>
 
           {/* 상담일지 리스트 */}
           <div className='h-full'>

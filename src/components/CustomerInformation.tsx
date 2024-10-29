@@ -1,5 +1,5 @@
+import { MdOutlineModeEdit } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-import { MdOutlineModeEdit } from "react-icons/md";
 
 type TCustomer = {
   id: number;
@@ -109,7 +109,7 @@ export default function CustomerInformation({
             </div>
           </div>
 
-          <div className='bg-white rounded-lg p-1 mb-2 shadow-lg border border-gray-200'>
+          <div className='bg-white rounded-lg p-1 shadow-lg border border-gray-200'>
             <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
               <span className='text-sm'>메모</span>
               {isEditing ? (
@@ -137,13 +137,14 @@ export default function CustomerInformation({
               )}
             </div>
 
+            {/* 메모 내용 */}
             <div className='bg-white rounded-xl p-1 mt-1'>
               {isEditing ? (
                 <textarea
                   value={memo}
                   onChange={(e) => setMemo(e.target.value)}
-                  className='w-full rounded resize-none border outline-none px-2 py-1'
-                  maxLength={200}
+                  className='flex items-center w-full h-8 rounded resize-none border outline-none px-2'
+                  maxLength={50}
                 />
               ) : (
                 <div className='px-2 py-1 overflow-y-auto'>{memo}</div>
