@@ -79,7 +79,7 @@ export default function CustomerInformation({
 
   return (
     <div className='flex flex-col bg-white rounded-lg shadow-lg border border-gray-200'>
-      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg border'>
+      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         {customerData?.name} 손님 정보
       </div>
 
