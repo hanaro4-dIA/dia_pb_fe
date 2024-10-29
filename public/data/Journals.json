@@ -5,151 +5,34 @@
         "category_id": 1,
         "status_id": 1,
         "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
+        "date": "2024.10.24",
+        "content": "주택담보대출 금리 조정 상담"
     },
     {
         "id": 2,
-        "customer_pb_id": 4,
-        "category_id": 2,
+        "customer_pb_id": 1,
+        "category_id": 6,
         "status_id": 2,
         "title": "퇴직 계획",
-        "date": "2024.10.04",
-        "content": "퇴직 옵션을 검토했습니다."
+        "date": "2024.10.25",
+        "content": "연금저축 상품 추천 상담"
     },
     {
         "id": 3,
         "customer_pb_id": 2,
-        "category_id": 1,
+        "category_id": 4,
         "status_id": 1,
         "title": "위험 평가",
-        "date": "2024.10.05",
-        "content": "위험 감내 능력을 평가했습니다."
+        "date": "2024.10.29",
+        "content": "보험 상품 비교 상담"
     },
     {
         "id": 4,
-        "customer_pb_id": 1,
-        "category_id": 2,
+        "customer_pb_id": 3,
+        "category_id": 5,
         "status_id": 1,
         "title": "자산 관리",
-        "date": "2024.10.06",
-        "content": "자산 관리 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 5,
-        "customer_pb_id": 1,
-        "category_id": 3,
-        "status_id": 2,
-        "title": "세금 계획",
-        "date": "2024.10.07",
-        "content": "세금 영향을 분석했습니다."
-    },
-    {
-        "id": 6,
-        "customer_pb_id": 2,
-        "category_id": 3,
-        "status_id": 1,
-        "title": "재정 검토",
-        "date": "2024.10.08",
-        "content": "종합적인 재정 검토를 수행했습니다."
-    },
-    {
-        "id": 7,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 8,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 9,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 10,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 11,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 12,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 13,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 14,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 15,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 16,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
-    },
-    {
-        "id": 17,
-        "customer_pb_id": 1,
-        "category_id": 1,
-        "status_id": 1,
-        "title": "투자 전략",
-        "date": "2024.10.03",
-        "content": "다양한 투자 전략에 대해 논의했습니다."
+        "date": "2024.10.22",
+        "content": "자동차 보험 선택 상담"
     }
 ]

@@ -43,7 +43,7 @@
         "id": 5,
         "email": "sjlee@example.com",
         "password": "hashed_password5",
-        "name": "이순신",
+        "name": "장다연",
         "sex": "남성",
         "birth": "1980.09.30",
         "tel": "010-5555-6666",
@@ -53,150 +53,10 @@
         "id": 6,
         "email": "jiyeon@example.com",
         "password": "hashed_password6",
-        "name": "박지윤",
+        "name": "김은서",
         "sex": "여성",
         "birth": "1995.11.25",
         "tel": "010-7777-8888",
         "address": "서울특별시 마포구"
-    },
-    {
-        "id": 7,
-        "email": "minjae@example.com",
-        "password": "hashed_password7",
-        "name": "김은서",
-        "sex": "남성",
-        "birth": "1993.02.14",
-        "tel": "010-8888-9999",
-        "address": "대전광역시 서구"
-    },
-    {
-        "id": 8,
-        "email": "yuna@example.com",
-        "password": "hashed_password8",
-        "name": "카리나",
-        "sex": "여성",
-        "birth": "1994.05.20",
-        "tel": "010-1234-5678",
-        "address": "인천광역시 남동구"
-    },
-    {
-        "id": 9,
-        "email": "seojin@example.com",
-        "password": "hashed_password9",
-        "name": "조경은",
-        "sex": "여성",
-        "birth": "1987.08.12",
-        "tel": "010-2345-6789",
-        "address": "경기도 고양시 덕양구"
-    },
-    {
-        "id": 10,
-        "email": "jinhwan@example.com",
-        "password": "hashed_password10",
-        "name": "장다연",
-        "sex": "남성",
-        "birth": "1991.11.30",
-        "tel": "010-3456-7890",
-        "address": "서울특별시 영등포구"
-    },
-    {
-        "id": 11,
-        "email": "doyoung@example.com",
-        "password": "hashed_password11",
-        "name": "도영",
-        "sex": "남성",
-        "birth": "1996.12.18",
-        "tel": "010-4567-8901",
-        "address": "광주광역시 동구"
-    },
-    {
-        "id": 12,
-        "email": "suna@example.com",
-        "password": "hashed_password12",
-        "name": "윈터",
-        "sex": "여성",
-        "birth": "1992.01.22",
-        "tel": "010-5678-9012",
-        "address": "울산광역시 중구"
-    },
-    {
-        "id": 13,
-        "email": "jaeyoung@example.com",
-        "password": "hashed_password13",
-        "name": "안효섭",
-        "sex": "남성",
-        "birth": "1989.07.15",
-        "tel": "010-6789-0123",
-        "address": "충청남도 천안시"
-    },
-    {
-        "id": 14,
-        "email": "yonghee@example.com",
-        "password": "hashed_password14",
-        "name": "용희",
-        "sex": "남성",
-        "birth": "1984.06.06",
-        "tel": "010-7890-1234",
-        "address": "서울특별시 동대문구"
-    },
-    {
-        "id": 15,
-        "email": "seungwoo@example.com",
-        "password": "hashed_password15",
-        "name": "승우",
-        "sex": "남성",
-        "birth": "1993.04.10",
-        "tel": "010-8901-2345",
-        "address": "경기도 수원시"
-    },
-    {
-        "id": 16,
-        "email": "sohee@example.com",
-        "password": "hashed_password16",
-        "name": "소희",
-        "sex": "여성",
-        "birth": "1991.09.05",
-        "tel": "010-9012-3456",
-        "address": "부산광역시 사하구"
-    },
-    {
-        "id": 17,
-        "email": "hyunwoo@example.com",
-        "password": "hashed_password17",
-        "name": "현우",
-        "sex": "남성",
-        "birth": "1994.10.23",
-        "tel": "010-0123-4567",
-        "address": "전라북도 전주시"
-    },
-    {
-        "id": 18,
-        "email": "jiwon@example.com",
-        "password": "hashed_password18",
-        "name": "지원",
-        "sex": "여성",
-        "birth": "1990.02.28",
-        "tel": "010-1234-5679",
-        "address": "경상남도 창원시"
-    },
-    {
-        "id": 19,
-        "email": "nari@example.com",
-        "password": "hashed_password19",
-        "name": "나리",
-        "sex": "여성",
-        "birth": "1996.11.15",
-        "tel": "010-2345-6780",
-        "address": "대구광역시 중구"
-    },
-    {
-        "id": 20,
-        "email": "minseok@example.com",
-        "password": "hashed_password20",
-        "name": "민석",
-        "sex": "남성",
-        "birth": "1988.05.11",
-        "tel": "010-3456-7891",
-        "address": "서울특별시 강북구"
     }
 ]

@@ -10,17 +10,5 @@
     "tags": ["부동산", "성실", "꼼꼼"],
     "introduce": "보험에 자신있습니다",
     "office_id": 1
-  },
-  {
-    "id": 2,
-    "businessId": 102,
-    "password": "pb_password2",
-    "name": "강재준",
-    "sex": "Male",
-    "birthday": "1970.03.12",
-    "image_url": "https://example.com/images/alexkim.jpg",
-    "tags": ["연금", "부동산", "성실"],
-    "introduce": "탈세에 자신있습니다",
-    "office_id": 2
   }
 ]
