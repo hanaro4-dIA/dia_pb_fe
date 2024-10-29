@@ -39,9 +39,7 @@ export default function ConsultingPage() {
 
         {/* 상담일지 작성하기 */}
         <div className='flex flex-col flex-grow w-1/4 h-full'>
-          {/* <div className='overflow-y-auto h-full'> */}
           <MakeJournal />
-          {/* </div> */}
         </div>
       </div>
     </>

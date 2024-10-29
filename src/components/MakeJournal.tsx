@@ -64,15 +64,15 @@ export default function MakeJournal() {
         </div>
 
         {/* 도큐먼트 작성란 */}
-        <div className='border border-blue-400 h-1/3 mb-3'>
-          <span>PB의 기록</span>
-          {/* <textarea className='w-full h-full border resize-none overflow-y-auto' /> */}
+        <div className='h-1/3 mb-3'>
+          <span className='text-sm mb-2'>[PB의 기록]</span>
+          <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold' />
         </div>
 
         {/* 스크립트 기입란 */}
-        <div className='border border-blue-400 h-1/3 mb-3'>
-          <span>상담 스크립트</span>
-          {/* <textarea className='w-full h-full border resize-none overflow-y-auto' /> */}
+        <div className='h-1/3 mb-3'>
+          <span className='text-sm mb-2'>[상담 스크립트]</span>
+          <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold' />
         </div>
 
         <div className='flex items-center mb-2 '>
