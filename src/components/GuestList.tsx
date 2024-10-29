@@ -85,7 +85,7 @@ export default function GuestList({ customers }: TGuestListProps) {
                 </div>
 
                 {/* 고객별 메모 내용 */}
-                <div className='bg-hanaindigo text-[#fff] p-2 mt-2 rounded-lg'>
+                <div className='bg-hanaindigo text-white p-2 mt-2 rounded-lg'>
                   <div
                     className='overflow-hidden text-ellipsis whitespace-nowrap'
                     style={{ maxWidth: '100%' }}
@@ -95,14 +95,14 @@ export default function GuestList({ customers }: TGuestListProps) {
                 </div>
               </div>
             ) : (
-              <div className='bg-[#fff] rounded-lg p-4 border shadow-lg cursor-pointer'>
+              <div className='bg-white rounded-lg p-4 border shadow-lg cursor-pointer'>
                 {/* 고객 이름 */}
                 <div className='text-black text-lg font-bold'>
                   {customer.name} 손님
                 </div>
 
                 {/* 고객별 메모 내용 */}
-                <div className='bg-hanaindigo text-[#fff] p-2 mt-2 rounded-lg'>
+                <div className='bg-hanaindigo text-white p-2 mt-2 rounded-lg'>
                   <div
                     className='overflow-hidden text-ellipsis whitespace-nowrap'
                     style={{ maxWidth: '100%' }}

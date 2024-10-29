@@ -55,7 +55,7 @@ export default function ScheduledConsultationList({
 
   return (
     <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
-      <div className='bg-hanaindigo text-[#fff] text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
+      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
         {id && customerName
           ? `${customerName} 손님의 예정된 상담 일정`
           : 'PB의 예정된 전체 상담 일정'}
@@ -66,7 +66,7 @@ export default function ScheduledConsultationList({
           allConsultations.map((consultation, index) => (
             <div
               key={index}
-              className='bg-[#fff] rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
+              className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
             >
               <div className='flex justify-between text-black text-[1rem] font-light'>
                 <span>{consultation.name} 손님</span>
