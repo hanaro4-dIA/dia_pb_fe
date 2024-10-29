@@ -6,10 +6,10 @@ import MakeJournal from '../components/MakeJournal';
 import STT from '../components/Stt';
 import { Button } from '../components/ui/button';
 
-interface Customer {
+type TCustomer = {
   id: number;
   name: string;
-}
+};
 
 export default function ConsultingPage() {
   const [customerName, setCustomerName] = useState<string | null>(null);
@@ -19,7 +19,7 @@ export default function ConsultingPage() {
   const fetchCustomerName = async (customerId: number) => {
     try {
       const response = await fetch('/data/Customers.json');
-      const customerData: Customer[] = await response.json();
+      const customerData: TCustomer[] = await response.json();
       const customer = customerData.find((cust) => cust.id === customerId);
 
       if (customer) {
