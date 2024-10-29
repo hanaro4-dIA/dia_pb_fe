@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { type TPbProps } from '../lib/types';
 import { type TCustomerPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
+import ReactDOM from 'react-dom';
 import ReadJournal from './ReadJournal';
 
 type TConsultationJournalListProps = {
@@ -17,11 +18,6 @@ export default function ConsultationJournalList({
   >([]);
   const [pbName, setPbName] = useState<string | null>(null);
   const [pbId, setPbId] = useState<number | null>(null);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedConsultation, setSelectedConsultation] =
-    useState<TJournalsProps | null>(null);
-
   const fetchCustomerPB = async () => {
     try {
       const response = await fetch('/data/Customer_PB.json');
@@ -76,17 +72,50 @@ export default function ConsultationJournalList({
     fetchConsultationData();
   }, [pbId]);
 
-  // 모달 열기 핸들러
-  const openModal = (consultation: TJournalsProps) => {
-    setSelectedConsultation(consultation);
-    setIsModalOpen(true);
-  };
+const openNewWindow = (consultation: TJournalsProps) => {
+  const newWindow = window.open('', '_blank', 'width=800,height=600');
 
-  // 모달 닫기 핸들러
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedConsultation(null);
-  };
+  if (newWindow) {
+    // 부모의 스타일을 가져오는 부분
+    const styles = Array.from(document.styleSheets)
+      .map((styleSheet) => {
+        try {
+          return Array.from(styleSheet.cssRules)
+            .map((rule) => rule.cssText)
+            .join("");
+        } catch (e) {
+          console.warn("Failed to load some CSS rules:", e);
+          return "";
+        }
+      })
+      .join("");
+
+    newWindow.document.write(`
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>상담일지 자세히보기</title>
+          <style>${styles}</style>
+        </head>
+        <body>
+          <div id="journal-root"></div>
+        </body>
+      </html>
+    `);
+    newWindow.document.close();
+
+    // ReactDOM을 사용하여 ReadJournal 컴포넌트를 새 창에 렌더링
+    const root = newWindow.document.getElementById('journal-root');
+
+    if (root) {
+      ReactDOM.render(
+        <ReadJournal consultation={consultation} pbName={pbName} />,
+        root
+      );
+    }
+  }
+};
 
   return (
     <div className='flex flex-col h-full bg-white'>
@@ -99,7 +128,7 @@ export default function ConsultationJournalList({
             consultationJourData.map((consultation, index) => (
               <div
                 key={index}
-                onClick={() => openModal(consultation)}
+                onClick={() => openNewWindow(consultation)} // 새 창 열기
                 className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border border-gray-200 cursor-pointer'
               >
                 <div className='text-hanaindigo text-[1rem] font-bold mr-4'>
@@ -123,27 +152,6 @@ export default function ConsultationJournalList({
           )}
         </div>
       </div>
-
-      {/* 모달 컴포넌트 */}
-      {isModalOpen && selectedConsultation && (
-        <div
-          className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'
-          onClick={closeModal} // 모달 외부 클릭 시 닫기 이벤트
-        >
-          <div
-            className='relative bg-white rounded-lg w-[90%] max-w-2xl'
-            onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 닫히지 않도록
-          >
-            <button
-              onClick={closeModal}
-              className='absolute top-2 right-2 text-white hover:font-bold z-50 p-2'
-            >
-              x
-            </button>
-            <ReadJournal consultation={selectedConsultation} pbName={pbName} />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
