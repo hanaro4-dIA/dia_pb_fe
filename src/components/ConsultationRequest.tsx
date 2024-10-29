@@ -36,14 +36,11 @@ export default function ConsultationRequest({
   }, []);
 
   // 승인 버튼 클릭 시 상태 변경
-  const toggleApprovalStatus = (index: number) => {
+  const toggleApprovalStatus = (id: number) => {
     setConsultationData((prevData) =>
-      prevData.filter((consultation, i) => {
-        if (i === index && consultation.approvalStatus === false) {
-          const updatedConsultation = {
-            ...consultation,
-            approvalStatus: true,
-          };
+      prevData.filter((consultation) => {
+        if (consultation.id === id && consultation.approvalStatus === false) {
+          const updatedConsultation = { ...consultation, approvalStatus: true };
           onApprove(updatedConsultation); // 승인된 상담을 전달
           return false; // 승인된 항목을 제거
         }

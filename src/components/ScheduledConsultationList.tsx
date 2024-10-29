@@ -48,7 +48,10 @@ export default function ScheduledConsultationList({
     fetchNotConsultingData();
   }, [id, consultations]);
 
-  const allConsultations = [...consultationData, ...consultations];
+  // 모든 상담 데이터 합쳐서 hopeDay 기준 오름차순 정렬
+  const allConsultations = [...consultationData, ...consultations].sort(
+    (a, b) => new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
+  );
 
   const handleConsultationClick = (consultationId: number) => {
     navigate(`/consulting/${consultationId}`);
