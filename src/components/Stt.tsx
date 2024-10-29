@@ -11,8 +11,7 @@ export default function STT() {
         {/* 텍스트 입력 영역 */}
         <div className='flex-1 p-3 overflow-y-auto'>
           <textarea
-            className="h-full w-full border resize-none rounded-lg p-2 focus:outline-none min-h-[calc(100vh-14rem)]"
-          ></textarea>
+            className="h-full w-full border resize-none rounded-lg p-2 focus:outline-none min-h-[calc(100vh-14rem)]"/>
         </div>
 
         {/* 버튼 */}
