@@ -21,7 +21,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
   // 카테고리 이름 불러오기 함수
   const fetchCategoryName = async (categoryId: number) => {
     try {
-      const response = await fetch('../../public/data/Category.json');
+      const response = await fetch('/data/Category.json');
       const categoryData: TCategoryProps[] = await response.json();
       const category = categoryData.find((cg) => cg.id === categoryId);
 
@@ -31,7 +31,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
         setCategoryName('카테고리 없음');
       }
     } catch (error) {
-      console.error('Error fetching category data:', error);
+      alert('Error fetching category data:');
       setCategoryName('데이터 로드 실패');
     }
   };
@@ -39,7 +39,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
   // 고객 이름 불러오기 함수
   const fetchCustomerName = async (customerId: number) => {
     try {
-      const response = await fetch('../../public/data/Customers.json');
+      const response = await fetch('/data/Customers.json');
       const customerData: Customer[] = await response.json();
       const customer = customerData.find((cust) => cust.id === customerId);
 
@@ -49,7 +49,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
         setCustomerName('손님 없음');
       }
     } catch (error) {
-      console.error('Error fetching customer data:', error);
+      alert('Error fetching customer data:');
       setCustomerName('데이터 로드 실패');
     }
   };

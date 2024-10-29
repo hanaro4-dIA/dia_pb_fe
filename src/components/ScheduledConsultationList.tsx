@@ -39,7 +39,7 @@ export default function ScheduledConsultationList({
           setCustomerName(customer ? customer.name : null);
         }
       } catch (error) {
-        console.error('Error fetching consultation data:', error);
+        alert('Error fetching consultation data:');
       }
     };
 
@@ -69,7 +69,7 @@ export default function ScheduledConsultationList({
                 <span>{consultation.name} 손님</span>
                 <span>{consultation.hopeDay}</span>
               </div>
-              <div className="flex justify-between text-black text-[1rem] font-extrabold overflow-hidden text-ellipsis whitespace-nowrap mt-2">
+              <div className="flex justify-between text-black text-[1rem] font-extrabold truncate mt-2">
                 {consultation.title}
                 <button
                   className="border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen"

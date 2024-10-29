@@ -69,7 +69,7 @@ export default function ConsultingPage() {
   // 고객 이름 불러오기 함수
   const fetchCustomerName = async (customerId: number) => {
     try {
-      const response = await fetch('../../public/data/Customers.json');
+      const response = await fetch('/data/Customers.json');
       const customerData: Customer[] = await response.json();
       const customer = customerData.find((cust) => cust.id === customerId);
 
@@ -79,7 +79,7 @@ export default function ConsultingPage() {
         setCustomerName('손님 없음');
       }
     } catch (error) {
-      console.error('Error fetching customer data:', error);
+      alert('Error fetching customer data:');
       setCustomerName('데이터 로드 실패');
     }
   };

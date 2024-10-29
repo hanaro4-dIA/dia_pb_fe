@@ -14,7 +14,7 @@ export default function CustomerDetailPage() {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await fetch('../../public/data/Customers.json');
+        const response = await fetch('/data/Customers.json');
         const data = await response.json();
         setCustomers(data);
       } catch (error) {

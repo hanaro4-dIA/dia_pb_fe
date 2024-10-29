@@ -43,18 +43,18 @@ export default function CustomerInformation({
   useEffect(() => {
     const fetchCustomerData = async () => {
       try {
-        const response = await fetch('../../public/data/Customers.json');
+        const response = await fetch('/data/Customers.json');
         const data = await response.json();
         const customer = data.find((c: TCustomer) => c.id === customerId);
         setCustomerData(customer || null);
       } catch (error) {
-        console.error('Error fetching customer data:', error);
+        alert('Error fetching customer data:');
       }
     };
 
     const fetchMemoData = async () => {
       try {
-        const response = await fetch('../../public/data/Customer_PB.json');
+        const response = await fetch('/data/Customer_PB.json');
         const data = await response.json();
         const customerMemo = data.find(
           (c: TCustomerPB) => c.customer_id === customerId
@@ -69,7 +69,7 @@ export default function CustomerInformation({
           setMeetDate('');
         }
       } catch (error) {
-        console.error('Error fetching memo data:', error);
+        alert('Error fetching memo data:');
       }
     };
 

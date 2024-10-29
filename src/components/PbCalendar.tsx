@@ -36,11 +36,11 @@ export default function PbCalendar() {
   useEffect(() => {
     const fetchConsultings = async () => {
       try {
-        const response = await fetch('../../public/data/Consultings.json');
+        const response = await fetch('/data/Consultings.json');
         const consultingData = await response.json();
         setSchedule(consultingData);
       } catch (error) {
-        console.error('Error fetching ConsultingData:', error);
+        alert('Error fetching ConsultingData:');
       }
     };
     fetchConsultings();

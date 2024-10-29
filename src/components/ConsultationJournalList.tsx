@@ -21,7 +21,7 @@ export default function ConsultationJournalList({
 
   const fetchCustomerPB = async () => {
     try {
-      const response = await fetch('../../public/data/Customer_PB.json');
+      const response = await fetch('/data/Customer_PB.json');
       const customerPBData = await response.json();
       const customerPB = customerPBData.find(
         (pb: TCustomerPbProps) => pb.customer_id === customerId
@@ -32,13 +32,13 @@ export default function ConsultationJournalList({
         fetchPBName(customerPB.pb_id);
       }
     } catch (error) {
-      console.error('Error fetching Customer PB data:', error);
+      alert('Error fetching Customer PB data:');
     }
   };
 
   const fetchPBName = async (pbId: number) => {
     try {
-      const response = await fetch('../../public/data/PB.json');
+      const response = await fetch('/data/PB.json');
       const pbData = await response.json();
       const pb = pbData.find((pb: TPbProps) => pb.id === pbId);
 
@@ -46,7 +46,7 @@ export default function ConsultationJournalList({
         setPbName(pb.name);
       }
     } catch (error) {
-      console.error('Error fetching PB data:', error);
+      alert('Error fetching PB data:');
     }
   };
 
@@ -54,14 +54,14 @@ export default function ConsultationJournalList({
     if (pbId === null) return;
 
     try {
-      const response = await fetch('../../public/data/Journals.json');
+      const response = await fetch('/data/Journals.json');
       const data = await response.json();
       const filteredData = data.filter(
         (consultation: TJournalsProps) => consultation.customer_pb_id === pbId
       );
       setConsultationJourData(filteredData);
     } catch (error) {
-      console.error('Error fetching consultation data:', error);
+      alert('Error fetching consultation data:');
     }
   };
 
@@ -102,12 +102,12 @@ export default function ConsultationJournalList({
                 <div className='text-hanaindigo text-[1rem] font-bold mr-4'>
                   {index + 1}
                 </div>
-                <div className='flex-1'>
+                <div className='flex-1 max-w-[90%]'>
                   <div className='flex justify-between text-black text-[1rem] font-light'>
                     <span>{pbName ? pbName : 'PB 이름 없음'}</span>
                     <span>{consultation.date}</span>
                   </div>
-                  <div className='text-[1rem] font-bold text-ellipsis overflow-hidden whitespace-nowrap max-w-[20rem]'>
+                  <div className='text-[1rem] font-bold truncate'>
                     {consultation.content}
                   </div>
                 </div>

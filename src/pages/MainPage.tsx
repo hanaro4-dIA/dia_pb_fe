@@ -17,11 +17,11 @@ export default function MainPage() {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await fetch('../../public/data/Customers.json');
+        const response = await fetch('/data/Customers.json');
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        alert('Error fetching data:');
       }
     };
 
