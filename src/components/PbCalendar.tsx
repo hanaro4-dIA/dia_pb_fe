@@ -84,7 +84,7 @@ export default function PbCalendar() {
             }
           }}
         >
-          <div className='bg-white p-5 rounded-lg shadow-lg relative w-3/5 '>
+          <div className='bg-white p-5 rounded-lg shadow-lg relative w-3/5'>
             <button
               onClick={() => setDateModal(false)}
               className=' text-[#f87171] text-xl absolute top-2 right-2 leading-none p-1'

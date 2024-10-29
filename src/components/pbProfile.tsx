@@ -208,12 +208,13 @@ export default function PbProfile() {
 
           {/* 한줄 자기소개 */}
           <textarea
-            className='bg-hanaindigo w-auto p-3 mt-2 text-xs text-white resize-none rounded-tr-3xl rounded-bl-3xl rounded-br-3xl'
+            className=' border-2 border-hanaindigo w-auto p-3 mt-2 text-xs text-hanaindigo resize-none '
             name='introduce'
             value={profile.introduce}
             onChange={handleInputChange}
             disabled={!isEditing}
             placeholder={profile.introduce}
+            maxLength={52}
           />
         </div>
       </div>
