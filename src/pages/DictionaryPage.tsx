@@ -77,6 +77,46 @@ const dbList: DBItem[] = [
     url: 'http://www.google.com/',
     content: '내용 첨부',
   },
+  {
+    id: 3,
+    title: '3국민취업지원제도',
+    writer: '손흥민',
+    makeDay: '2024.01.02 16:02',
+    url: 'http://www.google.com/',
+    content: '내용 첨부',
+  },
+  {
+    id: 4,
+    title: '4국민취업지원제도',
+    writer: '손흥민',
+    makeDay: '2024.01.02 16:02',
+    url: 'http://www.google.com/',
+    content: '내용 첨부',
+  },
+  {
+    id: 5,
+    title: '5국민취업지원제도',
+    writer: '손흥민',
+    makeDay: '2024.01.02 16:02',
+    url: 'http://www.google.com/',
+    content: '내용 첨부',
+  },
+  {
+    id: 6,
+    title: '6국민취업지원제도',
+    writer: '손흥민',
+    makeDay: '2024.01.02 16:02',
+    url: 'http://www.google.com/',
+    content: '내용 첨부',
+  },
+  {
+    id: 7,
+    title: '7국민취업지원제도',
+    writer: '손흥민',
+    makeDay: '2024.01.02 16:02',
+    url: 'http://www.google.com/',
+    content: '내용 첨부',
+  },
 ];
 
 export default function DictionaryPage() {
@@ -92,13 +132,13 @@ export default function DictionaryPage() {
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
       {/* 왼쪽 목록 영역 */}
       <div className='flex flex-col flex-grow w-2/5 h-full'>
-        <div className='overflow-y-auto'>
+        <div className='overflow-auto'>
           <div className='flex flex-col h-full bg-white '>
             {/* 헤더 */}
             <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 pl-5 rounded-t-lg'>
               키워드 DB 목록
             </div>
-            <div className='border-x border-b border-gray-200'>
+            <div className='overflow-auto border-x border-b border-gray-200'>
               {/* 검색 입력 필드 */}
               <div className='flex justify-center mt-4'>
                 <div className='relative w-11/12'>
@@ -114,7 +154,7 @@ export default function DictionaryPage() {
               </div>
 
               {/* 필터링된 키워드 목록 */}
-              <div className='mt-2 p-4 overflow-auto'>
+              <div className='mt-2 p-4'>
                 {filteredDBList.map((item) => (
                   <div
                     key={item.id}
@@ -150,7 +190,7 @@ export default function DictionaryPage() {
 
           {/* 상세 내용 표시 */}
           {selectedItem ? (
-            <div className='p-10 space-y-4  overflow-y-auto border-x border-b border-gray-200'>
+            <div className='h-full p-10 space-y-4 overflow-y-auto border-x border-b border-gray-200'>
               <div className='text-4xl font-bold'>{selectedItem.title}</div>
               <div className='flex justify-between'>
                 <div className='flex gap-3'>
