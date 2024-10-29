@@ -43,7 +43,7 @@ export default function CustomerInformation({
   useEffect(() => {
     const fetchCustomerData = async () => {
       try {
-        const response = await fetch('../../public/data/Customer.json');
+        const response = await fetch('../../public/data/Customers.json');
         const data = await response.json();
         const customer = data.find((c: TCustomer) => c.id === customerId);
         setCustomerData(customer || null);

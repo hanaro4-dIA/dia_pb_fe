@@ -2,160 +2,160 @@
     {
         "id": 1,
         "customer_id": 1,
-        "pb_id": 101,
-        "date": "2024-10-01",
+        "pb_id": 1,
+        "date": "2024.10.01",
         "count": 3,
-        "memo": "저는 조퇴를 하고 싶은데,,, 참고 코딩하고 있어요."
+        "memo": "진상 손님이니, 잘 대응할 것"
     },
     {
         "id": 2,
         "customer_id": 2,
-        "pb_id": 102, 
-        "date": "2024-10-02",
+        "pb_id": 1, 
+        "date": "2024.10.02",
         "count": 1,
-        "memo": "후속 상담.야야야씨가 pb야"
+        "memo": "VVVVIP 손님이니 잘 대우할 것"
     },
     {
         "id": 3,
         "customer_id": 3,
-        "pb_id": 101,
-        "date": "2024-10-03",
+        "pb_id": 1,
+        "date": "2024.10.03",
         "count": 2,
         "memo": "초기 상담."
     },
     {
         "id": 4,
         "customer_id": 1,
-        "pb_id": 102,
-        "date": "2024-10-04",
+        "pb_id": 2,
+        "date": "2024.10.04",
         "count": 4,
         "memo": "장기 계획 논의."
     },
     {
         "id": 5,
         "customer_id": 5,
-        "pb_id": 101,
-        "date": "2024-10-05",
+        "pb_id": 1,
+        "date": "2024.10.05",
         "count": 1,
         "memo": "현재 포트폴리오 검토."
     },
     {
         "id": 6,
         "customer_id": 6,
-        "pb_id": 101,
-        "date": "2024-10-06",
+        "pb_id": 1,
+        "date": "2024.10.06",
         "count": 2,
         "memo": "은퇴 저축에 집중."
     },
     {
         "id": 7,
         "customer_id": 7,
-        "pb_id": 101,
-        "date": "2024-10-07",
+        "pb_id": 1,
+        "date": "2024.10.07",
         "count": 3,
         "memo": "투자 전략 검토."
     },
     {
         "id": 8,
         "customer_id": 8,
-        "pb_id": 101,
-        "date": "2024-10-08",
+        "pb_id": 1,
+        "date": "2024.10.08",
         "count": 1,
         "memo": "세금 계획 상담."
     },
     {
         "id": 9,
         "customer_id": 9,
-        "pb_id": 101,
-        "date": "2024-10-09",
+        "pb_id": 1,
+        "date": "2024.10.09",
         "count": 2,
         "memo": "재산 증식 계획 논의."
     },
     {
         "id": 10,
         "customer_id": 10,
-        "pb_id": 101,
-        "date": "2024-10-10",
+        "pb_id": 1,
+        "date": "2024.10.10",
         "count": 1,
         "memo": "위험 관리 전략."
     },
     {
         "id": 11,
         "customer_id": 11,
-        "pb_id": 101,
-        "date": "2024-10-11",
+        "pb_id": 1,
+        "date": "2024.10.11",
         "count": 3,
         "memo": "부동산 투자 상담."
     },
     {
         "id": 12,
         "customer_id": 12,
-        "pb_id": 101,
-        "date": "2024-10-12",
+        "pb_id": 1,
+        "date": "2024.10.12",
         "count": 2,
         "memo": "자녀 교육비 계획."
     },
     {
         "id": 13,
         "customer_id": 13,
-        "pb_id": 101,
-        "date": "2024-10-13",
+        "pb_id": 1,
+        "date": "2024.10.13",
         "count": 4,
         "memo": "주식 투자 상담."
     },
     {
         "id": 14,
         "customer_id": 14,
-        "pb_id": 101,
-        "date": "2024-10-14",
+        "pb_id": 1,
+        "date": "2024.10.14",
         "count": 1,
         "memo": "퇴직금 관리."
     },
     {
         "id": 15,
         "customer_id": 15,
-        "pb_id": 101,
-        "date": "2024-10-15",
+        "pb_id": 1,
+        "date": "2024.10.15",
         "count": 2,
         "memo": "보험 상품 검토."
     },
     {
         "id": 16,
         "customer_id": 16,
-        "pb_id": 101,
-        "date": "2024-10-16",
+        "pb_id": 1,
+        "date": "2024.10.16",
         "count": 3,
         "memo": "소득 증대 전략."
     },
     {
         "id": 17,
         "customer_id": 17,
-        "pb_id": 101,
-        "date": "2024-10-17",
+        "pb_id": 1,
+        "date": "2024.10.17",
         "count": 1,
         "memo": "비상금 마련."
     },
     {
         "id": 18,
         "customer_id": 18,
-        "pb_id": 101,
-        "date": "2024-10-18",
+        "pb_id": 1,
+        "date": "2024.10.18",
         "count": 2,
         "memo": "자산 분배 전략."
     },
     {
         "id": 19,
         "customer_id": 19,
-        "pb_id": 101,
-        "date": "2024-10-19",
+        "pb_id": 1,
+        "date": "2024.10.19",
         "count": 1,
         "memo": "상속 계획 상담."
     },
     {
         "id": 20,
         "customer_id": 20,
-        "pb_id": 101,
-        "date": "2024-10-20",
+        "pb_id": 1,
+        "date": "2024.10.20",
         "count": 4,
         "memo": "노후 대비 계획."
     }

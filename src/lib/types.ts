@@ -47,3 +47,10 @@ export type TCustomerPbProps = {
   count: number; // 상담 횟수
   memo: string;
 };
+
+
+// 상담 카테고리 타입 (Category.json)
+export type TCategoryProps = {
+  id: number;
+  name: string;
+}
