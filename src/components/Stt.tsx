@@ -14,9 +14,8 @@ export default function STT() {
           <textarea className=' overflow-y-auto h-full w-full border resize-none rounded-lg p-2 focus:outline-none min-h-[calc(100vh-14rem)]' />
         </div>
 
-        {/* 버튼 */}
         <div className='flex justify-end'>
-          <Button className='bg-hanaindigo'>저장</Button>
+          <Button className='bg-hanaindigo w-20 px-2 rounded-xl'>저장</Button>
         </div>
       </div>
     </div>
