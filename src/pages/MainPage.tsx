@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import ConsultationRequest from '../components/ConsultationRequest';
 import GuestList from '../components/GuestList';
 import PbCalendar from '../components/PbCalendar';
+import PbProfile from '../components/PbProfile';
 import ScheduledConsultationList from '../components/ScheduledConsultationList';
-import PbProfile from '../components/pbProfile';
 import { Button } from '../components/ui/button';
 
 export default function MainPage() {
