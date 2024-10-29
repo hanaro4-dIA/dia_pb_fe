@@ -67,7 +67,7 @@ export default function ConsultingPage() {
         </div>
 
         {/* STT 자동 작성란 */}
-        <div className='flex flex-col flex-grow h-full'>
+        <div className='flex flex-grow h-full'>
           <STT />
         </div>
 
