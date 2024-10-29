@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { MdOutlineModeEdit } from "react-icons/md";
 
 type TCustomer = {
   id: number;
@@ -128,10 +129,10 @@ export default function CustomerInformation({
                 </span>
               ) : (
                 <button
-                  className='m-1 text-sm text-red-500 font-bold'
+                  className='m-1 text-xl text-red-500 font-bold'
                   onClick={handleEditClick}
                 >
-                  EDIT
+                  <MdOutlineModeEdit />
                 </button>
               )}
             </div>
