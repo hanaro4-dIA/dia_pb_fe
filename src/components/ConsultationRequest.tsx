@@ -36,14 +36,11 @@ export default function ConsultationRequest({
   }, []);
 
   // 승인 버튼 클릭 시 상태 변경
-  const toggleApprovalStatus = (index: number) => {
+  const toggleApprovalStatus = (id: number) => {
     setConsultationData((prevData) =>
-      prevData.filter((consultation, i) => {
-        if (i === index && consultation.approvalStatus === false) {
-          const updatedConsultation = {
-            ...consultation,
-            approvalStatus: true,
-          };
+      prevData.filter((consultation) => {
+        if (consultation.id === id && consultation.approvalStatus === false) {
+          const updatedConsultation = { ...consultation, approvalStatus: true };
           onApprove(updatedConsultation); // 승인된 상담을 전달
           return false; // 승인된 항목을 제거
         }
@@ -53,12 +50,12 @@ export default function ConsultationRequest({
   };
 
   return (
-    <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
+    <div className='flex flex-col h-full bg-white '>
       <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         들어온 상담 요청
       </div>
       {consultationData.length > 0 ? (
-        <div className='overflow-auto p-4'>
+        <div className='overflow-auto p-4 border-x border-b border-gray-200'>
           {consultationData.map(
             ({
               id,

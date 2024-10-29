@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { MdOutlineModeEdit } from "react-icons/md";
 
 type TCustomer = {
   id: number;
@@ -78,13 +79,13 @@ export default function CustomerInformation({
   }, [customerId]);
 
   return (
-    <div className='flex flex-col bg-white rounded-lg shadow-lg border border-gray-200'>
-      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg border'>
+    <div className='flex flex-col bg-white'>
+      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         {customerData?.name} 손님 정보
       </div>
 
       {customerData ? (
-        <div className='p-2 '>
+        <div className='p-2 border-x border-b border-gray-200'>
           <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
             <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
               <span className='text-sm'>손님과 만난 날짜</span>
@@ -128,10 +129,10 @@ export default function CustomerInformation({
                 </span>
               ) : (
                 <button
-                  className='m-1 text-sm text-red-500 font-bold'
+                  className='m-1 text-xl text-red-500 font-bold'
                   onClick={handleEditClick}
                 >
-                  EDIT
+                  <MdOutlineModeEdit />
                 </button>
               )}
             </div>

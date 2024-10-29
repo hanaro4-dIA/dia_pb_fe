@@ -90,7 +90,7 @@ export default function PbProfile() {
   console.log(getOffice(profile.office_id));
 
   return (
-    <div className='flex flex-col w-full h-full bg-white rounded-lg shadow-lg border border-gray-200'>
+    <div className='flex flex-col w-full h-full bg-white'>
       <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         <div>
           <span>내 프로필</span>
@@ -116,7 +116,7 @@ export default function PbProfile() {
         </button>
       </div>
 
-      <div className='flex items-center pl-3 pr-3'>
+      <div className='flex items-center pl-3 pr-3 h-full border-x border-b border-gray-200'>
         <input
           type='file'
           style={{ display: 'none' }}

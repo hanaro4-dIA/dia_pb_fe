@@ -86,11 +86,11 @@ export default function ConsultationJournalList({
   };
 
   return (
-    <div className={`flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200`}>
+    <div className={`flex flex-col h-full bg-white`}>
       <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
         상담일지 리스트
       </div>
-      <div className='overflow-auto'>
+      <div className='overflow-auto border-x border-b border-gray-200'>
         <div className='p-4'>
           {consultationJourData.length > 0 ? (
             consultationJourData.map((consultation, index) => (

@@ -48,19 +48,22 @@ export default function ScheduledConsultationList({
     fetchNotConsultingData();
   }, [id, consultations]);
 
-  const allConsultations = [...consultationData, ...consultations];
+  // 모든 상담 데이터 합쳐서 hopeDay 기준 오름차순 정렬
+  const allConsultations = [...consultationData, ...consultations].sort(
+    (a, b) => new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
+  );
 
   const handleConsultationClick = (consultationId: number) => {
     navigate(`/consulting/${consultationId}`);
   };
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200">
+    <div className="flex flex-col h-full bg-white">
       <div className="bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5">
         {id && customerName ? `${customerName} 손님의 예정된 상담 일정` : 'PB의 예정된 전체 상담 일정'}
       </div>
 
-      <div className="p-4 overflow-auto">
+      <div className="p-4 overflow-auto border-x border-b border-gray-200">
         {allConsultations.length > 0 ? (
           allConsultations.map((consultation, index) => (
             <div
