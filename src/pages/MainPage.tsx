@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import CR from '../components/ConsultationRequest';
 import GL from '../components/GuestList';
 import PbCalendar from '../components/PbCalendar';
+import PP from '../components/PbProfile';
 import SCL from '../components/ScheduledConsultationList';
-import PP from '../components/pbProfile';
 import { Button } from '../components/ui/button';
 
 export default function MainPage() {
@@ -13,7 +13,6 @@ export default function MainPage() {
   const [scheduledConsultations, setScheduledConsultations] = useState<any[]>(
     []
   );
-
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -73,7 +72,7 @@ export default function MainPage() {
       <div className='flex flex-col w-1/4 h-full'>
         {/* 손님 목록 */}
         <div className='overflow-y-auto'>
-          <GL customers={customers}/>
+          <GL customers={customers} />
         </div>
       </div>
     </div>

@@ -1,36 +1,68 @@
-import { Label } from '@radix-ui/react-label';
+import { useNavigate } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import PbJsonData from '../../public/data/PB.json';
 import { Button } from './ui/button';
-import { Input } from './ui/input';
 
 export default function Login() {
+  const businessIdRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  let [isValidLoginInfo, setIsValidLoginInfo] = useState(true);
+  const navigate = useNavigate();
+
+  const pbData = PbJsonData;
+
+  const handleSubmit = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('submit 동작!!');
+    handleLogin();
+  };
+
+  // 로그인 로직
+  const handleLogin = () => {
+    console.log('로그인 로직 들어옴');
+    const businessId = businessIdRef.current?.value;
+    const password = passwordRef.current?.value;
+    console.log('ref :', businessId, password);
+
+    if (validCheck(businessId!, password!) === 1) {
+      navigate('/');
+    } else {
+      setIsValidLoginInfo(false);
+    }
+  };
+
+  // 로그인 체크 로직
+  const validCheck = (businessId: string, password: string) => {
+    const checked = pbData.filter(
+      (data) => data.businessId === businessId && data.password === password
+    );
+    return checked.length;
+  };
+
   return (
-    <>
-      <div className='h-screen w-screen'>
-        <div className='absolute w-2/5 h-2/3 p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-2/3'>
-          <div className='flex flex-col h-full justify-between mb-5'>
-            <div className='flex justify-center'>
-              <img src='/logo.png' alt='dIA logo' />
-            </div>
-            <div className='flex flex-col gap-5 justify-between p-7 h-full'>
-              <div className='text-3xl text-hanaindigo mb-5'>LOG-IN</div>
-              <Input
-                className='mb-2 border-gray-300'
-                type='text'
-                placeholder='사원번호 입력'
-              ></Input>
-              <Input
-                className='mb-2 border-gray-300'
-                type='password'
-                placeholder='비밀번호 입력'
-              ></Input>
-              <Button className='bg-hanaindigo text-xl'>로그인</Button>
-              <Label className='text-xs text-center text-gray-300'>
-                copyright @dIA
-              </Label>
-            </div>
-          </div>
-        </div>
+    <form onSubmit={handleSubmit} className='flex flex-col w-full h-2/3 gap-3'>
+      <div className='flex flex-col mt-2'>
+        <input
+          className='border border-gray-300 p-3'
+          type='text'
+          placeholder='사원번호 입력'
+          ref={businessIdRef}
+        ></input>
+        <input
+          className='border border-t-0 border-gray-300 p-3'
+          type='password'
+          placeholder='비밀번호 입력'
+          ref={passwordRef}
+        ></input>
       </div>
-    </>
+      <div
+        className={`text-red-400 font-bold mb-5 ${isValidLoginInfo ? 'invisible' : 'visible '}`}
+      >
+        유효하지 않은 사원번호 또는 비밀번호 입니다.
+      </div>
+      <Button className='bg-hanaindigo text-xl' type='submit'>
+        로그인
+      </Button>
+    </form>
   );
 }
