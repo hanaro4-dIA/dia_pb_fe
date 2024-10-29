@@ -95,7 +95,7 @@ export default function DictionaryPage() {
         <div className='overflow-y-auto'>
           <div className='flex flex-col h-full bg-white rounded-lg shadow-lg border border-gray-200'>
             {/* 헤더 */}
-            <div className='bg-hanaindigo text-[#fff] text-[1.5rem] font-extrabold p-4 pl-5 rounded-t-lg'>
+            <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 pl-5 rounded-t-lg'>
               키워드 DB 목록
             </div>
 
@@ -121,20 +121,15 @@ export default function DictionaryPage() {
                   className='mb-4'
                   onClick={() => setSelectedItem(item)}
                 >
-                  <div className='bg-[#fff] rounded-lg p-4 border shadow-lg cursor-pointer'>
+                  <div className='bg-white rounded-lg p-4 border shadow-lg cursor-pointer'>
                     {/* 키워드 이름 */}
                     <div className='text-black text-lg font-bold'>
                       {item.title}
                     </div>
 
                     {/* 키워드 내용 */}
-                    <div className='bg-hanaindigo text-[#fff] p-2 mt-2 rounded-lg'>
-                      <div
-                        className='overflow-hidden text-ellipsis whitespace-nowrap'
-                        style={{ maxWidth: '100%' }}
-                      >
-                        {item.content}
-                      </div>
+                    <div className='bg-hanaindigo text-white p-2 mt-2 rounded-lg'>
+                      <div className='truncate w-full'>{item.content}</div>
                     </div>
                   </div>
                 </div>

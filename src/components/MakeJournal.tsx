@@ -4,7 +4,7 @@ export default function MakeJoural() {
   return (
     <>
       <div className='flex flex-col justify-between border shadow-lg border-gray-200 w-full'>
-        <div className='bg-hanaindigo text-[#fff] text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
+        <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
           상담일지 작성하기
         </div>
         <div className='flex flex-col justify-end mt-3'>

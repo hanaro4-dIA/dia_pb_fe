@@ -1,23 +1,25 @@
 [
   {
-    "id": 101,
-    "businessId": "hanaro1",
+    "id": 1,
+    "businessId": 101,
     "password": "pb_password1",
     "name": "조경은",
     "sex": "Male",
     "birthday": "1980-06-12",
     "image_url": "https://example.com/images/alexkim.jpg",
+    "tags": ["부동산", "안유진", "꼼꼼"],
     "introduce": "Expert in wealth management and tax planning.",
     "office_id": 1
   },
   {
-    "id": 102,
-    "businessId": "hanaro2",
+    "id": 2,
+    "businessId": 102,
     "password": "pb_password2",
-    "name": "야야야",
-    "sex": "Male",
-    "birthday": "1980-06-12",
+    "name": "강재준",
+    "sex": "Female",
+    "birthday": "1970-03-12",
     "image_url": "https://example.com/images/alexkim.jpg",
+    "tags": ["연금", "부동산", "성실"],
     "introduce": "Expert in wealth management and tax planning.",
     "office_id": 2
   }

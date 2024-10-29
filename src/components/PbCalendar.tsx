@@ -4,73 +4,68 @@ import { format } from 'date-fns';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
+import { type TRequestedConsultationsProps } from '../lib/types';
 
 type DateTile = Date | null;
-
 type SelectedDate = DateTile | [DateTile, DateTile];
 
-//CR : ConsultingReservation
-type CR = {
+// type TRequestedConsultationsProps 사용할 것!!!
+// Consultings.json 중 approvalStatus = "Approved"인 모든 데이터 사용할 것!!!
+
+// CR : ConsultingReservation
+/*type CR = {
   customerName: string;
   crDate: string;
   crTime: string;
   category: string;
   title: string;
   inquiryDetails: string | null;
-};
+};*/
 
 export default function PbCalendar() {
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
   const [dateModal, setDateModal] = useState(false);
-  const [schedule, setSchedule] = useState<CR[]>([]);
+  const [schedule, setSchedule] = useState<TRequestedConsultationsProps[]>([]);
+  const [selectedSchedules, setSelectedSchedules] = useState<
+    TRequestedConsultationsProps[]
+  >([]);
   const [accordian, setAccordian] = useState<number | null>(null);
 
-  const cr: CR[] = [
-    {
-      customerName: '장원영',
-      crDate: '2024-10-24',
-      crTime: '13:00',
-      category: '부동산',
-      title: 'AK프라자 부동산 건 상담요청합니다.',
-      inquiryDetails:
-        'We&apos;re not always in the position that we want to be at.',
-    },
-    {
-      customerName: '레이',
-      crDate: '2024-10-24',
-      crTime: '15:00',
-      category: '상속',
-      title: 'AK프라자 부동산 건 상담요청합니다.',
-      inquiryDetails: '어쩌구 저쩌구 어쩌구 저쩌구',
-    },
-    {
-      customerName: '이서',
-      crDate: '2024-10-25',
-      crTime: '10:00',
-      category: '투자',
-      title: 'AK프라자 부동산 건 상담요청합니다.',
-      inquiryDetails: '어쩌구 저쩌구 어쩌구 저쩌구',
-    },
-  ];
+  useEffect(() => {
+    const fetchConsultings = async () => {
+      try {
+        const response = await fetch('../../public/data/Consultings.json');
+        const consultingData = await response.json();
+        setSchedule(consultingData);
+      } catch (error) {
+        console.error('Error fetching ConsultingData:', error);
+      }
+    };
+    fetchConsultings();
+  }, []);
+
   const getScheduledDate = (date: Date) => {
-    const scheduledDate = format(date, 'yyyy-MM-dd');
-    const hasEvent = cr.some((cr) => cr.crDate === scheduledDate);
+    const scheduledDate = format(date, 'yyyy.MM.dd');
+    const hasEvent = schedule.some(
+      (consultings) =>
+        consultings.approvalStatus && consultings.hopeDay === scheduledDate
+    );
     return hasEvent ? <div className='dot'></div> : null;
   };
-
   const clickScheduledDate = (date: Date) => {
-    const scheduledDate = format(date, 'yyyy-MM-dd');
-    const schedule = cr.filter((cr) => cr.crDate === scheduledDate);
-    setSchedule(schedule);
+    const scheduledDate = format(date, 'yyyy.MM.dd');
+    const schedules = schedule.filter(
+      (consultings) =>
+        consultings.approvalStatus && consultings.hopeDay === scheduledDate
+    );
+    setSelectedSchedules(schedules);
     setDateModal(true);
   };
-
   const handleAccordian = (index: number) => {
     setAccordian((prev) => (prev === index ? null : index));
   };
-
   return (
     <div className='flex justify-center w-full h-full'>
       <Calendar
@@ -81,7 +76,6 @@ export default function PbCalendar() {
         value={selectedDate}
         className='border border-gray-300 '
       />
-
       {dateModal && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center'>
           <div className='bg-white p-5 rounded-lg shadow-lg relative w-3/5'>
@@ -91,12 +85,10 @@ export default function PbCalendar() {
             >
               x
             </button>
-
             <h2 className='text-lg font-bold mb-4 text-center'>
               {format(selectedDate as Date, 'MM월 dd일')} 상담 일정
             </h2>
-
-            {schedule.length > 0 ? (
+            {selectedSchedules.length > 0 ? (
               <table className='w-full border-collapse'>
                 <thead>
                   <tr className='border-b'>
@@ -107,16 +99,14 @@ export default function PbCalendar() {
                   </tr>
                 </thead>
                 <tbody>
-                  {schedule.map((schedule, index) => (
+                  {selectedSchedules.map((schedule, index) => (
                     <React.Fragment key={index}>
                       <tr
                         className='border-b cursor-pointer'
                         onClick={() => handleAccordian(index)}
                       >
-                        <td className='p-2'>{schedule.crTime}</td>
-                        <td className='p-2 text-center'>
-                          {schedule.customerName}
-                        </td>
+                        <td className='p-2'>{schedule.hopeTime}</td>
+                        <td className='p-2 text-center'>{schedule.name}</td>
                         <td className='p-2 text-center'>{schedule.category}</td>
                         <td className='p-2'>{schedule.title}</td>
                         <td className='p-2'>

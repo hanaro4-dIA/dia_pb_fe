@@ -24,7 +24,7 @@ export default function Login() {
     const password = passwordRef.current?.value;
     console.log('ref :', businessId, password);
 
-    if (validCheck(businessId!, password!) === 1) {
+    if (validCheck(+businessId!, password!) === 1) {
       navigate('/');
     } else {
       setIsValidLoginInfo(false);
@@ -32,7 +32,7 @@ export default function Login() {
   };
 
   // 로그인 체크 로직
-  const validCheck = (businessId: string, password: string) => {
+  const validCheck = (businessId: number, password: string) => {
     const checked = pbData.filter(
       (data) => data.businessId === businessId && data.password === password
     );
