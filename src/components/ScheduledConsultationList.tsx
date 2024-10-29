@@ -25,13 +25,13 @@ export default function ScheduledConsultationList({
         const data: TRequestedConsultationsProps[] = await response.json();
 
         // ID가 있을 경우 해당 고객의 데이터만 필터링, 없을 경우 조건에 맞는 모든 데이터 가져오기
-        const filteredData = data.filter((consultation) =>
-          id
-            ? consultation.approvalStatus === 'Approved' &&
-              consultation.finishStatus === false &&
-              consultation.customer_id === Number(id)
-            : consultation.approvalStatus === 'Approved' &&
-              consultation.finishStatus === false
+        const filteredData = data.filter(
+          ({ approvalStatus, finishStatus, customer_id }) =>
+            id
+              ? approvalStatus === true &&
+                finishStatus === false &&
+                customer_id === Number(id)
+              : approvalStatus === true && finishStatus === false
         );
 
         setConsultationData(filteredData);
@@ -63,17 +63,19 @@ export default function ScheduledConsultationList({
 
       <div className='p-4 overflow-auto'>
         {allConsultations.length > 0 ? (
-          allConsultations.map((consultation, index) => (
+          allConsultations.map(({ name, hopeDay, hopeTime, title }, index) => (
             <div
               key={index}
               className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
             >
-              <div className='flex justify-between text-black text-[1rem] font-light'>
-                <span>{consultation.name} 손님</span>
-                <span>{consultation.hopeDay}</span>
+              <div className='flex justify-between text-black text-[1rem]'>
+                <span>{name} 손님</span>
+                <span>
+                  {hopeDay} {hopeTime}
+                </span>
               </div>
-              <div className='text-black text-[1rem] font-extrabold truncate mt-2'>
-                {consultation.topic}
+              <div className='text-black text-[1rem] font-extrabold truncate mt-1'>
+                {title}
               </div>
             </div>
           ))
