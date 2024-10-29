@@ -211,9 +211,11 @@ export default function DictionaryPage() {
                     href={selectedItem.url}
                     target='_blank'
                     rel='noopener noreferrer'
+                    className='text-blue-500 underline'
                   >
                     {selectedItem.url}
                   </a>
+
                 </div>
               </div>
               <div className='text-3xl font-bold'>내용</div>
