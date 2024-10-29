@@ -11,7 +11,7 @@ export default function LoginPage() {
               <div className='flex justify-center'>
                 <img src='/logo.png' alt='dIA logo' />
               </div>
-              <div className='text-3xl text-hanaindigo mb-7'>LOGIN</div>
+              <div className='text-3xl text-hanaindigo mb-4'>LOGIN</div>
               <Login />
               <Label className='text-xs text-center text-gray-300'>
                 copyright @dIA
