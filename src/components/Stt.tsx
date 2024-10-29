@@ -4,7 +4,7 @@ export default function STT() {
   return (
     <div className='border borelative flex flex-col w-full h-full'>
       {/* 헤더 */}
-      <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
+      <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-3 rounded-t-lg pl-5'>
         STT 자동 작성란
       </div>
 
