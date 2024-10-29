@@ -105,33 +105,38 @@ export default function PbCalendar() {
                   </tr>
                 </thead>
                 <tbody>
-                  {sortedSchedules.map((schedule, index) => (
-                    <React.Fragment key={index}>
-                      <tr
-                        className='border-b cursor-pointer'
-                        onClick={() => handleAccordian(index)}
-                      >
-                        <td className='p-2 text-center'>{schedule.hopeTime}</td>
-                        <td className='p-2 text-center'>{schedule.name}</td>
-                        <td className='p-2 text-center'>{schedule.category}</td>
-                        <td className='p-2 text-center'>{schedule.title}</td>
-                        <td className='p-2'>
-                          {accordian === index ? (
-                            <ChevronUp color='#f87171' size={16} />
-                          ) : (
-                            <ChevronDown color='#f87171' size={16} />
-                          )}
-                        </td>
-                      </tr>
-                      {accordian === index && (
-                        <tr>
-                          <td colSpan={5} className='p-2 bg-gray-100'>
-                            <p>{schedule.inquiryDetails}</p>
+                  {sortedSchedules.map(
+                    (
+                      { hopeTime, name, category, title, inquiryDetails },
+                      index
+                    ) => (
+                      <React.Fragment key={index}>
+                        <tr
+                          className='border-b cursor-pointer'
+                          onClick={() => handleAccordian(index)}
+                        >
+                          <td className='p-2 text-center'>{hopeTime}</td>
+                          <td className='p-2 text-center'>{name}</td>
+                          <td className='p-2 text-center'>{category}</td>
+                          <td className='p-2 text-center'>{title}</td>
+                          <td className='p-2'>
+                            {accordian === index ? (
+                              <ChevronUp color='#f87171' size={16} />
+                            ) : (
+                              <ChevronDown color='#f87171' size={16} />
+                            )}
                           </td>
                         </tr>
-                      )}
-                    </React.Fragment>
-                  ))}
+                        {accordian === index && (
+                          <tr>
+                            <td colSpan={5} className='p-2 bg-gray-100'>
+                              <p>{inquiryDetails}</p>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    )
+                  )}
                 </tbody>
               </table>
             ) : (
