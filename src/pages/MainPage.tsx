@@ -1,11 +1,11 @@
 // PR TEST
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import CR from '../components/ConsultationRequest';
-import GL from '../components/GuestList';
+import ConsultationRequest from '../components/ConsultationRequest';
+import GuestList from '../components/GuestList';
 import PbCalendar from '../components/PbCalendar';
-import PP from '../components/PbProfile';
-import SCL from '../components/ScheduledConsultationList';
+import PbProfile from '../components/PbProfile';
+import ScheduledConsultationList from '../components/ScheduledConsultationList';
 import { Button } from '../components/ui/button';
 
 export default function MainPage() {
@@ -17,11 +17,11 @@ export default function MainPage() {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const response = await fetch('../../public/data/Customer.json');
+        const response = await fetch('/data/Customers.json');
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        alert('Error fetching data:');
       }
     };
 
@@ -39,7 +39,7 @@ export default function MainPage() {
       <div className='flex flex-col flex-grow w-1/4 h-full mr-10'>
         {/* 프로필 */}
         <div className='overflow-y-auto w-full h-3/5 mb-5'>
-          <PP />
+          <PbProfile />
         </div>
         {/* Dictionary 버튼 */}
         <Link className='w-full' to={'/dictionary'}>
@@ -49,7 +49,7 @@ export default function MainPage() {
         </Link>
         {/* 들어온 상담 요청 */}
         <div className='overflow-y-auto h-full'>
-          <CR onApprove={handleApproveConsultation} />
+          <ConsultationRequest onApprove={handleApproveConsultation} />
         </div>
       </div>
 
@@ -64,7 +64,7 @@ export default function MainPage() {
         </div>
         {/* 예정된 상담 일정 */}
         <div className='flex flex-col h-1/2 overflow-y-auto'>
-          <SCL consultations={scheduledConsultations} />
+          <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export default function MainPage() {
       <div className='flex flex-col w-1/4 h-full'>
         {/* 손님 목록 */}
         <div className='overflow-y-auto'>
-          <GL customers={customers} />
+          <GuestList customers={customers} />
         </div>
       </div>
     </div>

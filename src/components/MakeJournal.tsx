@@ -1,42 +1,97 @@
 import { Button } from './ui/button';
 
-export default function MakeJoural() {
+export default function MakeJournal() {
   return (
-    <>
-      <div className='flex flex-col justify-between border shadow-lg border-gray-200 w-full'>
-        <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
-          상담일지 작성하기
-        </div>
-        <div className='flex flex-col justify-end mt-3'>
-          <div className='flex flex-row justify-end mr-3 mb-3'>
-            <Button className='bg-hanaindigo mr-5'>상담요청 자세히보기</Button>
-            <Button className='bg-hanaindigo'>스크립트 수정</Button>
-          </div>
+    <div className='flex flex-col border shadow-lg border-gray-200 w-full h-full rounded-t-lg'>
+      <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-3 rounded-t-lg pl-5'>
+        상담일지 작성하기
+      </div>
 
-          <div className='bg-white ml-2 mr-2 mb-3'>
-            <Button className='bg-hanagold'>키워드버튼</Button>
-          </div>
+      <div className='p-3 border h-full flex flex-col justify-between'>
+        <div className='flex flex-col justify-end mb-2'>
+          {/* 상담요청 내용 관련 데이터 */}
+          <>
+            <div className='flex justify-between items-center border-b border-black py-1'>
+              <label className='text-xs'>[상담 제목]</label>
+              <input
+                type='text'
+                maxLength={15}
+                defaultValue={'title'}
+                className='text-sm font-bold w-[83%] px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
+              />
+            </div>
+            <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
+              <div className='flex items-center justify-between w-1/2'>
+                <label className='text-xs'>[카테고리]</label>
+                <input
+                  type='text'
+                  maxLength={5}
+                  defaultValue={'카테고리'}
+                  className='text-sm font-bold w-2/3 px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
+                />
+              </div>
+              <div className='flex items-center justify-between w-1/2'>
+                <label className='text-xs'>[손님]</label>
+                <input
+                  type='text'
+                  maxLength={10}
+                  defaultValue={'손님이름'}
+                  className='text-sm font-bold w-2/3 px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
+                />
+              </div>
+            </div>
+            <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
+              <div className='flex items-center justify-between w-1/2'>
+                <label className='text-xs'>[담당PB]</label>
+                <input
+                  type='text'
+                  maxLength={5}
+                  defaultValue={'PB'}
+                  className='text-sm font-bold w-2/3 px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
+                />
+              </div>
+              <div className='flex items-center justify-between w-1/2'>
+                <label className='text-xs'>[상담일]</label>
+                <input
+                  type='text'
+                  maxLength={20}
+                  defaultValue={'상담일'}
+                  className='text-sm font-bold w-2/3 px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
+                />
+              </div>
+            </div>
+          </>
         </div>
 
-        <div className='h-2/3 mb-3 mr-2 ml-2'>
-          <textarea className='w-full h-full border resize-none'></textarea>
+        {/* 도큐먼트 작성란 */}
+        <div className='h-1/3 mb-3'>
+          <span className='text-sm mb-2'>[PB의 기록]</span>
+          <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold' />
         </div>
-        <div className='flex flex-row justify-between mb-5 mr-2 ml-2'>
-          <div>첨부파일</div>
-          <div>첨부파일명</div>
+
+        {/* 스크립트 기입란 */}
+        <div className='h-1/3 mb-3'>
+          <span className='text-sm mb-2'>[상담 스크립트]</span>
+          <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold' />
         </div>
-        <div className='flex flex-row justify-between ml-3 mb-3 mr-3'>
+
+        <div className='flex items-center mb-2 '>
+          <span className='text-xs mr-2'>[첨부파일]</span>
+          <input type='file' className='text-xs' />
+        </div>
+
+        {/* 최하단 버튼 */}
+        <div className='flex justify-end'>
           <div>
-            <Button className='bg-hanaindigo'>파일첨부</Button>
+            <Button className='bg-hanasilver w-20 mr-5 px-2 rounded-xl'>
+              임시저장
+            </Button>
           </div>
           <div>
-            <Button className='bg-hanaindigo mr-5'>임시저장</Button>
-          </div>
-          <div>
-            <Button className='bg-hanaindigo'>전송</Button>
+            <Button className='bg-hanaindigo w-20 px-2 rounded-xl'>전송</Button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

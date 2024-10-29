@@ -14,7 +14,7 @@ function App() {
       <Route path='/login' element={<LoginPage />} />
       <Route path='/' element={<MainPage />} />
       <Route path='/customerDetail/:id' element={<CustomerDetailPage />} />
-      <Route path='/consulting' element={<ConsultingPage />} />
+      <Route path='/consulting/:id' element={<ConsultingPage />} />
       <Route path='/dictionary' element={<DictionaryPage />} />
     </Routes>
   );

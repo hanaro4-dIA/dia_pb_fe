@@ -18,15 +18,17 @@ export default function ConsultationRequest({
         const response = await fetch('/data/Consultings.json');
         const data: TRequestedConsultationsProps[] = await response.json();
 
-        // 필터 조건: approvalStatus가 false이면서 finishStatus가 false인 항목만
-        const filteredData = data.filter(
-          ({ approvalStatus, finishStatus }) =>
-            approvalStatus === false && finishStatus === false
-        );
+        // 필터 및 정렬 조건: approvalStatus가 false이면서 finishStatus가 false인 항목만, requestDay 기준으로 오름차순 정렬
+        const filteredData = data
+          .filter(
+            ({ approvalStatus, finishStatus }) =>
+              approvalStatus === false && finishStatus === false
+          )
+          .sort((a, b) => new Date(a.requestDay).getTime() - new Date(b.requestDay).getTime());
 
         setConsultationData(filteredData);
       } catch (error) {
-        console.error('Error fetching consultation data:', error);
+        alert('Error fetching consultation data:');
       }
     };
 
@@ -67,18 +69,15 @@ export default function ConsultationRequest({
               requestDay,
               approvalStatus,
             }) => (
-              <article className='w-full flex flex-col justify-end mb-4 items-start'>
+              <article key={id} className='w-full flex flex-col justify-end mb-4 items-start'>
                 <small className='ml-2'>{requestDay}</small>
-                <div
-                  key={id}
-                  className='bg-white rounded-lg border border-gray-200 p-4 shadow-lg w-full'
-                >
+                <div className='bg-white rounded-lg border border-gray-200 p-4 shadow-lg w-full'>
                   <div className='flex justify-between items-center'>
                     <div className='flex flex-col w-[70%]'>
                       <span className='w-[95%] text-[1rem] font-bold truncate	'>
                         {name} 손님
                       </span>
-                      <span className=' w-[95%] font-bold truncate	'>
+                      <span className='w-[95%] font-bold truncate	'>
                         {title}
                       </span>
                       <span className='text-[0.8rem] font-bold'>
