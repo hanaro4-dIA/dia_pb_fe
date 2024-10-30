@@ -1,7 +1,6 @@
 import copyright from '../assets/copyright.png';
-import logo from '../assets/diA.png';
+import logo from '../assets/diA_business.png';
 import Login from '../components/Login';
-import { Label } from '../components/ui/label';
 
 export default function LoginPage() {
   return (
