@@ -22,7 +22,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
     try {
       const response = await fetch('/data/Category.json');
       const categoryData: TCategoryProps[] = await response.json();
-      const category = categoryData.find((cg) => cg.id === categoryId);
+      const category = categoryData.find(({ id }) => id === categoryId);
 
       if (category) {
         setCategoryName(category.name);

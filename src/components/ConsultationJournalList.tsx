@@ -1,8 +1,8 @@
+import ReactDOM from 'react-dom';
 import { useEffect, useState } from 'react';
 import { type TPbProps } from '../lib/types';
 import { type TCustomerPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
-import ReactDOM from 'react-dom';
 import ReadJournal from './ReadJournal';
 
 type TConsultationJournalListProps = {
@@ -72,25 +72,25 @@ export default function ConsultationJournalList({
     fetchConsultationData();
   }, [pbId]);
 
-const openNewWindow = (consultation: TJournalsProps) => {
-  const newWindow = window.open('', '_blank', 'width=800,height=600');
+  const openNewWindow = (consultation: TJournalsProps) => {
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
 
-  if (newWindow) {
-    // 부모의 스타일을 가져오는 부분
-    const styles = Array.from(document.styleSheets)
-      .map((styleSheet) => {
-        try {
-          return Array.from(styleSheet.cssRules)
-            .map((rule) => rule.cssText)
-            .join("");
-        } catch (e) {
-          console.warn("Failed to load some CSS rules:", e);
-          return "";
-        }
-      })
-      .join("");
+    if (newWindow) {
+      // 부모의 스타일을 가져오는 부분
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            console.warn('Failed to load some CSS rules:', e);
+            return '';
+          }
+        })
+        .join('');
 
-    newWindow.document.write(`
+      newWindow.document.write(`
       <html lang="en">
         <head>
           <meta charset="UTF-8" />
@@ -103,19 +103,19 @@ const openNewWindow = (consultation: TJournalsProps) => {
         </body>
       </html>
     `);
-    newWindow.document.close();
+      newWindow.document.close();
 
-    // ReactDOM을 사용하여 ReadJournal 컴포넌트를 새 창에 렌더링
-    const root = newWindow.document.getElementById('journal-root');
+      // ReactDOM을 사용하여 ReadJournal 컴포넌트를 새 창에 렌더링
+      const root = newWindow.document.getElementById('journal-root');
 
-    if (root) {
-      ReactDOM.render(
-        <ReadJournal consultation={consultation} pbName={pbName} />,
-        root
-      );
+      if (root) {
+        ReactDOM.render(
+          <ReadJournal consultation={consultation} pbName={pbName} />,
+          root
+        );
+      }
     }
-  }
-};
+  };
 
   return (
     <div className='flex flex-col h-full bg-white'>
