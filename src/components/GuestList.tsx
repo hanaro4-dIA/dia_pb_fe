@@ -18,11 +18,11 @@ type TGuestListProps = {
 
 export default function GuestList({ customers }: TGuestListProps) {
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
-  const [memo, setMemo] = useState<TCustomerPb[]>([]); // 고객_PB 메모 데이터
+  const [memo, setMemo] = useState<TCustomerPb[]>([]); // 손님_PB 메모 데이터
   const navigate = useNavigate();
-  const params = useParams();
+  const { idParam } = useParams();
 
-  // 고객 및 상담 메모 데이터를 가져오는 함수
+  // 손님 및 상담 메모 데이터를 가져오는 함수
   useEffect(() => {
     const fetchMemos = async () => {
       try {
@@ -38,11 +38,11 @@ export default function GuestList({ customers }: TGuestListProps) {
   }, []);
 
   // 입력한 검색어에 따라 손님 목록을 필터링하는 함수
-  const filteredCustomers = customers.filter((customer) =>
-    customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCustomers = customers.filter(({ name }) =>
+    name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // 고객 ID로 해당 메모 찾기
+  // 손님 ID로 해당 메모 찾기
   const getMemo = (customerId: number) => {
     const cMemo = memo.find((c) => c.customer_id === customerId);
     return cMemo ? cMemo.memo : '메모 없음';
@@ -71,34 +71,33 @@ export default function GuestList({ customers }: TGuestListProps) {
 
         {/* 필터링된 손님 목록 */}
         <div className='mt-2 p-4'>
-          {filteredCustomers.map((customer) => (
+          {filteredCustomers.map(({ id, name }) => (
             <div
-              key={customer.id}
+              key={id}
               className='mb-4'
-              onClick={() => navigate(`/customerDetail/${customer.id}`)}
+              onClick={() => navigate(`/customerDetail/${id}`)}
             >
-              {customer.id === Number(params.id) ? (
-                <div className='bg-hanagold rounded-lg p-4 border shadow-lg cursor-pointer'>
-                  {/* 고객 이름 */}
-                  <div className='text-white text-lg font-bold'>
-                    {customer.name} 손님
-                  </div>
+              {/* 현재 보고 있는 손님일 경우 */}
+              {id === Number(idParam) ? (
+                <div className='border-2 border-hanaindigo rounded-lg p-4 shadow-lg cursor-pointer'>
+                  {/* 손님 이름 */}
+                  <div className='text-lg font-bold'>{name} 손님</div>
 
-                  {/* 고객별 메모 내용 */}
-                  <div className='bg-hanaindigo text-white p-2 mt-2 rounded-lg'>
-                    <div className='truncate w-full'>{getMemo(customer.id)}</div>
+                  {/* 손님별 메모 내용 */}
+                  <div className=' bg-hanagold/60 text-black p-2 mt-2 rounded-lg'>
+                    <div className='truncate w-full'>{getMemo(id)}</div>
                   </div>
                 </div>
               ) : (
                 <div className='bg-white rounded-lg p-4 border shadow-lg cursor-pointer'>
-                  {/* 고객 이름 */}
+                  {/* 손님 이름 */}
                   <div className='text-black text-lg font-bold'>
-                    {customer.name} 손님
+                    {name} 손님
                   </div>
 
-                  {/* 고객별 메모 내용 */}
+                  {/* 손님별 메모 내용 */}
                   <div className='bg-hanagold/40 text-black p-3 mt-2 rounded-lg'>
-                    <div className='truncate w-full'>{getMemo(customer.id)}</div>
+                    <div className='truncate w-full'>{getMemo(id)}</div>
                   </div>
                 </div>
               )}

@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import { useEffect, useState } from 'react';
 import { type TPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';

@@ -14,14 +14,14 @@ type TCustomer = {
 
 export default function ConsultingPage() {
   const [customerName, setCustomerName] = useState<string | null>(null);
-  const params = useParams();
+  const { id } = useParams();
 
-  // 고객 이름 불러오기 함수
+  // 손님 이름 불러오기 함수
   const fetchCustomerName = async (customerId: number) => {
     try {
       const response = await fetch('/data/Customers.json');
       const customerData: TCustomer[] = await response.json();
-      const customer = customerData.find((cust) => cust.id === customerId);
+      const customer = customerData.find(({ id }) => id === customerId);
 
       if (customer) {
         setCustomerName(customer.name);
@@ -35,10 +35,10 @@ export default function ConsultingPage() {
   };
 
   useEffect(() => {
-    if (params.id) {
-      fetchCustomerName(Number(params.id));
+    if (id) {
+      fetchCustomerName(Number(id));
     }
-  }, [params.id]);
+  }, [id]);
 
   return (
     <>
@@ -58,7 +58,7 @@ export default function ConsultingPage() {
 
           {/* 손님 정보 */}
           <div className='h-1/2'>
-            <CustomerInformation customerId={Number(params.id)} />
+            <CustomerInformation customerId={Number(id)} />
           </div>
 
           {/* Dictionary 버튼 */}
@@ -70,7 +70,7 @@ export default function ConsultingPage() {
 
           {/* 상담일지 리스트 */}
           <div className='h-1/2'>
-            <ConsultationJournalList customerId={Number(params.id)} />
+            <ConsultationJournalList customerId={Number(id)} />
           </div>
         </div>
 
