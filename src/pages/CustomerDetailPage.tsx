@@ -36,19 +36,17 @@ export default function CustomerDetailPage() {
 
       {/* 두 번째 열: 손님 정보와 상담 일정 */}
       <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
-        <div className='h-1/2'>
+        <div>
           <CustomerInformation customerId={Number(params.id)} />
         </div>
-        <div className='h-1/2'>
+        <div className='flex-grow flex-shrink-0 min-h-0 overflow-y-auto'>
           <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>
 
       {/* 세 번째 열: 상담 일지 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
-        <div className='overflow-y-auto'>
-          <ConsultationJournalList customerId={Number(params.id)} />
-        </div>
+        <ConsultationJournalList customerId={Number(params.id)} />
       </div>
     </div>
   );
