@@ -56,7 +56,7 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
   };
 
   return (
-    <div className='relative flex flex-col w-full h-full'>
+    <div className='border borelative flex flex-col w-full h-full'>
       {/* 헤더 */}
       <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
         STT 자동 작성란
@@ -92,9 +92,8 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
           </div>
         </div>
 
-        {/* 버튼 */}
-        <div className='flex justify-end p-3'>
-          <Button className='bg-hanaindigo'>저장</Button>
+        <div className='flex justify-end'>
+          <Button className='bg-hanaindigo w-20 px-2 rounded-xl'>저장</Button>
         </div>
       </div>
     </div>

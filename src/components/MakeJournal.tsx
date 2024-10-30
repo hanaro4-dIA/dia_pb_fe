@@ -12,74 +12,72 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
       </div>
 
       <div className='p-3 border h-full flex flex-col justify-between'>
-        <div className='flex flex-col justify-end mb-2'>
+        <div className='flex flex-col h-[90%] space-y-3 mb-2'>
           {/* 상담요청 내용 관련 데이터 */}
           <>
             <div className='flex justify-between items-center border-b border-black py-1'>
               <label className='text-xs'>[상담 제목]</label>
-              <input
-                type='text'
-                maxLength={15}
-                defaultValue={'title'}
-                className='text-sm font-bold w-[83%] px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
-              />
+              <div className='text-sm font-bold w-[84%] px-2 focus:outline-none rounded-xl'>
+                제목!!!!!!
+              </div>
             </div>
             <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
               <div className='flex items-center justify-between w-1/2'>
                 <label className='text-xs'>[카테고리]</label>
-                <input
-                  type='text'
-                  maxLength={5}
-                  defaultValue={'카테고리'}
-                  className='text-sm font-bold w-2/3 px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
-                />
+                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                  카테고리
+                </div>
               </div>
               <div className='flex items-center justify-between w-1/2'>
                 <label className='text-xs'>[손님]</label>
-                <input
-                  type='text'
-                  maxLength={10}
-                  defaultValue={'손님이름'}
-                  className='text-sm font-bold w-2/3 px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
-                />
+                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                  손님이름
+                </div>
               </div>
             </div>
             <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
               <div className='flex items-center justify-between w-1/2'>
                 <label className='text-xs'>[담당PB]</label>
-                <input
-                  type='text'
-                  maxLength={5}
-                  defaultValue={'PB'}
-                  className='text-sm font-bold w-2/3 px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
-                />
+                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                  담당 PB 이름
+                </div>
               </div>
               <div className='flex items-center justify-between w-1/2'>
                 <label className='text-xs'>[상담일]</label>
-                <input
-                  type='text'
-                  maxLength={20}
-                  defaultValue={'상담일'}
-                  className='text-sm font-bold w-2/3 px-2 hover:bg-hanagold/30 focus:outline-none rounded-xl'
-                />
+                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                  상담일
+                </div>
               </div>
             </div>
           </>
-        </div>
 
-        {/* 도큐먼트 작성란 */}
-        <div className='h-1/3 mb-3'>
-          <span className='text-sm mb-2'>[PB의 기록]</span>
-          <textarea
-            value={selectedText}
-            className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold'
-          />
-        </div>
+          {/* 도큐먼트 작성란 */}
+          <div className='h-1/3 mb-3'>
+            <span className='text-sm mb-2'>[PB의 기록]</span>
+            <textarea
+              value={selectedText}
+              className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold'
+            />
+          </div>
+          <div className=' flex flex-col flex-grow overflow-y-auto'>
+            {/* 도큐먼트 작성란 */}
+            <div className='h-1/3 mb-3'>
+              <span className='text-sm mb-2'>[PB의 기록]</span>
+              <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanasilver' />
+            </div>
 
-        {/* 스크립트 기입란 */}
-        <div className='h-1/3 mb-3'>
-          <span className='text-sm mb-2'>[상담 스크립트]</span>
-          <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold' />
+            {/* 추천 상품 */}
+            <div className='h-1/3 mb-3'>
+              <span className='text-sm mb-2'>[PB의 추천 상품]</span>
+              <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanasilver' />
+            </div>
+
+            {/* 스크립트 기입란 */}
+            <div className='h-1/3 mb-3'>
+              <span className='text-sm mb-2'>[상담 스크립트]</span>
+              <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanasilver' />
+            </div>
+          </div>
         </div>
 
         <div className='flex items-center mb-2 '>

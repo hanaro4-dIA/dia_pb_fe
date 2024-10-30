@@ -44,7 +44,7 @@ export default function MainPage() {
         {/* Dictionary 버튼 */}
         <Link className='w-full' to={'/dictionary'}>
           <Button className='w-full mb-5 bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'>
-            딕셔너리 바로가기
+            키워드 DB 목록 바로가기
           </Button>
         </Link>
         {/* 들어온 상담 요청 */}
@@ -57,7 +57,7 @@ export default function MainPage() {
       <div className='flex flex-col w-5/12 h-full mr-10'>
         {/* 캘린더 */}
         <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
-          캘린더
+          dIA 캘린더 - 전체 상담 일정
         </div>
         <div className='flex w-full h-1/2 mb-5'>
           <PbCalendar />

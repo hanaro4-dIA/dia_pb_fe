@@ -192,8 +192,8 @@ export default function DictionaryPage() {
           {selectedItem ? (
             <div className='h-full p-10 space-y-4 overflow-y-auto border-x border-b border-gray-200'>
               <div className='text-4xl font-bold'>{selectedItem.title}</div>
-              <div className='flex justify-between'>
-                <div className='flex gap-3'>
+              <div className='flex justify-between border-b border-black border-b-3 pb-2'>
+                <div className='flex gap-3 '>
                   <div className='text-lg font-extrabold'>작성자 </div>
                   <div className='text-lg'>{selectedItem.writer}</div>
                 </div>
@@ -204,16 +204,18 @@ export default function DictionaryPage() {
                   <div className='text-lg'>{selectedItem.makeDay}</div>
                 </div>
               </div>
-              <div className='flex gap-3'>
+              <div className='flex gap-3 border-b border-black border-b-3 pb-2'>
                 <div className='text-lg font-extrabold'>상세URL </div>
                 <div className='text-lg '>
                   <a
                     href={selectedItem.url}
                     target='_blank'
                     rel='noopener noreferrer'
+                    className='text-blue-500 underline'
                   >
                     {selectedItem.url}
                   </a>
+
                 </div>
               </div>
               <div className='text-3xl font-bold'>내용</div>
