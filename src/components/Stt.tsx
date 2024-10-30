@@ -61,7 +61,8 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
       <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
         STT 자동 작성란
       </div>
-      <div className='border-x border-gray-200'>
+      <div className='h-full p-2 border-x border-gray-200 flex flex-col justify-between'>
+        {/* border-x border-gray-200 */}
         {/* 텍스트 입력 영역 */}
         <div className='relative flex overflow-y-auto'>
           <textarea
