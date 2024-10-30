@@ -24,7 +24,11 @@ export default function ConsultationRequest({
             ({ approvalStatus, finishStatus }) =>
               approvalStatus === false && finishStatus === false
           )
-          .sort((a, b) => new Date(a.requestDay).getTime() - new Date(b.requestDay).getTime());
+          .sort(
+            (a, b) =>
+              new Date(a.requestDay).getTime() -
+              new Date(b.requestDay).getTime()
+          );
 
         setConsultationData(filteredData);
       } catch (error) {
@@ -50,7 +54,7 @@ export default function ConsultationRequest({
   };
 
   return (
-    <div className='flex flex-col h-full bg-white '>
+    <div className='flex flex-col h-full bg-white'>
       <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         들어온 상담 요청
       </div>
@@ -66,7 +70,10 @@ export default function ConsultationRequest({
               requestDay,
               approvalStatus,
             }) => (
-              <article key={id} className='w-full flex flex-col justify-end mb-4 items-start'>
+              <article
+                key={id}
+                className='w-full flex flex-col justify-end mb-4 items-start'
+              >
                 <small className='ml-2'>{requestDay}</small>
                 <div className='bg-white rounded-lg border border-gray-200 p-4 shadow-lg w-full'>
                   <div className='flex justify-between items-center'>
@@ -95,7 +102,7 @@ export default function ConsultationRequest({
           )}
         </div>
       ) : (
-        <div className='text-center text-hanaindigo p-4 text-xl'>
+        <div className='text-center text-hanaindigo p-4 h-full text-xl border-x border-b border-gray-200'>
           모든 상담 요청이 승인되었습니다.
         </div>
       )}
