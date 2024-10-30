@@ -16,7 +16,7 @@ export default function ConsultingPage() {
   const [customerName, setCustomerName] = useState<string | null>(null);
   const params = useParams();
 
-  // 고객 이름 불러오기 함수
+  // 손님 이름 불러오기 함수
   const fetchCustomerName = async (customerId: number) => {
     try {
       const response = await fetch('/data/Customers.json');
