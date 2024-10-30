@@ -24,7 +24,11 @@ export default function ConsultationRequest({
             ({ approvalStatus, finishStatus }) =>
               approvalStatus === false && finishStatus === false
           )
-          .sort((a, b) => new Date(a.requestDay).getTime() - new Date(b.requestDay).getTime());
+          .sort(
+            (a, b) =>
+              new Date(a.requestDay).getTime() -
+              new Date(b.requestDay).getTime()
+          );
 
         setConsultationData(filteredData);
       } catch (error) {
@@ -66,7 +70,10 @@ export default function ConsultationRequest({
               requestDay,
               approvalStatus,
             }) => (
-              <article key={id} className='w-full flex flex-col justify-end mb-4 items-start'>
+              <article
+                key={id}
+                className='w-full flex flex-col justify-end mb-4 items-start'
+              >
                 <small className='ml-2'>{requestDay}</small>
                 <div className='bg-white rounded-lg border border-gray-200 p-4 shadow-lg w-full'>
                   <div className='flex justify-between items-center'>

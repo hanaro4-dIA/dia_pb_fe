@@ -88,7 +88,7 @@ export default function CustomerInformation({
         <div className='p-2 border-x border-b border-gray-200'>
           <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
             <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
-              <span className='text-sm'>손님과 만난 날짜</span>
+              <span className='text-sm'>손님과 처음 만난 날짜</span>
               <span className='text-sm'>{meetDate || '정보 없음'}</span>
             </div>
           </div>

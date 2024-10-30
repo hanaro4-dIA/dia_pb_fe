@@ -1,6 +1,5 @@
-
+import { LuDownload } from 'react-icons/lu';
 import { useEffect, useState } from 'react';
-import { LuDownload } from "react-icons/lu";
 import { type TCategoryProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
 
@@ -23,7 +22,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
     try {
       const response = await fetch('/data/Category.json');
       const categoryData: TCategoryProps[] = await response.json();
-      const category = categoryData.find((cg) => cg.id === categoryId);
+      const category = categoryData.find(({ id }) => id === categoryId);
 
       if (category) {
         setCategoryName(category.name);
@@ -36,12 +35,12 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
     }
   };
 
-  // 고객 이름 불러오기 함수
+  // 손님 이름 불러오기 함수
   const fetchCustomerName = async (customerId: number) => {
     try {
       const response = await fetch('/data/Customers.json');
       const customerData: Customer[] = await response.json();
-      const customer = customerData.find((cust) => cust.id === customerId);
+      const customer = customerData.find(({ id }) => id === customerId);
 
       if (customer) {
         setCustomerName(customer.name);
@@ -72,10 +71,11 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
         </div>
 
         <div className='p-10 space-y-4 over flow-y-auto bg-white'>
-          
           <div className='flex justify-between border-b border-black border-b-3 pb-2'>
             <div className='flex gap-3'>
-              <div className='text-lg font-extrabold w-20 text-right'>카테고리</div>
+              <div className='text-lg font-extrabold w-20 text-right'>
+                카테고리
+              </div>
               <div className='text-lg'>{categoryName}</div>
             </div>
             <div className='flex gap-3'>
@@ -86,7 +86,9 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
 
           <div className='flex justify-between border-b border-hanaindigo border-b-3 pb-2'>
             <div className='flex gap-3'>
-              <div className='text-lg font-extrabold w-20 text-right'>상담일시</div>
+              <div className='text-lg font-extrabold w-20 text-right'>
+                상담일시
+              </div>
               <div className='text-lg'>{consultation.date}</div>
             </div>
             <div className='flex gap-3'>
@@ -109,15 +111,18 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
             </div>
           </div>
 
-
           <div className='flex justify-between'>
             <div className='flex gap-3'>
-              <div className='text-lg font-extrabold w-20 text-right'>첨부파일</div>
+              <div className='text-lg font-extrabold w-20 text-right'>
+                첨부파일
+              </div>
               <div className='text-lg'>(첨부파일명)</div>
             </div>
 
             <div className='flex gap-3'>
-              <button className='text-lg font-extrabold'><LuDownload /></button>
+              <button className='text-lg font-extrabold'>
+                <LuDownload />
+              </button>
             </div>
           </div>
         </div>
