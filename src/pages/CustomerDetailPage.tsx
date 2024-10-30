@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import ConsultationJournalList from '../components/ConsultationJournalList';
 import CustomerInformation from '../components/CustomerInformation';
 import GuestList from '../components/GuestList';
@@ -7,10 +7,10 @@ import ScheduledConsultationList from '../components/ScheduledConsultationList';
 
 export default function CustomerDetailPage() {
   const [customers, setCustomers] = useState<any[]>([]);
-  const [scheduledConsultations, ] = useState<any[]>([]);
+  const [scheduledConsultations] = useState<any[]>([]);
 
   const params = useParams();
-  
+
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
@@ -18,7 +18,7 @@ export default function CustomerDetailPage() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        alert("손님 정보를 불러오지 못했습니다.");
+        alert('손님 정보를 불러오지 못했습니다.');
       }
     };
 
@@ -36,11 +36,11 @@ export default function CustomerDetailPage() {
 
       {/* 두 번째 열: 손님 정보와 상담 일정 */}
       <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
-        <div className='overflow-y-auto'>
+        <div className='h-1/2'>
           <CustomerInformation customerId={Number(params.id)} />
         </div>
-        <div className='overflow-y-auto'>
-          <ScheduledConsultationList consultations={scheduledConsultations}/>
+        <div className='h-1/2'>
+          <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>
 

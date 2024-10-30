@@ -71,30 +71,32 @@ export default function ScheduledConsultationList({
           : '예정된 상담 일정'}
       </div>
 
-      <div className='p-4 overflow-auto border-x border-b border-gray-200'>
+      <div className='p-4 overflow-auto h-full border-x border-b border-gray-200'>
         {allConsultations.length > 0 ? (
-          allConsultations.map((consultation, index) => (
-            <div
-              key={index}
-              className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
-            >
-              <div className='flex justify-between text-black text-[1rem] font-light'>
-                <span>{consultation.name} 손님</span>
-                <span>{consultation.hopeDay}</span>
+          allConsultations.map(
+            ({ name, title, customer_id, hopeDay, hopeTime }, index) => (
+              <div
+                key={index}
+                className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
+              >
+                <div className='flex justify-between text-black text-[1rem] font-light'>
+                  <span>{name} 손님</span>
+                  <span>
+                    {hopeDay} {hopeTime}
+                  </span>
+                </div>
+                <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
+                  {title}
+                  <button
+                    className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
+                    onClick={() => handleConsultationClick(customer_id)}
+                  >
+                    상담하기
+                  </button>
+                </div>
               </div>
-              <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
-                {consultation.title}
-                <button
-                  className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-                  onClick={() =>
-                    handleConsultationClick(consultation.customer_id)
-                  }
-                >
-                  상담하기
-                </button>
-              </div>
-            </div>
-          ))
+            )
+          )
         ) : (
           <div className='text-center text-gray-500 text-[1rem] font-light'>
             일정이 없습니다
