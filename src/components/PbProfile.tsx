@@ -166,11 +166,11 @@ export default function PbProfile() {
           </small>
 
           {/* PB 태그 */}
-          <div className='flex flex-wrap justify-between'>
+          <div className='flex flex-wrap gap-1'>
             {profile.tags?.map((tag, index) => (
               <div
                 key={index}
-                className='flex items-center bg-hanaindigo rounded-lg w-[32%] h-8 p-1'
+                className='flex items-center bg-hanaindigo rounded-lg w-[30%] h-8 p-1'
               >
                 <p className='text-white text-xs mx-1'>#</p>
                 <input
