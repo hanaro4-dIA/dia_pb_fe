@@ -57,7 +57,7 @@ export default function MainPage() {
       <div className='flex flex-col w-5/12 h-full mr-10'>
         {/* 캘린더 */}
         <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
-          캘린더
+          dIA 캘린더 - 전체 상담 일정
         </div>
         <div className='flex w-full h-1/2 mb-5'>
           <PbCalendar />
