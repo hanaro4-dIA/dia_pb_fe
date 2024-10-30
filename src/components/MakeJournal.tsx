@@ -1,3 +1,5 @@
+import { createRoot } from 'react-dom/client';
+import RequestContentPage from '../pages/RequestContentPage';
 import { Button } from './ui/button';
 
 type SecondComponentProps = {
@@ -5,6 +7,46 @@ type SecondComponentProps = {
 };
 
 export default function MakeJournal({ selectedText }: SecondComponentProps) {
+  const openNewWindow = () => {
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
+
+    if (newWindow) {
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            alert('Failed to load some CSS rules:');
+            return '';
+          }
+        })
+        .join('');
+
+      newWindow.document.write(`
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>상담 요청 내용</title>
+            <style>${styles}</style>
+          </head>
+          <body>
+            <div id="dictionary-root"></div>
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+
+      const rootElement = newWindow.document.getElementById('dictionary-root');
+      if (rootElement) {
+        const root = createRoot(rootElement);
+        root.render(<RequestContentPage />);
+      }
+    }
+  };
+
   return (
     <div className='flex flex-col border shadow-lg border-gray-200 w-full h-full rounded-t-lg'>
       <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-3 rounded-t-lg pl-5'>
@@ -17,8 +59,17 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
           <>
             <div className='flex justify-between items-center border-b border-black py-1'>
               <label className='text-xs'>[상담 제목]</label>
-              <div className='text-sm font-bold w-[84%] px-2 focus:outline-none rounded-xl'>
-                제목!!!!!!
+              <div className='flex justify-between items-center text-sm font-bold w-[84%] pl-2 focus:outline-none rounded-xl'>
+                <span className=''>
+                  제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제
+                </span>
+                <button
+                  onClick={openNewWindow}
+                  className='border border-hanaindigo px-2 py-1 rounded text-xs'
+                >
+                  요청내용 <br />
+                  자세히보기
+                </button>
               </div>
             </div>
             <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
@@ -47,49 +98,6 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
                 <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
                   상담일
                 </div>
-              </div>
-            </div>
-            <div className='flex justify-between items-center border-b border-black py-1'>
-              <label className='text-xs'>[요청 내용]</label>
-              <div className='text-sm font-bold w-[84%] px-2 focus:outline-none rounded-xl'>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Repellendus, aperiam reprehenderit iusto similique fugiat
-                pariatur deleniti nemo a enim doloremque at earum commodi,
-                eveniet dolorum cum quas illo minima inventore est nam
-                provident. Quis voluptate tempore, in molestiae molestias odio
-                quos aspernatur! Laboriosam atque dicta ducimus, ut aliquam,
-                consequatur iste maiores maxime, dolores et natus perspiciatis
-                eum facere explicabo dignissimos autem asperiores soluta?
-                Quisquam, consequatur consequuntur, sunt esse deleniti molestiae
-                assumenda ipsum natus dicta provident modi amet dignissimos
-                doloremque aut delectus, alias sequi nostrum quidem possimus.
-                Deleniti quod sunt placeat mollitia voluptatum velit omnis vero
-                assumenda minus tempore neque soluta in perspiciatis doloribus
-                molestiae debitis optio quia reprehenderit, architecto minima
-                qui necessitatibus nulla? Dignissimos doloremque iusto
-                laudantium, hic saepe labore minima quidem iste numquam,
-                repellat perspiciatis nulla? Non doloribus perspiciatis eveniet
-                laborum voluptates, harum culpa in excepturi quam debitis
-                placeat laboriosam, blanditiis asperiores aperiam! Iusto maiores
-                magnam architecto, magni impedit asperiores provident non
-                accusamus eos, repudiandae, saepe illum voluptates? Placeat odio
-                quas sunt cumque commodi, molestias natus ut laboriosam animi
-                aliquam optio libero! Et, veniam. Minima ipsa libero fugit
-                iusto, deleniti possimus a alias tempore veniam, quae quasi
-                ducimus. Culpa fugit eum quos quaerat quo neque illo sed ad
-                aliquam, ipsam in id dignissimos laboriosam reiciendis!
-                Reprehenderit magni voluptatibus nemo perferendis dolorem optio,
-                obcaecati molestiae tempora expedita. Non accusamus
-                reprehenderit consequuntur nesciunt! Facere, hic, quam fugit
-                dolorum, fugiat voluptas obcaecati reiciendis quis sit omnis
-                provident velit natus aspernatur. Corrupti cumque dicta totam
-                numquam in suscipit alias similique iusto. Voluptates modi ullam
-                ratione quam pariatur, quae consectetur? Earum nulla quidem
-                labore odit temporibus modi, ab provident sit consequatur
-                laudantium placeat, dolor assumenda laborum. Cupiditate quas
-                perspiciatis illo libero sequi totam autem hic aspernatur
-                dolorum similique quaerat tempore maiores itaque voluptate optio
-                esse ullam, ea ab! Officiis, ab. Quam facere nam repellendus!
               </div>
             </div>
           </>
