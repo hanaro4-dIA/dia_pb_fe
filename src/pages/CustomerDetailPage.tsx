@@ -4,10 +4,12 @@ import ConsultationJournalList from '../components/ConsultationJournalList';
 import CustomerInformation from '../components/CustomerInformation';
 import GuestList from '../components/GuestList';
 import ScheduledConsultationList from '../components/ScheduledConsultationList';
+import { type TCustomersProps } from '../lib/types';
+import { type TRequestedConsultationsProps } from '../lib/types';
 
 export default function CustomerDetailPage() {
-  const [customers, setCustomers] = useState<any[]>([]);
-  const [scheduledConsultations] = useState<any[]>([]);
+  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
+  const [scheduledConsultations] = useState<TRequestedConsultationsProps[]>([]);
 
   const { id } = useParams();
 

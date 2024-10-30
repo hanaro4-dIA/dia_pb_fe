@@ -6,7 +6,7 @@ import ReadJournal from './ReadJournal';
 
 type TConsultationJournalListProps = {
   customerId: number;
-  className: string;
+  className?: string;
 };
 
 export default function ConsultationJournalList({
