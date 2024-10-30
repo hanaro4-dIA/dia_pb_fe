@@ -1,7 +1,8 @@
 // 상담일지 타입 (Journals.json)
 export type TJournalsProps = {
   id: number;
-  customer_pb_id: number;
+  pb_id: number; // 작성한 pb ID
+  customer_id: number;
   category_id: number;
   status_id: number;
   title: string;
@@ -53,4 +54,17 @@ export type TCustomerPbProps = {
 export type TCategoryProps = {
   id: number;
   name: string;
+}
+
+
+// 상담 카테고리 타입 (Customers.json)
+export type TCustomersProps = {
+  id: number;
+  email: string;
+  password: string;
+  name: string;
+  sex: string;
+  birth: string;
+  tel: string;
+  address: string;
 }

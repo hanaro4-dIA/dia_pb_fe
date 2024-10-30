@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import ConsultationJournalList from '../components/ConsultationJournalList';
 import CustomerInformation from '../components/CustomerInformation';
 import GuestList from '../components/GuestList';
 import ScheduledConsultationList from '../components/ScheduledConsultationList';
+import { type TCustomersProps } from '../lib/types';
+import { type TRequestedConsultationsProps } from '../lib/types';
 
 export default function CustomerDetailPage() {
-  const [customers, setCustomers] = useState<any[]>([]);
-  const [scheduledConsultations, ] = useState<any[]>([]);
+  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
+  const [scheduledConsultations] = useState<TRequestedConsultationsProps[]>([]);
 
-  const params = useParams();
-  
+  const { id } = useParams();
+
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
@@ -18,7 +20,7 @@ export default function CustomerDetailPage() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        alert("손님 정보를 불러오지 못했습니다.");
+        alert('손님 정보를 불러오지 못했습니다.');
       }
     };
 
@@ -36,19 +38,17 @@ export default function CustomerDetailPage() {
 
       {/* 두 번째 열: 손님 정보와 상담 일정 */}
       <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
-        <div className='overflow-y-auto'>
-          <CustomerInformation customerId={Number(params.id)} />
+        <div>
+          <CustomerInformation customerId={Number(id)} />
         </div>
-        <div className='overflow-y-auto'>
-          <ScheduledConsultationList consultations={scheduledConsultations}/>
+        <div className='flex-grow flex-shrink-0 min-h-0 overflow-y-auto'>
+          <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>
 
       {/* 세 번째 열: 상담 일지 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
-        <div className='overflow-y-auto'>
-          <ConsultationJournalList customerId={Number(params.id)} />
-        </div>
+        <ConsultationJournalList customerId={Number(id)} />
       </div>
     </div>
   );
