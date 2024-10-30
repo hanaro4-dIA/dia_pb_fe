@@ -40,7 +40,7 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
     try {
       const response = await fetch('/data/Customers.json');
       const customerData: Customer[] = await response.json();
-      const customer = customerData.find((cust) => cust.id === customerId);
+      const customer = customerData.find(({ id }) => id === customerId);
 
       if (customer) {
         setCustomerName(customer.name);

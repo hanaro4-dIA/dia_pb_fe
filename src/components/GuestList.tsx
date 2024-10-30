@@ -38,8 +38,8 @@ export default function GuestList({ customers }: TGuestListProps) {
   }, []);
 
   // 입력한 검색어에 따라 손님 목록을 필터링하는 함수
-  const filteredCustomers = customers.filter((customer) =>
-    customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCustomers = customers.filter(({ name }) =>
+    name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // 손님 ID로 해당 메모 찾기
