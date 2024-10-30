@@ -54,7 +54,7 @@ export default function ConsultationRequest({
   };
 
   return (
-    <div className='flex flex-col h-full bg-white '>
+    <div className='flex flex-col h-full bg-white'>
       <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         들어온 상담 요청
       </div>
@@ -102,7 +102,7 @@ export default function ConsultationRequest({
           )}
         </div>
       ) : (
-        <div className='text-center text-hanaindigo p-4 text-xl'>
+        <div className='text-center text-hanaindigo p-4 h-full text-xl border-x border-b border-gray-200'>
           모든 상담 요청이 승인되었습니다.
         </div>
       )}

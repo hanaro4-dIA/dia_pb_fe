@@ -1,5 +1,6 @@
+import copyright from '../assets/copyright.png';
+import logo from '../assets/diA_business.png';
 import Login from '../components/Login';
-import { Label } from '../components/ui/label';
 
 export default function LoginPage() {
   return (
@@ -9,13 +10,13 @@ export default function LoginPage() {
           <div className='flex flex-col h-full justify-between'>
             <div className='flex flex-col border border-gray-300 shadow-lg p-6 h-full bg-white'>
               <div className='flex justify-center'>
-                <img src='/logo.png' alt='dIA logo' />
+                <img src={logo} alt='dIA logo' />
               </div>
               <div className='text-3xl text-hanaindigo mb-4'>LOGIN</div>
               <Login />
-              <Label className='text-xs text-center text-gray-300'>
-                copyright @dIA
-              </Label>
+              <div className='flex justify-center '>
+                <img className='w-20' src={copyright} alt='copyright' />
+              </div>
             </div>
           </div>
         </div>
