@@ -56,12 +56,12 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
   };
 
   return (
-    <div className='border borelative flex flex-col w-full h-full'>
+    <div className='border relative flex flex-col w-full h-full'>
       {/* 헤더 */}
       <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
         STT 자동 작성란
       </div>
-      <div className='border-x border-b border-gray-200'>
+      <div className='border-x border-gray-200'>
         {/* 텍스트 입력 영역 */}
         <div className='relative flex overflow-y-auto'>
           <textarea
@@ -70,7 +70,7 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder='STT 입력'
-            className='h-full w-full border resize-none rounded-lg p-2 focus:outline-none min-h-[calc(100vh-14rem)]'
+            className='h-full w-full resize-none rounded-lg p-2 focus:outline-none min-h-[calc(100vh-14rem)]'
           />
 
           {/* 입력된 단어를 기반으로 생성된 버튼 */}

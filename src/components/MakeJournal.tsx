@@ -51,19 +51,15 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
             </div>
           </>
 
-          {/* 도큐먼트 작성란 */}
-          <div className='h-1/3 mb-3'>
-            <span className='text-sm mb-2'>[PB의 기록]</span>
-            <textarea
-              value={selectedText}
-              className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold'
-            />
-          </div>
           <div className=' flex flex-col flex-grow overflow-y-auto'>
             {/* 도큐먼트 작성란 */}
             <div className='h-1/3 mb-3'>
               <span className='text-sm mb-2'>[PB의 기록]</span>
-              <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanasilver' />
+
+              <textarea
+                value={selectedText}
+                className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanasilver'
+              />
             </div>
 
             {/* 추천 상품 */}
