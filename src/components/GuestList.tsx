@@ -20,7 +20,7 @@ export default function GuestList({ customers }: TGuestListProps) {
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
   const [memo, setMemo] = useState<TCustomerPb[]>([]); // 손님_PB 메모 데이터
   const navigate = useNavigate();
-  const params = useParams();
+  const { idParam } = useParams();
 
   // 손님 및 상담 메모 데이터를 가져오는 함수
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function GuestList({ customers }: TGuestListProps) {
               onClick={() => navigate(`/customerDetail/${id}`)}
             >
               {/* 현재 보고 있는 손님일 경우 */}
-              {id === Number(params.id) ? (
+              {id === Number(idParam) ? (
                 <div className='border-2 border-hanaindigo rounded-lg p-4 shadow-lg cursor-pointer'>
                   {/* 손님 이름 */}
                   <div className='text-lg font-bold'>{name} 손님</div>
