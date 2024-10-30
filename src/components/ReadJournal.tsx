@@ -3,20 +3,16 @@ import { useEffect, useState } from 'react';
 import { LuDownload } from "react-icons/lu";
 import { type TCategoryProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
+import { type TCustomersProps } from '../lib/types';
 
-type JournalsProps = {
+type TPbJournalsProps = {
   consultation: TJournalsProps;
-  pbName: string | null;
+  pbName: string;
 };
 
-type Customer = {
-  id: number;
-  name: string;
-};
-
-export default function ReadJournal({ consultation, pbName }: JournalsProps) {
-  const [categoryName, setCategoryName] = useState<string | null>(null);
-  const [customerName, setCustomerName] = useState<string | null>(null);
+export default function ReadJournal({ consultation, pbName }: TPbJournalsProps) {
+  const [categoryName, setCategoryName] = useState<string>('');
+  const [customerName, setCustomerName] = useState<string>('');
 
   // 카테고리 이름 불러오기 함수
   const fetchCategoryName = async (categoryId: number) => {
@@ -27,12 +23,9 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
 
       if (category) {
         setCategoryName(category.name);
-      } else {
-        setCategoryName('카테고리 없음');
       }
     } catch (error) {
       alert('Error fetching category data:');
-      setCategoryName('데이터 로드 실패');
     }
   };
 
@@ -40,17 +33,14 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
   const fetchCustomerName = async (customerId: number) => {
     try {
       const response = await fetch('/data/Customers.json');
-      const customerData: Customer[] = await response.json();
+      const customerData: TCustomersProps[] = await response.json();
       const customer = customerData.find((cust) => cust.id === customerId);
 
       if (customer) {
         setCustomerName(customer.name);
-      } else {
-        setCustomerName('손님 없음');
       }
     } catch (error) {
       alert('Error fetching customer data:');
-      setCustomerName('데이터 로드 실패');
     }
   };
 
@@ -58,10 +48,10 @@ export default function ReadJournal({ consultation, pbName }: JournalsProps) {
     if (consultation.category_id) {
       fetchCategoryName(consultation.category_id);
     }
-    if (consultation.customer_pb_id) {
-      fetchCustomerName(consultation.customer_pb_id);
+    if (consultation.customer_id) {
+      fetchCustomerName(consultation.customer_id);
     }
-  }, [consultation.category_id, consultation.customer_pb_id]);
+  }, [consultation.category_id, consultation.customer_id]);
 
   return (
     <div className='flex items-start justify-center w-full h-full space-x-4 overflow-hidden'>
