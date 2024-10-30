@@ -35,7 +35,7 @@ export default function CustomerInformation({
         const response = await fetch('/data/Customers.json');
         const data: TCustomersProps[] = await response.json();
         const customer = data.find((c) => c.id === customerId);
-        setCustomerData(customer!); // Non-null assertion because data is guaranteed
+        setCustomerData(customer!);
       } catch (error) {
         alert('Error fetching customer data:');
       }
