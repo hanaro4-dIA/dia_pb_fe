@@ -9,7 +9,8 @@ export default function PbProfile() {
     businessId: 101,
     name: '안유진',
     tags: ['부동산', '대출', '보험'],
-    introduce: '안녕하세요 부동산 투자 전문 PB 안유진입니다.',
+    introduce:
+      '안녕하세요 부동산 투자 전문 PB 안유진입니다. 잘 부탁드립니다!! 진상손님은 NoNo!!',
     image_url:
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
     office_id: 1,
@@ -116,17 +117,16 @@ export default function PbProfile() {
         </button>
       </div>
 
-      <div className='flex items-center pl-3 pr-3 h-full border-x border-b border-gray-200'>
+      <div className='flex items-center px-3 py-2 h-full border-x border-b border-gray-200'>
+        {/* 프로필 이미지 */}
         <input
           type='file'
           style={{ display: 'none' }}
           accept='image/jpg,image/png,image/jpeg'
           name='profile_img'
           onChange={handleImage}
-          //disabled={!isEditing}
           ref={fileInput}
         />
-
         <img
           className='w-28 h-28 rounded-full'
           src={Image}
@@ -138,16 +138,15 @@ export default function PbProfile() {
 
         <div className='flex flex-col ml-3 mt-3 w-full justify-between'>
           <div className='flex items-center'>
-            <input
-              className='bg-white flex items-center w-16 text-xl placeholder-black font-bold'
-              type='text'
-              name='name'
-              value={profile.name}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              placeholder={profile.name}
-            />
+            <div
+              className='flex items-center w-16 text-xl 
+            font-bold'
+            >
+              {profile.name}
+            </div>
             <p className='mr-4'>PB</p>
+
+            {/* 현재 활동중 여부 토글 */}
             <Switch
               checked={isWorking}
               onCheckedChange={setIsWorking}
@@ -167,11 +166,12 @@ export default function PbProfile() {
             {getOffice(profile.office_id)}
           </small>
 
-          <div className='flex flex-wrap gap-1'>
+          {/* PB 태그 */}
+          <div className='flex flex-wrap justify-between'>
             {profile.tags?.map((tag, index) => (
               <div
                 key={index}
-                className='flex items-center bg-hanaindigo rounded-lg mr-2 h-8 p-1 w-[28%]'
+                className='flex items-center bg-hanaindigo rounded-lg w-[32%] h-8 p-1'
               >
                 <p className='text-white text-xs mx-1'>#</p>
                 <input
@@ -186,7 +186,7 @@ export default function PbProfile() {
                 />
                 {isEditing && (
                   <button
-                    className='text-red-600 ml-3 mr-2'
+                    className='flex items-center text-red-600 ml-1 mr-1'
                     type='button'
                     onClick={() => handleRemoveTag(index)}
                   >
@@ -207,15 +207,19 @@ export default function PbProfile() {
           </div>
 
           {/* 한줄 자기소개 */}
-          <textarea
-            className=' border-2 border-hanaindigo w-auto p-3 mt-2 text-xs text-hanaindigo resize-none '
-            name='introduce'
-            value={profile.introduce}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-            placeholder={profile.introduce}
-            maxLength={52}
-          />
+          {isEditing ? (
+            <textarea
+              className='p-1 w-auto mt-2 text-xs text-hanaindigo resize-none outline-none border-2 focus:border-hanaindigo'
+              name='introduce'
+              value={profile.introduce}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              placeholder={profile.introduce}
+              maxLength={50}
+            />
+          ) : (
+            <div className='text-xs text-black my-2'>{profile.introduce}</div>
+          )}
         </div>
       </div>
     </div>
