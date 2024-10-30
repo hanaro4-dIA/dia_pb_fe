@@ -6,21 +6,18 @@ import CustomerInformation from '../components/CustomerInformation';
 import MakeJournal from '../components/MakeJournal';
 import STT from '../components/Stt';
 import { Button } from '../components/ui/button';
+import { type TCustomersProps } from '../lib/types';
 
-type TCustomer = {
-  id: number;
-  name: string;
-};
 
 export default function ConsultingPage() {
-  const [customerName, setCustomerName] = useState<string | null>(null);
+  const [customerName, setCustomerName] = useState<string>();
   const { id } = useParams();
 
   // 손님 이름 불러오기 함수
   const fetchCustomerName = async (customerId: number) => {
     try {
       const response = await fetch('/data/Customers.json');
-      const customerData: TCustomer[] = await response.json();
+      const customerData: TCustomersProps[] = await response.json();
       const customer = customerData.find(({ id }) => id === customerId);
 
       if (customer) {

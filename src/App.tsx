@@ -1,5 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import ConsultingPage from './pages/ConsultingPage';
 import CustomerDetailPage from './pages/CustomerDetailPage';

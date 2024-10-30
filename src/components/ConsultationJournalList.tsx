@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import { useEffect, useState } from 'react';
 import { type TPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
@@ -7,7 +6,7 @@ import ReadJournal from './ReadJournal';
 
 type TConsultationJournalListProps = {
   customerId: number;
-  className: string;
+  className?: string;
 };
 
 export default function ConsultationJournalList({

@@ -1,4 +1,3 @@
-// PR TEST
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import ConsultationRequest from '../components/ConsultationRequest';
@@ -7,10 +6,12 @@ import PbCalendar from '../components/PbCalendar';
 import PbProfile from '../components/PbProfile';
 import ScheduledConsultationList from '../components/ScheduledConsultationList';
 import { Button } from '../components/ui/button';
+import { type TCustomersProps } from '../lib/types';
+import { type TRequestedConsultationsProps } from '../lib/types';
 
 export default function MainPage() {
-  const [customers, setCustomers] = useState<any[]>([]);
-  const [scheduledConsultations, setScheduledConsultations] = useState<any[]>(
+  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
+  const [scheduledConsultations, setScheduledConsultations] = useState<TRequestedConsultationsProps[]>(
     []
   );
 
@@ -29,7 +30,7 @@ export default function MainPage() {
   }, []);
 
   // 상담 요청을 예정된 일정에 추가하는 함수
-  const handleApproveConsultation = (approvedConsultation: any) => {
+  const handleApproveConsultation = (approvedConsultation: TRequestedConsultationsProps) => {
     setScheduledConsultations((prev) => [...prev, approvedConsultation]);
   };
 
