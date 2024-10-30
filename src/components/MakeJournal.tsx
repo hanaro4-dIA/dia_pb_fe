@@ -1,6 +1,10 @@
 import { Button } from './ui/button';
 
-export default function MakeJournal() {
+type SecondComponentProps = {
+  selectedText: string;
+};
+
+export default function MakeJournal({ selectedText }: SecondComponentProps) {
   return (
     <div className='flex flex-col border shadow-lg border-gray-200 w-full h-full rounded-t-lg'>
       <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-3 rounded-t-lg pl-5'>
@@ -66,7 +70,10 @@ export default function MakeJournal() {
         {/* 도큐먼트 작성란 */}
         <div className='h-1/3 mb-3'>
           <span className='text-sm mb-2'>[PB의 기록]</span>
-          <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold' />
+          <textarea
+            value={selectedText}
+            className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanagold'
+          />
         </div>
 
         {/* 스크립트 기입란 */}
