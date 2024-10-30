@@ -64,7 +64,7 @@ export default function ConsultingPage() {
           </div>
 
           {/* 손님 정보 */}
-          <div className='h-1/2'>
+          <div className=''>
             <CustomerInformation customerId={Number(id)} />
           </div>
 
@@ -76,7 +76,7 @@ export default function ConsultingPage() {
           </Link>
 
           {/* 상담일지 리스트 */}
-          <div className='h-1/2'>
+          <div className='flex-grow overflow-y-auto'>
             <ConsultationJournalList customerId={Number(id)} />
           </div>
         </div>
