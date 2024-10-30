@@ -42,7 +42,7 @@ export default function ScheduledConsultationList({
 
         if (id) {
           const customer = data.find(
-            (consultation) => consultation.customer_id === Number(id)
+            ({ customer_id }) => customer_id === Number(id)
           );
           setCustomerName(customer ? customer.name : null);
         }
