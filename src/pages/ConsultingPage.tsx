@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ConsultationJournalList from '../components/ConsultationJournalList';
 import CustomerInformation from '../components/CustomerInformation';
@@ -7,7 +6,8 @@ import MakeJournal from '../components/MakeJournal';
 import STT from '../components/Stt';
 import { Button } from '../components/ui/button';
 import { type TCustomersProps } from '../lib/types';
-
+import { createRoot } from 'react-dom/client';
+import DictionaryPage from './DictionaryPage';
 
 export default function ConsultingPage() {
   const [customerName, setCustomerName] = useState<string>();
@@ -37,6 +37,46 @@ export default function ConsultingPage() {
     }
   }, [id]);
 
+  const openNewWindow = () => {
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
+
+    if (newWindow) {
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            alert('Failed to load some CSS rules:');
+            return '';
+          }
+        })
+        .join('');
+
+      newWindow.document.write(`
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>키워드 DB 목록</title>
+            <style>${styles}</style>
+          </head>
+          <body>
+            <div id="dictionary-root"></div>
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+
+      const rootElement = newWindow.document.getElementById('dictionary-root');
+      if (rootElement) {
+        const root = createRoot(rootElement);
+        root.render(<DictionaryPage />);
+      }
+    }
+  };
+
   return (
     <>
       <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
@@ -59,11 +99,12 @@ export default function ConsultingPage() {
           </div>
 
           {/* Dictionary 버튼 */}
-          <Link className='w-full' to={'/dictionary'}>
-            <Button className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'>
-              키워드 DB 목록 바로가기
-            </Button>
-          </Link>
+          <Button
+            className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'
+            onClick={openNewWindow}
+          >
+            키워드 DB 목록 바로가기
+          </Button>
 
           {/* 상담일지 리스트 */}
           <div className='h-1/2'>
