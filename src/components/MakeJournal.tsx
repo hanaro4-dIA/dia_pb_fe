@@ -1,6 +1,52 @@
+import { createRoot } from 'react-dom/client';
+import RequestContentPage from '../pages/RequestContentPage';
 import { Button } from './ui/button';
 
-export default function MakeJournal() {
+type SecondComponentProps = {
+  selectedText: string;
+};
+
+export default function MakeJournal({ selectedText }: SecondComponentProps) {
+  const openNewWindow = () => {
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
+
+    if (newWindow) {
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            alert('Failed to load some CSS rules:');
+            return '';
+          }
+        })
+        .join('');
+
+      newWindow.document.write(`
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>상담 요청 내용</title>
+            <style>${styles}</style>
+          </head>
+          <body>
+            <div id="dictionary-root"></div>
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+
+      const rootElement = newWindow.document.getElementById('dictionary-root');
+      if (rootElement) {
+        const root = createRoot(rootElement);
+        root.render(<RequestContentPage />);
+      }
+    }
+  };
+
   return (
     <div className='flex flex-col border shadow-lg border-gray-200 w-full h-full rounded-t-lg'>
       <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-3 rounded-t-lg pl-5'>
@@ -13,8 +59,17 @@ export default function MakeJournal() {
           <>
             <div className='flex justify-between items-center border-b border-black py-1'>
               <label className='text-xs'>[상담 제목]</label>
-              <div className='text-sm font-bold w-[84%] px-2 focus:outline-none rounded-xl'>
-                제목!!!!!!
+              <div className='flex justify-between items-center text-sm font-bold w-[84%] pl-2 focus:outline-none rounded-xl'>
+                <span className=''>
+                  제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제
+                </span>
+                <button
+                  onClick={openNewWindow}
+                  className='border border-hanaindigo px-2 py-1 rounded text-xs'
+                >
+                  요청내용 <br />
+                  자세히보기
+                </button>
               </div>
             </div>
             <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
@@ -51,7 +106,11 @@ export default function MakeJournal() {
             {/* 도큐먼트 작성란 */}
             <div className='h-1/3 mb-3'>
               <span className='text-sm mb-2'>[PB의 기록]</span>
-              <textarea className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanasilver' />
+
+              <textarea
+                value={selectedText}
+                className='w-full h-[90%] p-2 border resize-none overflow-y-auto focus:outline-hanasilver'
+              />
             </div>
 
             {/* 추천 상품 */}

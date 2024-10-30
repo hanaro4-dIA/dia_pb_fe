@@ -1,7 +1,7 @@
+import { createRoot } from 'react-dom/client';
 import { useEffect, useState } from 'react';
 import { type TPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
-import { createRoot } from 'react-dom/client';
 import ReadJournal from './ReadJournal';
 
 type TConsultationJournalListProps = {
@@ -90,13 +90,18 @@ export default function ConsultationJournalList({
       const rootElement = newWindow.document.getElementById('journal-root');
       if (rootElement) {
         const root = createRoot(rootElement);
-        root.render(<ReadJournal consultation={consultation} pbName={consultation.pbName} />);
+        root.render(
+          <ReadJournal
+            consultation={consultation}
+            pbName={consultation.pbName}
+          />
+        );
       }
     }
   };
 
   return (
-    <div className='flex flex-col h-full bg-white'>
+    <div className='flex flex-col w-full h-full bg-white'>
       <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
         상담일지 리스트
       </div>
