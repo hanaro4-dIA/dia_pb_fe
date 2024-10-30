@@ -9,7 +9,7 @@ export default function CustomerDetailPage() {
   const [customers, setCustomers] = useState<any[]>([]);
   const [scheduledConsultations] = useState<any[]>([]);
 
-  const params = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -37,7 +37,7 @@ export default function CustomerDetailPage() {
       {/* 두 번째 열: 손님 정보와 상담 일정 */}
       <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
         <div>
-          <CustomerInformation customerId={Number(params.id)} />
+          <CustomerInformation customerId={Number(id)} />
         </div>
         <div className='flex-grow flex-shrink-0 min-h-0 overflow-y-auto'>
           <ScheduledConsultationList consultations={scheduledConsultations} />
@@ -46,7 +46,7 @@ export default function CustomerDetailPage() {
 
       {/* 세 번째 열: 상담 일지 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
-        <ConsultationJournalList customerId={Number(params.id)} />
+        <ConsultationJournalList customerId={Number(id)} />
       </div>
     </div>
   );
