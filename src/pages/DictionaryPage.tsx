@@ -2,7 +2,7 @@ import { IoMdSearch } from 'react-icons/io';
 import { useState } from 'react';
 
 // DB 리스트 타입 지정
-type DBItem = {
+type TDBItemProps = {
   id: number;
   title: string;
   writer: string;
@@ -12,7 +12,7 @@ type DBItem = {
 };
 
 // DB 목록
-const dbList: DBItem[] = [
+const dbList: TDBItemProps[] = [
   {
     id: 1,
     title: '경기 청년 지원 대출',
@@ -121,7 +121,7 @@ const dbList: DBItem[] = [
 
 export default function DictionaryPage() {
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
-  const [selectedItem, setSelectedItem] = useState<DBItem | null>(null); // 선택된 항목 상태
+  const [selectedItem, setSelectedItem] = useState<TDBItemProps>(); // 선택된 항목 상태
 
   // 검색어에 따라 DB 목록을 필터링하는 함수
   const filteredDBList = dbList.filter((item) =>

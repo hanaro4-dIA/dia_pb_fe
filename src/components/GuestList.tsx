@@ -1,26 +1,19 @@
 import { IoMdSearch } from 'react-icons/io';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { type TCustomersProps } from '../lib/types';
+import { type TCustomerPbProps } from '../lib/types';
 
-type TCustomer = {
-  id: number;
-  name: string;
-};
-
-type TCustomerPb = {
-  customer_id: number;
-  memo: string;
-};
 
 type TGuestListProps = {
-  customers: TCustomer[];
+  customers: TCustomersProps[];
 };
 
 export default function GuestList({ customers }: TGuestListProps) {
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
-  const [memo, setMemo] = useState<TCustomerPb[]>([]); // 손님_PB 메모 데이터
+  const [memo, setMemo] = useState<TCustomerPbProps[]>([]); // 손님_PB 메모 데이터
   const navigate = useNavigate();
-  const { idParam } = useParams();
+  const params = useParams();
 
   // 손님 및 상담 메모 데이터를 가져오는 함수
   useEffect(() => {
@@ -78,7 +71,7 @@ export default function GuestList({ customers }: TGuestListProps) {
               onClick={() => navigate(`/customerDetail/${id}`)}
             >
               {/* 현재 보고 있는 손님일 경우 */}
-              {id === Number(idParam) ? (
+              {id === Number(params.id) ? (
                 <div className='border-2 border-hanaindigo rounded-lg p-4 shadow-lg cursor-pointer'>
                   {/* 손님 이름 */}
                   <div className='text-lg font-bold'>{name} 손님</div>

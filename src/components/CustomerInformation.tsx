@@ -1,32 +1,20 @@
 import { MdOutlineModeEdit } from 'react-icons/md';
 import { useEffect, useState } from 'react';
-
-type TCustomer = {
-  id: number;
-  name: string;
-  sex: string;
-};
-
-type TCustomerPB = {
-  id: number;
-  customer_id: number;
-  date: string;
-  count: number;
-  memo: string;
-};
+import { type TCustomersProps } from '../lib/types';
+import { type TCustomerPbProps } from '../lib/types';
 
 type TCustomerInformationProps = {
-  customerId: number | null;
-  className?: string; // 추가된 className prop
+  customerId: number;
+  className?: string; 
 };
 
 export default function CustomerInformation({
   customerId,
 }: TCustomerInformationProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [customerData, setCustomerData] = useState<TCustomer | null>(null);
+  const [customerData, setCustomerData] = useState<TCustomersProps | null>(null);
   const [memo, setMemo] = useState<string>('');
-  const [count, setCount] = useState<number | null>(null);
+  const [count, setCount] = useState<number>(0);
   const [meetDate, setMeetDate] = useState<string>('');
 
   const handleEditClick = () => {
@@ -45,9 +33,9 @@ export default function CustomerInformation({
     const fetchCustomerData = async () => {
       try {
         const response = await fetch('/data/Customers.json');
-        const data = await response.json();
-        const customer = data.find((c: TCustomer) => c.id === customerId);
-        setCustomerData(customer || null);
+        const data: TCustomersProps[] = await response.json();
+        const customer = data.find((c) => c.id === customerId);
+        setCustomerData(customer!); // Non-null assertion because data is guaranteed
       } catch (error) {
         alert('Error fetching customer data:');
       }
@@ -56,18 +44,16 @@ export default function CustomerInformation({
     const fetchMemoData = async () => {
       try {
         const response = await fetch('/data/Customer_PB.json');
-        const data = await response.json();
-        const customerMemo = data.find(
-          (c: TCustomerPB) => c.customer_id === customerId
-        );
+        const data: TCustomerPbProps[] = await response.json();
+        const customerMemo = data.find((c) => c.customer_id === customerId);
         if (customerMemo) {
           setMemo(customerMemo.memo);
           setCount(customerMemo.count);
           setMeetDate(customerMemo.date);
         } else {
           setMemo('메모 없음');
-          setCount(null);
-          setMeetDate('');
+          setCount(0);
+          setMeetDate('정보 없음');
         }
       } catch (error) {
         alert('Error fetching memo data:');
@@ -88,8 +74,8 @@ export default function CustomerInformation({
         <div className='p-2 border-x border-b border-gray-200'>
           <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
             <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
-              <span className='text-sm'>손님과 처음 만난 날짜</span>
-              <span className='text-sm'>{meetDate || '정보 없음'}</span>
+              <span className='text-sm'>손님과 만난 날짜</span>
+              <span className='text-sm'>{meetDate}</span>
             </div>
           </div>
 
@@ -103,9 +89,7 @@ export default function CustomerInformation({
           <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
             <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
               <span className='text-sm'>상담 횟수</span>
-              <span className='text-sm'>
-                {count !== null ? count : '정보 없음'}
-              </span>
+              <span className='text-sm'>{count}</span>
             </div>
           </div>
 
