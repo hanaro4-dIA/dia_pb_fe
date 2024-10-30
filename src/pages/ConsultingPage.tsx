@@ -38,7 +38,7 @@ export default function ConsultingPage() {
   }, [id]);
 
   const openNewWindow = () => {
-    const newWindow = window.open('', '_blank', 'width=1000,height=600');
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
 
     if (newWindow) {
       const styles = Array.from(document.styleSheets)
