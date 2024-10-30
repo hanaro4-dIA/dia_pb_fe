@@ -1,8 +1,7 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { useEffect, useState } from 'react';
 import { type TPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
-import { createRoot } from 'react-dom/client';
 import ReadJournal from './ReadJournal';
 
 type TConsultationJournalListProps = {
@@ -91,7 +90,12 @@ export default function ConsultationJournalList({
       const rootElement = newWindow.document.getElementById('journal-root');
       if (rootElement) {
         const root = createRoot(rootElement);
-        root.render(<ReadJournal consultation={consultation} pbName={consultation.pbName} />);
+        root.render(
+          <ReadJournal
+            consultation={consultation}
+            pbName={consultation.pbName}
+          />
+        );
       }
     }
   };

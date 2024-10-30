@@ -49,6 +49,49 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
                 </div>
               </div>
             </div>
+            <div className='flex justify-between items-center border-b border-black py-1'>
+              <label className='text-xs'>[요청 내용]</label>
+              <div className='text-sm font-bold w-[84%] px-2 focus:outline-none rounded-xl'>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Repellendus, aperiam reprehenderit iusto similique fugiat
+                pariatur deleniti nemo a enim doloremque at earum commodi,
+                eveniet dolorum cum quas illo minima inventore est nam
+                provident. Quis voluptate tempore, in molestiae molestias odio
+                quos aspernatur! Laboriosam atque dicta ducimus, ut aliquam,
+                consequatur iste maiores maxime, dolores et natus perspiciatis
+                eum facere explicabo dignissimos autem asperiores soluta?
+                Quisquam, consequatur consequuntur, sunt esse deleniti molestiae
+                assumenda ipsum natus dicta provident modi amet dignissimos
+                doloremque aut delectus, alias sequi nostrum quidem possimus.
+                Deleniti quod sunt placeat mollitia voluptatum velit omnis vero
+                assumenda minus tempore neque soluta in perspiciatis doloribus
+                molestiae debitis optio quia reprehenderit, architecto minima
+                qui necessitatibus nulla? Dignissimos doloremque iusto
+                laudantium, hic saepe labore minima quidem iste numquam,
+                repellat perspiciatis nulla? Non doloribus perspiciatis eveniet
+                laborum voluptates, harum culpa in excepturi quam debitis
+                placeat laboriosam, blanditiis asperiores aperiam! Iusto maiores
+                magnam architecto, magni impedit asperiores provident non
+                accusamus eos, repudiandae, saepe illum voluptates? Placeat odio
+                quas sunt cumque commodi, molestias natus ut laboriosam animi
+                aliquam optio libero! Et, veniam. Minima ipsa libero fugit
+                iusto, deleniti possimus a alias tempore veniam, quae quasi
+                ducimus. Culpa fugit eum quos quaerat quo neque illo sed ad
+                aliquam, ipsam in id dignissimos laboriosam reiciendis!
+                Reprehenderit magni voluptatibus nemo perferendis dolorem optio,
+                obcaecati molestiae tempora expedita. Non accusamus
+                reprehenderit consequuntur nesciunt! Facere, hic, quam fugit
+                dolorum, fugiat voluptas obcaecati reiciendis quis sit omnis
+                provident velit natus aspernatur. Corrupti cumque dicta totam
+                numquam in suscipit alias similique iusto. Voluptates modi ullam
+                ratione quam pariatur, quae consectetur? Earum nulla quidem
+                labore odit temporibus modi, ab provident sit consequatur
+                laudantium placeat, dolor assumenda laborum. Cupiditate quas
+                perspiciatis illo libero sequi totam autem hic aspernatur
+                dolorum similique quaerat tempore maiores itaque voluptate optio
+                esse ullam, ea ab! Officiis, ab. Quam facere nam repellendus!
+              </div>
+            </div>
           </>
 
           <div className=' flex flex-col flex-grow overflow-y-auto'>

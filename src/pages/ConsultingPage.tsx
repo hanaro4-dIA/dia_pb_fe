@@ -50,8 +50,8 @@ export default function ConsultingPage() {
   return (
     <>
       <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
-        {/* 프로필과 들어온 상담 요청 */}
-        <div className='flex flex-col flex-grow h-full space-y-4'>
+        {/* 첫번째 열 */}
+        <div className='flex flex-col w-1/4 h-full space-y-4'>
           <div className='flex justify-between p-3 items-center border-b border-black'>
             <div className='text-2xl font-bold text-hanagold'>
               {customerName} 손님
@@ -81,13 +81,13 @@ export default function ConsultingPage() {
           </div>
         </div>
 
-        {/* STT 자동 작성란 */}
-        <div className='flex flex-col flex-grow h-full'>
+        {/* 두번째 열: STT 자동 작성란 */}
+        <div className='flex flex-col w-1/4 h-full'>
           <STT onTextSelect={handleTextSelect} />
         </div>
 
-        {/* 상담일지 작성하기 */}
-        <div className='flex flex-col flex-grow h-full'>
+        {/* 세번째 열: 상담일지 작성하기 */}
+        <div className='flex flex-col w-1/2 h-full'>
           <MakeJournal selectedText={selectedText} />
         </div>
       </div>
