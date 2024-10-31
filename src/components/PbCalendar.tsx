@@ -68,7 +68,7 @@ export default function PbCalendar() {
       <Calendar
         onChange={setSelectedDate}
         onClickDay={clickScheduledDate}
-        formatDay={(locale, date) => format(date, 'dd')}
+        formatDay={(_, date) => format(date, 'dd')}
         tileContent={({ date }) => getScheduledDate(date)}
         value={selectedDate}
         className='border border-gray-300 '
