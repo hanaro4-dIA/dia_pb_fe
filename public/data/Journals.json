@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "pb_id": 2,
+        "customer_id": 1,
+        "category_id": 1,
+        "status_id": 1,
+        "title": "투자 전략",
+        "date": "2011.01.02",
+        "content": "주택담보대출 금리 조정 상담"
+    },
+    {
+        "id": 2,
+        "pb_id": 1,
+        "customer_id": 1,
+        "category_id": 6,
+        "status_id": 2,
+        "title": "퇴직 계획",
+        "date": "2024.10.25",
+        "content": "연금저축 상품 추천 상담"
+    },
+    {
+        "id": 3,
+        "pb_id": 1,
+        "customer_id": 2,
+        "category_id": 4,
+        "status_id": 1,
+        "title": "위험 평가",
+        "date": "2024.10.29",
+        "content": "보험 상품 비교 상담"
+    },
+    {
+        "id": 4,
+        "pb_id": 2,
+        "customer_id": 3,
+        "category_id": 5,
+        "status_id": 1,
+        "title": "자산 관리",
+        "date": "2019.12.12",
+        "content": "자동차 보험 선택 상담"
+    }
+]
