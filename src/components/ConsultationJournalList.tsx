@@ -55,6 +55,7 @@ export default function ConsultationJournalList({
     }
   }, [customerId]);
 
+  // 상담일지 자세히보기
   const openNewWindow = (consultation: TJournalsProps & { pbName: string }) => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
 
