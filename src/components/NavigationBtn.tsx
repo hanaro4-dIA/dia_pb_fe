@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Draggable, { DraggableEvent, DraggableData } from 'react-draggable';
 import { useNavigate } from 'react-router-dom';
 import NavigationBtnImage1 from '../assets/NavigationBtn1.png';
@@ -21,7 +21,7 @@ type Position = {
   y: number;
 };
 
-const NavigationBtn: React.FC = () => {
+const NavigationBtn = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [hasMoved, setHasMoved] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
