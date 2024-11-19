@@ -7,6 +7,7 @@ type SecondComponentProps = {
 };
 
 export default function MakeJournal({ selectedText }: SecondComponentProps) {
+  // 요청내용 상세보기
   const openNewWindow = () => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
 

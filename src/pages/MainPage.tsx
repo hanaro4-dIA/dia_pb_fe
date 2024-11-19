@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import logo from '../assets/diA.png';
 import ConsultationRequest from '../components/ConsultationRequest';
@@ -6,7 +5,6 @@ import GuestList from '../components/GuestList';
 import PbCalendar from '../components/PbCalendar';
 import PbProfile from '../components/PbProfile';
 import ScheduledConsultationList from '../components/ScheduledConsultationList';
-import { Button } from '../components/ui/button';
 import { type TCustomersProps } from '../lib/types';
 import { type TRequestedConsultationsProps } from '../lib/types';
 
