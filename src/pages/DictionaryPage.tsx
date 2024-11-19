@@ -97,17 +97,26 @@ export default function DictionaryPage() {
                     className='mb-4'
                     onClick={() => setSelectedItem(item)}
                   >
-                    <div className='bg-white rounded-lg p-4 border shadow-lg cursor-pointer'>
-                      {/* 키워드 이름 */}
-                      <div className='text-black text-base font-bold'>
-                        {item.title}
+                    {/* 선택한 키워드 */}
+                    {item.id === selectedItem?.id ? (
+                      <div className='border-2 border-hanaindigo rounded-lg p-4 shadow-lg cursor-pointer'>
+                        <div className='text-black text-base font-bold'>
+                          {item.title}
+                        </div>
+                        <div className='bg-hanagold/60 p-2 mt-2 rounded-lg'>
+                          <div className='truncate w-full'>{item.content}</div>
+                        </div>
                       </div>
-
-                      {/* 키워드 내용 */}
-                      <div className='bg-hanaindigo text-white p-2 mt-2 rounded-lg'>
-                        <div className='truncate w-full'>{item.content}</div>
+                    ) : (
+                      <div className='bg-white rounded-lg p-4 shadow-lg cursor-pointer'>
+                        <div className='text-black text-base font-bold'>
+                          {item.title}
+                        </div>
+                        <div className='bg-hanagold/40 p-2 mt-2 rounded-lg'>
+                          <div className='truncate w-full'>{item.content}</div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 ))}
               </div>
