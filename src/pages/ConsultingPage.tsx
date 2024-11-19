@@ -1,3 +1,4 @@
+import { createRoot } from 'react-dom/client';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ConsultationJournalList from '../components/ConsultationJournalList';
@@ -6,7 +7,6 @@ import MakeJournal from '../components/MakeJournal';
 import STT from '../components/Stt';
 import { Button } from '../components/ui/button';
 import { type TCustomersProps } from '../lib/types';
-import { createRoot } from 'react-dom/client';
 import DictionaryPage from './DictionaryPage';
 
 export default function ConsultingPage() {
@@ -104,14 +104,6 @@ export default function ConsultingPage() {
           <div className=''>
             <CustomerInformation customerId={Number(id)} />
           </div>
-
-          {/* Dictionary 버튼 */}
-          <Button
-            className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'
-            onClick={openNewWindow}
-          >
-            키워드 DB 목록 바로가기
-          </Button>
 
           {/* 상담일지 리스트 */}
           <div className='flex-grow overflow-y-auto'>
