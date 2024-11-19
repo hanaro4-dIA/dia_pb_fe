@@ -1,4 +1,4 @@
-import { MdOutlineModeEdit } from 'react-icons/md';
+import { MdOutlineModeEdit, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { type TCustomersProps } from '../lib/types';
 import { type TCustomerPbProps } from '../lib/types';
@@ -16,6 +16,7 @@ export default function CustomerInformation({
   const [memo, setMemo] = useState<string>('');
   const [count, setCount] = useState<number>(0);
   const [meetDate, setMeetDate] = useState<string>('');
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -27,6 +28,10 @@ export default function CustomerInformation({
 
   const handleCancelClick = () => {
     setIsEditing(false);
+  };
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
   };
 
   useEffect(() => {
@@ -66,11 +71,14 @@ export default function CustomerInformation({
 
   return (
     <div className='flex flex-col bg-white'>
-      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
-        {customerData?.name} 손님 정보
+      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg flex justify-between items-center'>
+        <span>{customerData?.name} 손님 정보</span>
+        <button onClick={toggleCollapse} className="text-white">
+          {isCollapsed ? <MdKeyboardArrowDown size={24} /> : <MdKeyboardArrowUp size={24} />}
+        </button>
       </div>
 
-      {customerData ? (
+      {customerData && !isCollapsed && (
         <div className='p-2 border-x border-b border-gray-200'>
           <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
             <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
@@ -136,7 +144,9 @@ export default function CustomerInformation({
             </div>
           </div>
         </div>
-      ) : (
+      )}
+
+      {!customerData && !isCollapsed && (
         <div className='text-center text-hanaindigo p-4 text-xl'>
           손님을 선택해주세요.
         </div>
