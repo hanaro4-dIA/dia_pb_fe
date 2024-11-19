@@ -93,14 +93,18 @@ const NavigationBtn: React.FC = () => {
     }
   };
 
-  const handleSubButtonClick = (path: string) => {
-    navigate(path);
+  const handleSubButtonClick = (path: string, target?: string) => {
+    if (target === '_blank') {
+      window.open(path, '_blank', 'noopener,noreferrer');
+    } else {
+      navigate(path);
+    }
     setIsExpanded(false);
   };
 
   const subButtons = [
     { path: '/notification', icon: <MdOutlineMessage />, color: 'bg-violet-500 hover:bg-violet-800' },
-    { path: '/dictionary', icon: <MdMenuBook />, color: 'bg-orange-500 hover:bg-orange-800' },
+    { path: '/dictionary', target:'_blank', icon: <MdMenuBook />, color: 'bg-orange-500 hover:bg-orange-800' },
     { path: '/', icon: <FiHome />, color: 'bg-red-500 hover:bg-red-800' },
   ];
 
@@ -118,7 +122,7 @@ const NavigationBtn: React.FC = () => {
             {subButtons.map((button, index) => (
               <button
                 key={index}
-                onClick={() => handleSubButtonClick(button.path)}
+                onClick={() => handleSubButtonClick(button.path, button.target)}
                 className={`w-12 h-12 rounded-full ${button.color} text-white text-lg flex items-center justify-center shadow-md transition-all duration-300`}
               >
                 {button.icon}
