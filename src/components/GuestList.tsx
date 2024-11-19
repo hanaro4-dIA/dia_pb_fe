@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { type TCustomersProps } from '../lib/types';
 import { type TCustomerPbProps } from '../lib/types';
 
-
 type TGuestListProps = {
   customers: TCustomersProps[];
 };
