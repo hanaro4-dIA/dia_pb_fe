@@ -43,12 +43,7 @@ export default function MainPage() {
         <div className='overflow-y-auto w-full h-3/5 mb-5'>
           <PbProfile />
         </div>
-        {/* Dictionary 버튼 */}
-        <Link className='w-full' to={'/dictionary'}>
-          <Button className='w-full mb-5  bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'>
-            키워드 DB 목록 바로가기
-          </Button>
-        </Link>
+
         {/* 들어온 상담 요청 */}
         <div className='overflow-y-auto h-full'>
           <ConsultationRequest onApprove={handleApproveConsultation} />

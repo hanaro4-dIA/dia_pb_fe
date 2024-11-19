@@ -105,13 +105,13 @@ export default function ConsultingPage() {
             <CustomerInformation customerId={Number(id)} />
           </div>
 
-          {/* Dictionary 버튼 */}
+          {/* Dictionary 버튼
           <Button
             className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'
             onClick={openNewWindow}
           >
             키워드 DB 목록 바로가기
-          </Button>
+          </Button> */}
 
           {/* 상담일지 리스트 */}
           <div className='flex-grow overflow-y-auto'>
