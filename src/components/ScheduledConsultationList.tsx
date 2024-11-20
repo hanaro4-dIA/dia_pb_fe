@@ -9,7 +9,9 @@ type ScheduledConsultationListProps = {
 export default function ScheduledConsultationList({
   consultations,
 }: ScheduledConsultationListProps) {
-  const [consultationData, setConsultationData] = useState<TRequestedConsultationsProps[]>([]);
+  const [consultationData, setConsultationData] = useState<
+    TRequestedConsultationsProps[]
+  >([]);
   const [customerName, setCustomerName] = useState<string>('');
   const { id } = useParams();
   const navigate = useNavigate();
@@ -26,12 +28,17 @@ export default function ScheduledConsultationList({
               ? approvalStatus && !finishStatus && customer_id === Number(id)
               : approvalStatus && !finishStatus
           )
-          .sort((a, b) => new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime());
+          .sort(
+            (a, b) =>
+              new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
+          );
 
         setConsultationData(filteredData);
 
         if (id) {
-          const customer = data.find(({ customer_id }) => customer_id === Number(id));
+          const customer = data.find(
+            ({ customer_id }) => customer_id === Number(id)
+          );
           setCustomerName(customer ? customer.name : '');
         }
       } catch (error) {
@@ -60,28 +67,30 @@ export default function ScheduledConsultationList({
 
       <div className='p-4 overflow-auto h-full border-x border-b border-gray-200'>
         {allConsultations.length > 0 ? (
-          allConsultations.map(({ name, title, customer_id, hopeDay, hopeTime }, index) => (
-            <div
-              key={index}
-              className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
-            >
-              <div className='flex justify-between text-black text-[1rem] font-light'>
-                <span>{name} 손님</span>
-                <span>
-                  {hopeDay} {hopeTime}
-                </span>
+          allConsultations.map(
+            ({ name, title, customer_id, hopeDay, hopeTime }, index) => (
+              <div
+                key={index}
+                className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
+              >
+                <div className='flex justify-between text-black text-[1rem] font-light'>
+                  <span>{name} 손님</span>
+                  <span>
+                    {hopeDay} {hopeTime}
+                  </span>
+                </div>
+                <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
+                  {title}
+                  <button
+                    className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
+                    onClick={() => handleConsultationClick(customer_id)}
+                  >
+                    상담하기
+                  </button>
+                </div>
               </div>
-              <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
-                {title}
-                <button
-                  className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-                  onClick={() => handleConsultationClick(customer_id)}
-                >
-                  상담하기
-                </button>
-              </div>
-            </div>
-          ))
+            )
+          )
         ) : (
           <div className='text-center text-hanaindigo text-xl'>
             일정이 없습니다
