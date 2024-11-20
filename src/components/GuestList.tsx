@@ -1,8 +1,8 @@
-import { IoMdSearch } from 'react-icons/io';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { type TCustomersProps } from '../lib/types';
 import { type TCustomerPbProps } from '../lib/types';
+import { SearchField } from './SearchField';
 
 type TGuestListProps = {
   customers: TCustomersProps[];
@@ -48,19 +48,11 @@ export default function GuestList({ customers }: TGuestListProps) {
       </div>
       <div className='overflow-auto border-x border-b border-gray-200'>
         {/* 검색 입력 필드 */}
-        <div className='flex justify-center mt-4 '>
-          <div className='relative w-11/12'>
-            <input
-              type='text'
-              placeholder='손님 이름 검색'
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className='w-full h-[2.5rem] bg-white/60 rounded-lg border border-hanaindigo pl-4'
-            />
-            <IoMdSearch className='absolute right-4 top-1/2 transform -translate-y-1/2 text-hanaindigo' />
-          </div>
-        </div>
-
+        <SearchField
+          placeholder='손님 이름 검색'
+          value={searchTerm}
+          onChange={setSearchTerm}
+        />
         {/* 필터링된 손님 목록 */}
         <div className='mt-2 p-4'>
           {filteredCustomers.map(({ id, name }) => (

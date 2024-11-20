@@ -1,5 +1,6 @@
 import { IoMdSearch } from 'react-icons/io';
 import { useState } from 'react';
+import { SearchField } from '../components/SearchField';
 
 // 키워드 DB 리스트 타입 지정
 type TDBItemProps = {
@@ -76,19 +77,11 @@ export default function DictionaryPage() {
             </div>
             <div className='overflow-auto border-x border-b border-gray-200'>
               {/* 검색 입력 필드 */}
-              <div className='flex justify-center mt-4'>
-                <div className='relative w-11/12'>
-                  <input
-                    type='text'
-                    placeholder='키워드 검색'
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className='w-full h-[2.5rem] bg-white/60 rounded-lg border border-hanaindigo pl-4'
-                  />
-                  <IoMdSearch className='absolute right-4 top-1/2 transform -translate-y-1/2 text-hanaindigo' />
-                </div>
-              </div>
-
+              <SearchField
+                placeholder='키워드 검색'
+                value={searchTerm}
+                onChange={setSearchTerm}
+              />
               {/* 필터링된 키워드 목록 */}
               <div className='mt-2 p-4'>
                 {filteredDBList.map((item) => (
