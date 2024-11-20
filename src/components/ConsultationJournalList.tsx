@@ -57,6 +57,15 @@ export default function ConsultationJournalList({
     }
   }, [customerId]);
 
+  console.log(consultationJourData);
+
+  // 상담일지 검색하기
+  const filteredJournal = consultationJourData.filter(
+    ({ title, content }) =>
+      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // 상담일지 자세히보기
   const openNewWindow = (consultation: TJournalsProps & { pbName: string }) => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
@@ -116,8 +125,8 @@ export default function ConsultationJournalList({
           onChange={setSearchTerm}
         />
         <div className='p-4'>
-          {consultationJourData.length > 0 ? (
-            consultationJourData.map((consultation, index) => (
+          {filteredJournal.length > 0 ? (
+            filteredJournal.map((consultation, index) => (
               <div
                 key={index}
                 onClick={() => openNewWindow(consultation)}
