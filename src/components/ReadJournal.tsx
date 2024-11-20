@@ -9,7 +9,10 @@ type TPbJournalsProps = {
   pbName: string;
 };
 
-export default function ReadJournal({ consultation, pbName }: TPbJournalsProps) {
+export default function ReadJournal({
+  consultation,
+  pbName,
+}: TPbJournalsProps) {
   const [categoryName, setCategoryName] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
 

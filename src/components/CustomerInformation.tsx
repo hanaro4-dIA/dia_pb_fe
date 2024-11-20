@@ -5,14 +5,16 @@ import { type TCustomerPbProps } from '../lib/types';
 
 type TCustomerInformationProps = {
   customerId: number;
-  className?: string; 
+  className?: string;
 };
 
 export default function CustomerInformation({
   customerId,
 }: TCustomerInformationProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [customerData, setCustomerData] = useState<TCustomersProps | null>(null);
+  const [customerData, setCustomerData] = useState<TCustomersProps | null>(
+    null
+  );
   const [memo, setMemo] = useState<string>('');
   const [count, setCount] = useState<number>(0);
   const [meetDate, setMeetDate] = useState<string>('');

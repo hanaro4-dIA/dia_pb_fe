@@ -49,13 +49,11 @@ export type TCustomerPbProps = {
   memo: string;
 };
 
-
 // 상담 카테고리 타입 (Category.json)
 export type TCategoryProps = {
   id: number;
   name: string;
-}
-
+};
 
 // 상담 카테고리 타입 (Customers.json)
 export type TCustomersProps = {
@@ -67,4 +65,4 @@ export type TCustomersProps = {
   birth: string;
   tel: string;
   address: string;
-}
+};
