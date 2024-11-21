@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { type TPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
 import ReadJournal from './ReadJournal';
+import { SearchField } from './SearchField';
 
 type TConsultationJournalListProps = {
   customerId: number;
@@ -15,6 +16,7 @@ export default function ConsultationJournalList({
   const [consultationJourData, setConsultationJourData] = useState<
     (TJournalsProps & { pbName: string })[]
   >([]);
+  const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
 
   const fetchPBName = async (pbId: number): Promise<string> => {
     try {
@@ -54,6 +56,15 @@ export default function ConsultationJournalList({
       fetchConsultationData();
     }
   }, [customerId]);
+
+  console.log(consultationJourData);
+
+  // 상담일지 검색하기
+  const filteredJournal = consultationJourData.filter(
+    ({ title, content }) =>
+      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // 상담일지 자세히보기
   const openNewWindow = (consultation: TJournalsProps & { pbName: string }) => {
@@ -107,9 +118,15 @@ export default function ConsultationJournalList({
         상담일지 리스트
       </div>
       <div className='h-full overflow-auto border-x border-b border-gray-200'>
+        {/* 검색 입력 필드 */}
+        <SearchField
+          placeholder='상담일지 검색'
+          value={searchTerm}
+          onChange={setSearchTerm}
+        />
         <div className='p-4'>
-          {consultationJourData.length > 0 ? (
-            consultationJourData.map((consultation, index) => (
+          {filteredJournal.length > 0 ? (
+            filteredJournal.map((consultation, index) => (
               <div
                 key={index}
                 onClick={() => openNewWindow(consultation)}
