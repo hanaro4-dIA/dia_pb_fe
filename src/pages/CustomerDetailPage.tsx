@@ -31,7 +31,7 @@ export default function CustomerDetailPage() {
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
       {/* 첫 번째 열: 손님 목록 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
-        <div className='overflow-y-auto'>
+        <div className='h-full overflow-y-auto'>
           <GuestList customers={customers} />
         </div>
       </div>

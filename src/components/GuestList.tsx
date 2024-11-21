@@ -41,52 +41,57 @@ export default function GuestList({ customers }: TGuestListProps) {
   };
 
   return (
-    <div className='flex flex-col h-full bg-white'>
+    <div className='w-full h-full flex flex-col bg-white'>
       {/* 헤더 */}
-      <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
+      <div className='w-full flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         손님 목록
       </div>
-      <div className='overflow-auto border-x border-b border-gray-200'>
-        {/* 검색 입력 필드 */}
-        <SearchField
-          placeholder='손님 이름 검색'
-          value={searchTerm}
-          onChange={setSearchTerm}
-        />
-        {/* 필터링된 손님 목록 */}
-        <div className='mt-2 p-4'>
-          {filteredCustomers.map(({ id, name }) => (
-            <div
-              key={id}
-              className='mb-4'
-              onClick={() => navigate(`/customerDetail/${id}`)}
-            >
-              {/* 현재 보고 있는 손님일 경우 */}
-              {id === Number(params.id) ? (
-                <div className='border-2 border-hanaindigo rounded-lg p-4 shadow-lg cursor-pointer'>
-                  {/* 손님 이름 */}
-                  <div className='text-lg font-bold'>{name} 손님</div>
+      <div className='w-full h-full overflow-auto border-x border-b border-gray-200'>
+        <div className='sticky top-0 z-10 w-full bg-white'>
+          <SearchField
+            placeholder='손님 이름 검색'
+            value={searchTerm}
+            onChange={setSearchTerm}
+          />
+        </div>
 
-                  {/* 손님별 메모 내용 */}
-                  <div className=' bg-hanagold/60 text-black p-2 mt-2 rounded-lg'>
-                    <div className='truncate w-full'>{getMemo(id)}</div>
-                  </div>
-                </div>
-              ) : (
-                <div className='bg-white rounded-lg p-4 border shadow-lg cursor-pointer'>
-                  {/* 손님 이름 */}
-                  <div className='text-black text-lg font-bold'>
-                    {name} 손님
-                  </div>
+        <div className='w-full h-full p-4'>
+          {filteredCustomers.length > 0 ? (
+            filteredCustomers.map(({ id, name }) => (
+              <div
+                key={id}
+                className='w-full mb-4'
+                onClick={() => navigate(`/customerDetail/${id}`)}
+              >
+                {/* 현재 보고 있는 손님일 경우 */}
+                {id === Number(params.id) ? (
+                  <div className='border-2 border-hanaindigo rounded-lg p-4 shadow-lg cursor-pointer'>
+                    {/* 손님 이름 */}
+                    <div className='text-lg font-bold'>{name} 손님</div>
 
-                  {/* 손님별 메모 내용 */}
-                  <div className='bg-hanagold/40 text-black p-3 mt-2 rounded-lg'>
-                    <div className='truncate w-full'>{getMemo(id)}</div>
+                    {/* 손님별 메모 내용 */}
+                    <div className=' bg-hanagold/60 text-black p-2 mt-2 rounded-lg'>
+                      <div className='truncate w-full'>{getMemo(id)}</div>
+                    </div>
                   </div>
-                </div>
-              )}
+                ) : (
+                  <div className='bg-white rounded-lg p-4 border shadow-lg cursor-pointer'>
+                    <div className='text-black text-lg font-bold'>
+                      {name} 손님
+                    </div>
+
+                    <div className='bg-hanagold/40 text-black p-3 mt-2 rounded-lg'>
+                      <div className='truncate w-full'>{getMemo(id)}</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div className='text-center text-hanaindigo text-xl'>
+              존재하지 않는 손님입니다.
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>
