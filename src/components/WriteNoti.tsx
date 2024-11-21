@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Button } from './ui/button';
 
 type Customer = {
   id: number;
@@ -77,9 +78,10 @@ export default function WriteNoti() {
       <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg flex justify-between items-center'>
         새로운 쪽지 전송하기
       </div>
-      <div className='h-full overflow-auto p-2 border-x border-b border-gray-200'>
-        <div className='h-full flex-1 overflow-hidden flex flex-col'>
-          <div className='p-4 flex-none justify-center'>
+      <div className='w-full h-full overflow-auto p-2 border-x border-b border-gray-200'>
+        <div className='w-full h-full flex-1 overflow-hidden flex flex-col'>
+          {/* 수신인 선택 */}
+          <div className='w-full p-4 flex-none justify-center'>
             <div className='flex items-center gap-14 mb-2 mx-2'>
               <div className='flex items-center gap-4'>
                 <div className='flex-none text-base font-medium'>수신인</div>
@@ -162,22 +164,31 @@ export default function WriteNoti() {
           </div>
 
           {/* 제목 입력란 */}
-          <div className='flex items-between space-x-10 mb-2 mx-6'>
-            <span className='w-1/12'>제목</span>
+          <div className='w-full p-4 flex items-center mb-2'>
+            <span className='w-24 flex-none'>제목</span>
             <input
               type='text'
               placeholder='마음을 표현하세요'
-              className='border-b border-gray-200 pb-2 w-11/12 focus:outline-none'
+              className='flex-grow border-b border-gray-200 pb-2 focus:outline-none'
             />
           </div>
 
           {/* 내용 입력란 */}
-          <textarea
-            name=''
-            id=''
-            placeholder='소중한 마음을 전달해보세요'
-            className='h-full mx-6 my-3 border border-gray-200 p-4 rounded-md focus:outline-none resize-none'
-          ></textarea>
+          <div className='w-full p-4 flex flex-grow'>
+            <div className='w-24 flex-none'></div>
+            <textarea
+              placeholder='소중한 마음을 전달해보세요'
+              className='flex-grow h-full p-2 border border-gray-200 rounded-md focus:outline-none resize-none'
+            ></textarea>
+          </div>
+
+          {/* 전송 버튼 */}
+          <div className='w-full p-4 flex justify-end'>
+            <div className='w-24 flex-none'></div>
+            <div className='flex-grow flex justify-end'>
+              <Button className='bg-hanagold'>마음 보내기</Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
