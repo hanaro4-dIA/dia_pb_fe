@@ -70,7 +70,7 @@ export default function MainPage() {
       {/* 손님 목록 */}
       <div className='flex flex-col w-1/4 h-full'>
         {/* 손님 목록 */}
-        <div className='overflow-y-auto'>
+        <div className='w-full overflow-y-auto'>
           <GuestList customers={customers} />
         </div>
       </div>
