@@ -1,4 +1,3 @@
-import { IoMdSearch } from 'react-icons/io';
 import { useState } from 'react';
 import { SearchField } from '../components/SearchField';
 
@@ -76,14 +75,16 @@ export default function DictionaryPage() {
               키워드 DB 목록
             </div>
             <div className='overflow-auto border-x border-b border-gray-200'>
-              {/* 검색 입력 필드 */}
-              <SearchField
-                placeholder='키워드 검색'
-                value={searchTerm}
-                onChange={setSearchTerm}
-              />
+              <div className='sticky top-0 z-10 w-full bg-white'>
+                <SearchField
+                  placeholder='키워드 검색'
+                  value={searchTerm}
+                  onChange={setSearchTerm}
+                />
+              </div>
+
               {/* 필터링된 키워드 목록 */}
-              <div className='mt-2 p-4'>
+              <div className='p-4'>
                 {filteredDBList.map((item) => (
                   <div
                     key={item.id}
