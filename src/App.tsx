@@ -5,6 +5,7 @@ import CustomerDetailPage from './pages/CustomerDetailPage';
 import DictionaryPage from './pages/DictionaryPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
+import NotificationPage from './pages/NotificationPage';
 
 // session 작업 필요
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path='/customerDetail/:id' element={<CustomerDetailPage />} />
       <Route path='/consulting/:id' element={<ConsultingPage />} />
       <Route path='/dictionary' element={<DictionaryPage />} />
+      <Route path='/notification' element={<NotificationPage />} />
     </Routes>
   );
 }
