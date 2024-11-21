@@ -41,12 +41,12 @@ export default function GuestList({ customers }: TGuestListProps) {
   };
 
   return (
-    <div className='w-full flex flex-col h-full bg-white'>
+    <div className='w-full h-full flex flex-col bg-white'>
       {/* 헤더 */}
       <div className='w-full flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
         손님 목록
       </div>
-      <div className='w-full overflow-auto border-x border-b border-gray-200'>
+      <div className='w-full h-full overflow-auto border-x border-b border-gray-200'>
         <div className='sticky top-0 z-10 w-full bg-white'>
           <SearchField
             placeholder='손님 이름 검색'
@@ -55,7 +55,7 @@ export default function GuestList({ customers }: TGuestListProps) {
           />
         </div>
 
-        <div className='w-full p-4'>
+        <div className='w-full h-full p-4'>
           {filteredCustomers.length > 0 ? (
             filteredCustomers.map(({ id, name }) => (
               <div
