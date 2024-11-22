@@ -136,11 +136,11 @@ const NotiHistory = () => {
         이전에 전송한 쪽지
       </div>
       <div className='overflow-auto border-x border-b border-gray-200'>
-        <div className='flex-1 overflow-visible flex flex-col'>
+        <div className='flex-1 flex flex-col'>
           <div className='bg-white sticky top-0 z-10 w-full p-4 flex-none justify-center'>
             <div className='flex items-center gap-14 mb-2 mx-2'>
               <div className='flex items-center gap-4'>
-                <div className='flex-none text-base font-medium'>수신인</div>
+                <div className='flex-none'>수신인</div>
               </div>
 
               <div
@@ -225,7 +225,7 @@ const NotiHistory = () => {
               filteredConsultations.map((consultation) => (
                 <div
                   key={consultation.id}
-                  className='mb-3 bg-white rounded-lg shadow-sm border border-gray-200'
+                  className='mb-3 bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer'
                 >
                   <div className='p-3'>
                     <div className='flex justify-between items-center mb-2 text-sm text-gray-600'>

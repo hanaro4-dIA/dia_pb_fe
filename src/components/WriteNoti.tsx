@@ -91,9 +91,7 @@ export default function WriteNoti() {
         {/* 수신인 선택 */}
         <div className='w-full px-4 py-3 flex-none justify-center'>
           <div className='flex items-center justify-between'>
-            <span className='flex items-center flex-none text-base font-medium'>
-              수신인
-            </span>
+            <span className='flex items-center flex-none'>수신인</span>
 
             {/* 전체선택 체크박스 */}
             <div
