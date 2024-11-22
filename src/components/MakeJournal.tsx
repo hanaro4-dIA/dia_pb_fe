@@ -61,7 +61,7 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
             <div className='flex justify-between items-center border-b border-black py-1'>
               <label className='text-xs'>[상담 제목]</label>
               <div className='flex justify-between items-center text-sm font-bold w-[84%] pl-2 focus:outline-none rounded-xl'>
-                <span className=''>
+                <span>
                   제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제
                 </span>
                 <button
