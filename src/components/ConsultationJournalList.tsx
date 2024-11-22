@@ -118,33 +118,37 @@ export default function ConsultationJournalList({
         상담일지 리스트
       </div>
       <div className='h-full overflow-auto border-x border-b border-gray-200'>
-        <div className='sticky top-0 z-10 w-full bg-white'>
-          <SearchField
-            placeholder='상담일지 검색'
-            value={searchTerm}
-            onChange={setSearchTerm}
-          />
-        </div>
-
+        {/* 검색 입력 필드 */}
+        <SearchField
+          placeholder='상담일지 검색'
+          value={searchTerm}
+          onChange={setSearchTerm}
+        />
         <div className='p-4'>
           {filteredJournal.length > 0 ? (
             filteredJournal.map((consultation, index) => (
               <div
                 key={index}
                 onClick={() => openNewWindow(consultation)}
-                className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border border-gray-200 cursor-pointer'
+                className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border justify-around border-gray-200 cursor-pointer'
               >
-                <div className='text-hanaindigo text-[1rem] font-bold mr-4'>
-                  {index + 1}
-                </div>
-                <div className='flex-1 max-w-[90%]'>
-                  <div className='flex justify-between text-black text-[1rem] font-light'>
-                    <span>{consultation.pbName}</span>
-                    <span>{consultation.date}</span>
+                <div className='w-full flex items-center justify-between'>
+                  <div className='flex space-x-2 items-center'>
+                    <span className=' text-hanaindigo font-bold mr-4'>
+                      {index + 1}
+                    </span>
+
+                    <div>
+                      <div className='font-bold truncate'>
+                        {consultation.content}
+                      </div>
+                      <span className='font-light'>
+                        {consultation.pbName} PB
+                      </span>
+                    </div>
                   </div>
-                  <div className='text-[1rem] font-bold truncate'>
-                    {consultation.content}
-                  </div>
+
+                  <span className='font-light'>{consultation.date}</span>
                 </div>
               </div>
             ))
