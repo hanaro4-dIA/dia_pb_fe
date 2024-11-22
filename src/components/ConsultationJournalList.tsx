@@ -118,12 +118,14 @@ export default function ConsultationJournalList({
         상담일지 리스트
       </div>
       <div className='h-full overflow-auto border-x border-b border-gray-200'>
-        {/* 검색 입력 필드 */}
-        <SearchField
-          placeholder='상담일지 검색'
-          value={searchTerm}
-          onChange={setSearchTerm}
-        />
+        <div className='sticky top-0 z-10 w-full bg-white'>
+          <SearchField
+            placeholder='상담일지 검색'
+            value={searchTerm}
+            onChange={setSearchTerm}
+          />
+        </div>
+
         <div className='p-4'>
           {filteredJournal.length > 0 ? (
             filteredJournal.map((consultation, index) => (
