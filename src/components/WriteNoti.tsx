@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 
-type Customer = {
+type TCustomer = {
   id: number;
   name: string;
 };
@@ -10,8 +10,8 @@ export default function WriteNoti() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [selectedCustomers, setSelectedCustomers] = useState<Customer[]>([]);
+  const [customers, setCustomers] = useState<TCustomer[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<TCustomer[]>([]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -51,7 +51,7 @@ export default function WriteNoti() {
     fetchCustomers();
   }, []);
 
-  const handleCustomerSelect = (customer: Customer) => {
+  const handleCustomerSelect = (customer: TCustomer) => {
     setSelectedCustomers((prev) => {
       if (prev.some((c) => c.id === customer.id)) {
         return prev.filter((c) => c.id !== customer.id);
@@ -81,12 +81,13 @@ export default function WriteNoti() {
       <div className='w-full h-full overflow-auto p-2 border-x border-b border-gray-200'>
         <div className='w-full h-full flex-1 overflow-hidden flex flex-col'>
           {/* 수신인 선택 */}
-          <div className='w-full p-4 flex-none justify-center'>
-            <div className='flex items-center gap-14 mb-2 mx-2'>
-              <div className='flex items-center gap-4'>
-                <div className='flex-none text-base font-medium'>수신인</div>
-              </div>
+          <div className='w-full px-4 py-3 flex-none justify-center'>
+            <div className='flex items-center justify-between'>
+              <span className='flex items-center flex-none text-base font-medium'>
+                수신인
+              </span>
 
+              {/* 전체선택 체크박스 */}
               <div
                 className='flex items-center gap-2 cursor-pointer'
                 onClick={handleSelectAll}
@@ -103,7 +104,8 @@ export default function WriteNoti() {
                 <span className='text-sm flex-none'>전체선택</span>
               </div>
 
-              <div className='flex justify-center w-3/5' ref={dropdownRef}>
+              {/* 손님선택 */}
+              <div className='flex justify-center w-4/5' ref={dropdownRef}>
                 <div className='relative w-full'>
                   <input
                     type='text'
@@ -115,7 +117,7 @@ export default function WriteNoti() {
                   />
 
                   {showDropdown && (
-                    <div className='absolute z-10 w-full mt-1 bg-white/80 border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto'>
+                    <div className='absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto'>
                       {customers.map((customer) => (
                         <div
                           key={customer.id}
@@ -130,10 +132,7 @@ export default function WriteNoti() {
                             onChange={() => handleCustomerSelect(customer)}
                             className='w-4 h-4 mr-2'
                           />
-                          <label
-                            htmlFor={`customer-${customer.id}`}
-                            className='cursor-pointer'
-                          >
+                          <label htmlFor={`customer-${customer.id}`}>
                             {customer.name} 손님
                           </label>
                         </div>
@@ -163,13 +162,14 @@ export default function WriteNoti() {
             </div>
           </div>
 
+          {/* ----------------------------------------------- */}
+
           {/* 제목 입력란 */}
-          <div className='w-full p-4 flex items-center mb-2'>
+          <div className='w-full px-4 py-2 flex items-center mb-2'>
             <span className='w-24 flex-none'>제목</span>
             <input
               type='text'
-              placeholder='마음을 표현하세요'
-              className='flex-grow border-b border-gray-200 pb-2 focus:outline-none'
+              className='flex-grow border-b border-gray-200 p-2 focus:outline-none'
             />
           </div>
 
