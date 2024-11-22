@@ -1,18 +1,14 @@
-import { LuDownload } from 'react-icons/lu';
 import { useEffect, useState } from 'react';
+import mockupScript from '../assets/mockupScript.png';
 import { type TCategoryProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
 import { type TCustomersProps } from '../lib/types';
 
 type TPbJournalsProps = {
   consultation: TJournalsProps;
-  pbName: string;
 };
 
-export default function ReadJournal({
-  consultation,
-  pbName,
-}: TPbJournalsProps) {
+export default function ReadJournal({ consultation }: TPbJournalsProps) {
   const [categoryName, setCategoryName] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
 
@@ -56,66 +52,51 @@ export default function ReadJournal({
   }, [consultation.category_id, consultation.customer_id]);
 
   return (
-    <div className='flex items-start justify-center w-full h-full space-x-4 overflow-hidden'>
+    <div className='flex items-start justify-center w-full h-full space-x-4 overflow-y-auto'>
       <div className='relative flex flex-col w-full h-full '>
-        {/* 자세히보기 */}
-        <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
+        <div className='sticky top-0 bg-hanaindigo text-white text-[1.5rem] font-extrabold p-4 rounded-t-lg pl-5'>
           상담일지 자세히보기
         </div>
 
-        <div className='p-10 space-y-4 over flow-y-auto bg-white'>
-          <div className='flex justify-between border-b border-black border-b-3 pb-2'>
-            <div className='flex gap-3'>
-              <div className='text-lg font-extrabold w-20 text-right'>
-                카테고리
+        <div className='p-10 space-y-4 flow-y-auto bg-white'>
+          <div className='flex justify-between items-center border-b border-black py-1'>
+            <label className='text-xs'>[상담 제목]</label>
+            <div className='flex justify-between items-center text-sm font-bold w-[84%] pl-2 focus:outline-none rounded-xl'>
+              <span>{consultation.title}</span>
+            </div>
+          </div>
+          <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
+            <div className='flex items-center justify-between w-1/2'>
+              <label className='text-xs'>[카테고리]</label>
+              <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                {categoryName}
               </div>
-              <div className='text-lg'>{categoryName}</div>
             </div>
-            <div className='flex gap-3'>
-              <div className='text-lg font-extrabold'>PB</div>
-              <div className='text-lg'>{pbName ?? 'PB 이름 없음'}</div>
-            </div>
-          </div>
-
-          <div className='flex justify-between border-b border-hanaindigo border-b-3 pb-2'>
-            <div className='flex gap-3'>
-              <div className='text-lg font-extrabold w-20 text-right'>
-                상담일시
+            <div className='flex items-center justify-between w-1/2'>
+              <label className='text-xs'>[상담일시]</label>
+              <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                {consultation.date}
               </div>
-              <div className='text-lg'>{consultation.date}</div>
-            </div>
-            <div className='flex gap-3'>
-              <div className='text-lg font-extrabold'>손님</div>
-              <div className='text-lg'>{customerName}</div>
             </div>
           </div>
-
-          <div className='flex gap-3 border-b border-hanaindigo border-b-3 pb-2'>
-            <div className='text-lg font-extrabold w-20 text-right'>제목</div>
-
-            <div className='text-lg'>{consultation.title}</div>
-          </div>
-
-          <div className='flex gap-3 border-b border-hanaindigo border-b-3 pb-2 '>
-            <div className='text-lg font-extrabold w-20 text-right'>내용</div>
-
-            <div className='text-lg border border-hanaindigo border-opacity-40 min-h-32 max-h-60 p-2 overflow-auto flex-grow'>
-              {consultation.content}
-            </div>
-          </div>
-
-          <div className='flex justify-between'>
-            <div className='flex gap-3'>
-              <div className='text-lg font-extrabold w-20 text-right'>
-                첨부파일
+          <div className='flex flex-col space-y-5'>
+            <div>
+              <span className='text-sm mb-3'>[PB의 기록]</span>
+              <div className='w-full h-40 p-2 border resize-none overflow-y-auto'>
+                {consultation.content}
               </div>
-              <div className='text-lg'>(첨부파일명)</div>
             </div>
-
-            <div className='flex gap-3'>
-              <button className='text-lg font-extrabold'>
-                <LuDownload />
-              </button>
+            <div>
+              <span className='text-sm mb-3'>[PB의 추천 상품]</span>
+              <div className='w-full h-40 p-2 border resize-none overflow-y-auto'>
+                {consultation.content}
+              </div>
+            </div>
+            <div>
+              <span className='text-sm mb-3'>[상담 스크립트]</span>
+              <div className='flex justify-center w-full h-96 p-2 border resize-none overflow-y-auto'>
+                <img src={mockupScript} alt='상담 내용' />
+              </div>
             </div>
           </div>
         </div>

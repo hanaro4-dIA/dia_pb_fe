@@ -102,12 +102,7 @@ export default function ConsultationJournalList({
       const rootElement = newWindow.document.getElementById('journal-root');
       if (rootElement) {
         const root = createRoot(rootElement);
-        root.render(
-          <ReadJournal
-            consultation={consultation}
-            pbName={consultation.pbName}
-          />
-        );
+        root.render(<ReadJournal consultation={consultation} />);
       }
     }
   };
