@@ -55,7 +55,7 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
       </div>
 
       <div className='p-3 border h-full flex flex-col justify-between'>
-        <div className='flex flex-col h-[90%] space-y-3 mb-2'>
+        <div className='flex flex-col h-[90%] space-y-8 my-2'>
           {/* 상담요청 내용 관련 데이터 */}
           <>
             <div className='flex justify-between items-center border-b border-black py-1'>
@@ -68,7 +68,6 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
                   onClick={openNewWindow}
                   className='border border-hanaindigo px-2 py-1 rounded text-xs'
                 >
-                  요청내용 <br />
                   자세히보기
                 </button>
               </div>
@@ -95,18 +94,16 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
             </div>
           </>
 
-          <div className='flex flex-col'>
-            {/* 도큐먼트 작성란 */}
-            <div className='mb-10 h-3/5'>
+          {/* 작성란 */}
+          <div className='flex flex-col space-y-10 h-full'>
+            <div className='h-2/5'>
               <span className='text-sm mb-3'>[PB의 기록]</span>
               <textarea
                 value={selectedText}
                 className='w-full h-full p-2 border resize-none overflow-y-auto focus:outline-hanasilver'
               />
             </div>
-
-            {/* 추천 상품 */}
-            <div className='mt-20'>
+            <div className='h-2/5'>
               <span className='text-sm mb-3'>[PB의 추천 상품]</span>
               <textarea className='w-full h-full p-2 border resize-none overflow-y-auto focus:outline-hanasilver' />
             </div>
