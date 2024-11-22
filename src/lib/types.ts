@@ -66,3 +66,12 @@ export type TCustomersProps = {
   tel: string;
   address: string;
 };
+
+export type TNotificationProps = {
+  id: number;
+  customer_id: number;
+  name: string;
+  date: string;
+  title: string;
+  text: string;
+};
