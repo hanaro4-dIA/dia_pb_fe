@@ -37,7 +37,7 @@ export default function MainPage() {
 
   return (
     <div className='flex flex-row justify-between w-full h-screen p-5'>
-      {/* 프로필과 들어온 상담 요청 */}
+      {/* 첫번째 열 */}
       <div className='flex flex-col flex-grow w-1/4 h-full mr-10'>
         {/* 프로필 */}
         <div className='overflow-y-auto w-full h-3/5 mb-5'>
@@ -49,10 +49,10 @@ export default function MainPage() {
         </div>
       </div>
 
-      {/* 캘린더와 예정된 상담 일정 */}
+      {/* 두번째 열 */}
       <div className='flex flex-col w-5/12 h-full mr-10'>
         {/* 캘린더 */}
-        <div className='flex items-center  bg-hanaindigo p-3 pl-5 rounded-t-lg'>
+        <div className='flex items-center bg-hanaindigo p-3 pl-5 rounded-t-lg'>
           <img src={logo} alt='dIA logo' className='w-8 mr-4 rounded-full' />
           <p className='text-white text-[1.3rem] font-extrabold'>
             전체 상담 일정
@@ -67,7 +67,7 @@ export default function MainPage() {
         </div>
       </div>
 
-      {/* 손님 목록 */}
+      {/* 세번째 열 */}
       <div className='flex flex-col w-1/4 h-full'>
         <div className='w-full h-full overflow-y-auto'>
           <GuestList customers={customers} />
