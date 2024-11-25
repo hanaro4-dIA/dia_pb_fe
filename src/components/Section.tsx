@@ -29,34 +29,29 @@ export default function Section({
   setIsEditing,
   handleSubmit,
 }: TSectionProps) {
-  // arrowDown 토글
   const [isCollapsed, setIsCollapsed] = useState(false);
+
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
-  // 로그아웃 로직
+
   const handleLogoutEvent = () => {
     alert('로그아웃되었습니다.');
   };
 
   return (
-    <div
-      className={`flex flex-col h-full bg-white overflow-y-scroll ${layoutClassName}`}
-    >
+    <div className={`flex flex-col h-full bg-white ${layoutClassName}`}>
       {/* 상단 */}
       <div
         className={`sticky top-0 w-full h-14 flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg ${labelClassName}`}
       >
         <div className='w-full flex items-center'>
-          {/* logoImg */}
           {logoImg && (
             <img src={logo} alt='dIA logo' className='w-8 mr-4 rounded-full' />
           )}
 
-          {/* title */}
           <span>{title}</span>
 
-          {/* pbProfile - 저장/수정 버튼 */}
           {pbProfile && (
             <>
               {isEditing ? (
@@ -85,7 +80,6 @@ export default function Section({
             로그아웃
           </button>
         )}
-        {/* arrowToggle */}
         {arrowToggle && (
           <button onClick={toggleCollapse} className='text-white'>
             {isCollapsed ? (
@@ -100,7 +94,7 @@ export default function Section({
       {/* 하단 */}
       {(!arrowToggle || !isCollapsed) && (
         <div
-          className={`w-full h-full  border-x border-b border-gray-200 ${contentClassName}`}
+          className={`flex-grow overflow-y-auto border-x border-b border-gray-200 ${contentClassName}`}
         >
           {children}
         </div>
