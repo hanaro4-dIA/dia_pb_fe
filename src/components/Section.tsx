@@ -11,6 +11,9 @@ type TSectionProps = {
   layoutClassName?: string;
   labelClassName?: string;
   contentClassName?: string;
+  isEditing?: boolean;
+  setIsEditing?: (editing: boolean) => void;
+  handleSubmit?: () => void;
 };
 
 export default function Section({
@@ -22,12 +25,18 @@ export default function Section({
   layoutClassName = '',
   labelClassName = '',
   contentClassName = '',
+  isEditing = false,
+  setIsEditing,
+  handleSubmit,
 }: TSectionProps) {
-  const [isEditing, setIsEditing] = useState(false);
-  const handleSubmit = () => {};
+  // arrowDown 토글
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
+  };
+  // 로그아웃 로직
+  const handleLogoutEvent = () => {
+    alert('로그아웃되었습니다.');
   };
 
   return (
@@ -58,7 +67,7 @@ export default function Section({
               ) : (
                 <button
                   className='text-sm text-red-600 ml-3'
-                  onClick={() => setIsEditing(!isEditing)}
+                  onClick={() => setIsEditing && setIsEditing(!isEditing)}
                 >
                   EDIT
                 </button>
@@ -67,7 +76,10 @@ export default function Section({
           )}
         </div>
         {pbProfile && (
-          <button className='w-20 text-white text-xs font-bold border border-white rounded px-2 py-1'>
+          <button
+            onClick={handleLogoutEvent}
+            className='w-20 text-white text-xs font-bold border border-white rounded px-2 py-1'
+          >
             로그아웃
           </button>
         )}
