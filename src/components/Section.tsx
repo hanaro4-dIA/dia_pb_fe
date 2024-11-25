@@ -25,7 +25,7 @@ export default function Section({
 }: TSectionProps) {
   const [isEditing, setIsEditing] = useState(false);
   const handleSubmit = () => {};
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
