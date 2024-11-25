@@ -1,61 +1,72 @@
+import { createRoot } from 'react-dom/client';
 import { useState, useEffect, useRef } from 'react';
-
-type ConsultationRecord = {
-  id: number;
-  date: string;
-  content: string;
-  recipient: string;
-};
-
-type Customer = {
-  id: number;
-  name: string;
-};
+import { type TNotificationProps } from '../lib/types';
+import { type TCustomersProps } from '../lib/types';
+import NotificationDetailsPage from '../pages/NotificationDetailsPage';
 
 const NotiHistory = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [selectedCustomers, setSelectedCustomers] = useState<Customer[]>([]);
-  const [consultations] = useState<ConsultationRecord[]>([
-    {
-      id: 1,
-      date: '2024.03.19',
-      content: '(쪽지 내용...)',
-      recipient: '강재준',
-    },
-    {
-      id: 2,
-      date: '2024.03.18',
-      content: '(쪽지 내용...)',
-      recipient: '강재준',
-    },
-    {
-      id: 3,
-      date: '2024.03.17',
-      content: '(쪽지 내용...)',
-      recipient: '강재준',
-    },
-    {
-      id: 4,
-      date: '2024.03.16',
-      content: '(쪽지 내용...)',
-      recipient: '김미진',
-    },
-    {
-      id: 5,
-      date: '2024.03.15',
-      content: '(쪽지 내용...)',
-      recipient: '김미진',
-    },
-    {
-      id: 6,
-      date: '2024.03.14',
-      content: '(쪽지 내용...)',
-      recipient: '김은서',
-    },
-  ]);
+  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<TCustomersProps[]>(
+    []
+  );
+  const [notifications, setNotifications] = useState<TNotificationProps[]>([]);
+
+  const openNewWindow = (notification: TNotificationProps) => {
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
+
+    if (newWindow) {
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            alert('Failed to load some CSS rules:');
+            return '';
+          }
+        })
+        .join('');
+
+      newWindow.document.write(`
+              <html lang="en">
+                <head>
+                  <meta charset="UTF-8" />
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                  <title>쪽지 자세히 보기</title>
+                  <style>${styles}</style>
+                </head>
+                <body>
+                  <div id="dictionary-root"></div>
+                </body>
+              </html>
+            `);
+      newWindow.document.close();
+
+      const rootElement = newWindow.document.getElementById('dictionary-root');
+      if (rootElement) {
+        const root = createRoot(rootElement);
+
+        root.render(<NotificationDetailsPage {...notification} />);
+      }
+    }
+  };
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const notiResponse = await fetch('/data/Notifications.json');
+        const notiData = await notiResponse.json();
+        setNotifications(notiData);
+      } catch (error) {
+        alert('Error fetching data:');
+      }
+    };
+
+    fetchNotifications();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -95,7 +106,7 @@ const NotiHistory = () => {
     fetchCustomers();
   }, []);
 
-  const handleCustomerSelect = (customer: Customer) => {
+  const handleCustomerSelect = (customer: TCustomersProps) => {
     setSelectedCustomers((prev) => {
       if (prev.some((c) => c.id === customer.id)) {
         return prev.filter((c) => c.id !== customer.id);
@@ -117,16 +128,16 @@ const NotiHistory = () => {
     }
   };
 
-  const filteredConsultations = consultations.filter((consultation) => {
+  const filterednotifications = notifications.filter((notification) => {
     const matchesSearch =
-      consultation.recipient.includes(searchTerm) ||
-      consultation.content.includes(searchTerm);
+      notification.name.includes(searchTerm) ||
+      notification.text.includes(searchTerm);
 
     if (selectedCustomers.length === 0) return matchesSearch;
 
     return (
       matchesSearch &&
-      selectedCustomers.some((c) => c.name === consultation.recipient)
+      selectedCustomers.some((c) => c.name === notification.name)
     );
   });
 
@@ -220,25 +231,26 @@ const NotiHistory = () => {
           </div>
 
           {/* 쪽지 리스트 아이템 */}
-          <div className='flex-1 overflow-y-auto px-4 pb-4'>
-            {filteredConsultations.length > 0 ? (
-              filteredConsultations.map((consultation) => (
-                <div
-                  key={consultation.id}
+          <div className='flex flex-col px-4 pb-4'>
+            {filterednotifications.length > 0 ? (
+              filterednotifications.map((notification) => (
+                <button
+                  onClick={() => openNewWindow(notification)}
+                  key={notification.id}
                   className='mb-3 bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer'
                 >
                   <div className='p-3'>
                     <div className='flex justify-between items-center mb-2 text-sm text-gray-600'>
                       <span className='font-bold text-base'>
-                        {consultation.recipient} 손님
+                        {notification.name} 손님
                       </span>
-                      <span>{consultation.date}</span>
+                      <span>{notification.date}</span>
                     </div>
                     <div className='bg-hanagold/40 p-3 rounded-lg text-sm'>
-                      {consultation.content}
+                      {notification.text}
                     </div>
                   </div>
-                </div>
+                </button>
               ))
             ) : (
               <div className='flex-1 flex items-center justify-center'>
