@@ -246,8 +246,8 @@ const NotiHistory = () => {
                       </span>
                       <span>{notification.date}</span>
                     </div>
-                    <div className='bg-hanagold/40 p-3 rounded-lg text-sm'>
-                      {notification.text}
+                    <div className='bg-hanagold/40 p-3 rounded-lg text-sm flex justify-start'>
+                      <span className='truncate'>{notification.text}</span>
                     </div>
                   </div>
                 </button>
