@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import Section from '../components/Section';
 
 type ConsultationRecord = {
   id: number;
@@ -12,7 +13,7 @@ type Customer = {
   name: string;
 };
 
-const NotiHistory = () => {
+export default function NotiHistory() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
@@ -89,7 +90,7 @@ const NotiHistory = () => {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        alert('Error fetching data:');
+        alert('Error fetching data');
       }
     };
     fetchCustomers();
@@ -131,13 +132,11 @@ const NotiHistory = () => {
   });
 
   return (
-    <div className='flex flex-col h-full bg-white'>
-      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg flex justify-between items-center'>
-        이전에 전송한 쪽지
-      </div>
-      <div className='overflow-auto border-x border-b border-gray-200'>
-        <div className='flex-1 flex flex-col'>
-          <div className='bg-white sticky top-0 z-10 w-full p-4 flex-none justify-center'>
+    <>
+      <Section title='이전에 전송한 쪽지'>
+        <div className='flex flex-col h-full'>
+          {/* 수신인 선택 */}
+          <div className='bg-white sticky top-0 z-10 w-full p-4'>
             <div className='flex items-center gap-14 mb-2 mx-2'>
               <div className='flex items-center gap-4'>
                 <div className='flex-none'>수신인</div>
@@ -171,7 +170,7 @@ const NotiHistory = () => {
                   />
 
                   {showDropdown && (
-                    <div className='absolute z-10 w-full mt-1 bg-white/80 border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto'>
+                    <div className='absolute z-10 w-full mt-1 bg-white/80 border border-gray-200 rounded-lg shadow-lg overflow-y-scroll'>
                       {customers.map((customer) => (
                         <div
                           key={customer.id}
@@ -220,7 +219,7 @@ const NotiHistory = () => {
           </div>
 
           {/* 쪽지 리스트 아이템 */}
-          <div className='flex-1 overflow-y-auto px-4 pb-4'>
+          <div className='overflow-y-scroll px-4 flex-grow'>
             {filteredConsultations.length > 0 ? (
               filteredConsultations.map((consultation) => (
                 <div
@@ -241,17 +240,15 @@ const NotiHistory = () => {
                 </div>
               ))
             ) : (
-              <div className='flex-1 flex items-center justify-center'>
-                <div className='text-center text-hanaindigo text-xl'>
-                  관련된 검색어의 쪽지가 없습니다.
-                </div>
+              <div className='flex items-center justify-center h-full'>
+                <p className='text-center text-hanaindigo text-xl'>
+                  검색어에 해당하는 쪽지가 없습니다.
+                </p>
               </div>
             )}
           </div>
         </div>
-      </div>
-    </div>
+      </Section>
+    </>
   );
-};
-
-export default NotiHistory;
+}

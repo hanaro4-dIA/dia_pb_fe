@@ -40,10 +40,12 @@ export default function Section({
   };
 
   return (
-    <div className={`flex flex-col h-full bg-white ${layoutClassName}`}>
+    <div
+      className={`flex flex-col h-full bg-white overflow-y-scroll ${layoutClassName}`}
+    >
       {/* 상단 */}
       <div
-        className={`w-full h-14 flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg ${labelClassName}`}
+        className={`sticky top-0 w-full h-14 flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg ${labelClassName}`}
       >
         <div className='w-full flex items-center'>
           {/* logoImg */}
