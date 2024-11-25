@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { SearchField } from '../components/SearchField';
+import Section from '../components/Section';
 import { type TCustomersProps } from '../lib/types';
 import { type TCustomerPbProps } from '../lib/types';
-import { SearchField } from './SearchField';
-import Section from './Section';
 
 type TGuestListProps = {
   customers: TCustomersProps[];

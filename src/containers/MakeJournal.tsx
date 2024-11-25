@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
+import { Button } from '../components/ui/button';
 import RequestContentPage from '../pages/RequestContentPage';
-import { Button } from './ui/button';
 
 type SecondComponentProps = {
   selectedText: string;

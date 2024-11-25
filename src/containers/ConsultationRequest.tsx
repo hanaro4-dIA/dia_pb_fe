@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import Section from '../components/Section';
 import { type TRequestedConsultationsProps } from '../lib/types';
-import Section from './Section';
 
 type TConsultationRequestProps = {
   onApprove: (consultation: TRequestedConsultationsProps) => void;

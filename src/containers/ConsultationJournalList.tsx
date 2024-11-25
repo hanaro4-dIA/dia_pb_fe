@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client';
 import { useEffect, useState } from 'react';
+import { SearchField } from '../components/SearchField';
+import Section from '../components/Section';
 import { type TPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
 import ReadJournal from './ReadJournal';
-import { SearchField } from './SearchField';
-import Section from './Section';
 
 type TConsultationJournalListProps = {
   customerId: number;

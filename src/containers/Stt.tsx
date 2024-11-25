@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 
 type ButtonType = { id: number; text: string; top: number; left: number };
@@ -56,12 +57,8 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
   };
 
   return (
-    <div className='border relative flex flex-col w-full h-full'>
-      {/* 헤더 */}
-      <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-3 rounded-t-lg pl-5'>
-        STT 자동 작성란
-      </div>
-      <div className='h-full p-2 border-x border-gray-200 flex flex-col justify-between'>
+    <Section title='STT 자동 작성란'>
+      <div className='h-full p-2 flex flex-col justify-between'>
         {/* 텍스트 입력 영역 */}
         <div className='relative flex overflow-y-auto'>
           <textarea
@@ -96,6 +93,6 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
           <Button className='bg-hanaindigo w-20 px-2 rounded-xl'>저장</Button>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

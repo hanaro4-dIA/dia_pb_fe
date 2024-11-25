@@ -1,5 +1,5 @@
-import NotiHistory from '../components/NotiHistory';
-import WriteNoti from '../components/WriteNoti';
+import NotiHistory from '../containers/NotiHistory';
+import WriteNoti from '../containers/WriteNoti';
 
 export default function NotificationPage() {
   return (

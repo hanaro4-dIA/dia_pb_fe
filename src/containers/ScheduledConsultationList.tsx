@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Section from '../components/Section';
 import { type TRequestedConsultationsProps } from '../lib/types';
-import Section from './Section';
 
 type ScheduledConsultationListProps = {
   consultations: TRequestedConsultationsProps[];

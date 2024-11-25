@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import ConsultationJournalList from '../components/ConsultationJournalList';
-import CustomerInformation from '../components/CustomerInformation';
-import MakeJournal from '../components/MakeJournal';
-import STT from '../components/Stt';
 import { Button } from '../components/ui/button';
+import ConsultationJournalList from '../containers/ConsultationJournalList';
+import CustomerInformation from '../containers/CustomerInformation';
+import MakeJournal from '../containers/MakeJournal';
+import STT from '../containers/Stt';
 import { type TCustomersProps } from '../lib/types';
 
 export default function ConsultingPage() {

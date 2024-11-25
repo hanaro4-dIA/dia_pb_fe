@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import PbJsonData from '../../public/data/PB.json';
-import { Button } from './ui/button';
+import { Button } from '../components/ui/button';
 
 export default function Login() {
   const businessIdRef = useRef<HTMLInputElement | null>(null);

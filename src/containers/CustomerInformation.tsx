@@ -1,8 +1,8 @@
 import { MdOutlineModeEdit } from 'react-icons/md';
 import { useEffect, useState } from 'react';
+import Section from '../components/Section';
 import { type TCustomersProps } from '../lib/types';
 import { type TCustomerPbProps } from '../lib/types';
-import Section from './Section';
 
 type TCustomerInformationProps = {
   customerId: number;
