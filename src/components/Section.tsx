@@ -86,7 +86,7 @@ export default function Section({
       {/* 하단 */}
       {(!arrowToggle || !isCollapsed) && (
         <div
-          className={`w-full h-full overflow-auto px-2 border-x border-b border-gray-200 ${contentClassName}`}
+          className={`w-full h-full  border-x border-b border-gray-200 ${contentClassName}`}
         >
           {children}
         </div>

@@ -10,7 +10,7 @@
 
 /*캘린더*/
 .react-calendar {
-  @apply h-full w-full rounded-b-lg p-5 shadow-lg;
+  @apply h-full w-full p-5;
 }
 
 /*캘린더nav 년도,월 색깔 */
