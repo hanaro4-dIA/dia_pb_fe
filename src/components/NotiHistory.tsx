@@ -1,26 +1,17 @@
 import { createRoot } from 'react-dom/client';
 import { useState, useEffect, useRef } from 'react';
 import { type TNotificationProps } from '../lib/types';
+import { type TCustomersProps } from '../lib/types';
 import NotificationDetailsPage from '../pages/NotificationDetailsPage';
-
-type ConsultationRecord = {
-  id: number;
-  date: string;
-  content: string;
-  recipient: string;
-};
-
-type Customer = {
-  id: number;
-  name: string;
-};
 
 const NotiHistory = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [selectedCustomers, setSelectedCustomers] = useState<Customer[]>([]);
+  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<TCustomersProps[]>(
+    []
+  );
   const [notifications, setNotifications] = useState<TNotificationProps[]>([]);
 
   const openNewWindow = (notification: TNotificationProps) => {
@@ -115,7 +106,7 @@ const NotiHistory = () => {
     fetchCustomers();
   }, []);
 
-  const handleCustomerSelect = (customer: Customer) => {
+  const handleCustomerSelect = (customer: TCustomersProps) => {
     setSelectedCustomers((prev) => {
       if (prev.some((c) => c.id === customer.id)) {
         return prev.filter((c) => c.id !== customer.id);
