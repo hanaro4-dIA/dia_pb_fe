@@ -146,7 +146,7 @@ const NotiHistory = () => {
       <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg flex justify-between items-center'>
         이전에 전송한 쪽지
       </div>
-      <div className='overflow-auto border-x border-b border-gray-200'>
+      <div className='overflow-auto border-x border-b h-full border-gray-200'>
         <div className='flex-1 flex flex-col'>
           <div className='bg-white sticky top-0 z-10 w-full p-4 flex-none justify-center'>
             <div className='flex items-center gap-14 mb-2 mx-2'>
