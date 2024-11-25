@@ -4,12 +4,9 @@ export default function TestPage() {
   return (
     <div className='flex space-x-4'>
       <Section
-        pbProfile={false}
-        logoImg={false}
         title='손님목록'
-        arrowToggle={false}
         layoutClassName='w-full'
-        contentChildren={
+        children={
           <>
             <div className='text-center text-hanaindigo text-xl'>
               기본 section
@@ -23,7 +20,7 @@ export default function TestPage() {
         title='전체 상담 일정'
         arrowToggle={false}
         layoutClassName='w-full'
-        contentChildren={
+        children={
           <>
             <div className='text-center text-hanaindigo text-xl'>
               logo 이미지 추가
@@ -37,7 +34,7 @@ export default function TestPage() {
         title='손님정보'
         arrowToggle={true}
         layoutClassName='w-full'
-        contentChildren={
+        children={
           <>
             <div className='text-center text-hanaindigo text-xl'>
               arrowDown 토글 추가
@@ -51,7 +48,7 @@ export default function TestPage() {
         title='PB 내 프로필'
         arrowToggle={false}
         layoutClassName='w-full'
-        contentChildren={
+        children={
           <>
             <div className='text-center text-hanaindigo text-xl'>PB 프로필</div>
           </>

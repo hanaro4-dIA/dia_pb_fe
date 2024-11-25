@@ -54,58 +54,60 @@ export default function ConsultationRequest({
   };
 
   return (
-    <div className='flex flex-col h-full bg-white'>
-      <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
-        들어온 상담 요청
-      </div>
-      {consultationData.length > 0 ? (
-        <div className='overflow-auto p-4 border-x border-b border-gray-200'>
-          {consultationData.map(
-            ({
-              id,
-              name,
-              title,
-              hopeDay,
-              hopeTime,
-              requestDay,
-              approvalStatus,
-            }) => (
-              <article
-                key={id}
-                className='w-full flex flex-col justify-end mb-4 items-start'
-              >
-                <small className='ml-2'>{requestDay}</small>
-                <div className='bg-white rounded-lg border border-gray-200 p-4 shadow-lg w-full'>
-                  <div className='flex justify-between items-center'>
-                    <div className='flex flex-col w-[70%]'>
-                      <span className='w-[95%] text-[1rem] font-bold truncate	'>
-                        {name} 손님
-                      </span>
-                      <span className='w-[95%] font-bold truncate	'>
-                        {title}
-                      </span>
-                      <span className='text-[0.8rem] font-bold'>
-                        요청일: {hopeDay} {hopeTime}
-                      </span>
-                    </div>
+    <>
+      <div className='flex flex-col h-full bg-white'>
+        <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
+          들어온 상담 요청
+        </div>
+        {consultationData.length > 0 ? (
+          <div className='overflow-auto p-4 border-x border-b border-gray-200'>
+            {consultationData.map(
+              ({
+                id,
+                name,
+                title,
+                hopeDay,
+                hopeTime,
+                requestDay,
+                approvalStatus,
+              }) => (
+                <article
+                  key={id}
+                  className='w-full flex flex-col justify-end mb-4 items-start'
+                >
+                  <small className='ml-2'>{requestDay}</small>
+                  <div className='bg-white rounded-lg border border-gray-200 p-4 shadow-lg w-full'>
+                    <div className='flex justify-between items-center'>
+                      <div className='flex flex-col w-[70%]'>
+                        <span className='w-[95%] text-[1rem] font-bold truncate	'>
+                          {name} 손님
+                        </span>
+                        <span className='w-[95%] font-bold truncate	'>
+                          {title}
+                        </span>
+                        <span className='text-[0.8rem] font-bold'>
+                          요청일: {hopeDay} {hopeTime}
+                        </span>
+                      </div>
 
-                    <button
-                      className='w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg bg-hanaindigo hover:bg-hanagold'
-                      onClick={() => toggleApprovalStatus(id)}
-                    >
-                      {!approvalStatus && '승인대기'}
-                    </button>
+                      <button
+                        className='w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg bg-hanaindigo hover:bg-hanagold'
+                        onClick={() => toggleApprovalStatus(id)}
+                      >
+                        {!approvalStatus && '승인대기'}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </article>
-            )
-          )}
-        </div>
-      ) : (
-        <div className='text-center text-hanaindigo p-4 h-full text-xl border-x border-b border-gray-200'>
-          모든 상담 요청이 승인되었습니다.
-        </div>
-      )}
-    </div>
+                </article>
+              )
+            )}
+          </div>
+        ) : (
+          <div className='text-center text-hanaindigo p-4 h-full text-xl border-x border-b border-gray-200'>
+            모든 상담 요청이 승인되었습니다.
+          </div>
+        )}
+      </div>
+    </>
   );
 }
