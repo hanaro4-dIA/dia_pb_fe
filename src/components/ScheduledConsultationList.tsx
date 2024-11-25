@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { type TRequestedConsultationsProps } from '../lib/types';
+import Section from './Section';
 
 type ScheduledConsultationListProps = {
   consultations: TRequestedConsultationsProps[];
@@ -58,45 +59,47 @@ export default function ScheduledConsultationList({
   };
 
   return (
-    <div className='flex flex-col h-full bg-white'>
-      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
-        {id && customerName
-          ? `${customerName} 손님의 예정된 상담 일정`
-          : '예정된 상담 일정'}
-      </div>
-
-      <div className='p-4 overflow-auto h-full border-x border-b border-gray-200'>
-        {allConsultations.length > 0 ? (
-          allConsultations.map(
-            ({ name, title, customer_id, hopeDay, hopeTime }, index) => (
-              <div
-                key={index}
-                className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
-              >
-                <div className='flex justify-between text-black text-[1rem] font-light'>
-                  <span>{name} 손님</span>
-                  <span>
-                    {hopeDay} {hopeTime}
-                  </span>
+    <>
+      <Section
+        title={
+          id && customerName
+            ? `${customerName} 손님의 예정된 상담 일정`
+            : '예정된 상담 일정'
+        }
+      >
+        <div className='w-full h-fit p-4'>
+          {allConsultations.length > 0 ? (
+            allConsultations.map(
+              ({ name, title, customer_id, hopeDay, hopeTime }, index) => (
+                <div
+                  key={index}
+                  className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
+                >
+                  <div className='flex justify-between text-black text-[1rem] font-light'>
+                    <span>{name} 손님</span>
+                    <span>
+                      {hopeDay} {hopeTime}
+                    </span>
+                  </div>
+                  <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
+                    {title}
+                    <button
+                      className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
+                      onClick={() => handleConsultationClick(customer_id)}
+                    >
+                      상담하기
+                    </button>
+                  </div>
                 </div>
-                <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
-                  {title}
-                  <button
-                    className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-                    onClick={() => handleConsultationClick(customer_id)}
-                  >
-                    상담하기
-                  </button>
-                </div>
-              </div>
+              )
             )
-          )
-        ) : (
-          <div className='text-center text-hanaindigo text-xl'>
-            일정이 없습니다
-          </div>
-        )}
-      </div>
-    </div>
+          ) : (
+            <div className='text-center text-hanaindigo text-xl'>
+              일정이 없습니다
+            </div>
+          )}
+        </div>
+      </Section>
+    </>
   );
 }
