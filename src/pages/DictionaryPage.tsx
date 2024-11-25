@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { SearchField } from '../components/SearchField';
+import Section from '../components/Section';
 
 // 키워드 DB 리스트 타입 지정
 type TDBItemProps = {
@@ -57,7 +58,7 @@ const dbList: TDBItemProps[] = [
 
 export default function DictionaryPage() {
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
-  const [selectedItem, setSelectedItem] = useState<TDBItemProps>(); // 선택된 항목 상태
+  const [selectedItem, setSelectedItem] = useState<TDBItemProps>();
 
   // 검색어에 따라 DB 목록을 필터링하는 함수
   const filteredDBList = dbList.filter((item) =>
@@ -68,13 +69,9 @@ export default function DictionaryPage() {
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
       {/* 왼쪽 목록 영역 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
-        <div className='overflow-auto'>
-          <div className='flex flex-col h-full bg-white '>
-            {/* 헤더 */}
-            <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
-              키워드 DB 목록
-            </div>
-            <div className='overflow-auto border-x border-b border-gray-200'>
+        <div className='overflow-auto h-full'>
+          <Section title='키워드 DB 목록'>
+            <>
               <div className='sticky top-0 z-10 w-full bg-white'>
                 <SearchField
                   placeholder='키워드 검색'
@@ -114,25 +111,19 @@ export default function DictionaryPage() {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
+            </>
+          </Section>
         </div>
       </div>
 
       {/* 오른쪽 상세보기 영역 */}
-      <div className='flex flex-col flex-grow w-full h-full'>
-        <div className='relative flex flex-col w-full h-full '>
-          {/* 상세보기 헤더 */}
-          <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
-            상세보기
-          </div>
-
-          {/* 상세 내용 표시 */}
+      <div className='flex flex-col flex-grow w-3/4 h-full'>
+        <Section title='상세보기'>
           {selectedItem ? (
             <div className='h-full p-10 space-y-4 overflow-y-auto border-x border-b border-gray-200'>
               <div className='text-4xl font-bold'>{selectedItem.title}</div>
               <div className='flex gap-3 border-b border-black border-b-3 pb-2'>
-                <div className='text-lg font-extrabold'>상세URL </div>
+                <div className='text-lg font-extrabold'>상세URL</div>
                 <div className='text-lg '>
                   <a
                     href={selectedItem.url}
@@ -152,7 +143,7 @@ export default function DictionaryPage() {
               키워드를 선택해 주세요.
             </div>
           )}
-        </div>
+        </Section>
       </div>
     </div>
   );
