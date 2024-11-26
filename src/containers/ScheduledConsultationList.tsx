@@ -1,6 +1,8 @@
+import { MdOutlineTimer } from 'react-icons/md';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
+import Timer from '../components/Timer';
 import { type TRequestedConsultationsProps } from '../lib/types';
 
 type ScheduledConsultationListProps = {
@@ -30,10 +32,12 @@ export default function ScheduledConsultationList({
               : approvalStatus && !finishStatus
           )
           .sort((a, b) => {
-              if (a.quick && !b.quick) return -1;
-              if (!a.quick && b.quick) return 1;
-              return new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
-            });
+            if (a.quick && !b.quick) return -1;
+            if (!a.quick && b.quick) return 1;
+            return (
+              new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
+            );
+          });
 
         setConsultationData(filteredData);
 
@@ -51,19 +55,21 @@ export default function ScheduledConsultationList({
     fetchNotConsultingData();
   }, [id, consultations]);
 
-  const allConsultations = [...consultationData, ...consultations].sort((a, b) => {
-  if (a.quick && !b.quick) return -1;
-  if (!a.quick && b.quick) return 1;
-  return new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime();
-});
+  const allConsultations = [...consultationData, ...consultations].sort(
+    (a, b) => {
+      if (a.quick && !b.quick) return -1;
+      if (!a.quick && b.quick) return 1;
+      return new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime();
+    }
+  );
 
   const handleConsultationClick = (consultationId: number) => {
     navigate(`/consulting/${consultationId}`);
   };
 
   // 빠른 상담 요청 여부에 따른 테두리 변경
-  const getBorderColorClass = (quick : boolean) => {
-    return quick ? 'border-red-500 border-4' : 'border-gray-200';
+  const getBorderColorClass = (quick: boolean) => {
+    return quick ? 'quick-border' : 'border-gray-200';
   };
 
   return (
@@ -78,7 +84,10 @@ export default function ScheduledConsultationList({
         <div className='w-full h-fit p-4'>
           {allConsultations.length > 0 ? (
             allConsultations.map(
-              ({ name, title, customer_id, hopeDay, hopeTime, quick }, index) => (
+              (
+                { name, title, customer_id, hopeDay, hopeTime, quick },
+                index
+              ) => (
                 <div
                   key={index}
                   className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(quick)} shadow-lg`}
@@ -91,6 +100,10 @@ export default function ScheduledConsultationList({
                   </div>
                   <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
                     {title}
+                    <span className='flex justify-center items-center gap-1'>
+                      {quick && <MdOutlineTimer className='text-hanared' />}{' '}
+                      {quick && <Timer hopeDay={hopeDay} hopeTime={hopeTime} />}{' '}
+                    </span>
                     <button
                       className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
                       onClick={() => handleConsultationClick(customer_id)}

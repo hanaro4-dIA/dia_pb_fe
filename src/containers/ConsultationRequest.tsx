@@ -14,32 +14,35 @@ export default function ConsultationRequest({
   >([]);
 
   useEffect(() => {
-  const fetchNotConsultingData = async () => {
-    try {
-      const response = await fetch('/data/Consultings.json');
-      const data: TRequestedConsultationsProps[] = await response.json();
+    const fetchNotConsultingData = async () => {
+      try {
+        const response = await fetch('/data/Consultings.json');
+        const data: TRequestedConsultationsProps[] = await response.json();
 
-      // 필터 및 정렬 조건: approvalStatus가 false이면서 finishStatus가 false인 항목만
-      // quick이 true인 항목을 우선 정렬하고, 그 다음 requestDay 기준으로 오름차순 정렬
-      const filteredData = data
-        .filter(
-          ({ approvalStatus, finishStatus }) =>
-            approvalStatus === false && finishStatus === false
-        )
-        .sort((a, b) => {
-          if (a.quick && !b.quick) return -1;
-          if (!a.quick && b.quick) return 1;
-          return new Date(a.requestDay).getTime() - new Date(b.requestDay).getTime();
-        });
+        // 필터 및 정렬 조건: approvalStatus가 false이면서 finishStatus가 false인 항목만
+        // quick이 true인 항목을 우선 정렬하고, 그 다음 requestDay 기준으로 오름차순 정렬
+        const filteredData = data
+          .filter(
+            ({ approvalStatus, finishStatus }) =>
+              approvalStatus === false && finishStatus === false
+          )
+          .sort((a, b) => {
+            if (a.quick && !b.quick) return -1;
+            if (!a.quick && b.quick) return 1;
+            return (
+              new Date(a.requestDay).getTime() -
+              new Date(b.requestDay).getTime()
+            );
+          });
 
-      setConsultationData(filteredData);
-    } catch (error) {
-      alert('Error fetching consultation data:');
-    }
-  };
+        setConsultationData(filteredData);
+      } catch (error) {
+        alert('Error fetching consultation data:');
+      }
+    };
 
-  fetchNotConsultingData();
-}, []);
+    fetchNotConsultingData();
+  }, []);
 
   // 승인 버튼 클릭 시 상태 변경
   const toggleApprovalStatus = (id: number) => {
@@ -56,8 +59,8 @@ export default function ConsultationRequest({
   };
 
   // 빠른 상담 요청 여부에 따른 테두리 변경
-  const getBorderColorClass = (quick : boolean) => {
-    return quick ? 'border-red-500 border-4' : 'border-gray-200';
+  const getBorderColorClass = (quick: boolean) => {
+    return quick ? 'quick-border' : 'border-gray-200';
   };
 
   return (
@@ -74,7 +77,7 @@ export default function ConsultationRequest({
                 hopeTime,
                 requestDay,
                 approvalStatus,
-                quick
+                quick,
               }) => (
                 <article
                   key={id}
@@ -82,7 +85,9 @@ export default function ConsultationRequest({
                 >
                   <small className='ml-2'>{requestDay}</small>
                   {quick}
-                  <div className={`bg-white rounded-lg border ${getBorderColorClass(quick)}  p-4 shadow-lg w-full`}>
+                  <div
+                    className={`bg-white rounded-lg border ${getBorderColorClass(quick)}  p-4 shadow-lg w-full`}
+                  >
                     <div className='flex justify-between items-center'>
                       <div className='flex flex-col w-[70%]'>
                         <span className='w-[95%] text-[1rem] font-bold truncate	'>
