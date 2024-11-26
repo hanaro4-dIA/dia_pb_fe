@@ -59,28 +59,16 @@ export default function GuestList({ customers }: TGuestListProps) {
               className='w-full mb-4'
               onClick={() => navigate(`/customerDetail/${id}`)}
             >
-              {/* 현재 보고 있는 손님일 경우 */}
-              {id === Number(params.id) ? (
-                <div className='border-2 border-hanaindigo rounded-lg p-4 shadow-lg cursor-pointer'>
-                  {/* 손님 이름 */}
-                  <div className='text-lg font-bold'>{name} 손님</div>
-
-                  {/* 손님별 메모 내용 */}
-                  <div className=' bg-hanagold/60 text-black p-2 mt-2 rounded-lg'>
-                    <div className='truncate w-full'>{getMemo(id)}</div>
-                  </div>
+              <div
+                className={`${id === Number(params.id) && `border-2 border-hanaindigo`} rounded-lg p-4 shadow-lg cursor-pointer`}
+              >
+                <span className='text-lg font-bold'>{name} 손님</span>
+                <div
+                  className={`${id === Number(params.id) ? `bg-hanagold/60` : `bg-hanagold/40`} text-black p-2 mt-2 rounded-lg`}
+                >
+                  <span className='truncate w-full'>{getMemo(id)}</span>
                 </div>
-              ) : (
-                <div className='bg-white rounded-lg p-4 border shadow-lg cursor-pointer'>
-                  <div className='text-black text-lg font-bold'>
-                    {name} 손님
-                  </div>
-
-                  <div className='bg-hanagold/40 text-black p-3 mt-2 rounded-lg'>
-                    <div className='truncate w-full'>{getMemo(id)}</div>
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
           ))
         ) : (
