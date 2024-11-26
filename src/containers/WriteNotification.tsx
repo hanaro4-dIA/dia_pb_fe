@@ -7,7 +7,7 @@ type TCustomer = {
   name: string;
 };
 
-export default function WriteNoti() {
+export default function WriteNotification() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);

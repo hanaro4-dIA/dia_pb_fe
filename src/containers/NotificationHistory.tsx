@@ -3,9 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 import Section from '../components/Section';
 import { type TNotificationProps } from '../lib/types';
 import { type TCustomersProps } from '../lib/types';
-import NotificationDetailsPage from '../pages/NotificationDetailsPage';
+import NotificationDetailsWindow from '../pages/NotificationDetailsWindow';
 
-export default function NotiHistory() {
+export default function NotificationHistory() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
@@ -51,7 +51,7 @@ export default function NotiHistory() {
       if (rootElement) {
         const root = createRoot(rootElement);
 
-        root.render(<NotificationDetailsPage {...notification} />);
+        root.render(<NotificationDetailsWindow {...notification} />);
       }
     }
   };
