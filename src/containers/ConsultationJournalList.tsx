@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { useEffect, useState } from 'react';
+import { ConsultationJournalListItem } from '../components/ConsultationJournalListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
 import { type TPbProps } from '../lib/types';
@@ -57,8 +58,6 @@ export default function ConsultationJournalList({
       fetchConsultationData();
     }
   }, [customerId]);
-
-  console.log(consultationJourData);
 
   // 상담일지 검색하기
   const filteredJournal = consultationJourData.filter(
@@ -121,28 +120,11 @@ export default function ConsultationJournalList({
       <div className='p-4'>
         {filteredJournal.length > 0 ? (
           filteredJournal.map((consultation, index) => (
-            <div
-              key={index}
-              onClick={() => openNewWindow(consultation)}
-              className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border justify-around border-gray-200 cursor-pointer'
-            >
-              <div className='w-full flex items-center justify-between'>
-                <div className='flex space-x-2 items-center'>
-                  <span className=' text-hanaindigo font-bold mr-4'>
-                    {index + 1}
-                  </span>
-
-                  <div>
-                    <div className='font-bold truncate'>
-                      {consultation.content}
-                    </div>
-                    <span className='font-light'>{consultation.pbName} PB</span>
-                  </div>
-                </div>
-
-                <span className='font-light'>{consultation.date}</span>
-              </div>
-            </div>
+            <ConsultationJournalListItem
+              index={consultation.id || index}
+              consultation={consultation}
+              openNewWindow={openNewWindow}
+            />
           ))
         ) : (
           <div className='text-center text-hanaindigo text-xl'>
