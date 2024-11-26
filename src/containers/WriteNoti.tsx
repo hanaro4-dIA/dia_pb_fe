@@ -1,8 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-<<<<<<< HEAD
 import Section from '../components/Section';
-=======
->>>>>>> 5a91d04 ([refactor] : Section 컴포넌트를 활용한 Stt 컴포넌트 구성)
 import { Button } from '../components/ui/button';
 
 type TCustomer = {
