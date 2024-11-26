@@ -1,11 +1,12 @@
 import { createRoot } from 'react-dom/client';
 import { useState, useEffect, useRef } from 'react';
+import IteratingListItem from '../components/IteratingListItem';
 import Section from '../components/Section';
 import { type TNotificationProps } from '../lib/types';
 import { type TCustomersProps } from '../lib/types';
-import NotificationDetailsPage from '../pages/NotificationDetailsPage';
+import NotificationDetailsWindow from '../pages/NotificationDetailsWindow';
 
-export default function NotiHistory() {
+export default function NotificationHistory() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
@@ -51,7 +52,7 @@ export default function NotiHistory() {
       if (rootElement) {
         const root = createRoot(rootElement);
 
-        root.render(<NotificationDetailsPage {...notification} />);
+        root.render(<NotificationDetailsWindow {...notification} />);
       }
     }
   };
@@ -232,24 +233,14 @@ export default function NotiHistory() {
         {/* 쪽지 리스트 아이템 */}
         <div className='flex flex-col overflow-y-scroll px-4 flex-grow'>
           {filteredNotifications.length > 0 ? (
-            filteredNotifications.map((notification) => (
-              <button
+            filteredNotifications.map((notification: TNotificationProps) => (
+              <IteratingListItem
+                id={notification.id}
+                title={`${notification.name} 손님`}
+                content={notification.text}
                 onClick={() => openNewWindow(notification)}
-                key={notification.id}
-                className='mb-3 bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer'
-              >
-                <div className='p-3'>
-                  <div className='flex justify-between items-center mb-2 text-sm text-gray-600'>
-                    <span className='font-bold text-base'>
-                      {notification.name} 손님
-                    </span>
-                    <span>{notification.date}</span>
-                  </div>
-                  <div className='bg-hanagold/40 p-3 rounded-lg text-sm flex justify-start'>
-                    <span className='truncate'>{notification.text}</span>
-                  </div>
-                </div>
-              </button>
+                date={notification.date}
+              />
             ))
           ) : (
             <div className='flex items-center justify-center h-full'>

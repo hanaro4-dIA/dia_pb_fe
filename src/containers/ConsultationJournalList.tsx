@@ -4,7 +4,7 @@ import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
 import { type TPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
-import ReadJournal from './ReadJournal';
+import ReadJournalWindow from '../pages/ReadJournalWindow';
 
 type TConsultationJournalListProps = {
   customerId: number;
@@ -103,7 +103,7 @@ export default function ConsultationJournalList({
       const rootElement = newWindow.document.getElementById('journal-root');
       if (rootElement) {
         const root = createRoot(rootElement);
-        root.render(<ReadJournal consultation={consultation} />);
+        root.render(<ReadJournalWindow consultation={consultation} />);
       }
     }
   };
