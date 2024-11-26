@@ -4,13 +4,13 @@
     "customer_id": 1,
     "name": "강재준",
     "title": "(빠른 상담 요청 디폴트 넣기)",
-    "category": "대출",
+    "category": "",
     "hopeDay": "2024.11.22",
     "hopeTime": "16:30",
     "requestDay": "2024.10.29 09:00",
     "approvalStatus": false,
     "finishStatus": false,
-    "inquiryDetails": "신용대출을 신청하는 절차와 필요 서류, 이자율 등에 대해 자세히 알고 싶습니다.",
+    "inquiryDetails": "",
     "quick": true
   },
   {
@@ -158,13 +158,13 @@
     "customer_id": 3,
     "name": "길유정",
     "title": "(빠른 상담 요청 디폴트 넣기)",
-    "category": "카드",
+    "category": "",
     "hopeDay": "2024.12.01",
     "hopeTime": "16:30",
     "requestDay": "2024.10.29 14:14",
     "approvalStatus": true,
     "finishStatus": false,
-    "inquiryDetails": "신용카드의 다양한 혜택을 비교하고 선택할 수 있도록 상담을 받고 싶습니다.",
+    "inquiryDetails": "",
     "quick": true
   },
   {
