@@ -60,7 +60,7 @@ export default function GuestList({ customers }: TGuestListProps) {
               onClick={() => navigate(`/customerDetail/${id}`)}
             >
               <div
-                className={`${id === Number(params.id) && `border-2 border-hanaindigo`} rounded-lg p-4 shadow-lg cursor-pointer`}
+                className={`${id === Number(params.id) ? 'border-2 border-hanaindigo' : 'border border-gray-200'} rounded-lg p-4 shadow-lg cursor-pointer`}
               >
                 <span className='text-lg font-bold'>{name} 손님</span>
                 <div

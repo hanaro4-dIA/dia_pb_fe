@@ -26,7 +26,7 @@ export default function DictionaryList({
             onClick={() => setSelectedItem(item)}
           >
             <div
-              className={`${item.id === selectedItem?.id ? 'border-2 border-hanaindigo' : ''} rounded-lg p-4 shadow-lg border border-gray-200 cursor-pointer`}
+              className={`${item.id === selectedItem?.id ? 'border-2 border-hanaindigo' : 'border border-gray-200'} rounded-lg p-4 shadow-lg cursor-pointer`}
             >
               <div className='text-black text-base font-bold'>{item.title}</div>
               <div
