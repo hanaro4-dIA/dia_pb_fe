@@ -1,9 +1,10 @@
-import { MdOutlineTimer } from 'react-icons/md';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
-import Timer from '../components/Timer';
 import { type TRequestedConsultationsProps } from '../lib/types';
+import { UpcomingConsultaionItem } from '../components/UpcomingConsultaionItem';
+
+
 
 type ScheduledConsultationListProps = {
   consultations: TRequestedConsultationsProps[];
@@ -17,7 +18,6 @@ export default function ScheduledConsultationList({
   >([]);
   const [customerName, setCustomerName] = useState<string>('');
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNotConsultingData = async () => {
@@ -63,15 +63,6 @@ export default function ScheduledConsultationList({
     }
   );
 
-  const handleConsultationClick = (consultationId: number) => {
-    navigate(`/consulting/${consultationId}`);
-  };
-
-  // 빠른 상담 요청 여부에 따른 테두리 변경
-  const getBorderColorClass = (quick: boolean) => {
-    return quick ? 'quick-border' : 'border-gray-200';
-  };
-
   return (
     <>
       <Section
@@ -83,37 +74,12 @@ export default function ScheduledConsultationList({
       >
         <div className='w-full h-fit p-4'>
           {allConsultations.length > 0 ? (
-            allConsultations.map(
-              (
-                { name, title, customer_id, hopeDay, hopeTime, quick },
-                index
-              ) => (
-                <div
-                  key={index}
-                  className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(quick)} shadow-lg`}
-                >
-                  <div className='flex justify-between text-black text-[1rem] font-light'>
-                    <span>{name} 손님</span>
-                    <span>
-                      {hopeDay} {hopeTime}
-                    </span>
-                  </div>
-                  <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
-                    {title}
-                    <span className='flex justify-center items-center gap-1'>
-                      {quick && <MdOutlineTimer className='text-hanared' />}{' '}
-                      {quick && <Timer hopeDay={hopeDay} hopeTime={hopeTime} />}{' '}
-                    </span>
-                    <button
-                      className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-                      onClick={() => handleConsultationClick(customer_id)}
-                    >
-                      상담하기
-                    </button>
-                  </div>
-                </div>
-              )
-            )
+            allConsultations.map((consultation, index) => (
+              <UpcomingConsultaionItem
+                key={index}
+                {...consultation}
+              />
+            ))
           ) : (
             <div className='text-center text-hanaindigo text-xl'>
               일정이 없습니다
