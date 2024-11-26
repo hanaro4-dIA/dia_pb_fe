@@ -43,3 +43,21 @@
 .dot {
   @apply border-b-2 border-red-400;
 }
+
+/* 빠른 상담 요청의 반짝거림 애니메이션*/
+@keyframes quick-border {
+  0% {
+    box-shadow: 0 0 5px #cb1136;
+  }
+  50% {
+    box-shadow: 0 0 20px #cb1136;
+  }
+  100% {
+    box-shadow: 0 0 5px #cb1136;
+  }
+}
+
+.quick-border {
+  border: 3px solid #cb1136;
+  animation: quick-border 2s infinite;
+}
