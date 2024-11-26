@@ -69,6 +69,16 @@ export type TCustomersProps = {
   address: string;
 };
 
+// 쪽지 타입 (Notifications.json)
+export type TNotificationProps = {
+  id: number;
+  customer_id: number;
+  name: string;
+  date: string;
+  title: string;
+  text: string;
+};
+
 // Section 컴포넌트 타입
 export type TSectionProps = {
   pbProfile?: boolean;
