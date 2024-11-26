@@ -1,3 +1,4 @@
+import IteratingListItem from '../components/IteratingListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
 import { type TDictionaryListProps } from '../lib/types';
@@ -20,22 +21,13 @@ export default function DictionaryList({
       </div>
       <div className='p-4'>
         {filteredDBList.map((item) => (
-          <div
-            key={item.id}
-            className='mb-4'
+          <IteratingListItem
+            id={item.id}
+            title={item.title}
+            content={item.content}
+            isSelected={item.id === selectedItem?.id}
             onClick={() => setSelectedItem(item)}
-          >
-            <div
-              className={`${item.id === selectedItem?.id ? 'border-2 border-hanaindigo' : 'border border-gray-200'} rounded-lg p-4 shadow-lg cursor-pointer`}
-            >
-              <div className='text-black text-base font-bold'>{item.title}</div>
-              <div
-                className={`${item.id === selectedItem?.id ? 'bg-hanagold/60' : 'bg-hanagold/40'} p-2 mt-2 rounded-lg`}
-              >
-                <div className='truncate w-full'>{item.content}</div>
-              </div>
-            </div>
-          </div>
+          />
         ))}
       </div>
     </Section>
