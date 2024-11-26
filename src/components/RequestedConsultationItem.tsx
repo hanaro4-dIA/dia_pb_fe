@@ -4,7 +4,7 @@ type ConsultationRequestItemProps = TRequestedConsultationsProps & {
   onApprove: (id: number) => void;
 };
 
-export const RequestedConsultaionItem = ({
+export const RequestedConsultationItem = ({
   id,
   name,
   title,

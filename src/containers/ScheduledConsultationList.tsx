@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { type TRequestedConsultationsProps } from '../lib/types';
-import { UpcomingConsultaionItem } from '../components/UpcomingConsultaionItem';
+import { UpcomingConsultationItem } from '../components/UpcomingConsultationItem';
 
 
 
@@ -75,7 +75,7 @@ export default function ScheduledConsultationList({
         <div className='w-full h-fit p-4'>
           {allConsultations.length > 0 ? (
             allConsultations.map((consultation, index) => (
-              <UpcomingConsultaionItem
+              <UpcomingConsultationItem
                 key={index}
                 {...consultation}
               />

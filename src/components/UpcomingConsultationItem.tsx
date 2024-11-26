@@ -3,7 +3,7 @@ import Timer from '../lib/Timer';
 import { type TRequestedConsultationsProps } from '../lib/types';
 import { useNavigate } from 'react-router-dom';
 
-export const UpcomingConsultaionItem = ({
+export const UpcomingConsultationItem = ({
   name,
   title,
   customer_id,

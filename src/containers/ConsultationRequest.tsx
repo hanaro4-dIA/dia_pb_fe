@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { type TRequestedConsultationsProps } from '../lib/types';
-import { RequestedConsultaionItem } from '../components/RequestedConsultaionItem';
+import { RequestedConsultationItem } from '../components/RequestedConsultationItem';
 
 type TConsultationRequestProps = {
   onApprove: (consultation: TRequestedConsultationsProps) => void;
@@ -65,7 +65,7 @@ export default function ConsultationRequest({
         <div className='w-full h-fit p-4'>
           {consultationData.length > 0 ? (
           consultationData.map((consultation) => (
-            <RequestedConsultaionItem
+            <RequestedConsultationItem
               key={consultation.id}
               {...consultation}
               onApprove={toggleApprovalStatus}
