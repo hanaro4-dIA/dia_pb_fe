@@ -25,6 +25,7 @@ export type TRequestedConsultationsProps = {
   requestDay: string; // 상담 신청일
   approvalStatus: boolean; // 상담 승인 여부
   finishStatus: boolean; // 상담 완료 여부
+  quick:boolean // 빠른 상담 요청 여부
 };
 
 // PB 개인정보 타입 (PB.json)

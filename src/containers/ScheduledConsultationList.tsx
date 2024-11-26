@@ -29,10 +29,11 @@ export default function ScheduledConsultationList({
               ? approvalStatus && !finishStatus && customer_id === Number(id)
               : approvalStatus && !finishStatus
           )
-          .sort(
-            (a, b) =>
-              new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
-          );
+          .sort((a, b) => {
+              if (a.quick && !b.quick) return -1;
+              if (!a.quick && b.quick) return 1;
+              return new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
+            });
 
         setConsultationData(filteredData);
 
@@ -50,12 +51,19 @@ export default function ScheduledConsultationList({
     fetchNotConsultingData();
   }, [id, consultations]);
 
-  const allConsultations = [...consultationData, ...consultations].sort(
-    (a, b) => new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
-  );
+  const allConsultations = [...consultationData, ...consultations].sort((a, b) => {
+  if (a.quick && !b.quick) return -1;
+  if (!a.quick && b.quick) return 1;
+  return new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime();
+});
 
   const handleConsultationClick = (consultationId: number) => {
     navigate(`/consulting/${consultationId}`);
+  };
+
+  // 빠른 상담 요청 여부에 따른 테두리 변경
+  const getBorderColorClass = (quick : boolean) => {
+    return quick ? 'border-red-500 border-4' : 'border-gray-200';
   };
 
   return (
@@ -70,10 +78,10 @@ export default function ScheduledConsultationList({
         <div className='w-full h-fit p-4'>
           {allConsultations.length > 0 ? (
             allConsultations.map(
-              ({ name, title, customer_id, hopeDay, hopeTime }, index) => (
+              ({ name, title, customer_id, hopeDay, hopeTime, quick }, index) => (
                 <div
                   key={index}
-                  className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
+                  className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(quick)} shadow-lg`}
                 >
                   <div className='flex justify-between text-black text-[1rem] font-light'>
                     <span>{name} 손님</span>
