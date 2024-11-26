@@ -1,6 +1,7 @@
 import { Switch } from '@radix-ui/react-switch';
 import { useState, useRef } from 'react';
 import profileImage from '../assets/조경은PB.png';
+import Section from '../components/Section';
 import getOffice from '../lib/getOffice';
 import { type TPbProps } from '../lib/types';
 
@@ -63,7 +64,6 @@ export default function PbProfile() {
   };
 
   const handleSubmit = () => {
-    // 서버전송
     if (profile.tags.some(isNullTag)) {
       alert('tag가 비어있습니다!');
       return;
@@ -81,43 +81,22 @@ export default function PbProfile() {
       setImage(reader.result as string);
       setProfile((prev) => ({
         ...prev,
-        image: reader.result as string,
+        image_url: reader.result as string,
       }));
     };
     reader.readAsDataURL(file);
   };
 
-  console.log(getOffice(profile.office_id));
-
   return (
-    <div className='flex flex-col w-full h-full bg-white'>
-      <div className='flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg'>
-        <div>
-          <span>내 프로필</span>
-          {isEditing ? (
-            <button
-              className='text-sm text-green-600 ml-3'
-              onClick={handleSubmit}
-            >
-              저장
-            </button>
-          ) : (
-            <button
-              className='text-sm text-red-600 ml-3'
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              EDIT
-            </button>
-          )}
-        </div>
-
-        <button className='text-white text-xs font-bold border border-white rounded px-2 py-1'>
-          로그아웃
-        </button>
-      </div>
-
-      <div className='flex items-center px-3 py-2 h-full border-x border-b border-gray-200'>
-        {/* 프로필 이미지 */}
+    <Section
+      title='내 프로필'
+      pbProfile={true}
+      contentClassName='w-full h-full flex items-center justify-center px-3'
+      isEditing={isEditing}
+      setIsEditing={setIsEditing}
+      handleSubmit={handleSubmit}
+    >
+      <div className='w-full flex justify-between items-center'>
         <input
           type='file'
           style={{ display: 'none' }}
@@ -127,7 +106,7 @@ export default function PbProfile() {
           ref={fileInput}
         />
         <img
-          className='w-28 h-28 rounded-full'
+          className={`w-28 h-28 rounded-full ${isEditing && 'cursor-pointer'}`}
           src={Image}
           alt='프로필 이미지'
           onClick={() => {
@@ -137,15 +116,12 @@ export default function PbProfile() {
 
         <div className='flex flex-col ml-3 mt-3 w-full justify-between'>
           <div className='flex items-center'>
-            <div
-              className='flex items-center w-16 text-xl 
-            font-bold'
-            >
+            <div className='flex items-center w-16 text-xl font-bold'>
               {profile.name}
             </div>
             <p className='mr-4'>PB</p>
 
-            {/* 현재 활동중 여부 토글 */}
+            {/* 빠른 상담 가능 여부 토글 */}
             <Switch
               checked={isWorking}
               onCheckedChange={setIsWorking}
@@ -205,7 +181,7 @@ export default function PbProfile() {
             )}
           </div>
 
-          {/* 한줄 자기소개 */}
+          {/* 한 줄 자기소개 */}
           {isEditing ? (
             <textarea
               className='p-1 w-auto mt-2 text-xs text-hanaindigo resize-none outline-none border-2 focus:border-hanaindigo'
@@ -221,6 +197,6 @@ export default function PbProfile() {
           )}
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
+import Section from '../components/Section';
+import { Button } from '../components/ui/button';
 import RequestContentPage from '../pages/RequestContentPage';
-import { Button } from './ui/button';
 
 type SecondComponentProps = {
   selectedText: string;
@@ -49,12 +50,8 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
   };
 
   return (
-    <div className='flex flex-col border shadow-lg border-gray-200 w-full h-full rounded-t-lg'>
-      <div className='bg-hanaindigo text-white text-[1.5rem] font-extrabold p-3 rounded-t-lg pl-5'>
-        상담일지 작성하기
-      </div>
-
-      <div className='p-3 border h-full flex flex-col justify-between'>
+    <Section title='상담일지 작성하기'>
+      <div className='p-3 h-full flex flex-col justify-between'>
         <div className='flex flex-col h-[90%] space-y-8 my-2'>
           {/* 상담요청 내용 관련 데이터 */}
           <>
@@ -122,6 +119,6 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
           </div>
         </div>
       </div>
-    </div>
+    </Section>
   );
 }

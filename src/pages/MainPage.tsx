@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import logo from '../assets/diA.png';
-import ConsultationRequest from '../components/ConsultationRequest';
-import GuestList from '../components/GuestList';
-import PbCalendar from '../components/PbCalendar';
-import PbProfile from '../components/PbProfile';
-import ScheduledConsultationList from '../components/ScheduledConsultationList';
+import Section from '../components/Section';
+import ConsultationRequest from '../containers/ConsultationRequest';
+import GuestList from '../containers/GuestList';
+import PbCalendar from '../containers/PbCalendar';
+import PbProfile from '../containers/PbProfile';
+import ScheduledConsultationList from '../containers/ScheduledConsultationList';
 import { type TCustomersProps } from '../lib/types';
 import { type TRequestedConsultationsProps } from '../lib/types';
 
@@ -36,11 +37,11 @@ export default function MainPage() {
   };
 
   return (
-    <div className='flex flex-row justify-between w-full h-screen p-5'>
-      {/* 프로필과 들어온 상담 요청 */}
-      <div className='flex flex-col flex-grow w-1/4 h-full mr-10'>
+    <div className='flex flex-row justify-between w-full h-screen p-5 gap-5'>
+      {/* 첫 번째 열 */}
+      <div className='flex flex-col flex-grow w-1/4 h-full space-y-5'>
         {/* 프로필 */}
-        <div className='overflow-y-auto w-full h-3/5 mb-5'>
+        <div className='overflow-y-auto w-full h-3/5'>
           <PbProfile />
         </div>
         {/* 들어온 상담 요청 */}
@@ -49,25 +50,20 @@ export default function MainPage() {
         </div>
       </div>
 
-      {/* 캘린더와 예정된 상담 일정 */}
-      <div className='flex flex-col w-5/12 h-full mr-10'>
+      {/* 두 번째 열 */}
+      <div className='flex flex-col w-5/12 h-full space-y-5'>
         {/* 캘린더 */}
-        <div className='flex items-center  bg-hanaindigo p-3 pl-5 rounded-t-lg'>
-          <img src={logo} alt='dIA logo' className='w-8 mr-4 rounded-full' />
-          <p className='text-white text-[1.3rem] font-extrabold'>
-            전체 상담 일정
-          </p>
-        </div>
-        <div className='flex w-full h-1/2 mb-5'>
+        <Section title='전체 상담 일정' logoImg={true}>
           <PbCalendar />
-        </div>
+        </Section>
+
         {/* 예정된 상담 일정 */}
-        <div className='flex flex-col h-1/2 overflow-y-auto'>
+        <div className='flex flex-col h-3/4 overflow-y-auto'>
           <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>
 
-      {/* 손님 목록 */}
+      {/* 세 번째 열 */}
       <div className='flex flex-col w-1/4 h-full'>
         <div className='w-full h-full overflow-y-auto'>
           <GuestList customers={customers} />

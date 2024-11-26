@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import ConsultationJournalList from '../components/ConsultationJournalList';
-import CustomerInformation from '../components/CustomerInformation';
-import GuestList from '../components/GuestList';
-import ScheduledConsultationList from '../components/ScheduledConsultationList';
+import ConsultationJournalList from '../containers/ConsultationJournalList';
+import CustomerInformation from '../containers/CustomerInformation';
+import GuestList from '../containers/GuestList';
+import ScheduledConsultationList from '../containers/ScheduledConsultationList';
 import { type TCustomersProps } from '../lib/types';
 import { type TRequestedConsultationsProps } from '../lib/types';
 

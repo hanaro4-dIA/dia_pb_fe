@@ -64,14 +64,14 @@ export default function PbCalendar() {
     });
   }, [selectedSchedules]);
   return (
-    <div className='flex justify-center w-full h-full'>
+    <div className='flex justify-center w-full h-fit'>
       <Calendar
         onChange={setSelectedDate}
         onClickDay={clickScheduledDate}
         formatDay={(locale, date) => format(date, 'dd')}
         tileContent={({ date }) => getScheduledDate(date)}
         value={selectedDate}
-        className='border border-gray-300 '
+        className='border-none'
       />
 
       {dateModal && (

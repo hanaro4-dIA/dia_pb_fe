@@ -1,9 +1,10 @@
 import { createRoot } from 'react-dom/client';
 import { useEffect, useState } from 'react';
+import { SearchField } from '../components/SearchField';
+import Section from '../components/Section';
 import { type TPbProps } from '../lib/types';
 import { type TJournalsProps } from '../lib/types';
 import ReadJournal from './ReadJournal';
-import { SearchField } from './SearchField';
 
 type TConsultationJournalListProps = {
   customerId: number;
@@ -108,54 +109,47 @@ export default function ConsultationJournalList({
   };
 
   return (
-    <div className='flex flex-col w-full h-full bg-white'>
-      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
-        상담일지 리스트
+    <Section title='상담일지 리스트'>
+      <div className='sticky top-0 z-10 w-full bg-white'>
+        <SearchField
+          placeholder='상담일지 검색'
+          value={searchTerm}
+          onChange={setSearchTerm}
+        />
       </div>
-      <div className='h-full overflow-auto border-x border-b border-gray-200'>
-        <div className='sticky top-0 z-10 w-full bg-white'>
-          <SearchField
-            placeholder='상담일지 검색'
-            value={searchTerm}
-            onChange={setSearchTerm}
-          />
-        </div>
 
-        <div className='p-4'>
-          {filteredJournal.length > 0 ? (
-            filteredJournal.map((consultation, index) => (
-              <div
-                key={index}
-                onClick={() => openNewWindow(consultation)}
-                className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border justify-around border-gray-200 cursor-pointer'
-              >
-                <div className='w-full flex items-center justify-between'>
-                  <div className='flex space-x-2 items-center'>
-                    <span className=' text-hanaindigo font-bold mr-4'>
-                      {index + 1}
-                    </span>
+      <div className='p-4'>
+        {filteredJournal.length > 0 ? (
+          filteredJournal.map((consultation, index) => (
+            <div
+              key={index}
+              onClick={() => openNewWindow(consultation)}
+              className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border justify-around border-gray-200 cursor-pointer'
+            >
+              <div className='w-full flex items-center justify-between'>
+                <div className='flex space-x-2 items-center'>
+                  <span className=' text-hanaindigo font-bold mr-4'>
+                    {index + 1}
+                  </span>
 
-                    <div>
-                      <div className='font-bold truncate'>
-                        {consultation.content}
-                      </div>
-                      <span className='font-light'>
-                        {consultation.pbName} PB
-                      </span>
+                  <div>
+                    <div className='font-bold truncate'>
+                      {consultation.content}
                     </div>
+                    <span className='font-light'>{consultation.pbName} PB</span>
                   </div>
-
-                  <span className='font-light'>{consultation.date}</span>
                 </div>
+
+                <span className='font-light'>{consultation.date}</span>
               </div>
-            ))
-          ) : (
-            <div className='text-center text-hanaindigo text-xl'>
-              상담 일지가 없습니다.
             </div>
-          )}
-        </div>
+          ))
+        ) : (
+          <div className='text-center text-hanaindigo text-xl'>
+            상담 일지가 없습니다.
+          </div>
+        )}
       </div>
-    </div>
+    </Section>
   );
 }

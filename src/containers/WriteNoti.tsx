@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button } from './ui/button';
+import Section from '../components/Section';
+import { Button } from '../components/ui/button';
 
 type TCustomer = {
   id: number;
@@ -80,13 +81,10 @@ export default function WriteNoti() {
   };
 
   return (
-    <div className='flex flex-col h-full bg-white'>
-      <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg flex justify-between items-center'>
-        새로운 쪽지 전송하기
-      </div>
+    <Section title='새로운 쪽지 전송하기'>
       <form
         onSubmit={handleSubmit}
-        className='w-full h-full overflow-auto p-2 border-x border-b border-gray-200 flex flex-col'
+        className='w-full h-full overflow-auto p-2 flex flex-col'
       >
         {/* 수신인 선택 */}
         <div className='w-full px-4 py-3 flex-none justify-center'>
@@ -119,7 +117,7 @@ export default function WriteNoti() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onFocus={() => setShowDropdown(true)}
-                  className='w-full h-10 px-4 border-b border-gray-300 focus:outline-none'
+                  className='w-full h-10 px-4 border-b border-gray-200 focus:outline-none'
                 />
 
                 {showDropdown && (
@@ -199,6 +197,6 @@ export default function WriteNoti() {
           </div>
         </div>
       </form>
-    </div>
+    </Section>
   );
 }
