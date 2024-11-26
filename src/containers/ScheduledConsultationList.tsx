@@ -1,7 +1,10 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { type TRequestedConsultationsProps } from '../lib/types';
+import { UpcomingConsultaionItem } from '../components/UpcomingConsultaionItem';
+
+
 
 type ScheduledConsultationListProps = {
   consultations: TRequestedConsultationsProps[];
@@ -15,7 +18,6 @@ export default function ScheduledConsultationList({
   >([]);
   const [customerName, setCustomerName] = useState<string>('');
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNotConsultingData = async () => {
@@ -29,10 +31,13 @@ export default function ScheduledConsultationList({
               ? approvalStatus && !finishStatus && customer_id === Number(id)
               : approvalStatus && !finishStatus
           )
-          .sort(
-            (a, b) =>
+          .sort((a, b) => {
+            if (a.quick && !b.quick) return -1;
+            if (!a.quick && b.quick) return 1;
+            return (
               new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
-          );
+            );
+          });
 
         setConsultationData(filteredData);
 
@@ -51,12 +56,12 @@ export default function ScheduledConsultationList({
   }, [id, consultations]);
 
   const allConsultations = [...consultationData, ...consultations].sort(
-    (a, b) => new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
+    (a, b) => {
+      if (a.quick && !b.quick) return -1;
+      if (!a.quick && b.quick) return 1;
+      return new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime();
+    }
   );
-
-  const handleConsultationClick = (consultationId: number) => {
-    navigate(`/consulting/${consultationId}`);
-  };
 
   return (
     <>
@@ -69,30 +74,12 @@ export default function ScheduledConsultationList({
       >
         <div className='w-full h-fit p-4'>
           {allConsultations.length > 0 ? (
-            allConsultations.map(
-              ({ name, title, customer_id, hopeDay, hopeTime }, index) => (
-                <div
-                  key={index}
-                  className='bg-white rounded-lg p-4 mb-4 border border-gray-200 shadow-lg'
-                >
-                  <div className='flex justify-between text-black text-[1rem] font-light'>
-                    <span>{name} 손님</span>
-                    <span>
-                      {hopeDay} {hopeTime}
-                    </span>
-                  </div>
-                  <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
-                    {title}
-                    <button
-                      className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-                      onClick={() => handleConsultationClick(customer_id)}
-                    >
-                      상담하기
-                    </button>
-                  </div>
-                </div>
-              )
-            )
+            allConsultations.map((consultation, index) => (
+              <UpcomingConsultaionItem
+                key={index}
+                {...consultation}
+              />
+            ))
           ) : (
             <div className='text-center text-hanaindigo text-xl'>
               일정이 없습니다
