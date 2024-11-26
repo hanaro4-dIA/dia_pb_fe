@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 // 상담일지 타입 (Journals.json)
 export type TJournalsProps = {
   id: number;
@@ -65,4 +67,19 @@ export type TCustomersProps = {
   birth: string;
   tel: string;
   address: string;
+};
+
+// Section 컴포넌트 타입
+export type TSectionProps = {
+  pbProfile?: boolean;
+  logoImg?: boolean;
+  title: string;
+  arrowToggle?: boolean;
+  children: ReactNode;
+  layoutClassName?: string;
+  labelClassName?: string;
+  contentClassName?: string;
+  isEditing?: boolean;
+  setIsEditing?: (editing: boolean) => void;
+  handleSubmit?: () => void;
 };

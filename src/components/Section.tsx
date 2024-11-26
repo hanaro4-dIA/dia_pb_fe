@@ -1,20 +1,7 @@
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import logo from '../assets/diA.png';
-
-type TSectionProps = {
-  pbProfile?: boolean;
-  logoImg?: boolean;
-  title: string;
-  arrowToggle?: boolean;
-  children: ReactNode;
-  layoutClassName?: string;
-  labelClassName?: string;
-  contentClassName?: string;
-  isEditing?: boolean;
-  setIsEditing?: (editing: boolean) => void;
-  handleSubmit?: () => void;
-};
+import { type TSectionProps } from '../lib/types';
 
 export default function Section({
   pbProfile,
