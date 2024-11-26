@@ -17,14 +17,15 @@ export type TRequestedConsultationsProps = {
   id: number;
   customer_id: number;
   name: string; // 손님 이름
-  title: string; // 손님이 선택한 제목
-  category: string; // 손님이 선택한 카테고리
+  title?: string; // (빠른 상담에선 X)손님이 선택한 제목
+  category?: string; // (빠른 상담에선 X)손님이 선택한 카테고리
   hopeDay: string; // 상담 희망일
   hopeTime: string; // 상담 희망 시각
-  inquiryDetails: string; // 상담 문의 내용
+  inquiryDetails?: string; //(빠른 상담에선 X) 상담 문의 내용
   requestDay: string; // 상담 신청일
   approvalStatus: boolean; // 상담 승인 여부
   finishStatus: boolean; // 상담 완료 여부
+  quick: boolean // 빠른 상담 요청 여부
 };
 
 // PB 개인정보 타입 (PB.json)
