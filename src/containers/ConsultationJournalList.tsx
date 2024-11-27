@@ -18,7 +18,7 @@ export default function ConsultationJournalList({
   const [consultationJourData, setConsultationJourData] = useState<
     (TJournalsProps & { pbName: string })[]
   >([]);
-  const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchPBName = async (pbId: number): Promise<string> => {
     try {
