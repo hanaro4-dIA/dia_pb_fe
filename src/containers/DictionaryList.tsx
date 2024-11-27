@@ -20,15 +20,21 @@ export default function DictionaryList({
         />
       </div>
       <div className='p-4'>
-        {filteredDBList.map((item) => (
-          <IteratingListItem
-            id={item.id}
-            title={item.title}
-            content={item.content}
-            isSelected={item.id === selectedItem?.id}
-            onClick={() => setSelectedItem(item)}
-          />
-        ))}
+        {filteredDBList.length > 0 ? (
+          filteredDBList.map((item) => (
+            <IteratingListItem
+              id={item.id}
+              title={item.title}
+              content={item.content}
+              isSelected={item.id === selectedItem?.id}
+              onClick={() => setSelectedItem(item)}
+            />
+          ))
+        ) : (
+          <div className='text-center text-hanaindigo text-xl'>
+            검색 결과가 없습니다.
+          </div>
+        )}
       </div>
     </Section>
   );
