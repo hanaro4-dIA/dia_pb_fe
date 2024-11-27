@@ -1,4 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  Outlet,
+} from 'react-router-dom';
 import NavigationBtn from './components/NavigationBtn';
 import ConsultingPage from './pages/ConsultingPage';
 import CustomerDetailPage from './pages/CustomerDetailPage';
@@ -13,24 +19,30 @@ function App() {
   // const isLogin = userInfo.isLogin;
   const isLogin = false;
 
+  const ProtectedLayout = () => {
+    if (!isLogin) {
+      return <Navigate to='/login' replace />;
+    }
+    return (
+      <>
+        <NavigationBtn />
+        <Outlet />
+      </>
+    );
+  };
+
   return (
     <BrowserRouter>
-      <NavigationBtn />
       <Routes>
         <Route path='/login' element={<LoginPage />} />
-        {isLogin && (
-          <>
-            <Route path='/' element={<MainPage />} />
-            <Route
-              path='/customerDetail/:id'
-              element={<CustomerDetailPage />}
-            />
-            <Route path='/consulting/:id' element={<ConsultingPage />} />
-            <Route path='/dictionary' element={<DictionaryPage />} />
-            <Route path='/notification' element={<NotificationPage />} />
-          </>
-        )}
-        {/* 로그인 안 했는데 접근이 불가능한 페이지에 접속한 경우 */}
+        <Route element={<ProtectedLayout />}>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/customerDetail/:id' element={<CustomerDetailPage />} />
+          <Route path='/consulting/:id' element={<ConsultingPage />} />
+          <Route path='/dictionary' element={<DictionaryPage />} />
+          <Route path='/notification' element={<NotificationPage />} />
+        </Route>
+        {/* 로그인 안했는데 접근 불가능한 페이지 접속한 경우 */}
         <Route path='*' element={<Navigate to='/login' />} />
       </Routes>
     </BrowserRouter>
