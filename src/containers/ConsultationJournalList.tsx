@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { ConsultationJournalListItem } from '../components/ConsultationJournalListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
+import useDebounce from '../hooks/useDebounce';
 import ReadJournalWindow from '../pages/ReadJournalWindow';
 import { type TPbProps } from '../types/dataTypes';
 import { type TJournalsProps } from '../types/dataTypes';
@@ -19,6 +20,7 @@ export default function ConsultationJournalList({
     (TJournalsProps & { pbName: string })[]
   >([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const fetchPBName = async (pbId: number): Promise<string> => {
     try {
@@ -62,8 +64,8 @@ export default function ConsultationJournalList({
   // 상담일지 검색하기
   const filteredJournal = consultationJourData.filter(
     ({ title, content }) =>
-      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      content.toLowerCase().includes(searchTerm.toLowerCase())
+      title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+      content.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
 
   // 상담일지 자세히보기
