@@ -11,6 +11,7 @@ import CustomerDetailPage from './pages/CustomerDetailPage';
 import DictionaryPage from './pages/DictionaryPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
+import NotFoundPage from './pages/NotFoundPage';
 import NotificationPage from './pages/NotificationPage';
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
           <Route path='/notification' element={<NotificationPage />} />
         </Route>
         {/* 로그인 안했는데 접근 불가능한 페이지 접속한 경우 */}
-        <Route path='*' element={<Navigate to='/login' />} />
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
