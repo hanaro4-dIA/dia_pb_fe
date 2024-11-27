@@ -150,6 +150,7 @@ const NavigationBtn = () => {
                 key={index}
                 onClick={() => handleSubButtonClick(button.path, button.target)}
                 className={`w-12 h-12 rounded-full ${button.color} text-white text-lg flex items-center justify-center shadow-md transition-all duration-300`}
+                title={button.path === '/notification' ? '쪽지' : button.path === '/dictionary' ? '키워드' : '홈'}
               >
                 {button.icon}
               </button>
