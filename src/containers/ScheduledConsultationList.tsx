@@ -1,10 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
-import { type TRequestedConsultationsProps } from '../lib/types';
 import { UpcomingConsultationItem } from '../components/UpcomingConsultationItem';
-
-
+import { type TRequestedConsultationsProps } from '../types/dataTypes';
 
 type ScheduledConsultationListProps = {
   consultations: TRequestedConsultationsProps[];
@@ -75,10 +73,7 @@ export default function ScheduledConsultationList({
         <div className='w-full h-fit p-4'>
           {allConsultations.length > 0 ? (
             allConsultations.map((consultation, index) => (
-              <UpcomingConsultationItem
-                key={index}
-                {...consultation}
-              />
+              <UpcomingConsultationItem key={index} {...consultation} />
             ))
           ) : (
             <div className='text-center text-hanaindigo text-xl'>

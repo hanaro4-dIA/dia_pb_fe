@@ -9,14 +9,14 @@ import NavigationBtnImage2 from '../assets/NavigationBtn2.png';
 const BUTTON_SIZE = 80;
 const DRAG_THRESHOLD = 5;
 
-type Bounds = {
+type TBoundsProps = {
   left: number;
   top: number;
   right: number;
   bottom: number;
 };
 
-type Position = {
+type TPositionProps = {
   x: number;
   y: number;
 };
@@ -25,8 +25,8 @@ const NavigationBtn = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [hasMoved, setHasMoved] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
-  const [bounds, setBounds] = useState<Bounds>({
+  const [position, setPosition] = useState<TPositionProps>({ x: 0, y: 0 });
+  const [bounds, setBounds] = useState<TBoundsProps>({
     left: 0,
     top: 0,
     right: 0,
@@ -82,7 +82,7 @@ const NavigationBtn = () => {
     setIsSubButtonsOnTop(newPosition.y > window.innerHeight / 2);
   };
 
-  const snapToEdge = (x: number, y: number): Position => {
+  const snapToEdge = (x: number, y: number): TPositionProps => {
     const { left, top, right, bottom } = bounds;
     const distances = [
       { edge: 'left', distance: x - left },

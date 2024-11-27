@@ -1,4 +1,4 @@
-import { TRequestedConsultationsProps } from '../lib/types';
+import { TRequestedConsultationsProps } from '../types/dataTypes';
 
 type ConsultationRequestItemProps = TRequestedConsultationsProps & {
   onApprove: (id: number) => void;
@@ -14,7 +14,7 @@ export const RequestedConsultationItem = ({
   approvalStatus,
   quick,
   onApprove,
-} :ConsultationRequestItemProps ) => {
+}: ConsultationRequestItemProps) => {
   const getBorderColorClass = (quick: boolean) => {
     return quick ? 'quick-border' : 'border-gray-200';
   };
@@ -30,7 +30,9 @@ export const RequestedConsultationItem = ({
             <span className='w-[95%] text-[1rem] font-bold truncate'>
               {name} 손님
             </span>
-            <span className='w-[95%] font-bold truncate'>{title || "빠른 상담 요청"}</span>
+            <span className='w-[95%] font-bold truncate'>
+              {title || '빠른 상담 요청'}
+            </span>
             <span className='text-[0.8rem] font-bold'>
               요청일: {hopeDay} {hopeTime}
             </span>

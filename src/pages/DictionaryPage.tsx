@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { dbList } from '../../public/data/Dictionary';
 import DictionaryDetail from '../containers/DictionaryDetail';
 import DictionaryList from '../containers/DictionaryList';
-import { type TDbItemProps } from '../lib/types';
+import { type TDbItemProps } from '../types/dataTypes';
 
 export default function DictionaryPage() {
   const [searchTerm, setSearchTerm] = useState('');

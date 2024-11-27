@@ -1,7 +1,7 @@
 import IteratingListItem from '../components/IteratingListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
-import { type TDictionaryListProps } from '../lib/types';
+import { type TDictionaryListProps } from '../types/componentTypes';
 
 export default function DictionaryList({
   searchTerm,

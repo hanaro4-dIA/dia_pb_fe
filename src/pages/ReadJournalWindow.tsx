@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import mockupScript from '../assets/mockupScript.png';
-import { type TCategoryProps } from '../lib/types';
-import { type TJournalsProps } from '../lib/types';
-import { type TCustomersProps } from '../lib/types';
+import { type TCategoryProps } from '../types/dataTypes';
+import { type TJournalsProps } from '../types/dataTypes';
+import { type TCustomersProps } from '../types/dataTypes';
 
 type TPbJournalsProps = {
   consultation: TJournalsProps;

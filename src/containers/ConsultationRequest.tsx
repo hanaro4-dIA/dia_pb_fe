@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import Section from '../components/Section';
-import { type TRequestedConsultationsProps } from '../lib/types';
 import { RequestedConsultationItem } from '../components/RequestedConsultationItem';
+import Section from '../components/Section';
+import { type TRequestedConsultationsProps } from '../types/dataTypes';
 
 type TConsultationRequestProps = {
   onApprove: (consultation: TRequestedConsultationsProps) => void;
@@ -64,14 +64,14 @@ export default function ConsultationRequest({
       <Section title='들어온 상담 요청'>
         <div className='w-full h-fit p-4'>
           {consultationData.length > 0 ? (
-          consultationData.map((consultation) => (
-            <RequestedConsultationItem
-              key={consultation.id}
-              {...consultation}
-              onApprove={toggleApprovalStatus}
-            />
-          ))
-        ) : (
+            consultationData.map((consultation) => (
+              <RequestedConsultationItem
+                key={consultation.id}
+                {...consultation}
+                onApprove={toggleApprovalStatus}
+              />
+            ))
+          ) : (
             <div className='text-center text-hanaindigo p-4 h-full text-xl border-x border-b border-gray-200'>
               모든 상담 요청이 승인되었습니다.
             </div>

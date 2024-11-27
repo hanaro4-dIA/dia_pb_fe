@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { TDbItemProps } from './dataTypes';
 
-// 키워드 DB 리스트 타입
+// 키워드 DB 리스트 컴포넌트 타입
 export type TDictionaryListProps = {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
@@ -10,7 +10,7 @@ export type TDictionaryListProps = {
   setSelectedItem: (item: TDbItemProps) => void;
 };
 
-// 키워드 DB 상세보기 타입
+// 키워드 DB 상세보기 컴포넌트 타입
 export type TDictionaryDetailProps = {
   selectedItem: TDbItemProps | undefined;
 };
@@ -28,4 +28,14 @@ export type TSectionProps = {
   isEditing?: boolean;
   setIsEditing?: (editing: boolean) => void;
   handleSubmit?: () => void;
+};
+
+// IteratingListItem 컴포넌트 타입
+export type TIteratingListItem = {
+  id: number;
+  title: string;
+  content: string;
+  isSelected?: boolean;
+  onClick: () => void;
+  date?: string;
 };

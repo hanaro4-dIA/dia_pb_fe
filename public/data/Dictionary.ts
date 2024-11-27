@@ -1,4 +1,4 @@
-import { TDbItemProps } from '../../src/lib/types';
+import { TDbItemProps } from '../../src/utils/types';
 
 export const dbList: TDbItemProps[] = [
   {

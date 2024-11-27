@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import IteratingListItem from '../components/IteratingListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
-import { type TCustomersProps } from '../lib/types';
-import { type TCustomerPbProps } from '../lib/types';
+import { type TCustomersProps } from '../types/dataTypes';
+import { type TCustomerPbProps } from '../types/dataTypes';
 
 type TGuestListProps = {
   customers: TCustomersProps[];

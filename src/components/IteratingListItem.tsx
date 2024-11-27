@@ -1,11 +1,4 @@
-type TIteratingListItem = {
-  id: number;
-  title: string;
-  content: string;
-  isSelected?: boolean;
-  onClick: () => void;
-  date?: string;
-};
+import { TIteratingListItem } from '../types/componentTypes';
 
 const IteratingListItem = ({
   id,

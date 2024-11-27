@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { ConsultationJournalListItem } from '../components/ConsultationJournalListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
-import { type TPbProps } from '../lib/types';
-import { type TJournalsProps } from '../lib/types';
 import ReadJournalWindow from '../pages/ReadJournalWindow';
+import { type TPbProps } from '../types/dataTypes';
+import { type TJournalsProps } from '../types/dataTypes';
 
 type TConsultationJournalListProps = {
   customerId: number;
