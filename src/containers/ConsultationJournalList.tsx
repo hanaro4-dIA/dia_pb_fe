@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { ConsultationJournalListItem } from '../components/ConsultationJournalListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
-import { type TPbProps } from '../lib/types';
-import { type TJournalsProps } from '../lib/types';
+import useDebounce from '../hooks/useDebounce';
 import ReadJournalWindow from '../pages/ReadJournalWindow';
+import { type TPbProps } from '../types/dataTypes';
+import { type TJournalsProps } from '../types/dataTypes';
 
 type TConsultationJournalListProps = {
   customerId: number;
@@ -18,7 +19,8 @@ export default function ConsultationJournalList({
   const [consultationJourData, setConsultationJourData] = useState<
     (TJournalsProps & { pbName: string })[]
   >([]);
-  const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   const fetchPBName = async (pbId: number): Promise<string> => {
     try {
@@ -62,8 +64,8 @@ export default function ConsultationJournalList({
   // 상담일지 검색하기
   const filteredJournal = consultationJourData.filter(
     ({ title, content }) =>
-      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      content.toLowerCase().includes(searchTerm.toLowerCase())
+      title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+      content.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
 
   // 상담일지 자세히보기

@@ -1,4 +1,4 @@
-import { type TNotificationProps } from '../lib/types';
+import { type TNotificationProps } from '../types/dataTypes';
 
 export default function NotificationDetailsWindow({
   title,

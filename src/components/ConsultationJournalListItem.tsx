@@ -1,4 +1,4 @@
-import { type TJournalsProps } from '../lib/types';
+import { type TJournalsProps } from '../types/dataTypes';
 
 type TConsultationJournalListItemProps = {
   consultation: TJournalsProps & { pbName: string };

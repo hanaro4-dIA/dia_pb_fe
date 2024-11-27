@@ -5,7 +5,7 @@ import ConsultationJournalList from '../containers/ConsultationJournalList';
 import CustomerInformation from '../containers/CustomerInformation';
 import MakeJournal from '../containers/MakeJournal';
 import STT from '../containers/Stt';
-import { type TCustomersProps } from '../lib/types';
+import { type TCustomersProps } from '../types/dataTypes';
 
 export default function ConsultingPage() {
   const [customerName, setCustomerName] = useState<string>();

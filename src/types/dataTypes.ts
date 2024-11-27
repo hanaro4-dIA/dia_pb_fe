@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 // 상담일지 타입 (Journals.json)
 export type TJournalsProps = {
   id: number;
@@ -25,7 +23,7 @@ export type TRequestedConsultationsProps = {
   requestDay: string; // 상담 신청일
   approvalStatus: boolean; // 상담 승인 여부
   finishStatus: boolean; // 상담 완료 여부
-  quick: boolean // 빠른 상담 요청 여부
+  quick: boolean; // 빠른 상담 요청 여부
 };
 
 // PB 개인정보 타입 (PB.json)
@@ -86,33 +84,4 @@ export type TDbItemProps = {
   title: string;
   url: string;
   content: string;
-};
-
-// 키워드 DB 리스트 타입
-export type TDictionaryListProps = {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-  filteredDBList: TDbItemProps[];
-  selectedItem: TDbItemProps | undefined;
-  setSelectedItem: (item: TDbItemProps) => void;
-};
-
-// 키워드 DB 상세보기 타입
-export type TDictionaryDetailProps = {
-  selectedItem: TDbItemProps | undefined;
-};
-
-// Section 컴포넌트 타입
-export type TSectionProps = {
-  pbProfile?: boolean;
-  logoImg?: boolean;
-  title: string;
-  arrowToggle?: boolean;
-  children: ReactNode;
-  layoutClassName?: string;
-  labelClassName?: string;
-  contentClassName?: string;
-  isEditing?: boolean;
-  setIsEditing?: (editing: boolean) => void;
-  handleSubmit?: () => void;
 };

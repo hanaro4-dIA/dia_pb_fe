@@ -1,16 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { dbList } from '../../public/data/Dictionary';
 import DictionaryDetail from '../containers/DictionaryDetail';
 import DictionaryList from '../containers/DictionaryList';
-import { type TDbItemProps } from '../lib/types';
+import useDebounce from '../hooks/useDebounce';
+import { type TDbItemProps } from '../types/dataTypes';
 
 export default function DictionaryPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const [selectedItem, setSelectedItem] = useState<TDbItemProps | undefined>();
 
-  const filteredDBList = dbList.filter((item: TDbItemProps) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [filteredDBList, setFilteredDBList] = useState<TDbItemProps[]>(dbList);
+
+  useEffect(() => {
+    const newFilteredList = dbList.filter(
+      (item: TDbItemProps) =>
+        item.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+        item.content.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+    );
+    setFilteredDBList(newFilteredList);
+  }, [debouncedSearchTerm]);
 
   return (
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>

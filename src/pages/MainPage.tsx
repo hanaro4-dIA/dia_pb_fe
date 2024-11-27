@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import logo from '../assets/diA.png';
 import Section from '../components/Section';
 import ConsultationRequest from '../containers/ConsultationRequest';
 import GuestList from '../containers/GuestList';
 import PbCalendar from '../containers/PbCalendar';
 import PbProfile from '../containers/PbProfile';
 import ScheduledConsultationList from '../containers/ScheduledConsultationList';
-import { type TCustomersProps } from '../lib/types';
-import { type TRequestedConsultationsProps } from '../lib/types';
+import { type TCustomersProps } from '../types/dataTypes';
+import { type TRequestedConsultationsProps } from '../types/dataTypes';
 
 export default function MainPage() {
   const [customers, setCustomers] = useState<TCustomersProps[]>([]);

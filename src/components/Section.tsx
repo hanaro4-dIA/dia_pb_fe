@@ -1,7 +1,7 @@
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useState } from 'react';
 import logo from '../assets/diA.png';
-import { type TSectionProps } from '../lib/types';
+import { type TSectionProps } from '../types/componentTypes';
 
 export default function Section({
   pbProfile,
@@ -16,8 +16,8 @@ export default function Section({
   setIsEditing,
   handleSubmit,
 }: TSectionProps) {
+  // CustomerInformation 열림 닫힘
   const [isCollapsed, setIsCollapsed] = useState(false);
-
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };

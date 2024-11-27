@@ -3,18 +3,20 @@ import { useState, useEffect } from 'react';
 import IteratingListItem from '../components/IteratingListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
-import { type TCustomersProps } from '../lib/types';
-import { type TCustomerPbProps } from '../lib/types';
+import useDebounce from '../hooks/useDebounce';
+import { type TCustomersProps } from '../types/dataTypes';
+import { type TCustomerPbProps } from '../types/dataTypes';
 
 type TGuestListProps = {
   customers: TCustomersProps[];
 };
 
 export default function GuestList({ customers }: TGuestListProps) {
-  const [searchTerm, setSearchTerm] = useState('');
   const [memo, setMemo] = useState<TCustomerPbProps[]>([]);
   const navigate = useNavigate();
   const params = useParams();
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   // 손님 및 상담 메모 데이터를 가져오는 함수
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function GuestList({ customers }: TGuestListProps) {
 
   // 입력한 검색어에 따라 손님 목록을 필터링하는 함수
   const filteredCustomers = customers.filter(({ name }) =>
-    name.toLowerCase().includes(searchTerm.toLowerCase())
+    name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
 
   // 손님 ID로 해당 메모 찾기

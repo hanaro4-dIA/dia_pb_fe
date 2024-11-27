@@ -1,7 +1,7 @@
 import { MdOutlineTimer } from 'react-icons/md';
-import Timer from '../lib/Timer';
-import { type TRequestedConsultationsProps } from '../lib/types';
 import { useNavigate } from 'react-router-dom';
+import { type TRequestedConsultationsProps } from '../types/dataTypes';
+import Timer from '../utils/remainingTime-util';
 
 export const UpcomingConsultationItem = ({
   name,
@@ -21,7 +21,9 @@ export const UpcomingConsultationItem = ({
   };
 
   return (
-    <div className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(quick)} shadow-lg`}>
+    <div
+      className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(quick)} shadow-lg`}
+    >
       <div className='flex justify-between text-black text-[1rem] font-light'>
         <span>{name} 손님</span>
         <span>
@@ -29,7 +31,7 @@ export const UpcomingConsultationItem = ({
         </span>
       </div>
       <div className='flex justify-between text-black text-[1rem] font-extrabold truncate mt-2'>
-        {title || "빠른 상담 요청"}
+        {title || '빠른 상담 요청'}
         <span className='flex justify-center items-center gap-1'>
           {quick && <MdOutlineTimer className='text-hanared' />}{' '}
           {quick && <Timer hopeDay={hopeDay} hopeTime={hopeTime} />}{' '}

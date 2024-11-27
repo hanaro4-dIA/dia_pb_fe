@@ -1,5 +1,5 @@
 import Section from '../components/Section';
-import { TDictionaryDetailProps } from '../lib/types';
+import { TDictionaryDetailProps } from '../types/componentTypes';
 
 export default function DictionaryDetail({
   selectedItem,

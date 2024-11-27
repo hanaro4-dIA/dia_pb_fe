@@ -2,9 +2,9 @@ import { createRoot } from 'react-dom/client';
 import { useState, useEffect, useRef } from 'react';
 import IteratingListItem from '../components/IteratingListItem';
 import Section from '../components/Section';
-import { type TNotificationProps } from '../lib/types';
-import { type TCustomersProps } from '../lib/types';
 import NotificationDetailsWindow from '../pages/NotificationDetailsWindow';
+import { type TNotificationProps } from '../types/dataTypes';
+import { type TCustomersProps } from '../types/dataTypes';
 
 export default function NotificationHistory() {
   const dropdownRef = useRef<HTMLDivElement>(null);

@@ -2,8 +2,8 @@ import { Switch } from '@radix-ui/react-switch';
 import { useState, useRef } from 'react';
 import profileImage from '../assets/조경은PB.png';
 import Section from '../components/Section';
-import getOffice from '../lib/getOffice';
-import { type TPbProps } from '../lib/types';
+import { type TPbProps } from '../types/dataTypes';
+import getOffice from '../utils/getOffice-util';
 
 export default function PbProfile() {
   const [profile, setProfile] = useState<TPbProps>({

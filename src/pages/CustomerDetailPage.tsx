@@ -4,8 +4,8 @@ import ConsultationJournalList from '../containers/ConsultationJournalList';
 import CustomerInformation from '../containers/CustomerInformation';
 import GuestList from '../containers/GuestList';
 import ScheduledConsultationList from '../containers/ScheduledConsultationList';
-import { type TCustomersProps } from '../lib/types';
-import { type TRequestedConsultationsProps } from '../lib/types';
+import { type TCustomersProps } from '../types/dataTypes';
+import { type TRequestedConsultationsProps } from '../types/dataTypes';
 
 export default function CustomerDetailPage() {
   const [customers, setCustomers] = useState<TCustomersProps[]>([]);
