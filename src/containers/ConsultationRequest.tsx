@@ -72,7 +72,7 @@ export default function ConsultationRequest({
               />
             ))
           ) : (
-            <div className='text-center text-hanaindigo p-4 h-full text-xl border-x border-b border-gray-200'>
+            <div className='text-center text-hanaindigo p-4 h-full text-xl  '>
               모든 상담 요청이 승인되었습니다.
             </div>
           )}
