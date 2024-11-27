@@ -6,6 +6,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 import NavigationBtn from './components/NavigationBtn';
+import { useSession } from './hooks/sessionContext';
 import ConsultingPage from './pages/ConsultingPage';
 import CustomerDetailPage from './pages/CustomerDetailPage';
 import DictionaryPage from './pages/DictionaryPage';
@@ -14,24 +15,21 @@ import MainPage from './pages/MainPage';
 import NotFoundPage from './pages/NotFoundPage';
 import NotificationPage from './pages/NotificationPage';
 
+const ProtectedLayout = () => {
+  const { isLogin } = useSession();
+
+  if (!isLogin) {
+    return <Navigate to='/login' replace />;
+  }
+  return (
+    <>
+      <NavigationBtn />
+      <Outlet />
+    </>
+  );
+};
+
 function App() {
-  // session 작업 필요
-  // const [userInfo] = useRecoilState(userInfoState);
-  // const isLogin = userInfo.isLogin;
-  const isLogin = false;
-
-  const ProtectedLayout = () => {
-    if (!isLogin) {
-      return <Navigate to='/login' replace />;
-    }
-    return (
-      <>
-        <NavigationBtn />
-        <Outlet />
-      </>
-    );
-  };
-
   return (
     <BrowserRouter>
       <Routes>
@@ -43,7 +41,6 @@ function App() {
           <Route path='/dictionary' element={<DictionaryPage />} />
           <Route path='/notification' element={<NotificationPage />} />
         </Route>
-        {/* 로그인 안했는데 접근 불가능한 페이지 접속한 경우 */}
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

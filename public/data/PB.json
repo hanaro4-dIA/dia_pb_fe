@@ -1,11 +1,9 @@
 [
   {
     "id": 1,
-    "businessId": 101,
-    "password": "pb_password1",
+    "business_id": "Hana241201000",
+    "password": "TestPB123*",
     "name": "조경은",
-    "sex": "Female",
-    "birthday": "1980.06.12",
     "image_url": "https://example.com/images/alexkim.jpg",
     "tags": ["부동산", "성실", "꼼꼼"],
     "introduce": "보험에 자신있습니다",
@@ -13,11 +11,9 @@
   },
   {
     "id": 2,
-    "businessId": 222,
-    "password": "pb_password2",
+    "business_id": "Hana241230111",
+    "password": "TestPB123*",
     "name": "박수종",
-    "sex": "Male",
-    "birthday": "1980.06.12",
     "image_url": "https://example.com/images/alexkim.jpg",
     "tags": ["잘생김", "야잘알", "도루"],
     "introduce": "우승 자신있습니다",
