@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../assets/diA_business.png';
 import notFoundImg from '../assets/notFound.gif';
 
@@ -17,6 +18,11 @@ export default function NotFoundPage() {
                 하나은행의 얼굴이 되어주시는 여러분께 진심으로 감사드립니다.
               </span>
               <span>오늘도 무탈한 하루 되세요:)</span>
+              <Link to='/login'>
+                <button className='bg-hanagreen text-white rounded mt-5 px-3 py-2'>
+                  로그인 페이지로 이동하기
+                </button>
+              </Link>
             </div>
           </div>
         </div>
