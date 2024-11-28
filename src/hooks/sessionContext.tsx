@@ -16,7 +16,7 @@ export const SessionProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState<TPbProps | null>(null);
-  const [isLogin, setIsLogin] = useState<boolean>(true); // false로 바꿀 것
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
