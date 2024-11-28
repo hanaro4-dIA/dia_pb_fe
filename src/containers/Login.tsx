@@ -51,8 +51,8 @@ export default function Login() {
 
     // 존재 여부
     const loginUser = pbData.find(
-      ({ business_id, password }) =>
-        business_id === inputBusinessId && password === inputPassword
+      ({ login_id, password }) =>
+        login_id === inputBusinessId && password === inputPassword
     );
 
     console.log('로그인한 PB 정보 >>', loginUser);

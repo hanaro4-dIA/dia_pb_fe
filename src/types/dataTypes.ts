@@ -29,13 +29,14 @@ export type TRequestedConsultationsProps = {
 // PB 개인정보 타입 (PB.json)
 export type TPbProps = {
   id: number;
-  business_id: string; // 사번
-  password?: string;
+  login_id: string;
+  password: string;
   name: string;
   image_url: string;
+  introduce: string;
+  office: string;
   tags: string[];
-  introduce: string; // 한줄소개
-  office_id: number;
+  availability: boolean;
 };
 
 // PB가 관리하는 손님 (Customer_PB.json)

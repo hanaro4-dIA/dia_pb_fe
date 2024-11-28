@@ -3,8 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import PbJsonData from '../../public/data/PB.json';
 import Section from '../components/Section';
 import { useSession } from '../hooks/sessionContext';
-import { TPbProps } from '../types/dataTypes';
-import getOffice from '../utils/getOffice-util';
+import { type TPbProps } from '../types/dataTypes';
 
 export default function PbProfile() {
   const { user } = useSession();
@@ -18,7 +17,7 @@ export default function PbProfile() {
 
   useEffect(() => {
     const userData = allPbData.find(
-      ({ business_id }) => business_id === user?.business_id
+      ({ login_id }) => login_id === user?.login_id
     );
 
     if (userData) {
@@ -155,9 +154,7 @@ export default function PbProfile() {
               </Switch>
             </div>
 
-            <small className='text-hanagold my-1'>
-              {getOffice(profile?.office_id)}
-            </small>
+            <small className='text-hanagold my-1'>{profile?.office}</small>
 
             {/* PB 태그 */}
             <div className='flex flex-wrap gap-1'>

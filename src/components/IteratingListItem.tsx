@@ -1,7 +1,6 @@
 import { TIteratingListItem } from '../types/componentTypes';
 
 const IteratingListItem = ({
-  id,
   title,
   content,
   isSelected,
