@@ -134,14 +134,17 @@ export default function PbProfile() {
             onChange={handleImage}
             ref={fileInput}
           />
-          <img
-            className={`w-28 h-28 rounded-full ${isEditing && 'cursor-pointer'}`}
-            src={image}
-            alt='프로필 이미지'
-            onClick={() => {
-              isEditing && fileInput.current?.click();
-            }}
-          />
+          <div className='w-28 h-28 aspect-square relative'>
+            <img
+              className={`w-full h-full rounded-full ${isEditing && 'cursor-pointer'}`}
+              src={image}
+              alt='프로필 이미지'
+              onClick={() => {
+                isEditing && fileInput.current?.click();
+              }}
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
+          </div>
 
           <div className='flex flex-col ml-3 mt-3 w-full justify-between'>
             <div className='flex items-center'>
