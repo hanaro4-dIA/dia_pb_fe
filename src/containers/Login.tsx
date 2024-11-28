@@ -6,13 +6,13 @@ import { useSession } from '../hooks/sessionContext';
 import { type TPbProps } from '../types/dataTypes';
 
 export default function Login() {
+  const { handleLoginEvent } = useSession();
+  const pbData = PbJsonData;
+
   const businessIdRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   let [isValidLoginInfo, setIsValidLoginInfo] = useState(true);
   const navigate = useNavigate();
-  const { handleLoginEvent } = useSession();
-
-  const pbData = PbJsonData;
 
   const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,9 +20,9 @@ export default function Login() {
     const password = passwordRef.current?.value;
 
     if (businessId && password) {
-      const user = validCheck(businessId, password);
-      if (user) {
-        handleLoginEvent(user);
+      const loginUser = validCheck(businessId, password);
+      if (loginUser) {
+        handleLoginEvent(loginUser);
         navigate('/');
       } else {
         setIsValidLoginInfo(false);
@@ -30,18 +30,6 @@ export default function Login() {
       }
     }
   };
-
-  // const handleLogin = () => {
-  //   const businessId = businessIdRef.current?.value;
-  //   const password = passwordRef.current?.value;
-
-  //   if (validCheck(+businessId!, password!) === 1) {
-  //     navigate('/');
-  //   } else {
-  //     setIsValidLoginInfo(false);
-  //     businessIdRef.current?.focus();
-  //   }
-  // };
 
   // 로그인 체크 로직
   const validCheck = (
@@ -62,12 +50,13 @@ export default function Login() {
     }
 
     // 존재 여부
-    const checked = pbData.find(
+    const loginUser = pbData.find(
       ({ business_id, password }) =>
         business_id === inputBusinessId && password === inputPassword
     );
 
-    return checked || null;
+    console.log('로그인한 PB 정보 >>', loginUser);
+    return loginUser || null;
   };
 
   useEffect(() => {

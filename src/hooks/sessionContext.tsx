@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { TPbProps } from '../types/dataTypes';
+import { type TPbProps } from '../types/dataTypes';
 
 type SessionContextType = {
   user: TPbProps | null;
