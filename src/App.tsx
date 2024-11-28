@@ -1,23 +1,49 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  Outlet,
+} from 'react-router-dom';
+import NavigationBtn from './components/NavigationBtn';
+import { useSession } from './hooks/sessionContext';
 import ConsultingPage from './pages/ConsultingPage';
 import CustomerDetailPage from './pages/CustomerDetailPage';
 import DictionaryPage from './pages/DictionaryPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
+import NotFoundPage from './pages/NotFoundPage';
 import NotificationPage from './pages/NotificationPage';
 
-// session 작업 필요
+const ProtectedLayout = () => {
+  const { isLogin } = useSession();
+
+  if (!isLogin) {
+    return <Navigate to='/login' replace />;
+  }
+  return (
+    <>
+      <NavigationBtn />
+      <Outlet />
+    </>
+  );
+};
+
 function App() {
   return (
-    <Routes>
-      <Route path='/login' element={<LoginPage />} />
-      <Route path='/' element={<MainPage />} />
-      <Route path='/customerDetail/:id' element={<CustomerDetailPage />} />
-      <Route path='/consulting/:id' element={<ConsultingPage />} />
-      <Route path='/dictionary' element={<DictionaryPage />} />
-      <Route path='/notification' element={<NotificationPage />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/login' element={<LoginPage />} />
+        <Route element={<ProtectedLayout />}>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/customerDetail/:id' element={<CustomerDetailPage />} />
+          <Route path='/consulting/:id' element={<ConsultingPage />} />
+          <Route path='/dictionary' element={<DictionaryPage />} />
+          <Route path='/notification' element={<NotificationPage />} />
+        </Route>
+        <Route path='*' element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,40 +1,49 @@
 import { Switch } from '@radix-ui/react-switch';
-import { useState, useRef } from 'react';
-import profileImage from '../assets/조경은PB.png';
+import { useState, useRef, useEffect } from 'react';
+import PbJsonData from '../../public/data/PB.json';
 import Section from '../components/Section';
-import { type TPbProps } from '../types/dataTypes';
+import { useSession } from '../hooks/sessionContext';
+import { TPbProps } from '../types/dataTypes';
 import getOffice from '../utils/getOffice-util';
 
 export default function PbProfile() {
-  const [profile, setProfile] = useState<TPbProps>({
-    id: 1,
-    businessId: 101,
-    name: '조경은',
-    tags: ['부동산', '대출', '보험'],
-    introduce: '안녕하세요 부동산 투자 전문 PB 조경은입니다.',
-    image_url: profileImage,
-    office_id: 1,
-  });
+  const { user } = useSession();
+  const allPbData = PbJsonData;
 
+  const [profile, setProfile] = useState<TPbProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isWorking, setIsWorking] = useState(false);
-  const [Image, setImage] = useState(profile.image_url);
-
+  const [image, setImage] = useState(user?.image_url);
   const fileInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const userData = allPbData.find(
+      ({ business_id }) => business_id === user?.business_id
+    );
+
+    if (userData) {
+      setProfile(userData);
+      setImage(userData.image_url);
+    }
+  }, [user, allPbData]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setProfile((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setProfile((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
   };
 
   const handleTagChange = (index: number, newTag: string) => {
     setProfile((prev) => {
-      const updatedTags = [...(prev.tags || [])];
+      if (!prev) return null;
+      const updatedTags = [...(prev?.tags || [])];
       updatedTags[index] = newTag;
       return { ...prev, tags: updatedTags };
     });
@@ -45,26 +54,31 @@ export default function PbProfile() {
   }
 
   const handleAddTag = () => {
-    if (profile.tags.some(isNullTag)) {
+    if (profile?.tags.some(isNullTag)) {
       alert('새로운 태그를 추가하기 전에 이미 존재하는 태그를 채워주세요');
       return;
     }
-
-    setProfile((prev) => ({
-      ...prev,
-      tags: [...(prev.tags || []), ''],
-    }));
+    setProfile((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        tags: [...prev.tags, ''],
+      };
+    });
   };
 
   const handleRemoveTag = (index: number) => {
-    setProfile((prev) => ({
-      ...prev,
-      tags: (prev.tags || []).filter((_, i) => i !== index),
-    }));
+    setProfile((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        tags: prev.tags.filter((_, i) => i !== index),
+      };
+    });
   };
 
   const handleSubmit = () => {
-    if (profile.tags.some(isNullTag)) {
+    if (profile?.tags.some(isNullTag)) {
       alert('tag가 비어있습니다!');
       return;
     }
@@ -79,15 +93,18 @@ export default function PbProfile() {
     const reader = new FileReader();
     reader.onload = () => {
       setImage(reader.result as string);
-      setProfile((prev) => ({
-        ...prev,
-        image_url: reader.result as string,
-      }));
+      setProfile((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          image_url: reader.result as string,
+        };
+      });
     };
     reader.readAsDataURL(file);
   };
 
-  return (
+  return profile ? (
     <Section
       title='내 프로필'
       pbProfile={true}
@@ -107,7 +124,7 @@ export default function PbProfile() {
         />
         <img
           className={`w-28 h-28 rounded-full ${isEditing && 'cursor-pointer'}`}
-          src={Image}
+          src={image}
           alt='프로필 이미지'
           onClick={() => {
             isEditing && fileInput.current?.click();
@@ -117,7 +134,7 @@ export default function PbProfile() {
         <div className='flex flex-col ml-3 mt-3 w-full justify-between'>
           <div className='flex items-center'>
             <div className='flex items-center w-16 text-xl font-bold'>
-              {profile.name}
+              {user?.name}
             </div>
             <p className='mr-4'>PB</p>
 
@@ -138,12 +155,12 @@ export default function PbProfile() {
           </div>
 
           <small className='text-hanagold my-1'>
-            {getOffice(profile.office_id)}
+            {getOffice(profile?.office_id)}
           </small>
 
           {/* PB 태그 */}
           <div className='flex flex-wrap gap-1'>
-            {profile.tags?.map((tag, index) => (
+            {profile?.tags?.map((tag, index) => (
               <div
                 key={index}
                 className='flex items-center bg-hanaindigo rounded-lg w-[30%] h-8 p-1'
@@ -186,17 +203,19 @@ export default function PbProfile() {
             <textarea
               className='p-1 w-auto mt-2 text-xs text-hanaindigo resize-none outline-none border-2 focus:border-hanaindigo'
               name='introduce'
-              value={profile.introduce}
+              value={profile?.introduce}
               onChange={handleInputChange}
               disabled={!isEditing}
-              placeholder={profile.introduce}
+              placeholder={profile?.introduce}
               maxLength={50}
             />
           ) : (
-            <div className='text-xs text-black my-2'>{profile.introduce}</div>
+            <div className='text-xs text-black my-2'>{profile?.introduce}</div>
           )}
         </div>
       </div>
     </Section>
+  ) : (
+    <div>loading...</div>
   );
 }

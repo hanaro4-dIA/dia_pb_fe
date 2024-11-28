@@ -1,6 +1,7 @@
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useState } from 'react';
 import logo from '../assets/diA.png';
+import { useSession } from '../hooks/sessionContext';
 import { type TSectionProps } from '../types/componentTypes';
 
 export default function Section({
@@ -16,14 +17,12 @@ export default function Section({
   setIsEditing,
   handleSubmit,
 }: TSectionProps) {
+  const { handleLogoutEvent } = useSession();
+
   // CustomerInformation 열림 닫힘
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
-  };
-
-  const handleLogoutEvent = () => {
-    alert('로그아웃되었습니다.');
   };
 
   return (

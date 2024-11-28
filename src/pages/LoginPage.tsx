@@ -14,7 +14,7 @@ export default function LoginPage() {
               </div>
               <div className='text-3xl text-hanaindigo mb-4'>LOGIN</div>
               <Login />
-              <div className='flex justify-center '>
+              <div className='flex justify-center'>
                 <img className='w-20' src={copyright} alt='copyright' />
               </div>
             </div>
