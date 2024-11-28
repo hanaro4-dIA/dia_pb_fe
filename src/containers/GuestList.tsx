@@ -58,6 +58,7 @@ export default function GuestList({ customers }: TGuestListProps) {
         {filteredCustomers.length > 0 ? (
           filteredCustomers.map(({ id, name }) => (
             <IteratingListItem
+              key={id}
               id={id}
               title={`${name} 손님`}
               content={getMemo(id)}
