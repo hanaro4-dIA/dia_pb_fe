@@ -11,7 +11,7 @@ export default function PbProfile() {
 
   const [profile, setProfile] = useState<TPbProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [isWorking, setIsWorking] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(false);
   const [image, setImage] = useState(user?.image_url);
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -23,8 +23,21 @@ export default function PbProfile() {
     if (userData) {
       setProfile(userData);
       setImage(userData.image_url);
+      setIsAvailable(userData.availability);
     }
   }, [user, allPbData]);
+
+  // 빠른 상담 가능 여부 토글
+  const handleAvailabilityChange = (checked: boolean) => {
+    setIsAvailable(checked);
+    setProfile((prev) => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        availability: checked,
+      };
+    });
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -76,12 +89,11 @@ export default function PbProfile() {
     });
   };
 
-  const handleSubmit = () => {
+  const handleTagSubmit = () => {
     if (profile?.tags.some(isNullTag)) {
       alert('tag가 비어있습니다!');
       return;
     }
-
     setIsEditing(false);
   };
 
@@ -111,7 +123,7 @@ export default function PbProfile() {
         contentClassName='w-full h-full flex items-center justify-center px-3'
         isEditing={isEditing}
         setIsEditing={setIsEditing}
-        handleSubmit={handleSubmit}
+        handleSubmit={handleTagSubmit}
       >
         <div className='w-full flex justify-between items-center'>
           <input
@@ -140,15 +152,15 @@ export default function PbProfile() {
 
               {/* 빠른 상담 가능 여부 토글 */}
               <Switch
-                checked={isWorking}
-                onCheckedChange={setIsWorking}
+                checked={isAvailable}
+                onCheckedChange={handleAvailabilityChange}
                 className={`${
-                  isWorking ? 'bg-green-500' : 'bg-red-500'
+                  isAvailable ? 'bg-green-500' : 'bg-red-500'
                 } relative inline-flex h-6 w-11 items-center rounded-full transition-colors`}
               >
                 <span
                   className={`${
-                    isWorking ? 'translate-x-6' : 'translate-x-1'
+                    isAvailable ? 'translate-x-6' : 'translate-x-1'
                   } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                 />
               </Switch>
