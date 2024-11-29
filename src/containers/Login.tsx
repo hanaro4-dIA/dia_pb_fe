@@ -55,13 +55,17 @@ export default function Login() {
         login_id === inputBusinessId && password === inputPassword
     );
 
-    console.log('로그인한 PB 정보 >>', loginUser);
     return loginUser || null;
   };
 
   useEffect(() => {
     businessIdRef.current?.focus();
   }, []);
+
+  // useEffect(() => {
+  //   // console.log('nnn>>', navigator);
+  //   if (user) navigate('/dictionary');
+  // }, [user]);
 
   return (
     <form

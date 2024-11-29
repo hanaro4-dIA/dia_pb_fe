@@ -6,7 +6,6 @@ import {
   Outlet,
 } from 'react-router-dom';
 import NavigationBtn from './components/NavigationBtn';
-import { useSession } from './hooks/sessionContext';
 import ConsultingPage from './pages/ConsultingPage';
 import CustomerDetailPage from './pages/CustomerDetailPage';
 import DictionaryPage from './pages/DictionaryPage';
@@ -16,7 +15,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import NotificationPage from './pages/NotificationPage';
 
 const ProtectedLayout = () => {
-  const { isLogin } = useSession();
+  const isLogin = localStorage.getItem('user');
 
   if (!isLogin) {
     return <Navigate to='/login' replace />;
