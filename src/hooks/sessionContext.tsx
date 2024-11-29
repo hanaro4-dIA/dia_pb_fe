@@ -33,6 +33,7 @@ export const SessionProvider = ({
     setUser(null);
     localStorage.removeItem('user');
     alert('오늘 하루도 고생하셨습니다!😊🎉');
+    window.location.reload();
   };
 
   return (
