@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../assets/diA_business.png';
+import logo from '../assets/dIA_business_logo.png';
 import notFoundImg from '../assets/notFound.gif';
 
 export default function NotFoundPage() {

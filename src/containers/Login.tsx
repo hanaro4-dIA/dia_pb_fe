@@ -9,41 +9,41 @@ export default function Login() {
   const { handleLoginEvent } = useSession();
   const pbData = PbJsonData;
 
-  const businessIdRef = useRef<HTMLInputElement | null>(null);
+  const loginIdRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   let [isValidLoginInfo, setIsValidLoginInfo] = useState(true);
   const navigate = useNavigate();
 
   const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const businessId = businessIdRef.current?.value;
+    const loginId = loginIdRef.current?.value;
     const password = passwordRef.current?.value;
 
-    if (businessId && password) {
-      const loginUser = validCheck(businessId, password);
+    if (loginId && password) {
+      const loginUser = validCheck(loginId, password);
       if (loginUser) {
         handleLoginEvent(loginUser);
         navigate('/');
       } else {
         setIsValidLoginInfo(false);
-        businessIdRef.current?.focus();
+        loginIdRef.current?.focus();
       }
     }
   };
 
   // 로그인 체크 로직
   const validCheck = (
-    inputBusinessId: string,
+    inputLoginId: string,
     inputPassword: string
   ): TPbProps | null => {
     // 정규식 패턴
-    const businessIdPattern = /^Hana\d{9}$/;
+    const loginIdPattern = /^Hana\d{9}$/;
     const passwordPattern =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
 
     // 정규식 체크
     if (
-      !businessIdPattern.test(inputBusinessId) ||
+      !loginIdPattern.test(inputLoginId) ||
       !passwordPattern.test(inputPassword)
     ) {
       return null;
@@ -52,20 +52,15 @@ export default function Login() {
     // 존재 여부
     const loginUser = pbData.find(
       ({ login_id, password }) =>
-        login_id === inputBusinessId && password === inputPassword
+        login_id === inputLoginId && password === inputPassword
     );
 
     return loginUser || null;
   };
 
   useEffect(() => {
-    businessIdRef.current?.focus();
+    loginIdRef.current?.focus();
   }, []);
-
-  // useEffect(() => {
-  //   // console.log('nnn>>', navigator);
-  //   if (user) navigate('/dictionary');
-  // }, [user]);
 
   return (
     <form
@@ -77,7 +72,7 @@ export default function Login() {
           className='border border-gray-300 py-3 pl-3'
           type='text'
           placeholder='사원번호 입력'
-          ref={businessIdRef}
+          ref={loginIdRef}
           maxLength={40}
           required
           onInvalid={(e) =>
