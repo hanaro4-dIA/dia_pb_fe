@@ -1,10 +1,11 @@
 import {
   BrowserRouter,
-  Navigate,
   Route,
   Routes,
   Outlet,
+  useNavigate,
 } from 'react-router-dom';
+import { useEffect } from 'react';
 import NavigationBtn from './components/NavigationBtn';
 import ConsultingPage from './pages/ConsultingPage';
 import CustomerDetailPage from './pages/CustomerDetailPage';
@@ -15,11 +16,19 @@ import NotFoundPage from './pages/NotFoundPage';
 import NotificationPage from './pages/NotificationPage';
 
 const ProtectedLayout = () => {
+  const navigate = useNavigate();
   const isLogin = localStorage.getItem('user');
 
+  useEffect(() => {
+    if (!isLogin) {
+      navigate('/login', { replace: true });
+    }
+  }, [isLogin, navigate]);
+
   if (!isLogin) {
-    return <Navigate to='/login' replace />;
+    return null;
   }
+
   return (
     <>
       <NavigationBtn />
