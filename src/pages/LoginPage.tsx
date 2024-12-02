@@ -1,5 +1,5 @@
 import copyright from '../assets/copyright.png';
-import logo from '../assets/diA_business.png';
+import logo from '../assets/dIA_business_logo.png';
 import Login from '../containers/Login';
 
 export default function LoginPage() {

@@ -1,7 +1,6 @@
 import { TIteratingListItem } from '../types/componentTypes';
 
 const IteratingListItem = ({
-  id,
   title,
   content,
   isSelected,
@@ -9,7 +8,6 @@ const IteratingListItem = ({
   date,
 }: TIteratingListItem) => (
   <div
-    key={id}
     className={`mb-4 ${isSelected ? 'border-2 border-hanaindigo' : 'border border-gray-200'} rounded-lg p-4 shadow-lg cursor-pointer`}
     onClick={onClick}
   >
