@@ -123,6 +123,7 @@ export default function ConsultationJournalList({
         {filteredJournal.length > 0 ? (
           filteredJournal.map((consultation, index) => (
             <ConsultationJournalListItem
+              key={index}
               index={consultation.id || index}
               consultation={consultation}
               openNewWindow={openNewWindow}
