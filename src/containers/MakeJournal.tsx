@@ -52,44 +52,50 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
   return (
     <Section title='상담일지 작성하기'>
       <div className='p-3 h-full flex flex-col justify-between'>
-        <div className='flex flex-col h-[90%] space-y-8 my-2'>
+        <div className='flex flex-col h-[90%] space-y-4'>
           {/* 상담요청 내용 관련 데이터 */}
-          <>
-            <div className='flex justify-between items-center border-b border-black py-1'>
+          <div className='mb-3'>
+            <div className='w-full flex items-center space-x-3 border-b border-black py-1'>
               <label className='text-xs'>[상담 제목]</label>
-              <div className='flex justify-between items-center text-sm font-bold w-[84%] pl-2 focus:outline-none rounded-xl'>
-                <span>
-                  제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목제
-                </span>
-                <button
-                  onClick={openNewWindow}
-                  className='border border-hanaindigo px-2 py-1 rounded text-xs'
-                >
-                  자세히보기
-                </button>
-              </div>
+              <input
+                defaultValue='빠른상담'
+                type='text'
+                maxLength={50}
+                className='text-sm flex-grow focus:outline-none'
+              />
+              <button
+                onClick={openNewWindow}
+                className='border border-hanaindigo px-2 py-1 rounded text-xs'
+              >
+                자세히보기
+              </button>
             </div>
+
             <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
-              <div className='flex items-center justify-between w-1/2'>
+              <div className='flex items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[카테고리]</label>
-                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
-                  카테고리
-                </div>
+                <select name='category' id='category' className='text-sm'>
+                  <option value='quick'>빠른상담</option>
+                  <option value='silver'>은퇴설계</option>
+                  <option value='asset'>자산관리</option>
+                  <option value='care'>주거/케어</option>
+                  <option value='life'>라이프</option>
+                </select>
               </div>
-              <div className='flex items-center justify-between w-1/2'>
+              <div className='flex items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[담당PB]</label>
                 <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
-                  담당 PB 이름
+                  조경은 PB
                 </div>
               </div>
-              <div className='flex items-center justify-between w-1/2'>
+              <div className='flex items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[상담일시]</label>
                 <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
-                  상담일
+                  2024.12.01
                 </div>
               </div>
             </div>
-          </>
+          </div>
 
           {/* 작성란 */}
           <div className='flex flex-col space-y-10 h-full'>
