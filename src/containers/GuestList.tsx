@@ -46,7 +46,7 @@ export default function GuestList({ customers }: TGuestListProps) {
 
   return (
     <Section title='손님 목록'>
-      <div className='sticky top-0 z-10 w-full bg-white'>
+      <div className='top-0 z-10 w-full bg-white'>
         <SearchField
           placeholder='손님 이름 검색'
           value={searchTerm}
