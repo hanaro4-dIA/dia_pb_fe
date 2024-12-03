@@ -91,7 +91,7 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
               <div className='flex items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[상담일시]</label>
                 <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
-                  2024.12.01
+                  2024.12.01 13:50
                 </div>
               </div>
             </div>
