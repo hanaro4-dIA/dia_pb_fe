@@ -76,7 +76,7 @@ export default function PbCalendar() {
 
       {dateModal && (
         <div
-          className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center'
+          className='fixed inset-0 bg-black bg-opacity-50 z-20 flex items-center justify-center'
           ref={modalExternal}
           onClick={(e) => {
             if (e.target === modalExternal.current) {
