@@ -81,5 +81,4 @@ export type TDbItemProps = {
   id: number;
   title: string;
   content: string;
-  url: string;
 };
