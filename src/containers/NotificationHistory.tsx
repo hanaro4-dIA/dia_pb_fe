@@ -64,7 +64,7 @@ export default function NotificationHistory() {
         const notiData = await notiResponse.json();
         setNotifications(notiData);
       } catch (error) {
-        alert('Error fetching data:');
+        console.error('Error fetching data:');
       }
     };
 
@@ -103,7 +103,7 @@ export default function NotificationHistory() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        alert('Error fetching data');
+        console.error('Error fetching data');
       }
     };
     fetchCustomers();
@@ -140,7 +140,7 @@ export default function NotificationHistory() {
 
     return (
       matchesSearch &&
-      selectedCustomers.some((c) => c.name === notification.name)
+      selectedCustomers.some((c) => c.name === notification.customer_id)
     );
   });
 
@@ -236,8 +236,8 @@ export default function NotificationHistory() {
             filteredNotifications.map((notification: TNotificationProps) => (
               <IteratingListItem
                 id={notification.id}
-                title={`${notification.name} 손님`}
-                content={notification.text}
+                title={`${notification.customer_id} 손님`}
+                content={notification.title}
                 onClick={() => openNewWindow(notification)}
                 date={notification.date}
               />

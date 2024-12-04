@@ -69,10 +69,11 @@ export type TCustomersProps = {
 // [x] 쪽지 타입 (Notifications.json)
 export type TNotificationProps = {
   id: number;
-  customer_pb_id: number;
+  customer_id: number;
   title: string;
   content: string;
   date: string;
+  is_read: boolean;
 };
 
 // [x] DB 키워드 타입 (dictionary.ts)
