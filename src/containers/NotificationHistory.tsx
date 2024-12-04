@@ -131,18 +131,19 @@ export default function NotificationHistory() {
     }
   };
 
-  const filteredNotifications = notifications.filter((notification) => {
-    const matchesSearch =
-      notification.name.includes(searchTerm) ||
-      notification.text.includes(searchTerm);
+  // 검색기능
+  // const filteredNotifications = notifications.filter((notification) => {
+  //   const matchesSearch =
+  //     notification.customer_id.includes(searchTerm) ||
+  //     notification.text.includes(searchTerm);
 
-    if (selectedCustomers.length === 0) return matchesSearch;
+  //   if (selectedCustomers.length === 0) return matchesSearch;
 
-    return (
-      matchesSearch &&
-      selectedCustomers.some((c) => c.name === notification.customer_id)
-    );
-  });
+  //   return (
+  //     matchesSearch &&
+  //     selectedCustomers.some((c) => c.name === notification.customer_id)
+  //   );
+  // });
 
   return (
     <Section title='이전에 전송한 쪽지'>
@@ -232,8 +233,8 @@ export default function NotificationHistory() {
 
         {/* 쪽지 리스트 아이템 */}
         <div className='flex flex-col overflow-y-scroll px-4 flex-grow'>
-          {filteredNotifications.length > 0 ? (
-            filteredNotifications.map((notification: TNotificationProps) => (
+          {notifications.length > 0 ? (
+            notifications.map((notification: TNotificationProps) => (
               <IteratingListItem
                 id={notification.id}
                 title={`${notification.customer_id} 손님`}
