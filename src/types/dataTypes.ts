@@ -58,12 +58,15 @@ export type TCategoryProps = {
 // [x] 손님 타입 (Customers.json)
 export type TCustomersProps = {
   id: number;
+  pb_id: number;
+  name: string;
   email: string;
   password: string;
-  name: string;
-  sex: string;
   tel: string;
   address: string;
+  date: string;
+  count: number;
+  meme: string;
 };
 
 // [x] 쪽지 타입 (Notifications.json)
