@@ -4,45 +4,33 @@ import IteratingListItem from '../components/IteratingListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
 import useDebounce from '../hooks/useDebounce';
-import { type TCustomersProps } from '../types/dataTypes';
-import { type TCustomerPbProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
 
-type TGuestListProps = {
-  customers: TCustomersProps[];
-};
-
-export default function GuestList({ customers }: TGuestListProps) {
-  const [memo, setMemo] = useState<TCustomerPbProps[]>([]);
+export default function GuestList() {
   const navigate = useNavigate();
   const params = useParams();
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  // 손님 및 상담 메모 데이터를 가져오는 함수
+  const [customers, setCustomers] = useState<TCustomerProps[]>([]);
+
   useEffect(() => {
-    const fetchMemos = async () => {
+    const fetchCustomers = async () => {
       try {
-        const memoResponse = await fetch('/data/Customer_PB.json');
-        const memoData = await memoResponse.json();
-        setMemo(memoData);
+        const response = await fetch('/data/Customers.json');
+        const data = await response.json();
+        setCustomers(data);
       } catch (error) {
-        console.error('Error fetching data:');
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchMemos();
+    fetchCustomers();
   }, []);
 
-  // 입력한 검색어에 따라 손님 목록을 필터링하는 함수
   const filteredCustomers = customers.filter(({ name }) =>
     name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
-
-  // 손님 ID로 해당 메모 찾기
-  const getMemo = (customerId: number) => {
-    const cMemo = memo.find((c) => c.customer_id === customerId);
-    return cMemo ? cMemo.memo : '메모 없음';
-  };
 
   return (
     <Section title='손님 목록'>
@@ -56,12 +44,12 @@ export default function GuestList({ customers }: TGuestListProps) {
 
       <div className='w-full h-fit p-4'>
         {filteredCustomers.length > 0 ? (
-          filteredCustomers.map(({ id, name }) => (
+          filteredCustomers.map(({ id, name, memo }) => (
             <IteratingListItem
               key={id}
               id={id}
               title={`${name} 손님`}
-              content={getMemo(id)}
+              content={memo}
               isSelected={id === Number(params.id)}
               onClick={() => navigate(`/customerDetail/${id}`)}
             />

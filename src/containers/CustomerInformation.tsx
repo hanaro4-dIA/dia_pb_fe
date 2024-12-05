@@ -1,8 +1,10 @@
 import { MdOutlineModeEdit } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
-import { type TCustomersProps } from '../types/dataTypes';
-import { type TCustomerPbProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
+
+// import { type TCustomerPbProps } from '../types/dataTypes';
 
 type TCustomerInformationProps = {
   customerId: number;
@@ -12,10 +14,9 @@ type TCustomerInformationProps = {
 export default function CustomerInformation({
   customerId,
 }: TCustomerInformationProps) {
+  const paramsId = useParams().id;
   const [isEditing, setIsEditing] = useState(false);
-  const [customerData, setCustomerData] = useState<TCustomersProps | null>(
-    null
-  );
+  const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
   const [memo, setMemo] = useState<string>('');
   const [count, setCount] = useState<number>(0);
   const [meetDate, setMeetDate] = useState<string>('');
@@ -36,9 +37,10 @@ export default function CustomerInformation({
     const fetchCustomerData = async () => {
       try {
         const response = await fetch('/data/Customers.json');
-        const data: TCustomersProps[] = await response.json();
+        const data: TCustomerProps[] = await response.json();
         const customer = data.find((c) => c.id === customerId);
         setCustomerData(customer!);
+        console.log('손님정보>>>>>>>>>', customerData);
       } catch (error) {
         console.error('Error fetching customer data:');
       }
@@ -46,9 +48,9 @@ export default function CustomerInformation({
 
     const fetchMemoData = async () => {
       try {
-        const response = await fetch('/data/Customer_PB.json');
-        const data: TCustomerPbProps[] = await response.json();
-        const customerMemo = data.find((c) => c.customer_id === customerId);
+        const response = await fetch('/data/Customer.json');
+        const data: TCustomerProps[] = await response.json();
+        const customerMemo = data.find((c) => c.id === customerId);
         if (customerMemo) {
           setMemo(customerMemo.memo);
           setCount(customerMemo.count);
@@ -59,7 +61,7 @@ export default function CustomerInformation({
           setMeetDate('정보 없음');
         }
       } catch (error) {
-        console.error('Error fetching memo data:');
+        console.error('Error fetching memo data: ', error);
       }
     };
 

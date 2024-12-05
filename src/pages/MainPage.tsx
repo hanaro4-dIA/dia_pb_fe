@@ -5,28 +5,28 @@ import GuestList from '../containers/GuestList';
 import PbCalendar from '../containers/PbCalendar';
 import PbProfile from '../containers/PbProfile';
 import ScheduledConsultationList from '../containers/ScheduledConsultationList';
-import { type TCustomersProps } from '../types/dataTypes';
+// import { type TCustomerProps } from '../types/dataTypes';
 import { type TRequestedConsultationsProps } from '../types/dataTypes';
 
 export default function MainPage() {
-  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
+  // const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const [scheduledConsultations, setScheduledConsultations] = useState<
     TRequestedConsultationsProps[]
   >([]);
 
-  useEffect(() => {
-    const fetchCustomers = async () => {
-      try {
-        const response = await fetch('/data/Customers.json');
-        const data = await response.json();
-        setCustomers(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCustomers = async () => {
+  //     try {
+  //       const response = await fetch('/data/Customers.json');
+  //       const data = await response.json();
+  //       setCustomers(data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
 
-    fetchCustomers();
-  }, []);
+  //   fetchCustomers();
+  // }, []);
 
   // 상담 요청을 예정된 일정에 추가하는 함수
   const handleApproveConsultation = (
@@ -65,7 +65,7 @@ export default function MainPage() {
       {/* 세 번째 열 */}
       <div className='flex flex-col w-1/4 h-full'>
         <div className='w-full h-full overflow-y-auto'>
-          <GuestList customers={customers} />
+          <GuestList />
         </div>
       </div>
     </div>

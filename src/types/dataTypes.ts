@@ -39,16 +39,6 @@ export type TPbProps = {
   availability: boolean;
 };
 
-// [x] PB가 관리하는 손님 (Customer_PB.json)
-export type TCustomerPbProps = {
-  id: number;
-  customer_id: number;
-  pb_id: number;
-  date: string; // 매칭된 날짜
-  count: number; // 상담 횟수
-  memo: string;
-};
-
 // [x] 상담 카테고리 타입 (Category.json)
 export type TCategoryProps = {
   id: number;
@@ -56,7 +46,7 @@ export type TCategoryProps = {
 };
 
 // [x] 손님 타입 (Customers.json)
-export type TCustomersProps = {
+export type TCustomerProps = {
   id: number;
   pb_id: number;
   name: string;
@@ -66,7 +56,7 @@ export type TCustomersProps = {
   address: string;
   date: string;
   count: number;
-  meme: string;
+  memo: string;
 };
 
 // [x] 쪽지 타입 (Notifications.json)
