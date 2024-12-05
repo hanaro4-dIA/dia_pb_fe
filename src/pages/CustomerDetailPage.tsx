@@ -20,7 +20,7 @@ export default function CustomerDetailPage() {
         <div>
           <CustomerInformation />
         </div>
-        <div className='flex-grow flex-shrink-0 min-h-0 overflow-y-auto'>
+        <div className='flex-grow h-full overflow-y-auto'>
           <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>

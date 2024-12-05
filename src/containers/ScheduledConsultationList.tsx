@@ -67,26 +67,24 @@ export default function ScheduledConsultationList({
   );
 
   return (
-    <>
-      <Section
-        title={
-          id && customerName
-            ? `${customerName} 손님의 예정된 상담 일정`
-            : '예정된 상담 일정'
-        }
-      >
-        <div className='w-full h-fit p-4'>
-          {allConsultations.length > 0 ? (
-            allConsultations.map((consultation, index) => (
-              <UpcomingConsultationItem key={index} {...consultation} />
-            ))
-          ) : (
-            <div className='text-center text-hanaindigo text-xl'>
-              일정이 없습니다
-            </div>
-          )}
-        </div>
-      </Section>
-    </>
+    <Section
+      title={
+        id && customerName
+          ? `${customerName} 손님의 예정된 상담 일정`
+          : '예정된 상담 일정'
+      }
+    >
+      <div className='w-full p-4 '>
+        {allConsultations.length > 0 ? (
+          allConsultations.map((consultation, index) => (
+            <UpcomingConsultationItem key={index} {...consultation} />
+          ))
+        ) : (
+          <div className='text-center text-hanaindigo text-xl'>
+            일정이 없습니다
+          </div>
+        )}
+      </div>
+    </Section>
   );
 }
