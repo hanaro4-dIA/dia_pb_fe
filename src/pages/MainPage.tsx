@@ -1,36 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Section from '../components/Section';
 import ConsultationRequest from '../containers/ConsultationRequest';
 import GuestList from '../containers/GuestList';
 import PbCalendar from '../containers/PbCalendar';
 import PbProfile from '../containers/PbProfile';
 import ScheduledConsultationList from '../containers/ScheduledConsultationList';
-// import { type TCustomerProps } from '../types/dataTypes';
-import { type TRequestedConsultationsProps } from '../types/dataTypes';
+import { type TConsultingProps } from '../types/dataTypes';
 
 export default function MainPage() {
-  // const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const [scheduledConsultations, setScheduledConsultations] = useState<
-    TRequestedConsultationsProps[]
+    TConsultingProps[]
   >([]);
-
-  // useEffect(() => {
-  //   const fetchCustomers = async () => {
-  //     try {
-  //       const response = await fetch('/data/Customers.json');
-  //       const data = await response.json();
-  //       setCustomers(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchCustomers();
-  // }, []);
 
   // 상담 요청을 예정된 일정에 추가하는 함수
   const handleApproveConsultation = (
-    approvedConsultation: TRequestedConsultationsProps
+    approvedConsultation: TConsultingProps
   ) => {
     setScheduledConsultations((prev) => [...prev, approvedConsultation]);
   };

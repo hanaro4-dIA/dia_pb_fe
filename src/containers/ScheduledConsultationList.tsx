@@ -2,18 +2,18 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { UpcomingConsultationItem } from '../components/UpcomingConsultationItem';
-import { type TRequestedConsultationsProps } from '../types/dataTypes';
+import { type TConsultingProps } from '../types/dataTypes';
 
 type ScheduledConsultationListProps = {
-  consultations: TRequestedConsultationsProps[];
+  consultations: TConsultingProps[];
 };
 
 export default function ScheduledConsultationList({
   consultations,
 }: ScheduledConsultationListProps) {
-  const [consultationData, setConsultationData] = useState<
-    TRequestedConsultationsProps[]
-  >([]);
+  const [consultationData, setConsultationData] = useState<TConsultingProps[]>(
+    []
+  );
   const [customerName, setCustomerName] = useState<string>('');
   const { id } = useParams();
 
@@ -21,19 +21,19 @@ export default function ScheduledConsultationList({
     const fetchNotConsultingData = async () => {
       try {
         const response = await fetch('/data/Consultings.json');
-        const data: TRequestedConsultationsProps[] = await response.json();
+        const data: TConsultingProps[] = await response.json();
 
         const filteredData = data
-          .filter(({ approvalStatus, finishStatus, customer_id }) =>
+          .filter(({ approve, finishStatus, customer_id }) =>
             id
-              ? approvalStatus && !finishStatus && customer_id === Number(id)
-              : approvalStatus && !finishStatus
+              ? approve && !finishStatus && customer_id === Number(id)
+              : approve && !finishStatus
           )
           .sort((a, b) => {
             if (a.quick && !b.quick) return -1;
             if (!a.quick && b.quick) return 1;
             return (
-              new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime()
+              new Date(a.hope_date).getTime() - new Date(b.hope_date).getTime()
             );
           });
 
@@ -46,7 +46,7 @@ export default function ScheduledConsultationList({
           setCustomerName(customer ? customer.name : '');
         }
       } catch (error) {
-        alert('Error fetching consultation data.');
+        console.error('Error fetching consultation data.');
       }
     };
 
@@ -57,7 +57,7 @@ export default function ScheduledConsultationList({
     (a, b) => {
       if (a.quick && !b.quick) return -1;
       if (!a.quick && b.quick) return 1;
-      return new Date(a.hopeDay).getTime() - new Date(b.hopeDay).getTime();
+      return new Date(a.hope_date).getTime() - new Date(b.hope_date).getTime();
     }
   );
 

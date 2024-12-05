@@ -3,10 +3,10 @@ import ConsultationJournalList from '../containers/ConsultationJournalList';
 import CustomerInformation from '../containers/CustomerInformation';
 import GuestList from '../containers/GuestList';
 import ScheduledConsultationList from '../containers/ScheduledConsultationList';
-import { type TRequestedConsultationsProps } from '../types/dataTypes';
+import { type TConsultingProps } from '../types/dataTypes';
 
 export default function CustomerDetailPage() {
-  const [scheduledConsultations] = useState<TRequestedConsultationsProps[]>([]);
+  const [scheduledConsultations] = useState<TConsultingProps[]>([]);
 
   return (
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
