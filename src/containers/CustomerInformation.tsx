@@ -40,7 +40,7 @@ export default function CustomerInformation({
         const customer = data.find((c) => c.id === customerId);
         setCustomerData(customer!);
       } catch (error) {
-        alert('Error fetching customer data:');
+        console.error('Error fetching customer data:');
       }
     };
 
@@ -59,7 +59,7 @@ export default function CustomerInformation({
           setMeetDate('정보 없음');
         }
       } catch (error) {
-        alert('Error fetching memo data:');
+        console.error('Error fetching memo data:');
       }
     };
 

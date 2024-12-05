@@ -20,7 +20,7 @@ export default function CustomerDetailPage() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        alert('손님 정보를 불러오지 못했습니다.');
+        console.error('손님 정보를 불러오지 못했습니다.');
       }
     };
 

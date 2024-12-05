@@ -21,7 +21,7 @@ export default function MainPage() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        alert('Error fetching data:');
+        console.error('Error fetching data:', error);
       }
     };
 

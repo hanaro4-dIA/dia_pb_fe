@@ -214,14 +214,14 @@ export default function NotificationHistory() {
 
           {/* 선택된 고객 태그 */}
           <div className='flex flex-wrap gap-2 mt-2'>
-            {selectedCustomers.map((customer) => (
+            {selectedCustomers.map(({ id, name }) => (
               <div
-                key={customer.id}
+                key={id}
                 className='flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm'
               >
-                <span>{customer.name} 손님</span>
+                <span>{name} 손님</span>
                 <button
-                  onClick={() => handleRemoveTag(customer.id)}
+                  onClick={() => handleRemoveTag(id)}
                   className='ml-2 text-gray-500 hover:text-gray-700 focus:outline-none'
                 >
                   ×

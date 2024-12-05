@@ -10,7 +10,7 @@ type TPbJournalsProps = {
 
 export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
   const [categoryName, setCategoryName] = useState<string>('');
-  const [customerName, setCustomerName] = useState<string>('');
+  const [_, setCustomerName] = useState<string>('');
 
   // 카테고리 이름 불러오기 함수
   const fetchCategoryName = async (categoryId: number) => {
@@ -23,7 +23,7 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
         setCategoryName(category.name);
       }
     } catch (error) {
-      alert('Error fetching category data:');
+      console.error('Error fetching category data:');
     }
   };
 
@@ -38,7 +38,7 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
         setCustomerName(customer.name);
       }
     } catch (error) {
-      alert('Error fetching customer data:');
+      console.error('Error fetching customer data:');
     }
   };
 
