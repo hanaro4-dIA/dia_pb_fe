@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
-import { type TCustomersProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
 
 export default function WriteNotification() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
-  const [selectedCustomers, setSelectedCustomers] = useState<TCustomersProps[]>(
+  const [customers, setCustomers] = useState<TCustomerProps[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<TCustomerProps[]>(
     []
   );
 
@@ -50,7 +50,7 @@ export default function WriteNotification() {
     fetchCustomers();
   }, []);
 
-  const handleCustomerSelect = (customer: TCustomersProps) => {
+  const handleCustomerSelect = (customer: TCustomerProps) => {
     setSelectedCustomers((prev) => {
       if (prev.some((c) => c.id === customer.id)) {
         return prev.filter((c) => c.id !== customer.id);
