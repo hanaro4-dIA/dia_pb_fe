@@ -16,7 +16,7 @@ export const RequestedConsultationItem = ({
 }: ConsultationRequestItemProps) => {
   // 빠른 상담일 경우
   const getBorderColorClass = (title: string) => {
-    return title === '빠른상담' ? 'quick-border' : 'border-gray-200';
+    return title === '빠른 상담 요청' ? 'quick-border' : 'border-gray-200';
   };
 
   return (

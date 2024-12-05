@@ -25,7 +25,7 @@ export default function ScheduledConsultationList({
         const data: TConsultingProps[] = await response.json();
 
         // approve가 아직 true 인 것들 중에
-        // title이 '빠른상담'인 항목을 우선 정렬하고, 그 다음 requestDay 기준으로 오름차순 정렬
+        // title이 '빠른 상담 요청'인 항목을 우선 정렬하고, 그 다음 requestDay 기준으로 오름차순 정렬
         const filteredData = data
           .filter(({ approve, customer_id }) =>
             id ? approve && customer_id === Number(id) : approve

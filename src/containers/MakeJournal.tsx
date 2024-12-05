@@ -58,7 +58,7 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
             <div className='w-full flex items-center space-x-3 border-b border-black py-1'>
               <label className='text-xs'>[상담 제목]</label>
               <input
-                defaultValue='빠른상담'
+                defaultValue='빠른 상담 요청'
                 type='text'
                 maxLength={50}
                 className='text-sm flex-grow focus:outline-none'
