@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ConsultationJournalListItem } from '../components/ConsultationJournalListItem';
 import { SearchField } from '../components/SearchField';
@@ -8,14 +9,8 @@ import ReadJournalWindow from '../pages/ReadJournalWindow';
 import { type TPbProps } from '../types/dataTypes';
 import { type TJournalsProps } from '../types/dataTypes';
 
-type TConsultationJournalListProps = {
-  customerId: number;
-  className?: string;
-};
-
-export default function ConsultationJournalList({
-  customerId,
-}: TConsultationJournalListProps) {
+export default function ConsultationJournalList() {
+  const { id } = useParams();
   const [consultationJourData, setConsultationJourData] = useState<
     (TJournalsProps & { pbName: string })[]
   >([]);
@@ -42,7 +37,7 @@ export default function ConsultationJournalList({
 
       const filteredData = await Promise.all(
         data
-          .filter((consultation) => consultation.customer_id === customerId)
+          .filter((consultation) => consultation.customer_id === Number(id))
           .map(async (consultation) => {
             const pbName = await fetchPBName(consultation.pb_id);
             return { ...consultation, pbName };
@@ -56,10 +51,10 @@ export default function ConsultationJournalList({
   };
 
   useEffect(() => {
-    if (customerId !== null) {
+    if (id !== null) {
       fetchConsultationData();
     }
-  }, [customerId]);
+  }, [id]);
 
   // 상담일지 검색하기
   const filteredJournal = consultationJourData.filter(
