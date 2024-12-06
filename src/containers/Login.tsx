@@ -98,7 +98,8 @@ export default function Login() {
         />
       </div>
       <div
-        className={`text-red-400 font-bold p-1 text-sm ${isValidLoginInfo ? 'invisible' : 'visible '}`}
+        className={`text-red-400 p-1 text-sm ${isValidLoginInfo ? 'invisible' : 'visible '}`}
+        style={{ fontFamily: 'noto-bold, sans-serif' }}
       >
         유효하지 않은 사원번호 또는 비밀번호 입니다.
       </div>

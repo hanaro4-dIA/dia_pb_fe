@@ -56,20 +56,29 @@ export default function CustomerInformation() {
         {customerData ? (
           <>
             <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
-              <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
+              <div
+                className='flex items-center px-3 justify-between text-[1rem]'
+                style={{ fontFamily: 'noto-light, sans-serif' }}
+              >
                 <span className='text-sm'>손님과 처음 만난 날짜</span>
                 <span className='text-sm'>{customerData.date}</span>
               </div>
             </div>
             <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
-              <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
+              <div
+                className='flex items-center px-3 justify-between text-[1rem]'
+                style={{ fontFamily: 'noto-light, sans-serif' }}
+              >
                 <span className='text-sm'>상담 횟수</span>
                 <span className='text-sm'>{customerData.count}</span>
               </div>
             </div>
 
             <div className='bg-white rounded-lg p-1 shadow-lg border border-gray-200'>
-              <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
+              <div
+                className='flex items-center px-3 justify-between text-[1rem]'
+                style={{ fontFamily: 'noto-light, sans-serif' }}
+              >
                 <span className='text-sm'>메모</span>
                 {isEditing ? (
                   <span className='flex items-center space-x-2'>
@@ -88,7 +97,7 @@ export default function CustomerInformation() {
                   </span>
                 ) : (
                   <button
-                    className='m-1 text-xl text-red-500 font-bold'
+                    className='m-1 text-xl text-red-500'
                     onClick={handleEditClick}
                   >
                     <MdOutlineModeEdit />

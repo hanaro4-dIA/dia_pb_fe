@@ -18,20 +18,29 @@ export default function NotificationDetailsWindow({
           <>
             <div className='flex  items-center border-b border-black py-1'>
               <label className='flex mr-1 text-xs'>[쪽지제목]</label>
-              <div className='flex justify-between items-center text-sm font-bold w-[84%] pl-2 focus:outline-none rounded-xl'>
+              <div
+                className='flex justify-between items-center text-sm w-[84%] pl-2 focus:outline-none rounded-xl'
+                style={{ fontFamily: 'noto-bold, sans-serif' }}
+              >
                 <span className=''>{title}</span>
               </div>
             </div>
             <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
               <div className='flex items-center w-1/2'>
                 <label className='flex mr-1 text-xs'>[수신인]</label>
-                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                <div
+                  className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
+                  style={{ fontFamily: 'noto-bold, sans-serif' }}
+                >
                   {customer_id}
                 </div>
               </div>
               <div className='flex items-center w-1/2'>
                 <label className='flex mr-1 text-xs '>[발송일시]</label>
-                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                <div
+                  className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
+                  style={{ fontFamily: 'noto-bold, sans-serif' }}
+                >
                   {date}
                 </div>
               </div>

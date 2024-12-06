@@ -66,7 +66,8 @@ export default function Section({
         {pbProfile && (
           <button
             onClick={handleLogoutEvent}
-            className='w-20 text-white text-xs font-bold border border-white rounded px-2 py-1'
+            className='w-20 text-white text-xs border border-white rounded px-2 py-1'
+            style={{ fontFamily: 'noto-bold, sans-serif' }}
           >
             로그아웃
           </button>

@@ -43,6 +43,7 @@ export default function PbCalendar() {
     );
     return hasEvent ? <div className='dot'></div> : null;
   };
+
   const clickScheduledDate = (date: Date) => {
     const scheduledDate = format(date, 'yyyy.MM.dd');
     const schedules = schedule.filter(
@@ -52,6 +53,7 @@ export default function PbCalendar() {
     setSelectedSchedules(schedules);
     setDateModal(true);
   };
+
   const handleAccordian = (index: number) => {
     setAccordian((prev) => (prev === index ? null : index));
   };
@@ -63,6 +65,7 @@ export default function PbCalendar() {
       return timeA - timeB;
     });
   }, [selectedSchedules]);
+
   return (
     <div className='flex justify-center w-full h-fit'>
       <Calendar
@@ -87,11 +90,14 @@ export default function PbCalendar() {
           <div className='bg-white p-5 rounded-lg shadow-lg relative w-3/5'>
             <button
               onClick={() => setDateModal(false)}
-              className=' text-[#f87171] text-xl absolute top-2 right-2 leading-none p-1'
+              className='text-[#f87171] text-xl absolute top-2 right-2 leading-none p-1'
             >
               x
             </button>
-            <h2 className='text-lg font-bold mb-4 text-center'>
+            <h2
+              className='text-lg mb-4 text-center'
+              style={{ fontFamily: 'noto-bold, sans-serif' }}
+            >
               {format(selectedDate as Date, 'MM월 dd일')} 상담 일정
             </h2>
             {selectedSchedules.length > 0 ? (

@@ -149,7 +149,10 @@ export default function PbProfile() {
 
           <div className='flex flex-col ml-3 mt-3 w-full justify-between'>
             <div className='flex items-center'>
-              <div className='flex items-center w-16 text-xl font-bold'>
+              <div
+                className='flex items-center w-16 text-xl'
+                style={{ fontFamily: 'noto-bold, sans-serif' }}
+              >
                 {user?.name}
               </div>
               <p className='mr-4'>PB</p>

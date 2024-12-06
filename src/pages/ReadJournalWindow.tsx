@@ -61,20 +61,29 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
         <div className='p-10 space-y-4 flow-y-auto bg-white'>
           <div className='flex justify-between items-center border-b border-black py-1'>
             <label className='text-xs'>[상담 제목]</label>
-            <div className='flex justify-between items-center text-sm font-bold w-[84%] pl-2 focus:outline-none rounded-xl'>
+            <div
+              className='flex justify-between items-center text-sm w-[84%] pl-2 focus:outline-none rounded-xl'
+              style={{ fontFamily: 'noto-bold, sans-serif' }}
+            >
               <span>{consultation.title}</span>
             </div>
           </div>
           <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
             <div className='flex items-center justify-between w-1/2'>
               <label className='text-xs'>[카테고리]</label>
-              <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+              <div
+                className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
+                style={{ fontFamily: 'noto-bold, sans-serif' }}
+              >
                 {categoryName}
               </div>
             </div>
             <div className='flex items-center justify-between w-1/2'>
               <label className='text-xs'>[상담일시]</label>
-              <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+              <div
+                className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
+                style={{ fontFamily: 'noto-bold, sans-serif' }}
+              >
                 {consultation.date}
               </div>
             </div>

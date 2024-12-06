@@ -39,7 +39,14 @@ const Timer = ({ hope_date, hope_time }: TimerProps) => {
     return () => clearInterval(timer);
   }, [hope_date, hope_time]);
 
-  return <span className='text-hanared font-bold'>{remainingTime}</span>;
+  return (
+    <span
+      className='text-hanared'
+      style={{ fontFamily: 'noto-bold, sans-serif' }}
+    >
+      {remainingTime}
+    </span>
+  );
 };
 
 export default Timer;

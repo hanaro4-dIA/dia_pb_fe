@@ -12,13 +12,15 @@ const IteratingListItem = ({
     onClick={onClick}
   >
     <div className='flex justify-between items-center mb-2 text-sm'>
-      <span className='text-lg font-bold'>{title}</span>
+      <span className='text-lg'>{title}</span>
       {date && <span>{date}</span>}
     </div>
     <div
       className={`${isSelected ? 'bg-hanagold/60' : 'bg-hanagold/40'} text-black p-2 mt-2 rounded-lg`}
     >
-      <div className='truncate'>{content}</div>
+      <div className='truncate' title={content}>
+        {content}
+      </div>
     </div>
   </div>
 );

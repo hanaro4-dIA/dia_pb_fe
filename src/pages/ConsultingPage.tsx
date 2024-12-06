@@ -47,7 +47,10 @@ export default function ConsultingPage() {
         {/* 첫번째 열 */}
         <div className='flex flex-col w-1/4 h-full space-y-4'>
           <div className='flex justify-between p-3 items-center border-b border-black'>
-            <div className='text-2xl font-bold text-hanagold'>
+            <div
+              className='text-2xl text-hanagold'
+              style={{ fontFamily: 'noto-bold, sans-serif' }}
+            >
               {customerName} 손님
             </div>
             <div>

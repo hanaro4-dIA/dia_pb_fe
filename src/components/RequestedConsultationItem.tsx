@@ -21,20 +21,29 @@ export const RequestedConsultationItem = ({
 
   return (
     <article className='w-full flex flex-col justify-end mb-4 items-start'>
-      <small className='ml-2'>{reserve_date}</small>
+      <small className='ml-2' style={{ fontFamily: 'noto-light, sans-serif' }}>
+        {reserve_date}
+      </small>
       <div
         className={`bg-white rounded-lg border ${getBorderColorClass(title)} p-4 shadow-lg w-full`}
       >
         <div className='flex justify-between items-center'>
           <div className='flex flex-col w-[70%]'>
-            <span className='w-[95%] text-[1rem] font-bold truncate'>
+            <span className='w-[95%] text-[1rem] truncate'>
               {customer_id} 손님
             </span>
-            <span className='w-[95%] font-bold truncate'>
+            <span
+              className='w-[95%] truncate'
+              style={{ fontFamily: 'noto-bold, sans-serif' }}
+              title={title}
+            >
               {title || '빠른 상담 요청'}
             </span>
-            <span className='text-[0.8rem] font-bold'>
-              요청일: {hope_date} {hope_time}
+            <span className='text-[0.8rem] flex space-x-2'>
+              <span>요청일: </span>
+              <span style={{ fontFamily: 'noto-bold, sans-serif' }}>
+                {hope_date} {hope_time}
+              </span>
             </span>
           </div>
           <button
