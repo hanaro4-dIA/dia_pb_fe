@@ -17,8 +17,6 @@ export default function Section({
   setIsEditing,
   handleSubmit,
 }: TSectionProps) {
-  // const { handleLogoutEvent } = useSession();
-
   // CustomerInformation 열림 닫힘
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleCollapse = () => {
@@ -55,7 +53,10 @@ export default function Section({
               ) : (
                 <button
                   className='text-sm text-red-600 ml-3'
-                  onClick={() => setIsEditing && setIsEditing(!isEditing)}
+                  onClick={() =>
+                    setIsEditing &&
+                    (setIsEditing(!isEditing), setIsCollapsed(false))
+                  }
                 >
                   EDIT
                 </button>
@@ -63,15 +64,6 @@ export default function Section({
             </>
           )}
         </div>
-        {/* {pbProfile && (
-          <button
-            onClick={handleLogoutEvent}
-            className='w-20 text-white text-xs border border-white rounded px-2 py-1'
-            style={{ fontFamily: 'noto-bold, sans-serif' }}
-          >
-            로그아웃
-          </button>
-        )} */}
         {arrowToggle && (
           <button onClick={toggleCollapse} className='text-white'>
             {isCollapsed ? (
