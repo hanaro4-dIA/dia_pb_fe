@@ -1,47 +1,46 @@
 import { useEffect, useState } from 'react';
 import { RequestedConsultationItem } from '../components/RequestedConsultationItem';
 import Section from '../components/Section';
-import { type TRequestedConsultationsProps } from '../types/dataTypes';
+import { type TConsultingProps } from '../types/dataTypes';
 
 type TConsultationRequestProps = {
-  onApprove: (consultation: TRequestedConsultationsProps) => void;
+  onApprove: (consultation: TConsultingProps) => void;
 };
 
+// 들어온 상담 요청
 export default function ConsultationRequest({
   onApprove,
 }: TConsultationRequestProps) {
-  const [consultationData, setConsultationData] = useState<
-    TRequestedConsultationsProps[]
-  >([]);
+  const [consultationData, setConsultationData] = useState<TConsultingProps[]>(
+    []
+  );
 
   useEffect(() => {
     const fetchNotConsultingData = async () => {
       try {
         const response = await fetch('/data/Consultings.json');
-        const data: TRequestedConsultationsProps[] = await response.json();
+        const data: TConsultingProps[] = await response.json();
 
-        // 필터 및 정렬 조건: approvalStatus가 false이면서 finishStatus가 false인 항목만
-        // quick이 true인 항목을 우선 정렬하고, 그 다음 requestDay 기준으로 오름차순 정렬
+        // approve가 아직 false 인 것들 중에
+        // title이 '빠른 상담 요청'인 항목을 우선 정렬하고, 그 다음 requestDay 기준으로 오름차순 정렬
         const filteredData = data
-          .filter(
-            ({ approvalStatus, finishStatus }) =>
-              approvalStatus === false && finishStatus === false
-          )
+          .filter(({ approve }) => approve === false)
           .sort((a, b) => {
-            if (a.quick && !b.quick) return -1;
-            if (!a.quick && b.quick) return 1;
+            if (a.title === '빠른 상담 요청' && !(b.title === '빠른 상담 요청'))
+              return -1;
+            if (!(a.title === '빠른 상담 요청') && b.title === '빠른 상담 요청')
+              return 1;
             return (
-              new Date(a.requestDay).getTime() -
-              new Date(b.requestDay).getTime()
+              new Date(a.hope_date).getTime() -
+              new Date(b.reserve_date).getTime()
             );
           });
 
         setConsultationData(filteredData);
       } catch (error) {
-        alert('Error fetching consultation data:');
+        console.error('Error fetching consultation data:');
       }
     };
-
     fetchNotConsultingData();
   }, []);
 
@@ -49,7 +48,7 @@ export default function ConsultationRequest({
   const toggleApprovalStatus = (id: number) => {
     setConsultationData((prevData) =>
       prevData.filter((consultation) => {
-        if (consultation.id === id && consultation.approvalStatus === false) {
+        if (consultation.id === id && consultation.approve === false) {
           const updatedConsultation = { ...consultation, approvalStatus: true };
           onApprove(updatedConsultation); // 승인된 상담을 전달
           return false; // 승인된 항목을 제거

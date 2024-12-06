@@ -4,14 +4,14 @@ import IteratingListItem from '../components/IteratingListItem';
 import Section from '../components/Section';
 import NotificationDetailsWindow from '../pages/NotificationDetailsWindow';
 import { type TNotificationProps } from '../types/dataTypes';
-import { type TCustomersProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
 
 export default function NotificationHistory() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
-  const [selectedCustomers, setSelectedCustomers] = useState<TCustomersProps[]>(
+  const [customers, setCustomers] = useState<TCustomerProps[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<TCustomerProps[]>(
     []
   );
   const [notifications, setNotifications] = useState<TNotificationProps[]>([]);
@@ -64,7 +64,7 @@ export default function NotificationHistory() {
         const notiData = await notiResponse.json();
         setNotifications(notiData);
       } catch (error) {
-        alert('Error fetching data:');
+        console.error('Error fetching data:');
       }
     };
 
@@ -103,13 +103,13 @@ export default function NotificationHistory() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        alert('Error fetching data');
+        console.error('Error fetching data');
       }
     };
     fetchCustomers();
   }, []);
 
-  const handleCustomerSelect = (customer: TCustomersProps) => {
+  const handleCustomerSelect = (customer: TCustomerProps) => {
     setSelectedCustomers((prev) => {
       if (prev.some((c) => c.id === customer.id)) {
         return prev.filter((c) => c.id !== customer.id);
@@ -131,18 +131,19 @@ export default function NotificationHistory() {
     }
   };
 
-  const filteredNotifications = notifications.filter((notification) => {
-    const matchesSearch =
-      notification.name.includes(searchTerm) ||
-      notification.text.includes(searchTerm);
+  // 검색기능
+  // const filteredNotifications = notifications.filter((notification) => {
+  //   const matchesSearch =
+  //     notification.customer_id.includes(searchTerm) ||
+  //     notification.text.includes(searchTerm);
 
-    if (selectedCustomers.length === 0) return matchesSearch;
+  //   if (selectedCustomers.length === 0) return matchesSearch;
 
-    return (
-      matchesSearch &&
-      selectedCustomers.some((c) => c.name === notification.name)
-    );
-  });
+  //   return (
+  //     matchesSearch &&
+  //     selectedCustomers.some((c) => c.name === notification.customer_id)
+  //   );
+  // });
 
   return (
     <Section title='이전에 전송한 쪽지'>
@@ -213,14 +214,14 @@ export default function NotificationHistory() {
 
           {/* 선택된 고객 태그 */}
           <div className='flex flex-wrap gap-2 mt-2'>
-            {selectedCustomers.map((customer) => (
+            {selectedCustomers.map(({ id, name }) => (
               <div
-                key={customer.id}
+                key={id}
                 className='flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm'
               >
-                <span>{customer.name} 손님</span>
+                <span>{name} 손님</span>
                 <button
-                  onClick={() => handleRemoveTag(customer.id)}
+                  onClick={() => handleRemoveTag(id)}
                   className='ml-2 text-gray-500 hover:text-gray-700 focus:outline-none'
                 >
                   ×
@@ -232,12 +233,12 @@ export default function NotificationHistory() {
 
         {/* 쪽지 리스트 아이템 */}
         <div className='flex flex-col overflow-y-scroll px-4 flex-grow'>
-          {filteredNotifications.length > 0 ? (
-            filteredNotifications.map((notification: TNotificationProps) => (
+          {notifications.length > 0 ? (
+            notifications.map((notification: TNotificationProps) => (
               <IteratingListItem
                 id={notification.id}
-                title={`${notification.name} 손님`}
-                content={notification.text}
+                title={`${notification.customer_id} 손님`}
+                content={notification.title}
                 onClick={() => openNewWindow(notification)}
                 date={notification.date}
               />

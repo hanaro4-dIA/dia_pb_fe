@@ -1,41 +1,43 @@
 import { useState, useEffect } from 'react';
 
 type TimerProps = {
-  hopeDay: string;
-  hopeTime: string;
+  hope_date: string;
+  hope_time: string;
 };
 
-const Timer = ({ hopeDay, hopeTime }: TimerProps) => {
+// (빠른 상담일 경우) hope_time + 15분 까지 남은 시간
+const Timer = ({ hope_date, hope_time }: TimerProps) => {
   const [remainingTime, setRemainingTime] = useState<string>('');
 
   useEffect(() => {
     const calculateRemainingTime = () => {
       const now = new Date();
-      const [year, month, day] = hopeDay.split('.').map(Number);
-      const [hours, minutes] = hopeTime.split(':').map(Number);
+      const [year, month, day] = hope_date.split('.').map(Number);
+      const [hours, minutes] = hope_time.split(':').map(Number);
       const targetTime = new Date(year, month - 1, day, hours, minutes);
+
+      // hope_time에 15분 추가
+      targetTime.setMinutes(targetTime.getMinutes() + 15);
+
       const difference = targetTime.getTime() - now.getTime();
 
-      // 남은시간이 0보다 크면
       if (difference > 0) {
         const totalMinutes = Math.floor(difference / 60000);
         const seconds = Math.floor((difference % 60000) / 1000);
-        const microseconds = Math.floor((difference % 1000) / 10);
 
         setRemainingTime(
-          `${totalMinutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${microseconds.toString().padStart(2, '0')}`
+          `${totalMinutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
         );
       } else {
-        // 0보다 작으면 설정값
-        setRemainingTime('00:00:00');
+        setRemainingTime('00:00');
       }
     };
 
     calculateRemainingTime();
-    const timer = setInterval(calculateRemainingTime, 10);
+    const timer = setInterval(calculateRemainingTime, 1000);
 
     return () => clearInterval(timer);
-  }, [hopeDay, hopeTime]);
+  }, [hope_date, hope_time]);
 
   return <span className='text-hanared font-bold'>{remainingTime}</span>;
 };

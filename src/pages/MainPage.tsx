@@ -1,36 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Section from '../components/Section';
 import ConsultationRequest from '../containers/ConsultationRequest';
 import GuestList from '../containers/GuestList';
 import PbCalendar from '../containers/PbCalendar';
 import PbProfile from '../containers/PbProfile';
 import ScheduledConsultationList from '../containers/ScheduledConsultationList';
-import { type TCustomersProps } from '../types/dataTypes';
-import { type TRequestedConsultationsProps } from '../types/dataTypes';
+import { type TConsultingProps } from '../types/dataTypes';
 
 export default function MainPage() {
-  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
   const [scheduledConsultations, setScheduledConsultations] = useState<
-    TRequestedConsultationsProps[]
+    TConsultingProps[]
   >([]);
-
-  useEffect(() => {
-    const fetchCustomers = async () => {
-      try {
-        const response = await fetch('/data/Customers.json');
-        const data = await response.json();
-        setCustomers(data);
-      } catch (error) {
-        alert('Error fetching data:');
-      }
-    };
-
-    fetchCustomers();
-  }, []);
 
   // 상담 요청을 예정된 일정에 추가하는 함수
   const handleApproveConsultation = (
-    approvedConsultation: TRequestedConsultationsProps
+    approvedConsultation: TConsultingProps
   ) => {
     setScheduledConsultations((prev) => [...prev, approvedConsultation]);
   };
@@ -65,7 +49,7 @@ export default function MainPage() {
       {/* 세 번째 열 */}
       <div className='flex flex-col w-1/4 h-full'>
         <div className='w-full h-full overflow-y-auto'>
-          <GuestList customers={customers} />
+          <GuestList />
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import React from 'react';
-import { type TRequestedConsultationsProps } from '../types/dataTypes';
+import { type TConsultingProps } from '../types/dataTypes';
 
 type DateTile = Date | null;
 type SelectedDate = DateTile | [DateTile, DateTile];
@@ -14,9 +14,9 @@ type SelectedDate = DateTile | [DateTile, DateTile];
 export default function PbCalendar() {
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
   const [dateModal, setDateModal] = useState(false);
-  const [schedule, setSchedule] = useState<TRequestedConsultationsProps[]>([]);
+  const [schedule, setSchedule] = useState<TConsultingProps[]>([]);
   const [selectedSchedules, setSelectedSchedules] = useState<
-    TRequestedConsultationsProps[]
+    TConsultingProps[]
   >([]);
   const [accordian, setAccordian] = useState<number | null>(null);
 
@@ -39,7 +39,7 @@ export default function PbCalendar() {
     const scheduledDate = format(date, 'yyyy.MM.dd');
     const hasEvent = schedule.some(
       (consultings) =>
-        consultings.approvalStatus && consultings.hopeDay === scheduledDate
+        consultings.approve && consultings.hope_date === scheduledDate
     );
     return hasEvent ? <div className='dot'></div> : null;
   };
@@ -47,7 +47,7 @@ export default function PbCalendar() {
     const scheduledDate = format(date, 'yyyy.MM.dd');
     const schedules = schedule.filter(
       (consultings) =>
-        consultings.approvalStatus && consultings.hopeDay === scheduledDate
+        consultings.approve && consultings.hope_date === scheduledDate
     );
     setSelectedSchedules(schedules);
     setDateModal(true);
@@ -58,8 +58,8 @@ export default function PbCalendar() {
 
   const sortedSchedules = useMemo(() => {
     return [...selectedSchedules].sort((a, b) => {
-      const timeA = new Date(`1970-01-01T${a.hopeTime}:00`).getTime();
-      const timeB = new Date(`1970-01-01T${b.hopeTime}:00`).getTime();
+      const timeA = new Date(`1970-01-01T${a.hope_time}:00`).getTime();
+      const timeB = new Date(`1970-01-01T${b.hope_time}:00`).getTime();
       return timeA - timeB;
     });
   }, [selectedSchedules]);
@@ -107,7 +107,7 @@ export default function PbCalendar() {
                 <tbody>
                   {sortedSchedules.map(
                     (
-                      { hopeTime, name, category, title, inquiryDetails },
+                      { hope_time, customer_id, category_id, title, content },
                       index
                     ) => (
                       <React.Fragment key={index}>
@@ -115,9 +115,9 @@ export default function PbCalendar() {
                           className='border-b cursor-pointer'
                           onClick={() => handleAccordian(index)}
                         >
-                          <td className='p-2 text-center'>{hopeTime}</td>
-                          <td className='p-2 text-center'>{name}</td>
-                          <td className='p-2 text-center'>{category}</td>
+                          <td className='p-2 text-center'>{hope_time}</td>
+                          <td className='p-2 text-center'>{customer_id}</td>
+                          <td className='p-2 text-center'>{category_id}</td>
                           <td className='p-2 text-center'>{title}</td>
                           <td className='p-2'>
                             {accordian === index ? (
@@ -130,7 +130,7 @@ export default function PbCalendar() {
                         {accordian === index && (
                           <tr>
                             <td colSpan={5} className='p-2 bg-gray-100'>
-                              <p>{inquiryDetails}</p>
+                              <p>{content}</p>
                             </td>
                           </tr>
                         )}

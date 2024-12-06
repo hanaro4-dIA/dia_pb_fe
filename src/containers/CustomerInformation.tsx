@@ -1,71 +1,50 @@
 import { MdOutlineModeEdit } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
-import { type TCustomersProps } from '../types/dataTypes';
-import { type TCustomerPbProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
 
-type TCustomerInformationProps = {
-  customerId: number;
-  className?: string;
-};
-
-export default function CustomerInformation({
-  customerId,
-}: TCustomerInformationProps) {
+export default function CustomerInformation() {
+  const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-  const [customerData, setCustomerData] = useState<TCustomersProps | null>(
-    null
-  );
+  const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
   const [memo, setMemo] = useState<string>('');
-  const [count, setCount] = useState<number>(0);
-  const [meetDate, setMeetDate] = useState<string>('');
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleSaveClick = () => {
-    setIsEditing(false);
-  };
-
-  const handleCancelClick = () => {
-    setIsEditing(false);
-  };
 
   useEffect(() => {
     const fetchCustomerData = async () => {
       try {
         const response = await fetch('/data/Customers.json');
-        const data: TCustomersProps[] = await response.json();
-        const customer = data.find((c) => c.id === customerId);
+        const data: TCustomerProps[] = await response.json();
+        const customer = data.find((c) => c.id === Number(id));
         setCustomerData(customer!);
+        setMemo(customer?.memo || '');
       } catch (error) {
-        alert('Error fetching customer data:');
-      }
-    };
-
-    const fetchMemoData = async () => {
-      try {
-        const response = await fetch('/data/Customer_PB.json');
-        const data: TCustomerPbProps[] = await response.json();
-        const customerMemo = data.find((c) => c.customer_id === customerId);
-        if (customerMemo) {
-          setMemo(customerMemo.memo);
-          setCount(customerMemo.count);
-          setMeetDate(customerMemo.date);
-        } else {
-          setMemo('메모 없음');
-          setCount(0);
-          setMeetDate('정보 없음');
-        }
-      } catch (error) {
-        alert('Error fetching memo data:');
+        console.error('Error fetching customer data:', error);
       }
     };
 
     fetchCustomerData();
-    fetchMemoData();
-  }, [customerId]);
+  }, [id]);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  // memo Update
+  const handleSaveClick = () => {
+    if (customerData) {
+      setCustomerData({
+        ...customerData,
+        memo: memo,
+      });
+    }
+    setIsEditing(false);
+  };
+
+  const handleCancelClick = () => {
+    setMemo(customerData?.memo || '');
+    setIsEditing(false);
+  };
 
   return (
     <Section title={`${customerData?.name} 손님 정보`} arrowToggle={true}>
@@ -74,22 +53,14 @@ export default function CustomerInformation({
           <>
             <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
               <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
-                <span className='text-sm'>손님과 만난 날짜</span>
-                <span className='text-sm'>{meetDate}</span>
+                <span className='text-sm'>손님과 처음 만난 날짜</span>
+                <span className='text-sm'>{customerData.date}</span>
               </div>
             </div>
-
-            <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
-              <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
-                <span className='text-sm'>최근 상담 날짜</span>
-                <span className='text-sm'>정보 없음</span>
-              </div>
-            </div>
-
             <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
               <div className='flex items-center px-3 justify-between text-black text-[1rem] font-light'>
                 <span className='text-sm'>상담 횟수</span>
-                <span className='text-sm'>{count}</span>
+                <span className='text-sm'>{customerData.count}</span>
               </div>
             </div>
 
@@ -125,7 +96,7 @@ export default function CustomerInformation({
               <div className='bg-white rounded-xl p-1 mt-1'>
                 {isEditing ? (
                   <textarea
-                    value={memo}
+                    defaultValue={customerData.memo}
                     onChange={(e) => setMemo(e.target.value)}
                     className='flex items-center w-full h-8 rounded resize-none border outline-none px-2'
                     maxLength={50}

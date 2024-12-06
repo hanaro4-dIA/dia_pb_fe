@@ -1,18 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
-
-type TCustomer = {
-  id: number;
-  name: string;
-};
+import { type TCustomerProps } from '../types/dataTypes';
 
 export default function WriteNotification() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [customers, setCustomers] = useState<TCustomer[]>([]);
-  const [selectedCustomers, setSelectedCustomers] = useState<TCustomer[]>([]);
+  const [customers, setCustomers] = useState<TCustomerProps[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<TCustomerProps[]>(
+    []
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,14 +44,13 @@ export default function WriteNotification() {
         const data = await response.json();
         setCustomers(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
-        alert('데이터를 불러오는 중 오류가 발생했습니다.');
+        console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
       }
     };
     fetchCustomers();
   }, []);
 
-  const handleCustomerSelect = (customer: TCustomer) => {
+  const handleCustomerSelect = (customer: TCustomerProps) => {
     setSelectedCustomers((prev) => {
       if (prev.some((c) => c.id === customer.id)) {
         return prev.filter((c) => c.id !== customer.id);
@@ -149,14 +146,14 @@ export default function WriteNotification() {
 
           {/* 선택된 고객 태그 */}
           <div className='flex flex-wrap gap-2 mt-2'>
-            {selectedCustomers.map((customer) => (
+            {selectedCustomers.map(({ id, name }) => (
               <div
-                key={customer.id}
+                key={id}
                 className='flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm'
               >
-                <span>{customer.name} 손님</span>
+                <span>{name} 손님</span>
                 <button
-                  onClick={() => handleRemoveTag(customer.id)}
+                  onClick={() => handleRemoveTag(id)}
                   className='ml-2 text-gray-500 hover:text-gray-700 focus:outline-none'
                 >
                   ×
