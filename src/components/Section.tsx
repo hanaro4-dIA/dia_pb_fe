@@ -1,6 +1,7 @@
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useState } from 'react';
 import logo from '../assets/diA.png';
+import { useSession } from '../hooks/sessionContext';
 // import { useSession } from '../hooks/sessionContext';
 import { type TSectionProps } from '../types/componentTypes';
 
@@ -17,6 +18,7 @@ export default function Section({
   setIsEditing,
   handleSubmit,
 }: TSectionProps) {
+  const { handleLogoutEvent } = useSession();
   // CustomerInformation 열림 닫힘
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleCollapse = () => {
@@ -64,6 +66,15 @@ export default function Section({
             </>
           )}
         </div>
+        {pbProfile && (
+          <button
+            onClick={handleLogoutEvent}
+            className='mr-5 w-20 text-white text-xs border border-white rounded px-2 py-1'
+            style={{ fontFamily: 'noto-bold, sans-serif' }}
+          >
+            로그아웃
+          </button>
+        )}
         {arrowToggle && (
           <button onClick={toggleCollapse} className='text-white'>
             {isCollapsed ? (
