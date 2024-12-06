@@ -120,6 +120,7 @@ export default function PbProfile() {
       <Section
         title='내 프로필'
         pbProfile={true}
+        layoutClassName='h-full'
         contentClassName='w-full h-full flex items-center justify-center px-3'
         isEditing={isEditing}
         setIsEditing={setIsEditing}

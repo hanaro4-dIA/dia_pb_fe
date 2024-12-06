@@ -5,7 +5,7 @@ export default function DictionaryDetail({
   selectedItem,
 }: TDictionaryDetailProps) {
   return (
-    <Section title='상세보기'>
+    <Section title='상세보기' layoutClassName='h-full'>
       {selectedItem ? (
         <div className='h-full p-10 space-y-4 overflow-y-auto border-x border-b border-gray-200'>
           <div className='text-4xl font-bold'>{selectedItem.title}</div>

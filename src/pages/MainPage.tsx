@@ -34,14 +34,16 @@ export default function MainPage() {
       </div>
 
       {/* 두 번째 열 */}
-      <div className='flex flex-col w-5/12 h-full space-y-5'>
+      {/* <div className='flex flex-col w-5/12 h-full space-y-5'> */}
+      <div className='flex flex-col w-5/12 space-y-5'>
         {/* 캘린더 */}
-        <Section title='전체 상담 일정' logoImg={true}>
+        <Section title='전체 상담 일정' logoImg={true} arrowToggle={true}>
           <PbCalendar />
         </Section>
 
         {/* 예정된 상담 일정 */}
-        <div className='flex flex-col h-3/4 overflow-y-auto'>
+        {/* <div className='flex flex-col h-3/4 overflow-y-auto'> */}
+        <div className='flex flex-col h-full flex-grow overflow-y-auto'>
           <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>

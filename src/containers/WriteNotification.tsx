@@ -78,7 +78,7 @@ export default function WriteNotification() {
   };
 
   return (
-    <Section title='새로운 쪽지 전송하기'>
+    <Section title='새로운 쪽지 전송하기' layoutClassName='h-full'>
       <form
         onSubmit={handleSubmit}
         className='w-full h-full overflow-auto p-2 flex flex-col'

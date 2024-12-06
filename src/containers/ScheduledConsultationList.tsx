@@ -15,7 +15,6 @@ export default function ScheduledConsultationList({
   const [consultationData, setConsultationData] = useState<TConsultingProps[]>(
     []
   );
-  const [customerName, setCustomerName] = useState<string>('');
   const { id } = useParams();
 
   useEffect(() => {
@@ -41,13 +40,6 @@ export default function ScheduledConsultationList({
           });
 
         setConsultationData(filteredData);
-
-        if (id) {
-          const customer = data.find(
-            ({ customer_id }) => customer_id === Number(id)
-          );
-          setCustomerName(customer ? String(customer.customer_id) : '');
-        }
       } catch (error) {
         console.error('Error fetching consultation data: ', error);
       }
@@ -69,10 +61,11 @@ export default function ScheduledConsultationList({
   return (
     <Section
       title={
-        id && customerName
-          ? `${customerName} 손님의 예정된 상담 일정`
+        id
+          ? `${consultationData[0]?.customer_id || id} 손님의 예정된 상담 일정`
           : '예정된 상담 일정'
       }
+      layoutClassName='h-full'
     >
       <div className='w-full p-4 '>
         {allConsultations.length > 0 ? (

@@ -33,7 +33,7 @@ export default function GuestList() {
   );
 
   return (
-    <Section title='손님 목록'>
+    <Section title='손님 목록' layoutClassName='h-full'>
       <div className='sticky top-0 z-10 w-full bg-white'>
         <SearchField
           placeholder='손님 이름 검색'

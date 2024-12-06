@@ -105,7 +105,7 @@ export default function ConsultationJournalList() {
   };
 
   return (
-    <Section title='상담일지 리스트'>
+    <Section title='상담일지 리스트' layoutClassName='h-full'>
       <div className='sticky top-0 z-10 w-full bg-white'>
         <SearchField
           placeholder='상담일지 검색'

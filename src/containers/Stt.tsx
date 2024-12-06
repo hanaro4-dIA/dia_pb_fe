@@ -57,7 +57,7 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
   };
 
   return (
-    <Section title='STT 자동 작성란'>
+    <Section title='STT 자동 작성란' layoutClassName='h-full'>
       <div className='h-full p-2 flex flex-col justify-between'>
         {/* 텍스트 입력 영역 */}
         <div className='relative flex overflow-y-auto'>

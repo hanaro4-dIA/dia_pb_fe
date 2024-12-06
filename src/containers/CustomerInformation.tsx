@@ -47,7 +47,11 @@ export default function CustomerInformation() {
   };
 
   return (
-    <Section title={`${customerData?.name} 손님 정보`} arrowToggle={true}>
+    <Section
+      title={`${customerData?.name} 손님 정보`}
+      arrowToggle={true}
+      layoutClassName='h-full'
+    >
       <div className='w-full h-fit p-4'>
         {customerData ? (
           <>

@@ -26,17 +26,22 @@ export default function Section({
   };
 
   return (
-    <div className={`flex flex-col h-full bg-white ${layoutClassName}`}>
+    <div className={`flex flex-col bg-white ${layoutClassName}`}>
       {/* 상단 */}
       <div
         className={`sticky top-0 w-full h-14 flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg ${labelClassName}`}
       >
         <div className='w-full flex items-center'>
           {logoImg && (
-            <img src={logo} alt='dIA logo' className='w-8 mr-4 rounded-full' />
+            <img src={logo} alt='dIA logo' className='w-9 mr-4 rounded-full' />
           )}
 
-          <span>{title}</span>
+          <span
+            className='text-lg'
+            style={{ fontFamily: 'hana-bold, sans-serif' }}
+          >
+            {title}
+          </span>
 
           {pbProfile && (
             <>

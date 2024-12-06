@@ -50,7 +50,7 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
   };
 
   return (
-    <Section title='상담일지 작성하기'>
+    <Section title='상담일지 작성하기' layoutClassName='h-full'>
       <div className='p-3 h-full flex flex-col justify-between'>
         <div className='flex flex-col h-[90%] space-y-4'>
           {/* 상담요청 내용 관련 데이터 */}

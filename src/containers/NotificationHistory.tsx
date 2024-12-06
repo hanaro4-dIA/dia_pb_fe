@@ -146,7 +146,7 @@ export default function NotificationHistory() {
   // });
 
   return (
-    <Section title='이전에 전송한 쪽지'>
+    <Section title='이전에 전송한 쪽지' layoutClassName='h-full'>
       <div className='flex flex-col h-full'>
         {/* 수신인 선택 */}
         <div className='bg-white sticky top-0 z-10 w-full p-4'>

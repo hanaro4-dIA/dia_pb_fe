@@ -29,7 +29,7 @@ export default function PbCalendar() {
         const consultingData = await response.json();
         setSchedule(consultingData);
       } catch (error) {
-        alert('Error fetching ConsultingData:');
+        console.error('Error fetching ConsultingData: ', error);
       }
     };
     fetchConsultings();

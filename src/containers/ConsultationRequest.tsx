@@ -60,7 +60,7 @@ export default function ConsultationRequest({
 
   return (
     <>
-      <Section title='들어온 상담 요청'>
+      <Section title='들어온 상담 요청' layoutClassName='h-full'>
         <div className='w-full h-fit p-4'>
           {consultationData.length > 0 ? (
             consultationData.map((consultation) => (
