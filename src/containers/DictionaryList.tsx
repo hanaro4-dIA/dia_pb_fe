@@ -11,7 +11,7 @@ export default function DictionaryList({
   setSelectedItem,
 }: TDictionaryListProps) {
   return (
-    <Section title='키워드 DB 목록'>
+    <Section title='키워드 DB 목록' layoutClassName='h-full'>
       <div className='sticky top-0 z-10 w-full bg-white'>
         <SearchField
           placeholder='키워드 검색'

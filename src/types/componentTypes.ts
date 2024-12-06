@@ -39,3 +39,13 @@ export type TIteratingListItem = {
   onClick: () => void;
   date?: string;
 };
+
+// NavigationBtn 안의 SubButton 컴포넌트 타입
+export type TSubButtonProp = {
+  icon: React.ReactNode;
+  color: string;
+  title: string;
+  path?: string;
+  target?: string;
+  onClick?: () => void;
+};

@@ -50,7 +50,7 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
   };
 
   return (
-    <Section title='상담일지 작성하기'>
+    <Section title='상담일지 작성하기' layoutClassName='h-full'>
       <div className='p-3 h-full flex flex-col justify-between'>
         <div className='flex flex-col h-[90%] space-y-4'>
           {/* 상담요청 내용 관련 데이터 */}
@@ -84,13 +84,19 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
               </div>
               <div className='flex items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[담당PB]</label>
-                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                <div
+                  className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
+                  style={{ fontFamily: 'noto-bold, sans-serif' }}
+                >
                   조경은 PB
                 </div>
               </div>
               <div className='flex items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[상담일시]</label>
-                <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
+                <div
+                  className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
+                  style={{ fontFamily: 'noto-bold, sans-serif' }}
+                >
                   2024.12.01 13:50
                 </div>
               </div>

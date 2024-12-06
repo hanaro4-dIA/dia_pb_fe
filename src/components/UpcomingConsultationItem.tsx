@@ -25,7 +25,10 @@ export const UpcomingConsultationItem = ({
     <div
       className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(title)} shadow-lg`}
     >
-      <div className='flex justify-between text-[1rem] font-light'>
+      <div
+        className='flex justify-between text-[1rem]'
+        style={{ fontFamily: 'noto-light, sans-serif' }}
+      >
         <span>{customer_id} 손님</span>
         <span>
           {hope_date} {hope_time}
@@ -34,7 +37,9 @@ export const UpcomingConsultationItem = ({
 
       <div className='flex justify-between text-[1rem] font-extrabold w-full mt-2'>
         <div className='w-2/3 flex items-center'>
-          <span className='w-full truncate'>{title || '빠른 상담 요청'}</span>
+          <span className='w-full truncate' title={title}>
+            {title || '빠른 상담 요청'}
+          </span>
         </div>
 
         <span className='flex justify-center items-center gap-1'>

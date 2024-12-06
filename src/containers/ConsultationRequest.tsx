@@ -59,24 +59,22 @@ export default function ConsultationRequest({
   };
 
   return (
-    <>
-      <Section title='들어온 상담 요청'>
-        <div className='w-full h-fit p-4'>
-          {consultationData.length > 0 ? (
-            consultationData.map((consultation) => (
-              <RequestedConsultationItem
-                key={consultation.id}
-                {...consultation}
-                onApprove={toggleApprovalStatus}
-              />
-            ))
-          ) : (
-            <div className='text-center text-hanaindigo p-4 h-full text-xl  '>
-              모든 상담 요청이 승인되었습니다.
-            </div>
-          )}
-        </div>
-      </Section>
-    </>
+    <Section title='들어온 상담 요청' layoutClassName='h-full'>
+      <div className='w-full h-fit p-4'>
+        {consultationData.length > 0 ? (
+          consultationData.map((consultation) => (
+            <RequestedConsultationItem
+              key={consultation.id}
+              {...consultation}
+              onApprove={toggleApprovalStatus}
+            />
+          ))
+        ) : (
+          <div className='text-center text-hanaindigo p-4 h-full text-xl  '>
+            모든 상담 요청이 승인되었습니다.
+          </div>
+        )}
+      </div>
+    </Section>
   );
 }

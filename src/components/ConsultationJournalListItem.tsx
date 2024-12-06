@@ -18,15 +18,26 @@ export const ConsultationJournalListItem = ({
     >
       <div className='w-full flex items-center justify-between'>
         <div className='w-2/3 flex justify-between items-center'>
-          <span className='text-hanaindigo font-bold mr-4'>{index + 1}</span>
+          <span className='text-hanaindigo mr-4'>{index + 1}</span>
 
           <div className='w-[80%] flex flex-col justify-between'>
-            <div className='font-bold truncate'>{consultation.content}</div>
-            <span className='font-light'>{consultation.pbName} PB</span>
+            <div
+              className='truncate'
+              title={consultation.content}
+              style={{ fontFamily: 'noto-bold, sans-serif' }}
+            >
+              {consultation.content}
+            </div>
+            <span style={{ fontFamily: 'noto-light, sans-serif' }}>
+              {consultation.pbName} PB
+            </span>
           </div>
         </div>
 
-        <span className='w-1/3 font-light flex justify-end items-center'>
+        <span
+          className='w-1/3 flex justify-end items-center'
+          style={{ fontFamily: 'noto-light, sans-serif' }}
+        >
           {consultation.date}
         </span>
       </div>

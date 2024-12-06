@@ -2,6 +2,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useState } from 'react';
 import logo from '../assets/diA.png';
 import { useSession } from '../hooks/sessionContext';
+// import { useSession } from '../hooks/sessionContext';
 import { type TSectionProps } from '../types/componentTypes';
 
 export default function Section({
@@ -18,7 +19,6 @@ export default function Section({
   handleSubmit,
 }: TSectionProps) {
   const { handleLogoutEvent } = useSession();
-
   // CustomerInformation 열림 닫힘
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleCollapse = () => {
@@ -26,17 +26,22 @@ export default function Section({
   };
 
   return (
-    <div className={`flex flex-col h-full bg-white ${layoutClassName}`}>
+    <div className={`flex flex-col bg-white ${layoutClassName}`}>
       {/* 상단 */}
       <div
         className={`sticky top-0 w-full h-14 flex items-center justify-between bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 pl-5 rounded-t-lg ${labelClassName}`}
       >
         <div className='w-full flex items-center'>
           {logoImg && (
-            <img src={logo} alt='dIA logo' className='w-8 mr-4 rounded-full' />
+            <img src={logo} alt='dIA logo' className='w-9 mr-4 rounded-full' />
           )}
 
-          <span>{title}</span>
+          <span
+            className='text-lg'
+            style={{ fontFamily: 'hana-bold, sans-serif' }}
+          >
+            {title}
+          </span>
 
           {pbProfile && (
             <>
@@ -50,7 +55,10 @@ export default function Section({
               ) : (
                 <button
                   className='text-sm text-red-600 ml-3'
-                  onClick={() => setIsEditing && setIsEditing(!isEditing)}
+                  onClick={() =>
+                    setIsEditing &&
+                    (setIsEditing(!isEditing), setIsCollapsed(false))
+                  }
                 >
                   EDIT
                 </button>
@@ -61,7 +69,8 @@ export default function Section({
         {pbProfile && (
           <button
             onClick={handleLogoutEvent}
-            className='w-20 text-white text-xs font-bold border border-white rounded px-2 py-1'
+            className='mr-5 w-20 text-white text-xs border border-white rounded px-2 py-1'
+            style={{ fontFamily: 'noto-bold, sans-serif' }}
           >
             로그아웃
           </button>

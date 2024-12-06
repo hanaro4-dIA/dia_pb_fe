@@ -23,25 +23,25 @@ export default function MainPage() {
     <div className='flex flex-row justify-between w-full h-screen p-5 gap-5'>
       {/* 첫 번째 열 */}
       <div className='flex flex-col flex-grow w-1/4 h-full space-y-5'>
-        {/* 프로필 */}
-        <div className='overflow-y-auto w-full h-3/5'>
+        <div className='overflow-y-auto w-full'>
           <PbProfile />
         </div>
         {/* 들어온 상담 요청 */}
-        <div className='overflow-y-auto h-full'>
+        {/* <div className='overflow-y-auto h-full'> */}
+        <div className='flex flex-col h-full flex-grow overflow-y-auto'>
           <ConsultationRequest onApprove={handleApproveConsultation} />
         </div>
       </div>
 
       {/* 두 번째 열 */}
-      <div className='flex flex-col w-5/12 h-full space-y-5'>
+      <div className='flex flex-col w-5/12 space-y-5'>
         {/* 캘린더 */}
-        <Section title='전체 상담 일정' logoImg={true}>
+        <Section title='전체 상담 일정' logoImg={true} arrowToggle={true}>
           <PbCalendar />
         </Section>
 
         {/* 예정된 상담 일정 */}
-        <div className='flex flex-col h-3/4 overflow-y-auto'>
+        <div className='flex flex-col h-full flex-grow overflow-y-auto'>
           <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>
