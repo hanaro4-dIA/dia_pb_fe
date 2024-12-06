@@ -61,3 +61,39 @@
   border: 3px solid #cb1136;
   animation: quick-border 2s infinite;
 }
+
+/* 폰트 적용 */
+@font-face {
+  font-family: 'hana-bold';
+  font-weight: bold;
+  src: url('./assets/fonts/Hana2-Bold.otf') format('opentype');
+}
+@font-face {
+  font-family: 'hana-normal';
+  font-weight: normal;
+  src: url('./assets/fonts/Hana2-CM.otf') format('opentype');
+}
+@font-face {
+  font-family: 'hana-light';
+  font-weight: light;
+  src: url('./assets/fonts/Hana2-Light.otf') format('opentype');
+}
+@font-face {
+  font-family: 'noto-bold';
+  font-weight: bold;
+  src: url('./assets/fonts/NotoSansKR-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'noto-normal';
+  font-weight: normal;
+  src: url('./assets/fonts/NotoSansKR-regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'noto-light';
+  font-weight: light;
+  src: url('./assets/fonts/NotoSansKR-light.ttf') format('truetype');
+}
+
+body {
+  font-family: 'noto-normal';
+}

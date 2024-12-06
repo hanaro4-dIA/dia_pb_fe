@@ -11,7 +11,7 @@ export default function STT({ onTextSelect }: TextareaButtonConverterProps) {
   const [text, setText] = useState('');
   const [buttons, setButtons] = useState<ButtonType[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [textareaValue, setTextareaValue] = useState('');
+  const [_, setTextareaValue] = useState('');
 
   const buttonSpacing = 8; // 원하는 간격을 지정하세요 (단위: px)
 

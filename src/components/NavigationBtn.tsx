@@ -22,7 +22,7 @@ type TPositionProps = {
 };
 
 const NavigationBtn = () => {
-  const [isDragging, setIsDragging] = useState(false);
+  const [_, setIsDragging] = useState(false);
   const [hasMoved, setHasMoved] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [position, setPosition] = useState<TPositionProps>({ x: 0, y: 0 });
@@ -65,7 +65,7 @@ const NavigationBtn = () => {
     setHasMoved(false);
   };
 
-  const handleDrag = (e: DraggableEvent, data: DraggableData) => {
+  const handleDrag = (_: DraggableEvent, data: DraggableData) => {
     if (
       Math.abs(data.x - position.x) > DRAG_THRESHOLD ||
       Math.abs(data.y - position.y) > DRAG_THRESHOLD
@@ -74,7 +74,7 @@ const NavigationBtn = () => {
     }
   };
 
-  const handleDragStop = (e: DraggableEvent, data: DraggableData) => {
+  const handleDragStop = (_: DraggableEvent, data: DraggableData) => {
     setIsDragging(false);
     const { x, y } = data;
     const newPosition = snapToEdge(x, y);
@@ -150,7 +150,13 @@ const NavigationBtn = () => {
                 key={index}
                 onClick={() => handleSubButtonClick(button.path, button.target)}
                 className={`w-12 h-12 rounded-full ${button.color} text-white text-lg flex items-center justify-center shadow-md transition-all duration-300`}
-                title={button.path === '/notification' ? '쪽지' : button.path === '/dictionary' ? '키워드' : '홈'}
+                title={
+                  button.path === '/notification'
+                    ? '쪽지'
+                    : button.path === '/dictionary'
+                      ? '키워드'
+                      : '홈'
+                }
               >
                 {button.icon}
               </button>
