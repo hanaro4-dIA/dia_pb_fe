@@ -5,7 +5,7 @@ import ConsultationJournalList from '../containers/ConsultationJournalList';
 import CustomerInformation from '../containers/CustomerInformation';
 import MakeJournal from '../containers/MakeJournal';
 import STT from '../containers/Stt';
-import { type TCustomersProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
 
 export default function ConsultingPage() {
   const [customerName, setCustomerName] = useState<string>();
@@ -15,7 +15,7 @@ export default function ConsultingPage() {
   const fetchCustomerName = async (customerId: number) => {
     try {
       const response = await fetch('/data/Customers.json');
-      const customerData: TCustomersProps[] = await response.json();
+      const customerData: TCustomerProps[] = await response.json();
       const customer = customerData.find(({ id }) => id === customerId);
 
       if (customer) {
@@ -25,7 +25,6 @@ export default function ConsultingPage() {
       }
     } catch (error) {
       console.error('Error fetching customer data:', error);
-      setCustomerName('데이터 로드 실패');
     }
   };
 
@@ -59,13 +58,13 @@ export default function ConsultingPage() {
           </div>
 
           {/* 손님 정보 */}
-          <div className=''>
-            <CustomerInformation customerId={Number(id)} />
+          <div className='h-fit'>
+            <CustomerInformation />
           </div>
 
           {/* 상담일지 리스트 */}
           <div className='flex-grow overflow-y-auto'>
-            <ConsultationJournalList customerId={Number(id)} />
+            <ConsultationJournalList />
           </div>
         </div>
 
