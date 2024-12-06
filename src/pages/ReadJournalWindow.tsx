@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import mockupScript from '../assets/mockupScript.png';
 import { type TCategoryProps } from '../types/dataTypes';
 import { type TJournalsProps } from '../types/dataTypes';
-import { type TCustomersProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
 
 type TPbJournalsProps = {
   consultation: TJournalsProps;
@@ -31,7 +31,7 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
   const fetchCustomerName = async (customerId: number) => {
     try {
       const response = await fetch('/data/Customers.json');
-      const customerData: TCustomersProps[] = await response.json();
+      const customerData: TCustomerProps[] = await response.json();
       const customer = customerData.find(({ id }) => id === customerId);
 
       if (customer) {
