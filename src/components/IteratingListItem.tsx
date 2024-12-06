@@ -1,4 +1,4 @@
-import { TIteratingListItem } from '../types/componentTypes';
+import { type TIteratingListItem } from '../types/componentTypes';
 
 const IteratingListItem = ({
   title,
