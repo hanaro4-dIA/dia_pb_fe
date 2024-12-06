@@ -125,8 +125,9 @@ export default function PbProfile() {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         handleSubmit={handleTagSubmit}
+        arrowToggle={true}
       >
-        <div className='w-full flex justify-between items-center'>
+        <div className='w-full py-14 flex justify-between items-center'>
           <input
             type='file'
             style={{ display: 'none' }}
@@ -135,7 +136,7 @@ export default function PbProfile() {
             onChange={handleImage}
             ref={fileInput}
           />
-          <div className='w-28 h-28 aspect-square relative'>
+          <div className='w-24 h-24 aspect-square relative'>
             <img
               className={`w-full h-full rounded-full ${isEditing && 'cursor-pointer'}`}
               src={image}
@@ -176,26 +177,36 @@ export default function PbProfile() {
             <small className='text-hanagold my-1'>{profile?.office}</small>
 
             {/* PB 태그 */}
-            <div className='flex flex-wrap gap-1'>
+            <div className='flex flex-row flex-wrap gap-1 items-center'>
               {profile?.tags?.map((tag, index) => (
                 <div
                   key={index}
-                  className='flex items-center bg-hanaindigo rounded-lg w-[30%] h-8 p-1'
+                  className='flex items-center bg-hanaindigo rounded-lg w-fit h-8 p-1 px-2'
                 >
-                  <p className='text-white text-xs mx-1'>#</p>
-                  <input
-                    className='bg-transparent text-white text-xs w-full'
-                    type='text'
-                    value={tag}
-                    id='tag'
-                    onChange={(e) => handleTagChange(index, e.target.value)}
-                    disabled={!isEditing}
-                    placeholder='입력'
-                    maxLength={5}
-                  />
+                  <p className='text-white text-xs mr-1 flex items-center'>#</p>
+
+                  {isEditing ? (
+                    <div className='w-fit flex items-center'>
+                      <input
+                        className='bg-transparent text-white text-xs w-14'
+                        type='text'
+                        value={tag}
+                        id='tag'
+                        onChange={(e) => handleTagChange(index, e.target.value)}
+                        disabled={!isEditing}
+                        placeholder='최대5글자'
+                        maxLength={5}
+                      />
+                    </div>
+                  ) : (
+                    <span className='flex items-center bg-transparent text-white text-xs outline-none w-fit'>
+                      {tag}
+                    </span>
+                  )}
+
                   {isEditing && (
                     <button
-                      className='flex items-center text-red-600 ml-1 mr-1'
+                      className='flex items-center text-red-600 ml-1'
                       type='button'
                       onClick={() => handleRemoveTag(index)}
                     >
@@ -204,6 +215,7 @@ export default function PbProfile() {
                   )}
                 </div>
               ))}
+
               {isEditing && profile.tags?.length < 3 && (
                 <button
                   className='text-hanaindigo border border-hanaindigo px-2 py-1 rounded-full text-sm'
@@ -218,7 +230,7 @@ export default function PbProfile() {
             {/* 한 줄 자기소개 */}
             {isEditing ? (
               <textarea
-                className='p-1 w-auto mt-2 text-xs text-hanaindigo resize-none outline-none border-2 focus:border-hanaindigo'
+                className='p-1 my-2 text-xs text-hanaindigo resize-none outline-none border-2 focus:border-hanaindigo'
                 name='introduce'
                 value={profile?.introduce}
                 onChange={handleInputChange}

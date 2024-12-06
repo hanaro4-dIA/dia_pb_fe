@@ -1,10 +1,15 @@
 import Draggable, { DraggableEvent, DraggableData } from 'react-draggable';
 import { FiHome } from 'react-icons/fi';
+import { IoLogOutOutline } from 'react-icons/io5';
+import { MdLogout } from 'react-icons/md';
 import { MdMenuBook, MdOutlineMessage } from 'react-icons/md';
+import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import NavigationBtnImage1 from '../assets/NavigationBtn1.png';
 import NavigationBtnImage2 from '../assets/NavigationBtn2.png';
+import { useSession } from '../hooks/sessionContext';
+import { TSubButtonProp } from '../types/componentTypes';
 
 const BUTTON_SIZE = 80;
 const DRAG_THRESHOLD = 5;
@@ -22,6 +27,7 @@ type TPositionProps = {
 };
 
 const NavigationBtn = () => {
+  const { handleLogoutEvent } = useSession();
   const [_, setIsDragging] = useState(false);
   const [hasMoved, setHasMoved] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -84,12 +90,14 @@ const NavigationBtn = () => {
 
   const snapToEdge = (x: number, y: number): TPositionProps => {
     const { left, top, right, bottom } = bounds;
+
     const distances = [
       { edge: 'left', distance: x - left },
       { edge: 'right', distance: right - x },
       { edge: 'top', distance: y - top },
       { edge: 'bottom', distance: bottom - y },
     ];
+
     const closestEdge = distances.reduce((min, curr) =>
       curr.distance < min.distance ? curr : min
     );
@@ -108,28 +116,45 @@ const NavigationBtn = () => {
     }
   };
 
-  const handleSubButtonClick = (path: string, target?: string) => {
-    if (target === '_blank') {
-      window.open(path, '_blank', 'noopener,noreferrer');
-    } else {
-      navigate(path);
+  const handleSubButtonClick = (button: TSubButtonProp) => {
+    if (button.onClick) {
+      button.onClick();
+    } else if (button.path) {
+      if (button.target === '_blank') {
+        window.open(button.path, '_blank', 'noopener,noreferrer');
+      } else {
+        navigate(button.path);
+      }
     }
     setIsExpanded(false);
   };
 
-  const subButtons = [
+  const subButtons: TSubButtonProp[] = [
     {
-      path: '/notification',
-      icon: <MdOutlineMessage />,
-      color: 'bg-violet-500 hover:bg-violet-800',
+      icon: <RiLogoutBoxRLine />,
+      color: 'bg-green-600 hover:bg-green-800',
+      title: '로그아웃',
+      onClick: handleLogoutEvent,
     },
     {
-      path: '/dictionary',
+      icon: <MdOutlineMessage />,
+      color: 'bg-violet-500 hover:bg-violet-800',
+      title: '쪽지',
+      path: '/notification',
+    },
+    {
       target: '_blank',
       icon: <MdMenuBook />,
       color: 'bg-orange-500 hover:bg-orange-800',
+      title: '사전',
+      path: '/dictionary',
     },
-    { path: '/', icon: <FiHome />, color: 'bg-red-500 hover:bg-red-800' },
+    {
+      icon: <FiHome />,
+      color: 'bg-red-500 hover:bg-red-800',
+      title: '홈',
+      path: '/',
+    },
   ];
 
   return (
@@ -148,15 +173,9 @@ const NavigationBtn = () => {
             {subButtons.map((button, index) => (
               <button
                 key={index}
-                onClick={() => handleSubButtonClick(button.path, button.target)}
+                onClick={() => handleSubButtonClick(button)}
                 className={`w-12 h-12 rounded-full ${button.color} text-white text-lg flex items-center justify-center shadow-md transition-all duration-300`}
-                title={
-                  button.path === '/notification'
-                    ? '쪽지'
-                    : button.path === '/dictionary'
-                      ? '키워드'
-                      : '홈'
-                }
+                title={button.title}
               >
                 {button.icon}
               </button>
