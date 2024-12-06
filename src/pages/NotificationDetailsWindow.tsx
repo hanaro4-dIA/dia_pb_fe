@@ -2,9 +2,9 @@ import { type TNotificationProps } from '../types/dataTypes';
 
 export default function NotificationDetailsWindow({
   title,
-  name,
+  customer_id,
   date,
-  text,
+  content,
 }: TNotificationProps) {
   return (
     <div className='flex flex-col border shadow-lg border-gray-200 w-full h-full rounded-t-lg'>
@@ -26,7 +26,7 @@ export default function NotificationDetailsWindow({
               <div className='flex items-center w-1/2'>
                 <label className='flex mr-1 text-xs'>[수신인]</label>
                 <div className='text-sm font-bold w-2/3 px-2 focus:outline-none rounded-xl'>
-                  {name}
+                  {customer_id}
                 </div>
               </div>
               <div className='flex items-center w-1/2'>
@@ -42,8 +42,8 @@ export default function NotificationDetailsWindow({
           <div className='flex flex-col h-full'>
             <span className='text-xs mb-2'>[쪽지 내용]</span>
             <textarea
-              value={text}
-              className='w-full h-full p-2 border resize-none overflow-y-auto focus:outline-hanasilver'
+              value={content}
+              className='w-full h-full p-5 border resize-none overflow-y-auto focuse:outline-none'
             />
           </div>
         </div>
