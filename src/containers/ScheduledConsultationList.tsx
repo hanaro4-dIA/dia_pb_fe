@@ -74,7 +74,7 @@ export default function ScheduledConsultationList({
           ))
         ) : (
           <div className='text-center text-hanaindigo text-xl'>
-            일정이 없습니다
+            일정이 없습니다.
           </div>
         )}
       </div>

@@ -1,7 +1,5 @@
 import Draggable, { DraggableEvent, DraggableData } from 'react-draggable';
 import { FiHome } from 'react-icons/fi';
-import { IoLogOutOutline } from 'react-icons/io5';
-import { MdLogout } from 'react-icons/md';
 import { MdMenuBook, MdOutlineMessage } from 'react-icons/md';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
