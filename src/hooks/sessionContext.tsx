@@ -7,7 +7,9 @@ type SessionContextType = {
   handleLogoutEvent: () => void;
 };
 
-const SessionContext = createContext<SessionContextType | undefined>(undefined);
+export const SessionContext = createContext<SessionContextType | undefined>(
+  undefined
+);
 
 export const SessionProvider = ({
   children,
