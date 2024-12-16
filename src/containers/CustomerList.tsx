@@ -6,7 +6,7 @@ import Section from '../components/Section';
 import useDebounce from '../hooks/useDebounce';
 import { type TCustomerProps } from '../types/dataTypes';
 
-export default function GuestList() {
+export default function CustomerList() {
   const navigate = useNavigate();
   const params = useParams();
   const [searchTerm, setSearchTerm] = useState('');

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Section from '../components/Section';
 import ConsultationRequest from '../containers/ConsultationRequest';
-import GuestList from '../containers/GuestList';
+import CustomerList from '../containers/CustomerList';
 import PbCalendar from '../containers/PbCalendar';
 import PbProfile from '../containers/PbProfile';
 import ScheduledConsultationList from '../containers/ScheduledConsultationList';
@@ -49,7 +49,7 @@ export default function MainPage() {
       {/* 세 번째 열 */}
       <div className='flex flex-col w-1/4 h-full'>
         <div className='w-full h-full overflow-y-auto'>
-          <GuestList />
+          <CustomerList />
         </div>
       </div>
     </div>
