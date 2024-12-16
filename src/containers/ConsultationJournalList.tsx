@@ -6,13 +6,12 @@ import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
 import useDebounce from '../hooks/useDebounce';
 import ReadJournalWindow from '../pages/ReadJournalWindow';
-import { type TPbProps } from '../types/dataTypes';
-import { type TJournalsProps } from '../types/dataTypes';
+import { type TPbProps, type TJournalsProps } from '../types/dataTypes';
 
 export default function ConsultationJournalList() {
   const { id } = useParams();
   const [consultationJourData, setConsultationJourData] = useState<
-    (TJournalsProps & { pbName: string })[]
+    TJournalsProps[]
   >([]);
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -64,7 +63,7 @@ export default function ConsultationJournalList() {
   );
 
   // 상담일지 자세히보기
-  const openNewWindow = (consultation: TJournalsProps & { pbName: string }) => {
+  const openNewWindow = (consultation: TJournalsProps) => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
 
     if (newWindow) {
@@ -75,7 +74,7 @@ export default function ConsultationJournalList() {
               .map((rule) => rule.cssText)
               .join('');
           } catch (e) {
-            alert('Failed to load some CSS rules:');
+            console.error('Failed to load some CSS rules:');
             return '';
           }
         })

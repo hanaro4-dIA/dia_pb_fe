@@ -6,13 +6,14 @@ import Timer from '../utils/remainingTime-util';
 export const UpcomingConsultationItem = ({
   id,
   customer_id,
+  category_id,
   title,
   hope_date,
   hope_time,
 }: TConsultingProps) => {
   // 빠른 상담일 경우
-  const getBorderColorClass = (title: string) => {
-    return title === '빠른 상담 요청' ? 'quick-border' : 'border-gray-200';
+  const getBorderColorClass = (category_id: number) => {
+    return category_id === 1 ? 'quick-border' : 'border-gray-200';
   };
 
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export const UpcomingConsultationItem = ({
 
   return (
     <div
-      className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(title)} shadow-lg`}
+      className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(category_id)} shadow-lg`}
     >
       <div
         className='flex justify-between text-[1rem]'
@@ -38,15 +39,13 @@ export const UpcomingConsultationItem = ({
       <div className='flex justify-between text-[1rem] font-extrabold w-full mt-2'>
         <div className='w-2/3 flex items-center'>
           <span className='w-full truncate' title={title}>
-            {title || '빠른 상담 요청'}
+            {category_id === 1 ? '빠른 상담 요청' : title}
           </span>
         </div>
 
         <span className='flex justify-center items-center gap-1'>
-          {title === '빠른 상담 요청' && (
-            <MdOutlineTimer className='text-hanared' />
-          )}{' '}
-          {title === '빠른 상담 요청' && (
+          {category_id === 1 && <MdOutlineTimer className='text-hanared' />}{' '}
+          {category_id === 1 && (
             <Timer hope_date={hope_date} hope_time={hope_time} />
           )}{' '}
         </span>

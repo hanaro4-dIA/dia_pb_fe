@@ -7,6 +7,7 @@ type ConsultationRequestItemProps = TConsultingProps & {
 export const RequestedConsultationItem = ({
   id,
   customer_id,
+  category_id,
   title,
   hope_date,
   hope_time,
@@ -15,8 +16,8 @@ export const RequestedConsultationItem = ({
   onApprove,
 }: ConsultationRequestItemProps) => {
   // 빠른 상담일 경우
-  const getBorderColorClass = (title: string) => {
-    return title === '빠른 상담 요청' ? 'quick-border' : 'border-gray-200';
+  const getBorderColorClass = (category_id: number) => {
+    return category_id === 1 ? 'quick-border' : 'border-gray-200';
   };
 
   return (
@@ -25,7 +26,7 @@ export const RequestedConsultationItem = ({
         {reserve_date}
       </small>
       <div
-        className={`bg-white rounded-lg border ${getBorderColorClass(title)} p-4 shadow-lg w-full`}
+        className={`bg-white rounded-lg border ${getBorderColorClass(category_id)} p-4 shadow-lg w-full`}
       >
         <div className='flex justify-between items-center'>
           <div className='flex flex-col w-[70%]'>
@@ -37,7 +38,7 @@ export const RequestedConsultationItem = ({
               style={{ fontFamily: 'noto-bold, sans-serif' }}
               title={title}
             >
-              {title || '빠른 상담 요청'}
+              {category_id === 1 ? '빠른 상담 요청' : title}
             </span>
             <span className='text-[0.8rem] flex space-x-2'>
               <span>요청일: </span>

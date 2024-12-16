@@ -1,9 +1,9 @@
 import { type TJournalsProps } from '../types/dataTypes';
 
 type TConsultationJournalListItemProps = {
-  consultation: TJournalsProps & { pbName: string };
+  consultation: TJournalsProps;
   index: number;
-  openNewWindow: (consultation: TJournalsProps & { pbName: string }) => void;
+  openNewWindow: (consultation: TJournalsProps) => void;
 };
 
 export const ConsultationJournalListItem = ({
@@ -23,13 +23,13 @@ export const ConsultationJournalListItem = ({
           <div className='w-[80%] flex flex-col justify-between'>
             <div
               className='truncate'
-              title={consultation.content}
+              title={consultation.title}
               style={{ fontFamily: 'noto-bold, sans-serif' }}
             >
-              {consultation.content}
+              {consultation.title}
             </div>
             <span style={{ fontFamily: 'noto-light, sans-serif' }}>
-              {consultation.pbName} PB
+              {consultation.pb_id} PB
             </span>
           </div>
         </div>

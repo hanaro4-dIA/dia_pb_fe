@@ -1,7 +1,5 @@
 import Draggable, { DraggableEvent, DraggableData } from 'react-draggable';
 import { FiHome } from 'react-icons/fi';
-import { IoLogOutOutline } from 'react-icons/io5';
-import { MdLogout } from 'react-icons/md';
 import { MdMenuBook, MdOutlineMessage } from 'react-icons/md';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +7,7 @@ import { useState, useEffect, useCallback } from 'react';
 import NavigationBtnImage1 from '../assets/NavigationBtn1.png';
 import NavigationBtnImage2 from '../assets/NavigationBtn2.png';
 import { useSession } from '../hooks/sessionContext';
-import { TSubButtonProp } from '../types/componentTypes';
+import { type TSubButtonProp } from '../types/componentTypes';
 
 const BUTTON_SIZE = 80;
 const DRAG_THRESHOLD = 5;

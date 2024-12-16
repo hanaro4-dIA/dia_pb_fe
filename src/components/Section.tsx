@@ -2,7 +2,6 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { useState } from 'react';
 import logo from '../assets/diA.png';
 import { useSession } from '../hooks/sessionContext';
-// import { useSession } from '../hooks/sessionContext';
 import { type TSectionProps } from '../types/componentTypes';
 
 export default function Section({
