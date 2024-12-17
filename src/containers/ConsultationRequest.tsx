@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { RequestedConsultationItem } from '../components/RequestedConsultationItem';
 import Section from '../components/Section';
+import useFetch from '../hooks/useFetch';
 import { type TConsultingProps } from '../types/dataTypes';
 
 type TConsultationRequestProps = {
@@ -43,6 +44,14 @@ export default function ConsultationRequest({
     };
     fetchNotConsultingData();
   }, []);
+
+  const { data, error } = useFetch<TConsultingProps[]>(
+    `${import.meta.env.REACT_APP_API_KEY}/pb/reserves?status=false`
+  );
+
+  console.log('data: ', data);
+  console.log('error: ', error);
+  console.log(import.meta.env.REACT_APP_API_KEY);
 
   // 승인 버튼 클릭 시 상태 변경
   const toggleApprovalStatus = (id: number) => {

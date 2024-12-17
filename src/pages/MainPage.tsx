@@ -27,7 +27,6 @@ export default function MainPage() {
           <PbProfile />
         </div>
         {/* 들어온 상담 요청 */}
-        {/* <div className='overflow-y-auto h-full'> */}
         <div className='flex flex-col h-full flex-grow overflow-y-auto'>
           <ConsultationRequest onApprove={handleApproveConsultation} />
         </div>
