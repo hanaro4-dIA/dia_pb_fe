@@ -3,11 +3,7 @@ import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 import RequestContentPage from '../pages/RequestContentPage';
 
-type SecondComponentProps = {
-  selectedText: string;
-};
-
-export default function MakeJournal({ selectedText }: SecondComponentProps) {
+export default function MakeJournal() {
   // 요청내용 상세보기
   const openNewWindow = () => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
@@ -105,16 +101,13 @@ export default function MakeJournal({ selectedText }: SecondComponentProps) {
 
           {/* 작성란 */}
           <div className='flex flex-col space-y-10 h-full'>
-            <div className='h-2/5'>
-              <span className='text-sm mb-3'>[PB의 기록]</span>
-              <textarea
-                value={selectedText}
-                className='w-full h-full p-2 border resize-none overflow-y-auto focus:outline-hanasilver'
-              />
+            <div className='h-2/5 mb-4'>
+              <div className='text-sm mb-3'>[PB의 기록]</div>
+              <textarea className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver' />
             </div>
             <div className='h-2/5'>
-              <span className='text-sm mb-3'>[PB의 추천 상품]</span>
-              <textarea className='w-full h-full p-2 border resize-none overflow-y-auto focus:outline-hanasilver' />
+              <div className='text-sm mb-3'>[PB의 추천 상품]</div>
+              <textarea className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver' />
             </div>
           </div>
         </div>

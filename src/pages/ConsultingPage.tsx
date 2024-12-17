@@ -71,7 +71,7 @@ export default function ConsultingPage() {
 
         {/* 세번째 열: 상담일지 작성하기 */}
         <div className='flex flex-col w-1/2 h-full'>
-          <MakeJournal selectedText={selectedText} />
+          <MakeJournal />
         </div>
       </div>
     </>
