@@ -28,13 +28,6 @@ export default function ConsultingPage() {
     }
   };
 
-  const [selectedText, setSelectedText] = useState('');
-
-  // 첫 번째 컴포넌트에서 호출할 콜백 함수
-  const handleTextSelect = (text: string) => {
-    setSelectedText(text);
-  };
-
   useEffect(() => {
     if (id) {
       fetchCustomerName(Number(id));
@@ -73,7 +66,7 @@ export default function ConsultingPage() {
 
         {/* 두번째 열: STT 자동 작성란 */}
         <div className='flex flex-col w-1/4 h-full'>
-          <STT onTextSelect={handleTextSelect} />
+          <STT />
         </div>
 
         {/* 세번째 열: 상담일지 작성하기 */}
