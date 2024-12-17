@@ -18,6 +18,7 @@ export default function useFetch<T>(
 ): TUseFetchProps<T> {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
+  const APIKEY = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +29,7 @@ export default function useFetch<T>(
           ...(options?.headers || {}),
         };
 
-        const response = await fetch(url, {
+        const response = await fetch(`${APIKEY}/${url}`, {
           method: options?.method || 'GET',
           headers: fetchHeaders,
           body: options?.body ? JSON.stringify(options.body) : null,
