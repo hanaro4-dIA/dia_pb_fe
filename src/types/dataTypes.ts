@@ -20,6 +20,7 @@ export type TConsultingProps = {
   hope_date: string;
   hope_time: string;
   reserve_date: string;
+  reserve_time: string;
   approve: boolean;
 };
 
