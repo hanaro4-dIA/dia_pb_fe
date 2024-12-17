@@ -5,7 +5,7 @@ type TimerProps = {
   hope_time: string;
 };
 
-// (빠른 상담일 경우) hope_time + 15분 까지 남은 시간
+// (빠른 상담일 경우) hope_time ( === reserve_time) + 15분 까지 남은 시간
 const Timer = ({ hope_date, hope_time }: TimerProps) => {
   const [remainingTime, setRemainingTime] = useState<string>('');
 
