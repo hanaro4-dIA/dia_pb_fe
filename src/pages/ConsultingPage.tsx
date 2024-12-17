@@ -2,9 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Button } from '../components/ui/button';
 import ConsultationJournalList from '../containers/ConsultationJournalList';
+import ConsultationScript from '../containers/ConsultationScript';
 import CustomerInformation from '../containers/CustomerInformation';
 import MakeJournal from '../containers/MakeJournal';
-import STT from '../containers/Stt';
 import { type TCustomerProps } from '../types/dataTypes';
 
 export default function ConsultingPage() {
@@ -66,7 +66,7 @@ export default function ConsultingPage() {
 
         {/* 두번째 열: STT 자동 작성란 */}
         <div className='flex flex-col w-1/4 h-full'>
-          <STT />
+          <ConsultationScript />
         </div>
 
         {/* 세번째 열: 상담일지 작성하기 */}

@@ -1,7 +1,7 @@
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 
-export default function STT() {
+export default function ConsultationScript() {
   return (
     <Section title='상담 스크립트' layoutClassName='h-full'>
       <div className='h-full p-2 flex flex-col justify-between'>
