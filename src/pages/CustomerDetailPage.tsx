@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ConsultationJournalList from '../containers/ConsultationJournalList';
 import CustomerInformation from '../containers/CustomerInformation';
-import GuestList from '../containers/GuestList';
+import CustomerList from '../containers/CustomerList';
 import ScheduledConsultationList from '../containers/ScheduledConsultationList';
 import { type TConsultingProps } from '../types/dataTypes';
 
@@ -12,7 +12,7 @@ export default function CustomerDetailPage() {
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
       {/* 첫 번째 열: 손님 목록 */}
       <div className='flex flex-col flex-grow w-1/4 h-full overflow-y-auto'>
-        <GuestList />
+        <CustomerList />
       </div>
 
       {/* 두 번째 열: 손님 정보와 상담 일정 */}
