@@ -14,7 +14,6 @@ export default function CustomerList() {
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
-  console.log('listRefs: ', listRefs.current);
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -35,22 +34,18 @@ export default function CustomerList() {
   );
 
   // 선택된 항목에 대해 scrollIntoView 호출
-  useEffect(() => {
-    if (selectedId) {
-      const targetIndex = customers.findIndex(
-        (customer) => customer.id === selectedId
-      );
+  if (selectedId) {
+    const targetIndex = customers.findIndex(
+      (customer) => customer.id === selectedId
+    );
 
-      const targetElement = listRefs.current[targetIndex];
-      console.log('targetElement: ', targetElement);
+    const targetElement = listRefs.current[targetIndex];
 
-      targetElement?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
-    return;
-  });
+    targetElement?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }
 
   return (
     <Section title='손님 목록' layoutClassName='h-full'>
@@ -65,10 +60,7 @@ export default function CustomerList() {
       <div className='w-full h-fit p-4'>
         {filteredCustomers.length > 0 ? (
           filteredCustomers.map(({ id, name, memo }, index) => (
-            <div
-              ref={(el) => (listRefs.current[index] = el)} // 각 항목에 ref 설정
-              key={id}
-            >
+            <div ref={(el) => (listRefs.current[index] = el)} key={id}>
               <IteratingListItem
                 id={id}
                 title={`${name} 손님`}
