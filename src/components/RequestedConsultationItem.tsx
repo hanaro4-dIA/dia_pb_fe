@@ -12,8 +12,8 @@ export const RequestedConsultationItem = ({
   approve,
 }: TConsultingProps) => {
   // 빠른 상담일 경우
-  const getBorderColorClass = (category_id: number) => {
-    return category_id === 1 ? 'quick-border' : 'border-gray-200';
+  const getBorderColorClass = (categoryId: number) => {
+    return categoryId === 1 ? 'quick-border' : 'border-gray-200';
   };
 
   return (
@@ -37,16 +37,13 @@ export const RequestedConsultationItem = ({
               {categoryId === 1 ? '빠른 상담 요청' : title}
             </span>
             <span className='text-[0.8rem] flex space-x-2'>
-              <span>요청일: </span>
+              <span>희망일: </span>
               <span style={{ fontFamily: 'noto-bold, sans-serif' }}>
-                {hopeDate} {hopeTime}
+                {changeDateFormat(hopeDate)} {hopeTime}
               </span>
             </span>
           </div>
-          <button
-            className='w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg bg-hanaindigo hover:bg-hanagold'
-            // onClick={() => onApprove(id)}
-          >
+          <button className='w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg bg-hanaindigo hover:bg-hanagold'>
             {!approve && '승인대기'}
           </button>
         </div>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import ScheduledConsultationList from '../containers/ApprovedConsultationsList';
 import ConsultationJournalList from '../containers/ConsultationJournalList';
 import CustomerInformation from '../containers/CustomerInformation';
 import CustomerList from '../containers/CustomerList';
-import ScheduledConsultationList from '../containers/ScheduledConsultationList';
 import { type TConsultingProps } from '../types/dataTypes';
 
 export default function CustomerDetailPage() {

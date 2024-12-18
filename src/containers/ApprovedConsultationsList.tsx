@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { UpcomingConsultationItem } from '../components/ApprovedConsultationItem';
 import Section from '../components/Section';
-import { UpcomingConsultationItem } from '../components/UpcomingConsultationItem';
 import { type TConsultingProps } from '../types/dataTypes';
 
 type ScheduledConsultationListProps = {
@@ -9,7 +9,7 @@ type ScheduledConsultationListProps = {
 };
 
 // 예정된 상담 일정
-export default function ScheduledConsultationList({
+export default function ApprovedConsultationsList({
   consultations,
 }: ScheduledConsultationListProps) {
   const [consultationData, setConsultationData] = useState<TConsultingProps[]>(
