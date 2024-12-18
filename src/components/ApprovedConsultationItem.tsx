@@ -13,13 +13,13 @@ export const ApprovedConsultationItem = ({
   hopeTime,
 }: TConsultingProps) => {
   // 빠른 상담일 경우
-  const getBorderColorClass = (category_id: number) => {
-    return category_id === 1 ? 'quick-border' : 'border-gray-200';
+  const getBorderColorClass = (categoryId: number) => {
+    return categoryId === 1 ? 'quick-border' : 'border-gray-200';
   };
 
   const navigate = useNavigate();
 
-  const handleConsultationClick = (consultingId: number) => {
+  const moveToConsultingPageEvent = (consultingId: number) => {
     navigate(`/consulting/${consultingId}`);
   };
 
@@ -52,7 +52,7 @@ export const ApprovedConsultationItem = ({
         </span>
         <button
           className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-          onClick={() => handleConsultationClick(id)}
+          onClick={() => moveToConsultingPageEvent(id)}
         >
           상담하기
         </button>
