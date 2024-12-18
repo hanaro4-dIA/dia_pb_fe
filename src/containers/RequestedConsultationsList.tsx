@@ -5,7 +5,7 @@ import useFetch from '../hooks/useFetch';
 import { type TConsultingProps } from '../types/dataTypes';
 
 // 들어온 상담 요청
-export default function ConsultationRequest() {
+export default function RequestedConsultationsList() {
   // useEffect(() => {
   //   const fetchNotConsultingData = async () => {
   //     try {
