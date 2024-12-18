@@ -1,11 +1,7 @@
 import { type TConsultingProps } from '../types/dataTypes';
-
-type ConsultationRequestItemProps = TConsultingProps & {
-  onApprove: (id: number) => void;
-};
+import changeDateFormat from '../utils/changeDateFormat-util';
 
 export const RequestedConsultationItem = ({
-  id,
   customerName,
   categoryId,
   title,
@@ -14,8 +10,7 @@ export const RequestedConsultationItem = ({
   reserveDate,
   reserveTime,
   approve,
-  onApprove,
-}: ConsultationRequestItemProps) => {
+}: TConsultingProps) => {
   // 빠른 상담일 경우
   const getBorderColorClass = (category_id: number) => {
     return category_id === 1 ? 'quick-border' : 'border-gray-200';
@@ -24,7 +19,7 @@ export const RequestedConsultationItem = ({
   return (
     <article className='w-full flex flex-col justify-end mb-4 items-start'>
       <small className='ml-2' style={{ fontFamily: 'noto-light, sans-serif' }}>
-        {reserveDate} {reserveTime}
+        {changeDateFormat(reserveDate)} {reserveTime}
       </small>
       <div
         className={`bg-white rounded-lg border ${getBorderColorClass(categoryId)} p-4 shadow-lg w-full`}
@@ -50,7 +45,7 @@ export const RequestedConsultationItem = ({
           </div>
           <button
             className='w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg bg-hanaindigo hover:bg-hanagold'
-            onClick={() => onApprove(id)}
+            // onClick={() => onApprove(id)}
           >
             {!approve && '승인대기'}
           </button>

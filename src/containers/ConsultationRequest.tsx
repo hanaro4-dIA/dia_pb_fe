@@ -4,14 +4,8 @@ import Section from '../components/Section';
 import useFetch from '../hooks/useFetch';
 import { type TConsultingProps } from '../types/dataTypes';
 
-type TConsultationRequestProps = {
-  onApprove: (consultation: TConsultingProps) => void;
-};
-
 // 들어온 상담 요청
-export default function ConsultationRequest({
-  onApprove,
-}: TConsultationRequestProps) {
+export default function ConsultationRequest() {
   // useEffect(() => {
   //   const fetchNotConsultingData = async () => {
   //     try {
@@ -46,26 +40,12 @@ export default function ConsultationRequest({
   );
 
   const [consultationData, setConsultationData] = useState<
-    TConsultingProps[] | undefined | null
+    TConsultingProps[] | null
   >([]);
   useEffect(() => {
     setConsultationData(data);
   }, [data]);
   console.error(error);
-
-  // 승인 버튼 클릭 시 상태 변경
-  const toggleApprovalStatus = (id: number) => {
-    setConsultationData((prevData) =>
-      prevData?.filter((consultation) => {
-        if (consultation.id === id && consultation.approve === false) {
-          const updatedConsultation = { ...consultation, approvalStatus: true };
-          onApprove(updatedConsultation); // 승인된 상담을 전달
-          return false; // 승인된 항목을 제거
-        }
-        return true;
-      })
-    );
-  };
 
   return (
     <Section title='들어온 상담 요청' layoutClassName='h-full'>
@@ -75,7 +55,6 @@ export default function ConsultationRequest({
             <RequestedConsultationItem
               key={consultation.id}
               {...consultation}
-              onApprove={toggleApprovalStatus}
             />
           ))
         ) : (
