@@ -2,19 +2,14 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ApprovedConsultationItem } from '../components/ApprovedConsultationItem';
 import Section from '../components/Section';
+import useFetch from '../hooks/useFetch';
 import { type TConsultingProps } from '../types/dataTypes';
 
-type ScheduledConsultationListProps = {
-  consultations: TConsultingProps[];
-};
-
 // 예정된 상담 일정
-export default function ApprovedConsultationsList({
-  consultations,
-}: ScheduledConsultationListProps) {
-  const [consultationData, setConsultationData] = useState<TConsultingProps[]>(
-    []
-  );
+export default function ApprovedConsultationsList() {
+  const [consultationData, setConsultationData] = useState<
+    TConsultingProps[] | null
+  >([]);
   const { id } = useParams();
 
   // useEffect(() => {
@@ -48,30 +43,30 @@ export default function ApprovedConsultationsList({
   //   fetchNotConsultingData();
   // }, [id, consultations]);
 
-  const allConsultations = [...consultationData, ...consultations].sort(
-    (a, b) => {
-      if (a.title === '삐른 상담 요청' && !(b.title === '삐른 상담 요청'))
-        return -1;
-      if (!(a.title === '삐른 상담 요청') && b.title === '삐른 상담 요청')
-        return 1;
-      return new Date(a.hopeDate).getTime() - new Date(b.hopeDate).getTime();
-    }
+  const { data, error } = useFetch<TConsultingProps[]>(
+    'pb/reserves?status=true&type=upcoming'
   );
+
+  useEffect(() => {
+    setConsultationData(data);
+  }, [data]);
+  console.error(error);
 
   return (
     <Section
-      title={
-        id
-          ? // 추후 수정 필요
-            `${consultationData[0]?.customerName || id} 손님의 예정된 상담 일정`
-          : '예정된 상담 일정'
-      }
+      // title={
+      //   id
+      //     ? // 추후 수정 필요
+      //       `${consultationData[id]} 손님의 예정된 상담 일정`
+      //     : '예정된 상담 일정'
+      // }
+      title='(손님의) 예정된 상담 일정'
       layoutClassName='h-full'
     >
       <div className='w-full p-4 '>
-        {allConsultations.length > 0 ? (
-          allConsultations.map((consultation, index) => (
-            <ApprovedConsultationItem key={index} {...consultation} />
+        {consultationData ? (
+          consultationData.map((consultationData, index) => (
+            <ApprovedConsultationItem key={index} {...consultationData} />
           ))
         ) : (
           <div className='text-center text-hanaindigo text-xl'>
