@@ -1,24 +1,11 @@
-import { useState } from 'react';
 import Section from '../components/Section';
-import ConsultationRequest from '../containers/ConsultationRequest';
+import ApprovedConsultationsList from '../containers/ApprovedConsultationsList';
 import CustomerList from '../containers/CustomerList';
 import PbCalendar from '../containers/PbCalendar';
 import PbProfile from '../containers/PbProfile';
-import ScheduledConsultationList from '../containers/ScheduledConsultationList';
-import { type TConsultingProps } from '../types/dataTypes';
+import RequestedConsultationsList from '../containers/RequestedConsultationsList';
 
 export default function MainPage() {
-  const [scheduledConsultations, setScheduledConsultations] = useState<
-    TConsultingProps[]
-  >([]);
-
-  // 상담 요청을 예정된 일정에 추가하는 함수
-  const handleApproveConsultation = (
-    approvedConsultation: TConsultingProps
-  ) => {
-    setScheduledConsultations((prev) => [...prev, approvedConsultation]);
-  };
-
   return (
     <div className='flex flex-row justify-between w-full h-screen p-5 gap-5'>
       {/* 첫 번째 열 */}
@@ -27,9 +14,8 @@ export default function MainPage() {
           <PbProfile />
         </div>
         {/* 들어온 상담 요청 */}
-        {/* <div className='overflow-y-auto h-full'> */}
         <div className='flex flex-col h-full flex-grow overflow-y-auto'>
-          <ConsultationRequest onApprove={handleApproveConsultation} />
+          <RequestedConsultationsList />
         </div>
       </div>
 
@@ -42,7 +28,7 @@ export default function MainPage() {
 
         {/* 예정된 상담 일정 */}
         <div className='flex flex-col h-full flex-grow overflow-y-auto'>
-          <ScheduledConsultationList consultations={scheduledConsultations} />
+          <ApprovedConsultationsList />
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { UpcomingConsultationItem } from '../components/UpcomingConsultationItem';
+import { UpcomingConsultationItem } from '../components/ApprovedConsultationItem';
 
 const meta: Meta<typeof UpcomingConsultationItem> = {
   title: 'Components/UpcomingConsultationItem',
