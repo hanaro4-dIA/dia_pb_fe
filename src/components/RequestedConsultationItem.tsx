@@ -6,12 +6,13 @@ type ConsultationRequestItemProps = TConsultingProps & {
 
 export const RequestedConsultationItem = ({
   id,
-  customer_id,
-  category_id,
+  customerName,
+  categoryId,
   title,
-  hope_date,
-  hope_time,
-  reserve_date,
+  hopeDate,
+  hopeTime,
+  reserveDate,
+  reserveTime,
   approve,
   onApprove,
 }: ConsultationRequestItemProps) => {
@@ -23,27 +24,27 @@ export const RequestedConsultationItem = ({
   return (
     <article className='w-full flex flex-col justify-end mb-4 items-start'>
       <small className='ml-2' style={{ fontFamily: 'noto-light, sans-serif' }}>
-        {reserve_date}
+        {reserveDate} {reserveTime}
       </small>
       <div
-        className={`bg-white rounded-lg border ${getBorderColorClass(category_id)} p-4 shadow-lg w-full`}
+        className={`bg-white rounded-lg border ${getBorderColorClass(categoryId)} p-4 shadow-lg w-full`}
       >
         <div className='flex justify-between items-center'>
           <div className='flex flex-col w-[70%]'>
             <span className='w-[95%] text-[1rem] truncate'>
-              {customer_id} 손님
+              {customerName} 손님
             </span>
             <span
               className='w-[95%] truncate'
               style={{ fontFamily: 'noto-bold, sans-serif' }}
               title={title}
             >
-              {category_id === 1 ? '빠른 상담 요청' : title}
+              {categoryId === 1 ? '빠른 상담 요청' : title}
             </span>
             <span className='text-[0.8rem] flex space-x-2'>
               <span>요청일: </span>
               <span style={{ fontFamily: 'noto-bold, sans-serif' }}>
-                {hope_date} {hope_time}
+                {hopeDate} {hopeTime}
               </span>
             </span>
           </div>

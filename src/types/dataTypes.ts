@@ -13,14 +13,14 @@ export type TJournalsProps = {
 // 한 PB에게 배정된 하나의 상담 타입 (Consultings.json)
 export type TConsultingProps = {
   id: number;
-  customer_id: number;
-  category_id: number;
+  customerName: string;
+  categoryId: number;
   title: string;
   content: string;
-  hope_date: string;
-  hope_time: string;
-  reserve_date: string;
-  reserve_time: string;
+  hopeDate: string;
+  hopeTime: string;
+  reserveDate: string;
+  reserveTime: string;
   approve: boolean;
 };
 

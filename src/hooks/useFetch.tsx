@@ -1,21 +1,14 @@
 import { useEffect, useState } from 'react';
 
-type TFetchOptionsProps = {
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  headers?: Record<string, string>;
-  body?: any;
-};
-
-type TUseFetchProps<T> = {
+type TUseFetchResult<T> = {
   data: T | null;
   error: Error | null;
 };
 
 export default function useFetch<T>(
   url: string,
-  options?: TFetchOptionsProps,
-  token?: string
-): TUseFetchProps<T> {
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET'
+): TUseFetchResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const APIKEY = import.meta.env.VITE_API_KEY;
@@ -25,27 +18,21 @@ export default function useFetch<T>(
       try {
         const fetchHeaders = {
           'Content-Type': 'application/json',
-          ...(token && { Authorization: `Bearer ${token}` }),
-          ...(options?.headers || {}),
+          // 추후 로그인 인증 추가할 것
         };
 
         const response = await fetch(`${APIKEY}/${url}`, {
-          method: options?.method || 'GET',
+          method,
           headers: fetchHeaders,
-          body: options?.body ? JSON.stringify(options.body) : null,
         });
-
-        if (!response.ok) {
-          throw new Error(`${response.status} 오류 발생`);
-        }
-        const result: T = await response.json();
-        setData(result);
-      } catch (error) {
-        setError(error as Error);
+        const data = await response.json();
+        setData(data);
+      } catch (err) {
+        setError(err as Error);
       }
     };
     fetchData();
-  }, [url, JSON.stringify(options), token]);
+  }, [url]);
 
   return { data, error };
 }

@@ -12,10 +12,6 @@ type TConsultationRequestProps = {
 export default function ConsultationRequest({
   onApprove,
 }: TConsultationRequestProps) {
-  const [consultationData, setConsultationData] = useState<TConsultingProps[]>(
-    []
-  );
-
   // useEffect(() => {
   //   const fetchNotConsultingData = async () => {
   //     try {
@@ -49,16 +45,18 @@ export default function ConsultationRequest({
     'pb/reserves?status=false'
   );
 
+  const [consultationData, setConsultationData] = useState<
+    TConsultingProps[] | undefined | null
+  >([]);
   useEffect(() => {
-    console.log('data: ', data);
-    console.log('error: ', error);
-    console.log(import.meta.env.VITE_API_KEY);
-  }, [data, error]);
+    setConsultationData(data);
+  }, [data]);
+  console.error(error);
 
   // 승인 버튼 클릭 시 상태 변경
   const toggleApprovalStatus = (id: number) => {
     setConsultationData((prevData) =>
-      prevData.filter((consultation) => {
+      prevData?.filter((consultation) => {
         if (consultation.id === id && consultation.approve === false) {
           const updatedConsultation = { ...consultation, approvalStatus: true };
           onApprove(updatedConsultation); // 승인된 상담을 전달
@@ -72,7 +70,7 @@ export default function ConsultationRequest({
   return (
     <Section title='들어온 상담 요청' layoutClassName='h-full'>
       <div className='w-full h-fit p-4'>
-        {consultationData.length > 0 ? (
+        {consultationData ? (
           consultationData.map((consultation) => (
             <RequestedConsultationItem
               key={consultation.id}
