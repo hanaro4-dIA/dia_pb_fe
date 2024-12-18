@@ -26,14 +26,14 @@ export type TConsultingProps = {
 
 // [x] PB 개인정보 타입 (PB.json)
 export type TPbProps = {
-  id: number;
-  login_id: string;
-  password: string;
+  pbId: number;
+  loginId?: string;
+  password?: string;
   name: string;
-  image_url: string;
+  imageUrl: string;
   introduce: string;
   office: string;
-  tags: string[];
+  hashtagList: string[];
   availability: boolean;
 };
 

@@ -1,122 +1,139 @@
 import { Switch } from '@radix-ui/react-switch';
 import { useState, useRef, useEffect } from 'react';
-import PbJsonData from '../../public/data/PB.json';
+// import PbJsonData from '../../public/data/PB.json';
 import Section from '../components/Section';
-import { useSession } from '../hooks/sessionContext';
+// import { useSession } from '../hooks/sessionContext';
+import useFetch from '../hooks/useFetch';
 import { type TPbProps } from '../types/dataTypes';
 
 export default function PbProfile() {
-  const { user } = useSession();
-  const allPbData = PbJsonData;
+  // const { user } = useSession();
+  // const allPbData = PbJsonData;
 
-  const [profile, setProfile] = useState<TPbProps | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isAvailable, setIsAvailable] = useState(false);
-  const [image, setImage] = useState(user?.image_url);
-  const fileInput = useRef<HTMLInputElement>(null);
+  const [pbData, setPbData] = useState<TPbProps | null>(null);
+  const { data, error } = useFetch<TPbProps>('pb/profile');
 
   useEffect(() => {
-    const userData = allPbData.find(
-      ({ login_id }) => login_id === user?.login_id
-    );
-
-    if (userData) {
-      setProfile(userData);
-      setImage(userData.image_url);
-      setIsAvailable(userData.availability);
+    if (data) {
+      setPbData(data);
     }
-  }, [user, allPbData]);
+  }, [data]);
+
+  console.error(error);
+  console.log('pbData: ', pbData);
+  console.log('pbData?.name: ', pbData?.name);
+  console.log(pbData?.hashtagList);
+  console.log(pbData?.hashtagList.length);
+
+  // const [profile, setProfile] = useState<TPbProps | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(false);
+  // const [image, setImage] = useState(pbData?.imageUrl);
+  const fileInput = useRef<HTMLInputElement>(null);
+
+  // useEffect(() => {
+  //   const userData = allPbData.find(
+  //     ({ login_id }) => login_id === user?.login_id
+  //   );
+
+  //   if (userData) {
+  //     setProfile(userData);
+  //     setImage(userData.image_url);
+  //     setIsAvailable(userData.availability);
+  //   }
+  // }, [user, allPbData]);
 
   // 빠른 상담 가능 여부 토글
-  const handleAvailabilityChange = (checked: boolean) => {
-    setIsAvailable(checked);
-    setProfile((prev) => {
-      if (!prev) return null;
-      return {
-        ...prev,
-        availability: checked,
-      };
-    });
-  };
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setProfile((prev) => {
-      if (!prev) return null;
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  };
+  // const handleAvailabilityChange = (checked: boolean) => {
+  //   setIsAvailable(checked);
+  //   setProfile((prev) => {
+  //     if (!prev) return null;
+  //     return {
+  //       ...prev,
+  //       availability: checked,
+  //     };
+  //   });
+  // };
 
-  const handleTagChange = (index: number, newTag: string) => {
-    setProfile((prev) => {
-      if (!prev) return null;
-      const updatedTags = [...(prev?.tags || [])];
-      updatedTags[index] = newTag;
-      return { ...prev, tags: updatedTags };
-    });
-  };
+  // const handleInputChange = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   const { name, value } = e.target;
+  //   setProfile((prev) => {
+  //     if (!prev) return null;
+  //     return {
+  //       ...prev,
+  //       [name]: value,
+  //     };
+  //   });
+  // };
 
-  function isNullTag(tag: string) {
-    return tag.trim() === '';
-  }
+  // const handleTagChange = (index: number, newTag: string) => {
+  //   setProfile((prev) => {
+  //     if (!prev) return null;
+  //     const updatedTags = [...(prev?.hashtagList || [])];
+  //     updatedTags[index] = newTag;
+  //     return { ...prev, tags: updatedTags };
+  //   });
+  // };
 
-  const handleAddTag = () => {
-    if (profile?.tags.some(isNullTag)) {
-      alert('새로운 태그를 추가하기 전에 이미 존재하는 태그를 채워주세요');
-      return;
-    }
-    setProfile((prev) => {
-      if (!prev) return null;
-      return {
-        ...prev,
-        tags: [...prev.tags, ''],
-      };
-    });
-  };
+  // function isNullTag(tag: string) {
+  //   return tag.trim() === '';
+  // }
 
-  const handleRemoveTag = (index: number) => {
-    setProfile((prev) => {
-      if (!prev) return null;
-      return {
-        ...prev,
-        tags: prev.tags.filter((_, i) => i !== index),
-      };
-    });
-  };
+  // const handleAddTag = () => {
+  //   if (profile?.hashtagList.some(isNullTag)) {
+  //     alert('새로운 태그를 추가하기 전에 이미 존재하는 태그를 채워주세요');
+  //     return;
+  //   }
+  //   setProfile((prev) => {
+  //     if (!prev) return null;
+  //     return {
+  //       ...prev,
+  //       tags: [...prev.hashtagList, ''],
+  //     };
+  //   });
+  // };
 
-  const handleTagSubmit = () => {
-    if (profile?.tags.some(isNullTag)) {
-      alert('tag가 비어있습니다!');
-      return;
-    }
-    setIsEditing(false);
-  };
+  // const handleRemoveTag = (index: number) => {
+  //   setProfile((prev) => {
+  //     if (!prev) return null;
+  //     return {
+  //       ...prev,
+  //       tags: prev.hashtagList.filter((_, i) => i !== index),
+  //     };
+  //   });
+  // };
 
-  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // const handleTagSubmit = () => {
+  //   if (pbData?.hashtagList.some(isNullTag)) {
+  //     alert('tag가 비어있습니다!');
+  //     return;
+  //   }
+  //   setIsEditing(false);
+  // };
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result as string);
-      setProfile((prev) => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          image_url: reader.result as string,
-        };
-      });
-    };
-    reader.readAsDataURL(file);
-  };
+  // const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (!file) return;
+
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     setImage(reader.result as string);
+  //     setProfile((prev) => {
+  //       if (!prev) return null;
+  //       return {
+  //         ...prev,
+  //         image_url: reader.result as string,
+  //       };
+  //     });
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
 
   return (
-    profile && (
+    pbData && (
       <Section
         title='내 프로필'
         pbProfile={true}
@@ -124,7 +141,7 @@ export default function PbProfile() {
         contentClassName='w-full h-full flex items-center justify-center px-3'
         isEditing={isEditing}
         setIsEditing={setIsEditing}
-        handleSubmit={handleTagSubmit}
+        // handleSubmit={handleTagSubmit}
         arrowToggle={true}
       >
         <div className='w-full py-14 flex justify-between items-center'>
@@ -133,13 +150,13 @@ export default function PbProfile() {
             style={{ display: 'none' }}
             accept='image/jpg,image/png,image/jpeg'
             name='profile_img'
-            onChange={handleImage}
+            // onChange={handleImage}
             ref={fileInput}
           />
           <div className='w-24 h-24 aspect-square relative'>
             <img
               className={`w-full h-full rounded-full ${isEditing && 'cursor-pointer'}`}
-              src={image}
+              // src={image}
               alt='프로필 이미지'
               onClick={() => {
                 isEditing && fileInput.current?.click();
@@ -154,14 +171,14 @@ export default function PbProfile() {
                 className='flex items-center w-16 text-xl'
                 style={{ fontFamily: 'noto-bold, sans-serif' }}
               >
-                {user?.name}
+                {pbData?.name}
               </div>
               <p className='mr-4'>PB</p>
 
               {/* 빠른 상담 가능 여부 토글 */}
               <Switch
                 checked={isAvailable}
-                onCheckedChange={handleAvailabilityChange}
+                // onCheckedChange={handleAvailabilityChange}
                 className={`${
                   isAvailable ? 'bg-green-500' : 'bg-red-500'
                 } relative inline-flex h-6 w-11 items-center rounded-full transition-colors`}
@@ -174,11 +191,11 @@ export default function PbProfile() {
               </Switch>
             </div>
 
-            <small className='text-hanagold my-1'>{profile?.office}</small>
+            <small className='text-hanagold my-1'>{pbData?.office}</small>
 
             {/* PB 태그 */}
             <div className='flex flex-row flex-wrap gap-1 items-center'>
-              {profile?.tags?.map((tag, index) => (
+              {pbData?.hashtagList?.map((tag, index) => (
                 <div
                   key={index}
                   className='flex items-center bg-hanaindigo rounded-lg w-fit h-8 p-1 px-2'
@@ -192,7 +209,7 @@ export default function PbProfile() {
                         type='text'
                         value={tag}
                         id='tag'
-                        onChange={(e) => handleTagChange(index, e.target.value)}
+                        // onChange={(e) => handleTagChange(index, e.target.value)}
                         disabled={!isEditing}
                         placeholder='최대5글자'
                         maxLength={5}
@@ -208,7 +225,7 @@ export default function PbProfile() {
                     <button
                       className='flex items-center text-red-600 ml-1'
                       type='button'
-                      onClick={() => handleRemoveTag(index)}
+                      // onClick={() => handleRemoveTag(index)}
                     >
                       x
                     </button>
@@ -216,11 +233,11 @@ export default function PbProfile() {
                 </div>
               ))}
 
-              {isEditing && profile.tags?.length < 3 && (
+              {isEditing && (pbData?.hashtagList?.length || 0) < 3 && (
                 <button
                   className='text-hanaindigo border border-hanaindigo px-2 py-1 rounded-full text-sm'
                   type='button'
-                  onClick={handleAddTag}
+                  // onClick={handleAddTag}
                 >
                   + 태그 추가
                 </button>
@@ -232,16 +249,14 @@ export default function PbProfile() {
               <textarea
                 className='p-1 my-2 text-xs text-hanaindigo resize-none outline-none border-2 focus:border-hanaindigo'
                 name='introduce'
-                value={profile?.introduce}
-                onChange={handleInputChange}
+                value={pbData?.introduce}
+                // onChange={handleInputChange}
                 disabled={!isEditing}
-                placeholder={profile?.introduce}
+                placeholder={pbData?.introduce}
                 maxLength={50}
               />
             ) : (
-              <div className='text-xs text-black my-2'>
-                {profile?.introduce}
-              </div>
+              <div className='text-xs text-black my-2'>{pbData?.introduce}</div>
             )}
           </div>
         </div>
