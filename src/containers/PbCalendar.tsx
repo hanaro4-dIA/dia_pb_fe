@@ -39,7 +39,7 @@ export default function PbCalendar() {
     const scheduledDate = format(date, 'yyyy.MM.dd');
     const hasEvent = schedule.some(
       (consultings) =>
-        consultings.approve && consultings.hope_date === scheduledDate
+        consultings.approve && consultings.hopeDate === scheduledDate
     );
     return hasEvent ? <div className='dot'></div> : null;
   };
@@ -48,7 +48,7 @@ export default function PbCalendar() {
     const scheduledDate = format(date, 'yyyy.MM.dd');
     const schedules = schedule.filter(
       (consultings) =>
-        consultings.approve && consultings.hope_date === scheduledDate
+        consultings.approve && consultings.hopeDate === scheduledDate
     );
     setSelectedSchedules(schedules);
     setDateModal(true);
@@ -60,8 +60,8 @@ export default function PbCalendar() {
 
   const sortedSchedules = useMemo(() => {
     return [...selectedSchedules].sort((a, b) => {
-      const timeA = new Date(`1970-01-01T${a.hope_time}:00`).getTime();
-      const timeB = new Date(`1970-01-01T${b.hope_time}:00`).getTime();
+      const timeA = new Date(`1970-01-01T${a.hopeTime}:00`).getTime();
+      const timeB = new Date(`1970-01-01T${b.hopeTime}:00`).getTime();
       return timeA - timeB;
     });
   }, [selectedSchedules]);
@@ -113,7 +113,7 @@ export default function PbCalendar() {
                 <tbody>
                   {sortedSchedules.map(
                     (
-                      { hope_time, customer_id, category_id, title, content },
+                      { hopeTime, customerName, categoryId, title, content },
                       index
                     ) => (
                       <React.Fragment key={index}>
@@ -121,9 +121,9 @@ export default function PbCalendar() {
                           className='border-b cursor-pointer'
                           onClick={() => handleAccordian(index)}
                         >
-                          <td className='p-2 text-center'>{hope_time}</td>
-                          <td className='p-2 text-center'>{customer_id}</td>
-                          <td className='p-2 text-center'>{category_id}</td>
+                          <td className='p-2 text-center'>{hopeTime}</td>
+                          <td className='p-2 text-center'>{customerName}</td>
+                          <td className='p-2 text-center'>{categoryId}</td>
                           <td className='p-2 text-center'>{title}</td>
                           <td className='p-2'>
                             {accordian === index ? (
