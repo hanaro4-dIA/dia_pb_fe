@@ -40,7 +40,6 @@ export default function CustomerList() {
   useEffect(() => {
     setCustomers(data);
   }, [data]);
-  console.log('data: ', data);
   console.error(error);
 
   const filteredCustomers = customers?.filter(({ name }) =>
@@ -74,7 +73,7 @@ export default function CustomerList() {
       </div>
 
       <div className='w-full h-fit p-4'>
-        {filteredCustomers ? (
+        {filteredCustomers && filteredCustomers.length > 0 ? (
           filteredCustomers.map(({ id, name, memo }, index) => (
             <div ref={(el) => (listRefs.current[index] = el)} key={id}>
               <IteratingListItem
