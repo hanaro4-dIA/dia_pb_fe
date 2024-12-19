@@ -24,11 +24,11 @@ export type TConsultingProps = {
   approve: boolean;
 };
 
-// [x] PB 개인정보 타입 (PB.json)
-export type TPbProps = {
-  pbId: number;
-  loginId?: string;
-  password?: string;
+// PB 개인정보 타입 (PB.json)
+export type TPbDataProps = {
+  id: number;
+  loginId: string;
+  password: string;
   name: string;
   imageUrl: string;
   introduce: string;
@@ -37,13 +37,13 @@ export type TPbProps = {
   availability: boolean;
 };
 
-// [x] 상담 카테고리 타입 (Category.json)
+// 상담 카테고리 타입 (Category.json)
 export type TCategoryProps = {
   id: number;
   name: string;
 };
 
-// [x] 손님 타입 (Customers.json)
+// 손님 타입 (Customers.json)
 export type TCustomerProps = {
   id: number;
   pb_id: number;
@@ -57,7 +57,7 @@ export type TCustomerProps = {
   memo: string;
 };
 
-// [x] 쪽지 타입 (Notifications.json)
+// 쪽지 타입 (Notifications.json)
 export type TNotificationProps = {
   id: number;
   customer_id: number;
@@ -67,7 +67,7 @@ export type TNotificationProps = {
   is_read: boolean;
 };
 
-// [x] DB 키워드 타입 (dictionary.ts)
+// DB 키워드 타입 (dictionary.ts)
 export type TDbItemProps = {
   id: number;
   title: string;

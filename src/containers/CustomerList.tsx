@@ -4,6 +4,7 @@ import IteratingListItem from '../components/IteratingListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
 import useDebounce from '../hooks/useDebounce';
+import useFetch from '../hooks/useFetch';
 import { type TCustomerProps } from '../types/dataTypes';
 
 export default function CustomerList() {
@@ -12,39 +13,53 @@ export default function CustomerList() {
   const selectedId = Number(params.id);
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-  const [customers, setCustomers] = useState<TCustomerProps[]>([]);
+
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // useEffect(() => {
+  //   const fetchCustomers = async () => {
+  //     try {
+  //       const response = await fetch('/data/Customers.json');
+  //       const data = await response.json();
+  //       setCustomers(data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+
+  //   fetchCustomers();
+  // }, []);
+
+  const pbId = 1;
+  const { data, error } = useFetch<TCustomerProps[]>(
+    `pb/customers/list?pbId=${pbId}`
+  );
+
+  const [customers, setCustomers] = useState<TCustomerProps[] | null>([]);
+
   useEffect(() => {
-    const fetchCustomers = async () => {
-      try {
-        const response = await fetch('/data/Customers.json');
-        const data = await response.json();
-        setCustomers(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    setCustomers(data);
+  }, [data]);
+  console.error(error);
 
-    fetchCustomers();
-  }, []);
-
-  const filteredCustomers = customers.filter(({ name }) =>
+  const filteredCustomers = customers?.filter(({ name }) =>
     name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
 
   // 선택된 항목에 대해 scrollIntoView 호출
   if (selectedId) {
-    const targetIndex = customers.findIndex(
+    const targetIndex = customers?.findIndex(
       (customer) => customer.id === selectedId
     );
 
-    const targetElement = listRefs.current[targetIndex];
+    if (targetIndex) {
+      const targetElement = listRefs.current[targetIndex];
 
-    targetElement?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
+      targetElement?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
   }
 
   return (
@@ -58,7 +73,7 @@ export default function CustomerList() {
       </div>
 
       <div className='w-full h-fit p-4'>
-        {filteredCustomers.length > 0 ? (
+        {filteredCustomers && filteredCustomers.length > 0 ? (
           filteredCustomers.map(({ id, name, memo }, index) => (
             <div ref={(el) => (listRefs.current[index] = el)} key={id}>
               <IteratingListItem

@@ -1,61 +1,48 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import PbJsonData from '../../public/data/PB.json';
 import { Button } from '../components/ui/button';
-import { useSession } from '../hooks/sessionContext';
-import { type TPbProps } from '../types/dataTypes';
+import { type TPbDataProps } from '../types/dataTypes';
 
 export default function Login() {
-  const { handleLoginEvent } = useSession();
-  const pbData = PbJsonData;
-
+  const [isValidLoginInfo, setIsValidLoginInfo] = useState(true); // 유효성 상태
   const loginIdRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  let [isValidLoginInfo, setIsValidLoginInfo] = useState(true);
   const navigate = useNavigate();
 
-  const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const loginId = loginIdRef.current?.value;
-    const password = passwordRef.current?.value;
 
-    if (loginId && password) {
-      const loginUser = validCheck(loginId, password);
-      if (loginUser) {
-        handleLoginEvent(loginUser);
+    const loginId = loginIdRef.current?.value || '';
+    const password = passwordRef.current?.value || '';
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}/pb/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: loginId, pw: password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('로그인 실패');
+      }
+
+      const data: { message: string; pbData: TPbDataProps } =
+        await response.json();
+
+      if (data.message === 'Login successful') {
+        localStorage.setItem('loginPB', JSON.stringify(data.pbData));
+        alert('오늘 하루도 힘내세요!😊🍀');
         navigate('/');
       } else {
-        setIsValidLoginInfo(false);
-        loginIdRef.current?.focus();
+        throw new Error('로그인 실패');
       }
+    } catch (error) {
+      console.error('로그인 오류:', error);
+      setIsValidLoginInfo(false);
+      loginIdRef.current?.focus();
     }
-  };
-
-  // 로그인 체크 로직
-  const validCheck = (
-    inputLoginId: string,
-    inputPassword: string
-  ): TPbProps | null => {
-    // 정규식 패턴
-    const loginIdPattern = /^Hana\d{9}$/;
-    const passwordPattern =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/;
-
-    // 정규식 체크
-    if (
-      !loginIdPattern.test(inputLoginId) ||
-      !passwordPattern.test(inputPassword)
-    ) {
-      return null;
-    }
-
-    // 존재 여부
-    const loginUser = pbData.find(
-      ({ login_id, password }) =>
-        login_id === inputLoginId && password === inputPassword
-    );
-
-    return loginUser || null;
   };
 
   useEffect(() => {
@@ -80,7 +67,7 @@ export default function Login() {
               '사원번호를 입력해주세요.'
             )
           }
-          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')} // 입력 시 메시지 초기화
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity('')}
         />
         <input
           className='border border-t-0 border-gray-300 py-3 pl-3'
@@ -98,10 +85,12 @@ export default function Login() {
         />
       </div>
       <div
-        className={`text-red-400 p-1 text-sm ${isValidLoginInfo ? 'invisible' : 'visible '}`}
+        className={`text-red-400 p-1 text-sm ${
+          isValidLoginInfo ? 'invisible' : 'visible'
+        }`}
         style={{ fontFamily: 'noto-bold, sans-serif' }}
       >
-        유효하지 않은 사원번호 또는 비밀번호 입니다.
+        유효하지 않은 사원번호 또는 비밀번호입니다.
       </div>
       <Button className='bg-hanaindigo text-xl' type='submit'>
         로그인
