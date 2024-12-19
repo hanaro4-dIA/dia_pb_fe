@@ -27,7 +27,7 @@ export default function NotificationHistory() {
       setNotifications(notificationsData);
     }
   }, [notificationsData]);
-  // console.error(notificationsError);
+  console.error(notificationsError);
   
 
   useEffect(() => {
@@ -35,10 +35,10 @@ export default function NotificationHistory() {
       setCustomers(customersData);
     }
   }, [customersData]);
-  // console.error(customersError);
+  console.error(customersError);
 
 
-  //체크박스 필터링용
+  // 체크박스 필터링용
   const filteredCustomers = customers.filter((customer) =>
     customer.name.includes(searchTerm)
   );
@@ -68,12 +68,12 @@ export default function NotificationHistory() {
     }
   };
 
-  // 태그 x 제거
+  // 태그 x로 제거
   const handleRemoveTag = (customerId: number) => {
     setSelectedCustomers((prev) => prev.filter((c) => c.id !== customerId));
   };
 
-
+  
   // 드롭박스 밖 클릭 시 닫기 기능
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -90,38 +90,27 @@ export default function NotificationHistory() {
   }, []);
   
 
-  // 특정 쪽지 검색 
-  useEffect(() => {
-    const fetchNotifications = async () => {
-  try {
-    const selectedIds = selectedCustomers.map((customer) => customer.id);
-    const searchParams = new URLSearchParams();
+  const selectedIds = selectedCustomers.map((customer) => customer.id);
+  const searchParams = new URLSearchParams();
 
+  // 선택된 고객 ID가 있을 경우에만 파라미터 추가
+  if (selectedIds.length > 0) {
     selectedIds.forEach((id) => searchParams.append('id', id.toString()));
+  }
 
-    const baseUrl = import.meta.env.VITE_API_KEY;
-    const searchUrl = `${baseUrl}/pb/notifications/search?${searchParams.toString()}`;
+  // 동적으로 생성된 URL
+  const searchUrl = selectedIds.length > 0 
+    ? `pb/notifications/search?${searchParams.toString()}` 
+    : 'pb/notifications';
 
-    
-    const response = await fetch(searchUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+  const { data: filteredNotifications, error: filteredNotificationsError } = useFetch<TNotificationProps[]>(searchUrl);
+  console.log(filteredNotificationsError);
+
+  useEffect(() => {
+    if (filteredNotifications) {
+      setNotifications(filteredNotifications);
     }
-
-    const data = await response.json();
-    setNotifications(data);
-      } catch (error) {
-        console.error('Error fetching notifications:', error);
-      }
-    };
-
-
-    if (selectedCustomers.length > 0 || searchTerm) {
-      fetchNotifications();
-    } else {
-      setNotifications(notificationsData || []);
-    }
-  }, [searchTerm, selectedCustomers, notificationsData]);
+  }, [filteredNotifications]);
 
   const openNewWindow = async (notificationId: number) => {
   try {
@@ -152,15 +141,15 @@ export default function NotificationHistory() {
         .join('');
 
       newWindow.document.write(`
-        <html lang="en">
+        <html lang='en'>
           <head>
-            <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta charset='UTF-8' />
+            <meta name='viewport' content='width=device-width, initial-scale=1.0' />
             <title>쪽지 자세히 보기</title>
             <style>${styles}</style>
           </head>
           <body>
-            <div id="dictionary-root"></div>
+            <div id='dictionary-root'></div>
           </body>
         </html>
       `);
@@ -180,48 +169,48 @@ export default function NotificationHistory() {
 
 
   return (
-    <Section title="이전에 전송한 쪽지" layoutClassName="h-full">
-      <div className="flex flex-col h-full">
+    <Section title='이전에 전송한 쪽지' layoutClassName='h-full'>
+      <div className='flex flex-col h-full'>
         {/* 수신인 선택 */}
-        <div className="bg-white sticky top-0 z-10 w-full p-4">
-          <div className="flex items-center gap-14 mb-2 mx-2">
-            <div className="flex items-center gap-4">
-              <div className="flex-none">수신인</div>
+        <div className='bg-white sticky top-0 z-10 w-full p-4'>
+          <div className='flex items-center gap-14 mb-2 mx-2'>
+            <div className='flex items-center gap-4'>
+              <div className='flex-none'>수신인</div>
             </div>
 
-            <div className="flex items-center gap-2 cursor-pointer" onClick={handleSelectAll}>
+            <div className='flex items-center gap-2 cursor-pointer' onClick={handleSelectAll}>
               <input
-                type="checkbox"
+                type='checkbox'
                 checked={selectedCustomers.length === filteredCustomers.length && filteredCustomers.length > 0}
                 onChange={handleSelectAll}
-                className="w-4 h-4"
+                className='w-4 h-4'
               />
-              <span className="text-sm flex-none">전체선택</span>
+              <span className='text-sm flex-none'>전체선택</span>
             </div>
 
-            <div className="flex justify-center w-3/5" ref={dropdownRef}>
-              <div className="relative w-full">
+            <div className='flex justify-center w-3/5' ref={dropdownRef}>
+              <div className='relative w-full'>
                 <input
-                  type="text"
-                  placeholder="손님 선택"
+                  type='text'
+                  placeholder='손님 선택'
                   value={searchTerm}
                   onChange={handleSearchTermChange}
                   onFocus={() => setShowDropdown(true)}
-                  className="w-full h-10 px-4 border-b border-gray-300 focus:outline-none"
+                  className='w-full h-10 px-4 border-b border-gray-300 focus:outline-none'
                 />
 
                 {showDropdown && (
-                  <div className="absolute z-10 w-full mt-1 bg-white/80 border border-gray-200 rounded-lg shadow-lg overflow-y-scroll">
+                  <div className='absolute z-10 w-full mt-1 bg-white/80 border border-gray-200 rounded-lg shadow-lg overflow-y-scroll'>
                     {filteredCustomers.map((customer) => (
-                      <div key={customer.id} className="flex items-center px-4 py-2 hover:bg-gray-200">
+                      <div key={customer.id} className='flex items-center px-4 py-2 hover:bg-gray-200'>
                         <input
-                          type="checkbox"
+                          type='checkbox'
                           id={`customer-${customer.id}`}
                           checked={selectedCustomers.some((c) => c.id === customer.id)}
                           onChange={() => handleCustomerSelect(customer)}
-                          className="w-4 h-4 mr-2"
+                          className='w-4 h-4 mr-2'
                         />
-                        <label htmlFor={`customer-${customer.id}`} className="cursor-pointer">
+                        <label htmlFor={`customer-${customer.id}`} className='cursor-pointer'>
                           {customer.name} 손님
                         </label>
                       </div>
@@ -233,11 +222,11 @@ export default function NotificationHistory() {
           </div>
 
           {/* 선택된 고객 태그 */}
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className='flex flex-wrap gap-2 mt-2'>
             {selectedCustomers.map(({ id, name }) => (
-              <div key={id} className="flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm">
+              <div key={id} className='flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm'>
                 <span>{name} 손님</span>
-                <button onClick={() => handleRemoveTag(id)} className="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+                <button onClick={() => handleRemoveTag(id)} className='ml-2 text-gray-500 hover:text-gray-700 focus:outline-none'>
                   ×
                 </button>
               </div>
@@ -246,7 +235,7 @@ export default function NotificationHistory() {
         </div>
 
         {/* 쪽지 리스트 아이템 */}
-        <div className="flex flex-col overflow-y-scroll px-4 flex-grow">
+        <div className='flex flex-col overflow-y-scroll px-4 flex-grow'>
           {notifications.length > 0 ? (
             notifications
               .filter((notification) => customers.some((c) => c.id === notification.customerId)) // customer가 존재하는지 필터링
@@ -265,12 +254,11 @@ export default function NotificationHistory() {
                 );
               })
           ) : (
-            <div className="flex items-center justify-center h-full">
-              <p className="text-center text-hanaindigo text-xl">검색어에 해당하는 쪽지가 없습니다.</p>
+            <div className='flex items-center justify-center h-full'>
+              <p className='text-center text-hanaindigo text-xl'>검색어에 해당하는 쪽지가 없습니다.</p>
             </div>
           )}
         </div>
-
       </div>
     </Section>
   );
