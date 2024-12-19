@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react';
 type TUseFetchResult<T> = {
   data: T | null;
   error: Error | null;
+  fetchData?: () => Promise<void>;
 };
 
 export default function useFetch<T>(
   url: string,
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET'
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
+  body?: Record<string, any>
 ): TUseFetchResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -16,15 +18,21 @@ export default function useFetch<T>(
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchHeaders = {
+        const fetchHeaders: Record<string, string> = {
           'Content-Type': 'application/json',
-          // 추후 로그인 인증 추가할 것
         };
 
         const response = await fetch(`${APIKEY}/${url}`, {
           method,
           headers: fetchHeaders,
+          credentials: 'include',
+          body: body ? JSON.stringify(body) : undefined,
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
         setData(data);
       } catch (err) {
@@ -36,3 +44,26 @@ export default function useFetch<T>(
 
   return { data, error };
 }
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       const fetchHeaders = {
+//         'Content-Type': 'application/json',
+//         withCredentials: true,
+//       };
+
+//       const response = await fetch(`${APIKEY}/${url}`, {
+//         method,
+//         headers: fetchHeaders,
+//       });
+//       const data = await response.json();
+//       setData(data);
+//     } catch (err) {
+//       setError(err as Error);
+//     }
+//   };
+//   fetchData();
+// }, [url]);
+
+// return { data, error };

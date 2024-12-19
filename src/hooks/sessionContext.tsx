@@ -1,9 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { type TPbProps } from '../types/dataTypes';
+import React, { createContext, useContext, useState } from 'react';
+import { type TPbDataProps } from '../types/dataTypes';
 
 type SessionContextType = {
-  user: TPbProps | null;
-  handleLoginEvent: (userData: TPbProps) => void;
   handleLogoutEvent: () => void;
 };
 
@@ -16,24 +14,11 @@ export const SessionProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [user, setUser] = useState<TPbProps | null>(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  const handleLoginEvent = (userData: TPbProps) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    alert('오늘 하루도 힘내세요!😊🍀');
-  };
+  const [_, setPbData] = useState<TPbDataProps | null>(null);
 
   const handleLogoutEvent = () => {
-    setUser(null);
-    localStorage.removeItem('user');
+    setPbData(null);
+    localStorage.removeItem('loginPB');
     alert('오늘 하루도 고생하셨습니다!😊🎉');
     window.location.reload();
   };
@@ -41,8 +26,6 @@ export const SessionProvider = ({
   return (
     <SessionContext.Provider
       value={{
-        user,
-        handleLoginEvent,
         handleLogoutEvent,
       }}
     >

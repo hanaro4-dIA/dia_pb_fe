@@ -17,7 +17,7 @@ import NotificationPage from './pages/NotificationPage';
 
 const ProtectedLayout = () => {
   const navigate = useNavigate();
-  const isLogin = localStorage.getItem('user');
+  const isLogin = localStorage.getItem('loginPB');
 
   useEffect(() => {
     if (!isLogin) {
