@@ -1,6 +1,5 @@
 import { Switch } from '@radix-ui/react-switch';
 import { useState, useRef, useEffect } from 'react';
-// import PbJsonData from '../../public/data/PB.json';
 import Section from '../components/Section';
 import useFetch from '../hooks/useFetch';
 import { type TPbDataProps } from '../types/dataTypes';
@@ -17,9 +16,7 @@ export default function PbProfile() {
 
   console.error(error);
   console.log('pbData: ', pbData);
-  console.log('pbData?.name: ', pbData?.name);
-  console.log(pbData?.hashtagList);
-  console.log(pbData?.hashtagList.length);
+  console.log('pbData?.name: ', pbData?.imageUrl);
 
   const [profile, setProfile] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -108,7 +105,7 @@ export default function PbProfile() {
         if (!prev) return null;
         return {
           ...prev,
-          image_url: reader.result as string,
+          imageUrl: reader.result as string,
         };
       });
     };
@@ -139,7 +136,7 @@ export default function PbProfile() {
           <div className='w-24 h-24 aspect-square relative'>
             <img
               className={`w-full h-full rounded-full ${isEditing && 'cursor-pointer'}`}
-              src={image}
+              src={pbData.imageUrl}
               alt='프로필 이미지'
               onClick={() => {
                 isEditing && fileInput.current?.click();
