@@ -1,31 +1,25 @@
 import { Switch } from '@radix-ui/react-switch';
 import { useState, useRef, useEffect } from 'react';
-// import PbJsonData from '../../public/data/PB.json';
 import Section from '../components/Section';
-// import { useSession } from '../hooks/sessionContext';
-import { type TPbProps } from '../types/dataTypes';
+import useFetch from '../hooks/useFetch';
+import { type TPbDataProps } from '../types/dataTypes';
 
 export default function PbProfile() {
-  // const { pbData } = useSession();
-  // const allPbData = PbJsonData;
+  const [pbData, setPbData] = useState<TPbDataProps | null>(null);
+  const { data, error } = useFetch<TPbDataProps>('pb/profile');
 
-  const [profile, setProfile] = useState<TPbProps | null>(null);
+  useEffect(() => {
+    if (data) {
+      setPbData(data);
+    }
+  }, [data]);
+  console.error(error);
+
+  const [profile, setProfile] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
-  // const [image, setImage] = useState(pbData?.imageUrl);
+  const [_, setImage] = useState(pbData?.imageUrl);
   const fileInput = useRef<HTMLInputElement>(null);
-
-  // useEffect(() => {
-  //   const pbData = allPbData.find(
-  //     ({ login_id }) => login_id === pbData?.login_id
-  //   );
-
-  //   if (pbData) {
-  //     setProfile(pbData);
-  //     setImage(pbData.image_url);
-  //     setIsAvailable(pbData.availability);
-  //   }
-  // }, [pbData, allPbData]);
 
   // 빠른 상담 가능 여부 토글
   const handleAvailabilityChange = (checked: boolean) => {
@@ -55,7 +49,7 @@ export default function PbProfile() {
   const handleTagChange = (index: number, newTag: string) => {
     setProfile((prev) => {
       if (!prev) return null;
-      const updatedTags = [...(prev?.tags || [])];
+      const updatedTags = [...(prev?.hashtagList || [])];
       updatedTags[index] = newTag;
       return { ...prev, tags: updatedTags };
     });
@@ -66,7 +60,7 @@ export default function PbProfile() {
   }
 
   const handleAddTag = () => {
-    if (profile?.tags.some(isNullTag)) {
+    if (profile?.hashtagList.some(isNullTag)) {
       alert('새로운 태그를 추가하기 전에 이미 존재하는 태그를 채워주세요');
       return;
     }
@@ -74,7 +68,7 @@ export default function PbProfile() {
       if (!prev) return null;
       return {
         ...prev,
-        tags: [...prev.tags, ''],
+        tags: [...prev.hashtagList, ''],
       };
     });
   };
@@ -84,13 +78,13 @@ export default function PbProfile() {
       if (!prev) return null;
       return {
         ...prev,
-        tags: prev.tags.filter((_, i) => i !== index),
+        tags: prev.hashtagList.filter((_, i) => i !== index),
       };
     });
   };
 
   const handleTagSubmit = () => {
-    if (profile?.tags.some(isNullTag)) {
+    if (pbData?.hashtagList.some(isNullTag)) {
       alert('tag가 비어있습니다!');
       return;
     }
@@ -108,7 +102,7 @@ export default function PbProfile() {
         if (!prev) return null;
         return {
           ...prev,
-          image_url: reader.result as string,
+          imageUrl: reader.result as string,
         };
       });
     };
@@ -116,7 +110,7 @@ export default function PbProfile() {
   };
 
   return (
-    profile && (
+    pbData && (
       <Section
         title='내 프로필'
         pbProfile={true}
@@ -139,7 +133,7 @@ export default function PbProfile() {
           <div className='w-24 h-24 aspect-square relative'>
             <img
               className={`w-full h-full rounded-full ${isEditing && 'cursor-pointer'}`}
-              src={image}
+              src={pbData.imageUrl}
               alt='프로필 이미지'
               onClick={() => {
                 isEditing && fileInput.current?.click();
@@ -154,7 +148,7 @@ export default function PbProfile() {
                 className='flex items-center w-16 text-xl'
                 style={{ fontFamily: 'noto-bold, sans-serif' }}
               >
-                {user?.name}
+                {pbData?.name}
               </div>
               <p className='mr-4'>PB</p>
 
@@ -174,11 +168,11 @@ export default function PbProfile() {
               </Switch>
             </div>
 
-            <small className='text-hanagold my-1'>{profile?.office}</small>
+            <small className='text-hanagold my-1'>{pbData?.office}</small>
 
             {/* PB 태그 */}
             <div className='flex flex-row flex-wrap gap-1 items-center'>
-              {profile?.tags?.map((tag, index) => (
+              {pbData?.hashtagList?.map((tag, index) => (
                 <div
                   key={index}
                   className='flex items-center bg-hanaindigo rounded-lg w-fit h-8 p-1 px-2'
@@ -216,7 +210,7 @@ export default function PbProfile() {
                 </div>
               ))}
 
-              {isEditing && profile.tags?.length < 3 && (
+              {isEditing && (pbData?.hashtagList?.length || 0) < 3 && (
                 <button
                   className='text-hanaindigo border border-hanaindigo px-2 py-1 rounded-full text-sm'
                   type='button'
@@ -232,16 +226,14 @@ export default function PbProfile() {
               <textarea
                 className='p-1 my-2 text-xs text-hanaindigo resize-none outline-none border-2 focus:border-hanaindigo'
                 name='introduce'
-                value={profile?.introduce}
+                value={pbData?.introduce}
                 onChange={handleInputChange}
                 disabled={!isEditing}
-                placeholder={profile?.introduce}
+                placeholder={pbData?.introduce}
                 maxLength={50}
               />
             ) : (
-              <div className='text-xs text-black my-2'>
-                {profile?.introduce}
-              </div>
+              <div className='text-xs text-black my-2'>{pbData?.introduce}</div>
             )}
           </div>
         </div>
