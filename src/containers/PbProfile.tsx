@@ -13,15 +13,12 @@ export default function PbProfile() {
       setPbData(data);
     }
   }, [data]);
-
   console.error(error);
-  console.log('pbData: ', pbData);
-  console.log('pbData?.name: ', pbData?.imageUrl);
 
   const [profile, setProfile] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
-  const [image, setImage] = useState(pbData?.imageUrl);
+  const [_, setImage] = useState(pbData?.imageUrl);
   const fileInput = useRef<HTMLInputElement>(null);
 
   // 빠른 상담 가능 여부 토글
