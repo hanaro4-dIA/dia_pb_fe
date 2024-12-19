@@ -39,7 +39,7 @@ export default function CustomerInformation() {
     setIsEditing(true);
   };
 
-  // memo Update
+  // 메모 저장 버튼
   const handleSaveClick = () => {
     if (customerData) {
       setCustomerData({
@@ -50,6 +50,7 @@ export default function CustomerInformation() {
     setIsEditing(false);
   };
 
+  // 메모 취소 버튼
   const handleCancelClick = () => {
     setMemo(customerData?.memo || '');
     setIsEditing(false);
