@@ -13,10 +13,19 @@ export default function RequestedConsultationsList() {
   const [consultationData, setConsultationData] = useState<
     TConsultingProps[] | null
   >([]);
+
   useEffect(() => {
     setConsultationData(data);
   }, [data]);
   console.error(error);
+
+  // 승인된 요청을 제거
+  const handleApprove = (id: string) => {
+    setConsultationData(
+      (prev) =>
+        prev?.filter((consultation) => consultation.id !== Number(id)) || []
+    );
+  };
 
   return (
     <Section title='들어온 상담 요청' layoutClassName='h-full'>
@@ -26,6 +35,7 @@ export default function RequestedConsultationsList() {
             <RequestedConsultationItem
               key={consultation.id}
               {...consultation}
+              onApprove={handleApprove}
             />
           ))
         ) : (

@@ -12,45 +12,18 @@ export default function ApprovedConsultationsList() {
   >([]);
   const { id } = useParams();
 
-  // useEffect(() => {
-  //   const fetchNotConsultingData = async () => {
-  //     try {
-  //       const response = await fetch('/data/Consultings.json');
-  //       const data: TConsultingProps[] = await response.json();
-
-  //       // approve가 아직 true 인 것들 중에
-  //       // title이 '빠른 상담 요청'인 항목을 우선 정렬하고, 그 다음 requestDay 기준으로 오름차순 정렬
-  //       const filteredData = data
-  //         .filter(({ approve, customerName }) =>
-  //           id ? approve && customerName === Number(id) : approve
-  //         )
-  //         .sort((a, b) => {
-  //           if (a.title === '삐른 상담 요청' && !(b.title === '삐른 상담 요청'))
-  //             return -1;
-  //           if (!(a.title === '삐른 상담 요청') && b.title === '삐른 상담 요청')
-  //             return 1;
-  //           return (
-  //             new Date(a.hopeDate).getTime() - new Date(b.hopeDate).getTime()
-  //           );
-  //         });
-
-  //       setConsultationData(filteredData);
-  //     } catch (error) {
-  //       console.error('Error fetching consultation data: ', error);
-  //     }
-  //   };
-
-  //   fetchNotConsultingData();
-  // }, [id, consultations]);
-
   const { data, error } = useFetch<TConsultingProps[]>(
     'pb/reserves?status=true&type=upcoming'
   );
 
+  // 데이터가 변경되면 consultationData 상태 업데이트
   useEffect(() => {
-    setConsultationData(data);
+    if (data) {
+      setConsultationData(data);
+    }
   }, [data]);
-  console.error(error);
+
+  console.error(error); // error 처리
 
   return (
     <Section

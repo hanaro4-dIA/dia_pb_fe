@@ -6,6 +6,7 @@ import { type TPbDataProps } from '../types/dataTypes';
 
 export default function PbProfile() {
   const [pbData, setPbData] = useState<TPbDataProps | null>(null);
+
   const { data, error } = useFetch<TPbDataProps>('pb/profile');
 
   useEffect(() => {

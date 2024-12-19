@@ -11,20 +11,20 @@ export const RequestedConsultationItem = ({
   hopeTime,
   reserveDate,
   reserveTime,
-}: TConsultingProps) => {
+  onApprove,
+}: TConsultingProps & { onApprove: (id: string) => void }) => {
   // 빠른 상담일 경우
   const getBorderColorClass = (categoryId: number) => {
     return categoryId === 1 ? 'quick-border' : 'border-gray-200';
   };
 
-  const { data, error, fetchData } = useFetch(`pb/reserves?id=${id}`, 'PUT');
+  const { error, fetchData } = useFetch(`pb/reserves?id=${id}`, 'PUT');
 
   const approveRequestEvent = async () => {
     try {
       if (fetchData) {
         await fetchData();
-        console.log('상담 요청이 승인되었습니다.', data);
-        window.location.reload();
+        onApprove(String(id)); // 부모 컴포넌트에 상태 변경 알리기
       }
     } catch (err) {
       console.error('API 호출 실패:', error);
