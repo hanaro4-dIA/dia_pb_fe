@@ -2,29 +2,38 @@ import { MdOutlineModeEdit } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
+import useFetch from '../hooks/useFetch';
 import { type TCustomerProps } from '../types/dataTypes';
+import changeDateFormat from '../utils/changeDateFormat-util';
 
 export default function CustomerInformation() {
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-  const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
   const [memo, setMemo] = useState<string>('');
 
-  useEffect(() => {
-    const fetchCustomerData = async () => {
-      try {
-        const response = await fetch('/data/Customers.json');
-        const data: TCustomerProps[] = await response.json();
-        const customer = data.find((c) => c.id === Number(id));
-        setCustomerData(customer!);
-        setMemo(customer?.memo || '');
-      } catch (error) {
-        console.error('Error fetching customer data:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCustomerData = async () => {
+  //     try {
+  //       const response = await fetch('/data/Customers.json');
+  //       const data: TCustomerProps[] = await response.json();
+  //       const customer = data.find((c) => c.id === Number(id));
+  //       setCustomerData(customer!);
+  //       setMemo(customer?.memo || '');
+  //     } catch (error) {
+  //       console.error('Error fetching customer data:', error);
+  //     }
+  //   };
 
-    fetchCustomerData();
-  }, [id]);
+  //   fetchCustomerData();
+  // }, [id]);
+
+  const { data, error } = useFetch<TCustomerProps>(`pb/customers/list/${id}`);
+  const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
+
+  useEffect(() => {
+    setCustomerData(data);
+  }, [data]);
+  console.error(error);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -61,7 +70,9 @@ export default function CustomerInformation() {
                 style={{ fontFamily: 'noto-light, sans-serif' }}
               >
                 <span className='text-sm'>손님과 처음 만난 날짜</span>
-                <span className='text-sm'>{customerData.date}</span>
+                <span className='text-sm'>
+                  {changeDateFormat(customerData.date)}
+                </span>
               </div>
             </div>
             <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
@@ -115,7 +126,9 @@ export default function CustomerInformation() {
                     maxLength={50}
                   />
                 ) : (
-                  <div className='px-2 py-1 overflow-y-auto'>{memo}</div>
+                  <div className='px-2 py-1 overflow-y-auto'>
+                    {customerData?.memo}
+                  </div>
                 )}
               </div>
             </div>
