@@ -1,11 +1,30 @@
-import { type TNotificationProps } from '../types/dataTypes';
+import { useState, useEffect } from 'react';
+import { type TNotificationProps, type TCustomerProps } from '../types/dataTypes';
+import useFetch from '../hooks/useFetch';
 
 export default function NotificationDetailsWindow({
   title,
-  customer_id,
+  customerId,
   date,
   content,
 }: TNotificationProps) {
+
+  const [customers, setCustomers] = useState<TCustomerProps[]>([]);
+  const pbId = 1;
+
+  // 고객 데이터 불러오기
+  const { data: customersData, error: customersError } = useFetch<TCustomerProps[]>(`pb/customers/list?pbId=${pbId}`);
+
+  useEffect(() => {
+    if (customersData) {
+      setCustomers(customersData);
+    }
+  }, [customersData]);
+
+  // customerId에 맞는 손님 이름 찾기
+  const customer = customers.find((c) => c.id === customerId)!;
+  const customerName = customer ? customer.name : ' ';
+
   return (
     <div className='flex flex-col border shadow-lg border-gray-200 w-full h-full rounded-t-lg'>
       <div className='bg-hanaindigo text-white text-[1.3rem] font-extrabold p-3 rounded-t-lg pl-5'>
@@ -32,7 +51,7 @@ export default function NotificationDetailsWindow({
                   className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                   style={{ fontFamily: 'noto-bold, sans-serif' }}
                 >
-                  {customer_id}
+                  {customerName}
                 </div>
               </div>
               <div className='flex items-center w-1/2'>
