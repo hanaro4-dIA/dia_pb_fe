@@ -60,7 +60,7 @@ export type TCustomerProps = {
 // [x] 쪽지 타입 (Notifications.json)
 export type TNotificationProps = {
   id: number;
-  customer_id: number;
+  customerId: number;
   title: string;
   content: string;
   date: string;
