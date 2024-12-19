@@ -1,31 +1,31 @@
 import { Switch } from '@radix-ui/react-switch';
 import { useState, useRef, useEffect } from 'react';
-import PbJsonData from '../../public/data/PB.json';
+// import PbJsonData from '../../public/data/PB.json';
 import Section from '../components/Section';
-import { useSession } from '../hooks/sessionContext';
+// import { useSession } from '../hooks/sessionContext';
 import { type TPbProps } from '../types/dataTypes';
 
 export default function PbProfile() {
-  const { user } = useSession();
-  const allPbData = PbJsonData;
+  // const { pbData } = useSession();
+  // const allPbData = PbJsonData;
 
   const [profile, setProfile] = useState<TPbProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
-  const [image, setImage] = useState(user?.image_url);
+  // const [image, setImage] = useState(pbData?.imageUrl);
   const fileInput = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const userData = allPbData.find(
-      ({ login_id }) => login_id === user?.login_id
-    );
+  // useEffect(() => {
+  //   const pbData = allPbData.find(
+  //     ({ login_id }) => login_id === pbData?.login_id
+  //   );
 
-    if (userData) {
-      setProfile(userData);
-      setImage(userData.image_url);
-      setIsAvailable(userData.availability);
-    }
-  }, [user, allPbData]);
+  //   if (pbData) {
+  //     setProfile(pbData);
+  //     setImage(pbData.image_url);
+  //     setIsAvailable(pbData.availability);
+  //   }
+  // }, [pbData, allPbData]);
 
   // 빠른 상담 가능 여부 토글
   const handleAvailabilityChange = (checked: boolean) => {
