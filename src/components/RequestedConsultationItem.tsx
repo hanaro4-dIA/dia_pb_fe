@@ -1,7 +1,9 @@
+import useFetch from '../hooks/useFetch';
 import { type TConsultingProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
 
 export const RequestedConsultationItem = ({
+  id,
   customerName,
   categoryId,
   title,
@@ -9,11 +11,24 @@ export const RequestedConsultationItem = ({
   hopeTime,
   reserveDate,
   reserveTime,
-  approve,
 }: TConsultingProps) => {
   // 빠른 상담일 경우
   const getBorderColorClass = (categoryId: number) => {
     return categoryId === 1 ? 'quick-border' : 'border-gray-200';
+  };
+
+  const { data, error, fetchData } = useFetch(`pb/reserves?id=${id}`, 'PUT');
+
+  const approveRequestEvent = async () => {
+    try {
+      if (fetchData) {
+        await fetchData();
+        console.log('상담 요청이 승인되었습니다.', data);
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error('API 호출 실패:', error);
+    }
   };
 
   return (
@@ -43,8 +58,11 @@ export const RequestedConsultationItem = ({
               </span>
             </span>
           </div>
-          <button className='w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg bg-hanaindigo hover:bg-hanagold'>
-            {!approve && '승인대기'}
+          <button
+            onClick={approveRequestEvent}
+            className='w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg bg-hanaindigo hover:bg-hanagold'
+          >
+            승인대기
           </button>
         </div>
       </div>

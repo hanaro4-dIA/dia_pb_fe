@@ -15,34 +15,37 @@ export default function useFetch<T>(
   const [error, setError] = useState<Error | null>(null);
   const APIKEY = import.meta.env.VITE_API_KEY;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchHeaders: Record<string, string> = {
-          'Content-Type': 'application/json',
-        };
+  const fetchData = async () => {
+    try {
+      const fetchHeaders: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
 
-        const response = await fetch(`${APIKEY}/${url}`, {
-          method,
-          headers: fetchHeaders,
-          credentials: 'include',
-          body: body ? JSON.stringify(body) : undefined,
-        });
+      const response = await fetch(`${APIKEY}/${url}`, {
+        method,
+        headers: fetchHeaders,
+        credentials: 'include',
+        body: body ? JSON.stringify(body) : undefined,
+      });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setData(data);
-      } catch (err) {
-        setError(err as Error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
-    fetchData();
-  }, [url]);
 
-  return { data, error };
+      const data = await response.json();
+      setData(data);
+    } catch (err) {
+      setError(err as Error);
+    }
+  };
+
+  useEffect(() => {
+    if (method === 'GET') {
+      fetchData(); // 초기 fetch 실행
+    }
+  }, [url, method, body]); // url이 변경될 때마다 다시 호출
+
+  return { data, error, fetchData };
 }
 
 // useEffect(() => {
