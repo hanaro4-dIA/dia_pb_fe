@@ -39,8 +39,10 @@ export default function CustomerList() {
 
   useEffect(() => {
     setCustomers(data);
-  }, [data]);
+  }, []);
+  console.log('data: ', data);
   console.error(error);
+  console.log('customers: ', customers);
 
   const filteredCustomers = customers?.filter(({ name }) =>
     name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
