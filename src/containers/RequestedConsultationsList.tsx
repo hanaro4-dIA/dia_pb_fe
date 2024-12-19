@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import clear from '../assets/clear.gif';
 import { RequestedConsultationItem } from '../components/RequestedConsultationItem';
 import Section from '../components/Section';
 import useFetch from '../hooks/useFetch';
@@ -19,7 +20,6 @@ export default function RequestedConsultationsList() {
   }, [data]);
   console.error(error);
 
-  // 승인된 요청을 제거
   const handleApprove = (id: string) => {
     setConsultationData(
       (prev) =>
@@ -39,8 +39,11 @@ export default function RequestedConsultationsList() {
             />
           ))
         ) : (
-          <div className='text-center text-hanaindigo p-4 h-full text-xl  '>
-            모든 상담 요청이 승인되었습니다.
+          <div className='flex flex-col justify-center items-center'>
+            <img src={clear} className='w-4/5 h-4/5' />
+            <span className='text-center text-hanaindigo h-full text-s py-3'>
+              모든 상담 요청이 승인되었습니다:)
+            </span>
           </div>
         )}
       </div>
