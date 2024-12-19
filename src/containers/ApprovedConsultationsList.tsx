@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { ApprovedConsultationItem } from '../components/ApprovedConsultationItem';
 import Section from '../components/Section';
 import { useConsultationContext } from '../hooks/consultationsContext';
@@ -13,7 +13,13 @@ export default function ApprovedConsultationsList() {
     fetchApprovedConsultations();
   }, [approvedConsultations]);
 
-  console.log('approvedConsultations: ', approvedConsultations);
+  const memoizedFetchApprovedConsultations = useCallback(() => {
+    fetchApprovedConsultations();
+  }, [fetchApprovedConsultations]);
+
+  useEffect(() => {
+    memoizedFetchApprovedConsultations();
+  }, [memoizedFetchApprovedConsultations, approvedConsultations]);
 
   const filteredConsultations = id
     ? approvedConsultations.filter(
@@ -35,7 +41,7 @@ export default function ApprovedConsultationsList() {
             />
           ))
         ) : (
-          <div className='text-center text-hanaindigo text-xl'>
+          <div className='text-center text-hanaindigo text-s'>
             일정이 없습니다.
           </div>
         )}
