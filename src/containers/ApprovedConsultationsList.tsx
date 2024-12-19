@@ -15,7 +15,7 @@ export default function ApprovedConsultationsList() {
 
   const memoizedFetchApprovedConsultations = useCallback(() => {
     fetchApprovedConsultations();
-  }, [fetchApprovedConsultations]);
+  }, []);
 
   useEffect(() => {
     memoizedFetchApprovedConsultations();

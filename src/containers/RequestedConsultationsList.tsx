@@ -14,7 +14,7 @@ export default function RequestedConsultationsList() {
 
   useEffect(() => {
     memoizedFetchRequestedConsultations();
-  }, [fetchRequestedConsultations, requestedConsultations]);
+  }, [, requestedConsultations]);
 
   return (
     <Section title='들어온 상담 요청' layoutClassName='h-full'>
