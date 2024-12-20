@@ -3,67 +3,52 @@ import { useEffect, useState } from 'react';
 type TUseFetchResult<T> = {
   data: T | null;
   error: Error | null;
-  fetchData?: () => Promise<void>;
+  fetchData: (overrideBody?: Record<string, any>) => Promise<void>;
 };
 
 export default function useFetch<T>(
   url: string,
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
-  body?: Record<string, any>
+  initialBody?: Record<string, any>
 ): TUseFetchResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const APIKEY = import.meta.env.VITE_API_KEY;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchHeaders: Record<string, string> = {
-          'Content-Type': 'application/json',
-        };
+  const fetchData = async (overrideBody?: Record<string, any>) => {
+    try {
+      const fetchHeaders: Record<string, string> = {
+        'Content-Type': 'application/json',
+      };
 
-        const response = await fetch(`${APIKEY}/${url}`, {
-          method,
-          headers: fetchHeaders,
-          credentials: 'include',
-          body: body ? JSON.stringify(body) : undefined,
-        });
+      const response = await fetch(`${APIKEY}/${url}`, {
+        method,
+        headers: fetchHeaders,
+        credentials: 'include',
+        body:
+          method !== 'GET'
+            ? JSON.stringify(overrideBody || initialBody)
+            : undefined,
+      });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setData(data);
-      } catch (err) {
-        setError(err as Error);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
-    fetchData();
-  }, [url]);
 
-  return { data, error };
+      const responseData = await response.json();
+      setData(responseData);
+      return responseData;
+    } catch (err) {
+      setError(err as Error);
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    if (method === 'GET') {
+      fetchData();
+    }
+  }, [url, method, initialBody]);
+
+  return { data, error, fetchData };
 }
-
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const fetchHeaders = {
-//         'Content-Type': 'application/json',
-//         withCredentials: true,
-//       };
-
-//       const response = await fetch(`${APIKEY}/${url}`, {
-//         method,
-//         headers: fetchHeaders,
-//       });
-//       const data = await response.json();
-//       setData(data);
-//     } catch (err) {
-//       setError(err as Error);
-//     }
-//   };
-//   fetchData();
-// }, [url]);
-
-// return { data, error };

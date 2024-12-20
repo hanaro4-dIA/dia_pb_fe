@@ -16,20 +16,6 @@ export default function CustomerList() {
 
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // useEffect(() => {
-  //   const fetchCustomers = async () => {
-  //     try {
-  //       const response = await fetch('/data/Customers.json');
-  //       const data = await response.json();
-  //       setCustomers(data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchCustomers();
-  // }, []);
-
   const pbId = 1;
   const { data, error } = useFetch<TCustomerProps[]>(
     `pb/customers/list?pbId=${pbId}`
@@ -39,8 +25,10 @@ export default function CustomerList() {
 
   useEffect(() => {
     setCustomers(data);
-  }, [data]);
+  }, []);
+  console.log('data: ', data);
   console.error(error);
+  console.log('customers: ', customers);
 
   const filteredCustomers = customers?.filter(({ name }) =>
     name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
@@ -86,7 +74,7 @@ export default function CustomerList() {
             </div>
           ))
         ) : (
-          <div className='text-center text-hanaindigo text-xl'>
+          <div className='text-center text-hanaindigo text-s'>
             존재하지 않는 손님입니다.
           </div>
         )}
