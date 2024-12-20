@@ -16,6 +16,12 @@ export default function PbProfile() {
   }, [data]);
   console.error(error);
 
+  useEffect(() => {
+    if (pbData) {
+      localStorage.setItem('loginPB', JSON.stringify(pbData));
+    }
+  }, [pbData]);
+
   const [profile, setProfile] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
