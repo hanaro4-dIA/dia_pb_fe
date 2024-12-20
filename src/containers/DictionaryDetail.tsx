@@ -24,7 +24,7 @@ export default function DictionaryDetail({
           <div className='mt-4 leading-relaxed'>{selectedItem.content}</div>
         </div>
       ) : (
-        <div className='p-10 space-y-4 border-x border-b border-gray-200 text-center text-hanaindigo text-s h-full'>
+        <div className='p-10 space-y-4 border-x border-b border-gray-200 text-center text-hanaindigo text-sm h-full'>
           키워드를 선택해 주세요.
         </div>
       )}

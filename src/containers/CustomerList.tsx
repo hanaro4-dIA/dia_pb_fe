@@ -74,7 +74,7 @@ export default function CustomerList() {
             </div>
           ))
         ) : (
-          <div className='text-center text-hanaindigo text-s'>
+          <div className='text-center text-hanaindigo text-sm'>
             존재하지 않는 손님입니다.
           </div>
         )}
