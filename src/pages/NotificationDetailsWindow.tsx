@@ -12,7 +12,6 @@ export default function NotificationDetailsWindow({
   content,
 }: TNotificationProps) {
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
-  const pbId = 1;
 
   // 고객 데이터 불러오기
   const { data: customersData, error: customersError } =
@@ -23,6 +22,7 @@ export default function NotificationDetailsWindow({
       setCustomers(customersData);
     }
   }, [customersData]);
+  console.log('손님 목록 조회 중 발생한 에러: ', customersError);
 
   // customerId에 맞는 손님 이름 찾기
   const customer = customers.find((c) => c.id === customerId)!;

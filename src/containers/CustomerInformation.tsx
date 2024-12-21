@@ -2,7 +2,7 @@ import { MdOutlineModeEdit } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import useFetch from '../hooks/useFetch';
-import { TCustomerProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
 
 export default function CustomerInformation({

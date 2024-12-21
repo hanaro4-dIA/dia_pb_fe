@@ -12,27 +12,27 @@ export default function ConsultingPage() {
   const { id } = useParams();
 
   // 손님 이름 불러오기 함수
-  const fetchCustomerName = async (customerId: number) => {
-    try {
-      const response = await fetch('/data/Customers.json');
-      const customerData: TCustomerProps[] = await response.json();
-      const customer = customerData.find(({ id }) => id === customerId);
+  // const fetchCustomerName = async (customerId: number) => {
+  //   try {
+  //     const response = await fetch('/data/Customers.json');
+  //     const customerData: TCustomerProps[] = await response.json();
+  //     const customer = customerData.find(({ id }) => id === customerId);
 
-      if (customer) {
-        setCustomerName(customer.name);
-      } else {
-        setCustomerName('손님 없음');
-      }
-    } catch (error) {
-      console.error('손님 한 명 조회 중 발생한 에러: ', error);
-    }
-  };
+  //     if (customer) {
+  //       setCustomerName(customer.name);
+  //     } else {
+  //       setCustomerName('손님 없음');
+  //     }
+  //   } catch (error) {
+  //     console.error('손님 한 명 조회 중 발생한 에러: ', error);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (id) {
-      fetchCustomerName(Number(id));
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     fetchCustomerName(Number(id));
+  //   }
+  // }, [id]);
 
   return (
     <>
@@ -54,9 +54,7 @@ export default function ConsultingPage() {
           </div>
 
           {/* 손님 정보 */}
-          <div className='h-fit'>
-            <CustomerInformation />
-          </div>
+          <div className='h-fit'>{/* <CustomerInformation /> */}</div>
 
           {/* 상담일지 리스트 */}
           <div className='flex-grow overflow-y-auto'>

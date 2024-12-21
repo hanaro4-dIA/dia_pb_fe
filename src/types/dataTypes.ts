@@ -1,7 +1,7 @@
 // 상담일지 타입 (Journals.json)
 export type TJournalsProps = {
   id: number;
-  pbId: number; // 작성한 pb ID
+  pbId: number;
   customerId: number;
   categoryId: number;
   statusId: number;

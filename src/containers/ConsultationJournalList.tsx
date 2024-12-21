@@ -10,18 +10,15 @@ import ReadJournalWindow from '../pages/ReadJournalWindow';
 import { type TJournalsProps } from '../types/dataTypes';
 
 export default function ConsultationJournalList() {
-  // URL에서 id 파라미터를 가져옴
   const { id } = useParams();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 500); // 디바운싱 처리된 검색어
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  // 상담일지 데이터를 가져오는 useFetch 훅
   const { data: consultationData, error: consultationError } =
     useFetch<TJournalsProps[]>('pb/journals');
   console.error('상담일지 리스트 조회 중 발생한 에러: ', consultationError);
 
-  // 상담일지 데이터를 상태로 관리
   const [filteredConsultationData, setConsultationData] = useState<
     TJournalsProps[]
   >([]);
@@ -31,14 +28,16 @@ export default function ConsultationJournalList() {
       const filteredData = consultationData.filter(
         (consultation) => consultation.customerId === Number(id)
       );
-      setConsultationData(filteredData); // 상태 업데이트
+      setConsultationData(filteredData);
     }
   }, [consultationData, id]);
+
   // 상담일지 검색
   const filteredJournal = filteredConsultationData.filter(
     ({ consultTitle }) =>
-      consultTitle && consultTitle.includes(debouncedSearchTerm) // title이 존재할 때만 includes 실행
+      consultTitle && consultTitle.includes(debouncedSearchTerm)
   );
+
   // 상담일지를 새 창에서 자세히 보기
   const openNewWindow = (consultation: TJournalsProps) => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
@@ -52,7 +51,7 @@ export default function ConsultationJournalList() {
               .join('');
           } catch (error) {
             console.error(
-              '상담일지를 새 창에서 자세히 보기에서 발생한 에러',
+              '상담일지를 새 창에서 자세히 보기에서 발생한 에러: ',
               error
             );
             return '';
@@ -78,7 +77,7 @@ export default function ConsultationJournalList() {
       const rootElement = newWindow.document.getElementById('journal-root');
       if (rootElement) {
         const root = createRoot(rootElement);
-        root.render(<ReadJournalWindow consultation={consultation} />); // 새 창에서 상담일지 보기
+        root.render(<ReadJournalWindow consultation={consultation} />);
       }
     }
   };

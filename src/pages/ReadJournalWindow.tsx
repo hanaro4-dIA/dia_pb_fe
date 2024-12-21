@@ -1,23 +1,26 @@
 import useFetch from '../hooks/useFetch';
-import { type TScriptProps } from '../types/dataTypes';
-import { type TJournalsProps } from '../types/dataTypes';
+import {
+  ReadJournalWindowProps,
+  TScriptResponseProps,
+} from '../types/componentTypes';
+import changeDateFormat from '../utils/changeDateFormat-util';
 
-// consultation 타입
-type TPbJournalsProps = {
-  consultation: TJournalsProps;
-};
+export default function ReadJournalWindow({
+  consultation,
+}: ReadJournalWindowProps) {
+  const {
+    id,
+    consultTitle,
+    categoryName,
+    consultDate,
+    contents,
+    journalProduct,
+  } = consultation;
 
-// 스크립트 응답 데이터 타입
-export type TScriptResponseProps = {
-  scriptResponseDTOList: TScriptProps[];
-};
-
-export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
-  // 스크립트 데이터를 API에서 가져오는 useFetch 훅
   const {
     data: scriptData = { scriptResponseDTOList: [] },
     error: scriptError,
-  } = useFetch<TScriptResponseProps>(`pb/journals/${consultation.id}/scripts`);
+  } = useFetch<TScriptResponseProps>(`pb/journals/${id}/scripts`);
   console.error('스크립트 데이터 조회 중 발생한 에러: ', scriptError);
 
   return (
@@ -33,7 +36,7 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
               className='flex justify-between items-center text-sm w-[84%] pl-2 focus:outline-none rounded-xl'
               style={{ fontFamily: 'noto-bold, sans-serif' }}
             >
-              <span>{consultation.consultTitle}</span>
+              <span>{consultTitle}</span>
             </div>
           </div>
           <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
@@ -43,7 +46,7 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
                 className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                 style={{ fontFamily: 'noto-bold, sans-serif' }}
               >
-                {consultation.categoryName}
+                {categoryName}
               </div>
             </div>
             <div className='flex items-center justify-between w-1/2'>
@@ -52,7 +55,7 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
                 className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                 style={{ fontFamily: 'noto-bold, sans-serif' }}
               >
-                {consultation.consultDate}
+                {changeDateFormat(consultDate)}
               </div>
             </div>
           </div>
@@ -60,22 +63,22 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
             <div>
               <span className='text-sm mb-3'>[PB의 기록]</span>
               <div className='w-full h-40 p-2 border resize-none overflow-y-auto'>
-                {consultation.contents}
+                {contents}
               </div>
             </div>
             <div>
               <span className='text-sm mb-3'>[PB의 추천 상품]</span>
               <div className='w-full h-40 p-2 border resize-none overflow-y-auto'>
-                {consultation.journalProduct.map((product, index) => (
+                {journalProduct.map((product, index) => (
                   <div key={index} className='flex space-x-4 mb-2'>
                     <img
-                      src={product.image_url}
+                      src={product.imageUrl}
                       alt={product.name}
                       className='w-16 h-16 object-cover'
                     />
                     <div className='flex flex-col justify-center'>
                       <a
-                        href={product.product_url}
+                        href={product.productUrl}
                         target='_blank'
                         rel='noopener noreferrer'
                         className='text-blue-500 text-sm'
