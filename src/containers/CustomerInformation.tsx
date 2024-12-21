@@ -11,22 +11,6 @@ export default function CustomerInformation() {
   const [isEditing, setIsEditing] = useState(false);
   const [memo, setMemo] = useState<string>('');
 
-  // useEffect(() => {
-  //   const fetchCustomerData = async () => {
-  //     try {
-  //       const response = await fetch('/data/Customers.json');
-  //       const data: TCustomerProps[] = await response.json();
-  //       const customer = data.find((c) => c.id === Number(id));
-  //       setCustomerData(customer!);
-  //       setMemo(customer?.memo || '');
-  //     } catch (error) {
-  //       console.error('Error fetching customer data:', error);
-  //     }
-  //   };
-
-  //   fetchCustomerData();
-  // }, [id]);
-
   const { data, error } = useFetch<TCustomerProps>(`pb/customers/list/${id}`);
   const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
 
@@ -35,19 +19,35 @@ export default function CustomerInformation() {
   }, [data]);
   console.error(error);
 
+  
+  // 메모 수정 API 호출
+  const { fetchData } = useFetch<string>(
+    `pb/customers/${id}/memo`,
+    'POST'
+  );
+
+  useEffect(() => {
+    setCustomerData(data);
+    if (data) {
+      setMemo(data.memo || '');
+    }
+  }, [data]);
+
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
-  // 메모 저장 버튼
-  const handleSaveClick = () => {
+  // 메모 저장하기
+  const handleSaveClick = async () => {
     if (customerData) {
-      setCustomerData({
-        ...customerData,
-        memo: memo,
-      });
+      try {
+        await fetchData({ memo });
+        setCustomerData({ ...customerData, memo });
+        setIsEditing(false);
+      } catch (error) {
+        alert('메모 수정 중 오류가 발생했습니다.');
+      }
     }
-    setIsEditing(false);
   };
 
   // 메모 취소 버튼
