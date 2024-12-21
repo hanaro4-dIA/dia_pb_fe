@@ -13,7 +13,7 @@ const IteratingListItem = ({
     onClick={onClick}
   >
     <div className='flex justify-between items-center mb-2 text-sm'>
-      <span className='text-lg'>{title}</span>
+      <span className='font-semibold text-base'>{title}</span>
       {date && <span>{changeDateFormat(date)}</span>}
     </div>
     <div
