@@ -17,9 +17,7 @@ export default function CustomerList() {
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const pbId = 1;
-  const { data, error } = useFetch<TCustomerProps[]>(
-    `pb/customers/list?pbId=${pbId}`
-  );
+  const { data, error } = useFetch<TCustomerProps[]>(`pb/customers/list`);
 
   const [customersList, setCustomersList] = useState<TCustomerProps[] | null>(
     []

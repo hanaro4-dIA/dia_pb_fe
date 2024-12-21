@@ -19,12 +19,8 @@ export default function CustomerInformation() {
   }, [data]);
   console.error(error);
 
-
   // 메모 수정 API 호출
-  const { fetchData } = useFetch<string>(
-    `pb/customers/${id}/memo`,
-    'POST'
-  );
+  const { fetchData } = useFetch<string>(`pb/customers/${id}/memo`, 'POST');
 
   useEffect(() => {
     setCustomerData(data);
