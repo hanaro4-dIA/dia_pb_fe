@@ -2,11 +2,31 @@
 export type TJournalsProps = {
   id: number;
   pb_id: number; // 작성한 pb ID
-  customer_id: number;
-  category_id: number;
+  customerId: number;
+  categoryId: number;
   status_id: number;
-  title: string;
-  date: string;
+  pbName: string;
+  consultTitle: string;
+  consultDate: string;
+  contents: string;
+  categoryName: string;
+  journalProduct: TJournalProduct[];
+};
+
+// 추천 상품 타입
+type TJournalProduct = {
+  id: number | null;
+  name: string;
+  product_url: string;
+  image_url: string;
+  journalProduct: any[];
+};
+
+// 스크립트 타입
+export type TScriptProps = {
+  scriptId: number;
+  scriptSequence: number;
+  speaker: string;
   content: string;
 };
 
