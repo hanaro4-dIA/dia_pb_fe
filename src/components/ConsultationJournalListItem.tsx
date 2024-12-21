@@ -1,4 +1,5 @@
 import { type TJournalsProps } from '../types/dataTypes';
+import changeDateFormat from '../utils/changeDateFormat-util';
 
 type TConsultationJournalListItemProps = {
   consultation: TJournalsProps;
@@ -15,7 +16,7 @@ export const ConsultationJournalListItem = ({
     <div
       onClick={() => openNewWindow(consultation)}
       className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border justify-around border-gray-200 cursor-pointer'
-      >
+    >
       <div className='w-full flex items-center justify-between'>
         <div className='w-2/3 flex justify-between items-center'>
           <span className='text-hanaindigo mr-4'>{index}</span>
@@ -28,7 +29,10 @@ export const ConsultationJournalListItem = ({
             >
               {consultation.consultTitle}
             </div>
-            <span style={{ fontFamily: 'noto-light, sans-serif' }}>
+            <span
+              className='text-sm'
+              style={{ fontFamily: 'noto-light, sans-serif' }}
+            >
               {consultation.pbName} PB
             </span>
           </div>
@@ -38,7 +42,7 @@ export const ConsultationJournalListItem = ({
           className='w-1/3 flex justify-end items-center'
           style={{ fontFamily: 'noto-light, sans-serif' }}
         >
-          {consultation.consultDate}
+          {changeDateFormat(consultation.consultDate)}
         </span>
       </div>
     </div>

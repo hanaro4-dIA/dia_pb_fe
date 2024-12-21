@@ -108,7 +108,7 @@ export default function ConsultationJournalList() {
             );
           })
         ) : (
-          <div className='text-center text-hanaindigo text-xl'>
+          <div className='text-center text-hanaindigo text-sm'>
             상담 일지가 없습니다.
           </div>
         )}
