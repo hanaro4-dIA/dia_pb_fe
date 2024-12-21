@@ -18,7 +18,6 @@ export default function WriteNotification() {
 
   // 고객 연결
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
-  const pbId = 1;
   const { data: customersData, error: customersError } =
     useFetch<TCustomerProps[]>(`pb/customers/list`);
 
@@ -27,8 +26,7 @@ export default function WriteNotification() {
       setCustomers(customersData);
     }
   }, [customersData]);
-
-  console.error(customersError);
+  console.error('손님 전체 목록 조회 중 발생한 에러: ', customersError);
 
   // 필터링된 고객 리스트
   const filteredCustomers = customers.filter((customer) =>
@@ -99,9 +97,8 @@ export default function WriteNotification() {
       setTitle('');
       setContent('');
       setSelectedCustomers([]);
-    } catch (err) {
-      console.error(err);
-      alert('쪽지 중 오류가 발생했습니다.');
+    } catch (error) {
+      console.error('쪽지 전송 중 발생한 에러: ', error);
     }
   };
 

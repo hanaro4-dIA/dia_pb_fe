@@ -40,7 +40,7 @@ export default function Login() {
         throw new Error('로그인 실패');
       }
     } catch (error) {
-      console.error('로그인 오류:', error);
+      console.error('로그인 에러: ', error);
       setIsValidLoginInfo(false);
       loginIdRef.current?.focus();
     }

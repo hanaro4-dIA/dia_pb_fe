@@ -24,7 +24,7 @@ export default function ConsultingPage() {
         setCustomerName('손님 없음');
       }
     } catch (error) {
-      console.error('Error fetching customer data:', error);
+      console.error('손님 한 명 조회 중 발생한 에러: ', error);
     }
   };
 

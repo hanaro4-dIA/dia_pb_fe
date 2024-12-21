@@ -1,8 +1,8 @@
+import useFetch from '../hooks/useFetch';
 import { type TScriptProps } from '../types/dataTypes';
 import { type TJournalsProps } from '../types/dataTypes';
-import useFetch from '../hooks/useFetch';
 
-// consultation 타입 
+// consultation 타입
 type TPbJournalsProps = {
   consultation: TJournalsProps;
 };
@@ -13,12 +13,12 @@ export type TScriptResponseProps = {
 };
 
 export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
-  
   // 스크립트 데이터를 API에서 가져오는 useFetch 훅
-  const { data: scriptData = { scriptResponseDTOList: [] }, error: scriptError } = useFetch<TScriptResponseProps>(
-    `pb/journals/${consultation.id}/scripts`
-  );
-  console.error(scriptError);
+  const {
+    data: scriptData = { scriptResponseDTOList: [] },
+    error: scriptError,
+  } = useFetch<TScriptResponseProps>(`pb/journals/${consultation.id}/scripts`);
+  console.error('스크립트 데이터 조회 중 발생한 에러: ', scriptError);
 
   return (
     <div className='flex items-start justify-center w-full h-full space-x-4 overflow-y-auto'>
@@ -67,10 +67,21 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
               <span className='text-sm mb-3'>[PB의 추천 상품]</span>
               <div className='w-full h-40 p-2 border resize-none overflow-y-auto'>
                 {consultation.journalProduct.map((product, index) => (
-                  <div key={index} className="flex space-x-4 mb-2">
-                    <img src={product.image_url} alt={product.name} className="w-16 h-16 object-cover" />
-                    <div className="flex flex-col justify-center">
-                      <a href={product.product_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-sm">{product.name}</a>
+                  <div key={index} className='flex space-x-4 mb-2'>
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className='w-16 h-16 object-cover'
+                    />
+                    <div className='flex flex-col justify-center'>
+                      <a
+                        href={product.product_url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-blue-500 text-sm'
+                      >
+                        {product.name}
+                      </a>
                     </div>
                   </div>
                 ))}
@@ -78,13 +89,15 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
             </div>
             <div>
               <span className='text-sm mb-3'>[상담 스크립트]</span>
-              <div className="chat-container w-full p-4 border rounded-lg overflow-y-auto space-y-3 bg-gray-100">
+              <div className='chat-container w-full p-4 border rounded-lg overflow-y-auto space-y-3 bg-gray-100'>
                 {scriptData?.scriptResponseDTOList ? (
                   scriptData.scriptResponseDTOList.map((script) => (
                     <div
                       key={script.scriptId}
                       className={`chat-message flex ${
-                        script.speaker === 'PB' ? 'justify-start' : 'justify-end'
+                        script.speaker === 'PB'
+                          ? 'justify-start'
+                          : 'justify-end'
                       }`}
                     >
                       <div
@@ -94,7 +107,7 @@ export default function ReadJournalWindow({ consultation }: TPbJournalsProps) {
                             : 'bg-gray-200 text-black rounded-br-none'
                         }`}
                       >
-                        <p className="text-sm font-medium">{script.content}</p>
+                        <p className='text-sm font-medium'>{script.content}</p>
                       </div>
                     </div>
                   ))

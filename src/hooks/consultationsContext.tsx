@@ -40,10 +40,10 @@ export const ConsultationProvider = ({
       if (Array.isArray(result)) {
         setRequestedConsultations(result);
       } else {
-        console.error('Unexpected result type:', result);
+        console.error('들어온 상담 요청 조회 중 발생한 에러: ', result);
       }
     } catch (error) {
-      console.error('Error fetching requested consultations:', error);
+      console.error('들어온 상담 요청 조회 중 발생한 에러: ', error);
     }
   };
 
@@ -53,10 +53,10 @@ export const ConsultationProvider = ({
       if (Array.isArray(result)) {
         setApprovedConsultations(result);
       } else {
-        console.error('Unexpected result type:', result);
+        console.error('예정된 상담 요청 조회 중 발생한 에러: ', result);
       }
     } catch (error) {
-      console.error('Error fetching approved consultations:', error);
+      console.error('예정된 상담 요청 조회 중 발생한 에러: ', error);
     }
   };
 

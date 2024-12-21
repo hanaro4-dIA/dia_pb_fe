@@ -17,7 +17,7 @@ export default function CustomerInformation() {
   useEffect(() => {
     setCustomerData(data);
   }, []);
-  console.error(error);
+  console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
 
   // 메모 수정 API 호출
   const { fetchData } = useFetch<string>(`pb/customers/${id}/memo`, 'POST');
@@ -41,7 +41,7 @@ export default function CustomerInformation() {
         setCustomerData({ ...customerData, memo });
         setIsEditing(false);
       } catch (error) {
-        console.error('메모 수정 중 오류가 발생했습니다.', error);
+        console.error('메모 수정 중 발생한 에러: ', error);
       }
     }
   };

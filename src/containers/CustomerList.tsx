@@ -16,7 +16,7 @@ export default function CustomerList() {
 
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const pbId = 1;
+  // const pbId = 1;
   const { data, error } = useFetch<TCustomerProps[]>(`pb/customers/list`);
 
   const [customersList, setCustomersList] = useState<TCustomerProps[] | null>(
@@ -26,7 +26,7 @@ export default function CustomerList() {
   useEffect(() => {
     setCustomersList(data);
   }, [data]);
-  console.error(error);
+  console.error('손님 목록 조회 중 발생한 에러: ', error);
 
   const filteredCustomers = customersList?.filter(({ name }) =>
     name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())

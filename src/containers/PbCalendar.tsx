@@ -29,7 +29,10 @@ export default function PbCalendar() {
         const consultingData = await response.json();
         setSchedule(consultingData);
       } catch (error) {
-        console.error('Error fetching ConsultingData: ', error);
+        console.error(
+          '확정된 과거 및 미래 상담 일정 조회 중 발생한 에러: ',
+          error
+        );
       }
     };
     fetchConsultings();

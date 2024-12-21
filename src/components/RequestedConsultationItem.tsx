@@ -27,7 +27,7 @@ export const RequestedConsultationItem = ({
         // onApprove(String(id)); // 부모 컴포넌트에 상태 변경 알리기
       }
     } catch (err) {
-      console.error('API 호출 실패:', error);
+      console.error('들어온 상담 요청 승인 중 발생한 에러: ', error);
     }
   };
 

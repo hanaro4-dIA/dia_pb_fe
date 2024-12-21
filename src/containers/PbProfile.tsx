@@ -14,7 +14,7 @@ export default function PbProfile() {
       setPbData(data);
     }
   }, [data]);
-  console.error(error);
+  console.error('PB 프로필 조회 중 발생한 에러: ', error);
 
   useEffect(() => {
     if (pbData) {
