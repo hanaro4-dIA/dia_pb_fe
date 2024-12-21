@@ -1,38 +1,28 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Button } from '../components/ui/button';
 import ConsultationJournalList from '../containers/ConsultationJournalList';
 import ConsultationScript from '../containers/ConsultationScript';
 import CustomerInformation from '../containers/CustomerInformation';
 import MakeJournal from '../containers/MakeJournal';
+import useFetch from '../hooks/useFetch';
 import { type TCustomerProps } from '../types/dataTypes';
 
 export default function ConsultingPage() {
-  const [customerName, setCustomerName] = useState<string>();
-  const { id } = useParams();
+  const location = useLocation();
+  const { customerName, customerId } = location.state || {};
+  console.log('customerName: ', customerName);
 
-  // 손님 이름 불러오기 함수
-  // const fetchCustomerName = async (customerId: number) => {
-  //   try {
-  //     const response = await fetch('/data/Customers.json');
-  //     const customerData: TCustomerProps[] = await response.json();
-  //     const customer = customerData.find(({ id }) => id === customerId);
+  const { data, error } = useFetch<TCustomerProps>(
+    `pb/customers/list/${customerId}`
+  );
+  const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
 
-  //     if (customer) {
-  //       setCustomerName(customer.name);
-  //     } else {
-  //       setCustomerName('손님 없음');
-  //     }
-  //   } catch (error) {
-  //     console.error('손님 한 명 조회 중 발생한 에러: ', error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (id) {
-  //     fetchCustomerName(Number(id));
-  //   }
-  // }, [id]);
+  useEffect(() => {
+    if (data) setCustomerData(data);
+  }, [data]);
+  console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
+  console.log('customerData: ', customerData);
 
   return (
     <>
@@ -54,7 +44,9 @@ export default function ConsultingPage() {
           </div>
 
           {/* 손님 정보 */}
-          <div className='h-fit'>{/* <CustomerInformation /> */}</div>
+          <div className='h-fit'>
+            <CustomerInformation customerData={customerData} />{' '}
+          </div>
 
           {/* 상담일지 리스트 */}
           <div className='flex-grow overflow-y-auto'>

@@ -33,6 +33,7 @@ export type TScriptProps = {
 // 한 PB에게 배정된 하나의 상담 타입 (Consultaion)
 export type TConsultationProps = {
   id: number;
+  customerId: number;
   customerName: string;
   categoryId: number;
   title: string;
