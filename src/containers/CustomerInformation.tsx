@@ -16,7 +16,7 @@ export default function CustomerInformation() {
 
   useEffect(() => {
     setCustomerData(data);
-  }, [data]);
+  }, []);
   console.error(error);
 
   // 메모 수정 API 호출

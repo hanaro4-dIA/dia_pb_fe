@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
-import { type TCustomerProps } from '../types/dataTypes';
 import useFetch from '../hooks/useFetch';
+import { type TCustomerProps } from '../types/dataTypes';
 
 export default function WriteNotification() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedCustomers, setSelectedCustomers] = useState<TCustomerProps[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<TCustomerProps[]>(
+    []
+  );
 
   // 제목과 내용 상태 추가
   const [title, setTitle] = useState('');
@@ -17,7 +19,8 @@ export default function WriteNotification() {
   // 고객 연결
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const pbId = 1;
-  const { data: customersData, error: customersError } = useFetch<TCustomerProps[]>(`pb/customers/list?pbId=${pbId}`);
+  const { data: customersData, error: customersError } =
+    useFetch<TCustomerProps[]>(`pb/customers/list`);
 
   useEffect(() => {
     if (customersData) {
@@ -28,7 +31,9 @@ export default function WriteNotification() {
   console.error(customersError);
 
   // 필터링된 고객 리스트
-  const filteredCustomers = customers.filter((customer) => customer.name.includes(searchTerm));
+  const filteredCustomers = customers.filter((customer) =>
+    customer.name.includes(searchTerm)
+  );
 
   // 전체 선택 핸들러
   const handleSelectAll = () => {
@@ -47,7 +52,10 @@ export default function WriteNotification() {
   // 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setShowDropdown(false);
       }
     };
@@ -65,7 +73,6 @@ export default function WriteNotification() {
       }
     });
   };
-  
 
   // 새로운 쪽지 전송하기 POST
   const { fetchData } = useFetch<{ message: string }>(
@@ -100,17 +107,27 @@ export default function WriteNotification() {
 
   return (
     <Section title='새로운 쪽지 전송하기' layoutClassName='h-full'>
-      <form onSubmit={handleSubmit} className='w-full h-full overflow-auto p-2 flex flex-col'>
+      <form
+        onSubmit={handleSubmit}
+        className='w-full h-full overflow-auto p-2 flex flex-col'
+      >
         {/* 수신인 선택 */}
         <div className='w-full px-4 py-3 flex-none justify-center'>
           <div className='flex items-center justify-between'>
             <span className='flex items-center flex-none'>수신인</span>
 
             {/* 전체선택 체크박스 */}
-            <div className='flex items-center gap-2 cursor-pointer' onClick={handleSelectAll}>
+            <div
+              className='flex items-center gap-2 cursor-pointer'
+              onClick={handleSelectAll}
+            >
               <input
                 type='checkbox'
-                checked={!!customers && selectedCustomers.length === customers.length && customers.length > 0}
+                checked={
+                  !!customers &&
+                  selectedCustomers.length === customers.length &&
+                  customers.length > 0
+                }
                 onChange={handleSelectAll}
                 className='w-4 h-4'
               />
@@ -132,15 +149,22 @@ export default function WriteNotification() {
                 {showDropdown && customers && (
                   <div className='absolute z-10 w-full mt-1 bg-white/80 border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto'>
                     {filteredCustomers.map((customer) => (
-                      <div key={customer.id} className='flex items-center px-4 py-2 hover:bg-gray-200'>
+                      <div
+                        key={customer.id}
+                        className='flex items-center px-4 py-2 hover:bg-gray-200'
+                      >
                         <input
                           type='checkbox'
                           id={`customer-${customer.id}`}
-                          checked={selectedCustomers.some((c) => c.id === customer.id)}
+                          checked={selectedCustomers.some(
+                            (c) => c.id === customer.id
+                          )}
                           onChange={() => handleCustomerSelect(customer)}
                           className='w-4 h-4 mr-2'
                         />
-                        <label htmlFor={`customer-${customer.id}`}>{customer.name} 손님</label>
+                        <label htmlFor={`customer-${customer.id}`}>
+                          {customer.name} 손님
+                        </label>
                       </div>
                     ))}
                   </div>
@@ -152,9 +176,15 @@ export default function WriteNotification() {
           {/* 선택된 고객 태그 */}
           <div className='flex flex-wrap gap-2 mt-2'>
             {selectedCustomers.map(({ id, name }) => (
-              <div key={id} className='flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm'>
+              <div
+                key={id}
+                className='flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm'
+              >
                 <span>{name} 손님</span>
-                <button onClick={() => handleRemoveTag(id)} className='ml-2 text-gray-500 hover:text-gray-700 focus:outline-none'>
+                <button
+                  onClick={() => handleRemoveTag(id)}
+                  className='ml-2 text-gray-500 hover:text-gray-700 focus:outline-none'
+                >
                   ×
                 </button>
               </div>

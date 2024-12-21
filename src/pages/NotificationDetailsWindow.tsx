@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
-import { type TNotificationProps, type TCustomerProps } from '../types/dataTypes';
 import useFetch from '../hooks/useFetch';
+import {
+  type TNotificationProps,
+  type TCustomerProps,
+} from '../types/dataTypes';
 
 export default function NotificationDetailsWindow({
   title,
@@ -8,12 +11,12 @@ export default function NotificationDetailsWindow({
   date,
   content,
 }: TNotificationProps) {
-
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const pbId = 1;
 
   // 고객 데이터 불러오기
-  const { data: customersData, error: customersError } = useFetch<TCustomerProps[]>(`pb/customers/list?pbId=${pbId}`);
+  const { data: customersData, error: customersError } =
+    useFetch<TCustomerProps[]>(`pb/customers/list`);
 
   useEffect(() => {
     if (customersData) {
