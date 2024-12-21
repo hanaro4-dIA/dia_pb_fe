@@ -1,7 +1,7 @@
 import IteratingListItem from '../components/IteratingListItem';
 import { SearchField } from '../components/SearchField';
 import Section from '../components/Section';
-import { type TDictionaryListProps } from '../types/componentTypes';
+import { TDictionaryListProps } from '../types/componentTypes';
 
 export default function DictionaryList({
   searchTerm,
@@ -20,9 +20,10 @@ export default function DictionaryList({
         />
       </div>
       <div className='p-4'>
-        {filteredDBList.length > 0 ? (
+        {filteredDBList?.length ? (
           filteredDBList.map((item) => (
             <IteratingListItem
+              key={item.id}
               id={item.id}
               title={item.title}
               content={item.content}
@@ -31,7 +32,7 @@ export default function DictionaryList({
             />
           ))
         ) : (
-          <div className='text-center text-hanaindigo text-xl'>
+          <div className='text-center text-hanaindigo text-sm'>
             검색 결과가 없습니다.
           </div>
         )}

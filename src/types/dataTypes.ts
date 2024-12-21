@@ -67,8 +67,8 @@ export type TNotificationProps = {
   is_read: boolean;
 };
 
-// DB 키워드 타입 (dictionary.ts)
-export type TDbItemProps = {
+// 딕셔너리의 키워드 타입 (dictionary.ts)
+export type TKeywordProps = {
   id: number;
   title: string;
   content: string;

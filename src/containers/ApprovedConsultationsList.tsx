@@ -41,7 +41,7 @@ export default function ApprovedConsultationsList() {
             />
           ))
         ) : (
-          <div className='text-center text-hanaindigo text-s'>
+          <div className='text-center text-hanaindigo text-sm'>
             일정이 없습니다.
           </div>
         )}

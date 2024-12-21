@@ -1,18 +1,18 @@
 import { ReactNode } from 'react';
-import { TDbItemProps } from './dataTypes';
+import { TKeywordProps } from './dataTypes';
 
 // 키워드 DB 리스트 컴포넌트 타입
 export type TDictionaryListProps = {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
-  filteredDBList: TDbItemProps[];
-  selectedItem: TDbItemProps | undefined;
-  setSelectedItem: (item: TDbItemProps) => void;
+  filteredDBList?: TKeywordProps[];
+  selectedItem: TKeywordProps | undefined;
+  setSelectedItem: (item: TKeywordProps) => void;
 };
 
 // 키워드 DB 상세보기 컴포넌트 타입
 export type TDictionaryDetailProps = {
-  selectedItem: TDbItemProps | undefined;
+  selectedItem: TKeywordProps | undefined;
 };
 
 // Section 컴포넌트 타입

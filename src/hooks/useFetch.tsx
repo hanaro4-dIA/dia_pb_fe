@@ -41,6 +41,11 @@ export default function useFetch<T>(
         body: method !== 'GET' ? JSON.stringify(overrideBody || initialBody) : undefined,
       });
 
+      // 302 리디렉션 처리
+      if (response.status === 302) {
+        throw new Error('Redirect error! The resource has moved.');
+      }
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

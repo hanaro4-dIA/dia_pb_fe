@@ -1,25 +1,29 @@
 import { useEffect, useState } from 'react';
-import { dbList } from '../../public/data/Dictionary';
 import DictionaryDetail from '../containers/DictionaryDetail';
 import DictionaryList from '../containers/DictionaryList';
 import useDebounce from '../hooks/useDebounce';
-import { type TDbItemProps } from '../types/dataTypes';
+import useFetch from '../hooks/useFetch';
+import { type TKeywordProps } from '../types/dataTypes';
 
 export default function DictionaryPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
-  const [selectedItem, setSelectedItem] = useState<TDbItemProps | undefined>();
+  const [selectedItem, setSelectedItem] = useState<TKeywordProps | undefined>();
+  const [keyWordsListData, setKeyWordsListData] = useState<
+    TKeywordProps[] | null
+  >([]);
 
-  const [filteredDBList, setFilteredDBList] = useState<TDbItemProps[]>(dbList);
+  const { data } = useFetch<TKeywordProps[]>('pb/keywords');
 
   useEffect(() => {
-    const newFilteredList = dbList.filter(
-      (item: TDbItemProps) =>
-        item.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-        item.content.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-    );
-    setFilteredDBList(newFilteredList);
-  }, [debouncedSearchTerm]);
+    setKeyWordsListData(data);
+  }, [data]);
+
+  const filteredDBList = keyWordsListData?.filter(
+    (item) =>
+      item.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+      item.content.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+  );
 
   return (
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>

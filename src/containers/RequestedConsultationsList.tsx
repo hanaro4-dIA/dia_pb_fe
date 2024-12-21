@@ -34,7 +34,7 @@ export default function RequestedConsultationsList() {
             className='w-4/5 h-4/5 items-center'
             alt='모든 요청 처리됨'
           />
-          <span className='text-center text-hanaindigo h-full text-s py-3'>
+          <span className='text-center text-hanaindigo h-full text-sm py-3'>
             모든 상담 요청이 승인되었습니다:)
           </span>
         </div>

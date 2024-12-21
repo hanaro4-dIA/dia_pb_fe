@@ -21,22 +21,22 @@ export default function CustomerList() {
     `pb/customers/list?pbId=${pbId}`
   );
 
-  const [customers, setCustomers] = useState<TCustomerProps[] | null>([]);
+  const [customersList, setCustomersList] = useState<TCustomerProps[] | null>(
+    []
+  );
 
   useEffect(() => {
-    setCustomers(data);
-  }, []);
-  console.log('data: ', data);
+    setCustomersList(data);
+  }, [data]);
   console.error(error);
-  console.log('customers: ', customers);
 
-  const filteredCustomers = customers?.filter(({ name }) =>
+  const filteredCustomers = customersList?.filter(({ name }) =>
     name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
 
   // 선택된 항목에 대해 scrollIntoView 호출
   if (selectedId) {
-    const targetIndex = customers?.findIndex(
+    const targetIndex = customersList?.findIndex(
       (customer) => customer.id === selectedId
     );
 
@@ -74,7 +74,7 @@ export default function CustomerList() {
             </div>
           ))
         ) : (
-          <div className='text-center text-hanaindigo text-s'>
+          <div className='text-center text-hanaindigo text-sm'>
             존재하지 않는 손님입니다.
           </div>
         )}
