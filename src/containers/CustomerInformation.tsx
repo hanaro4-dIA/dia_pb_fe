@@ -19,7 +19,7 @@ export default function CustomerInformation() {
   }, [data]);
   console.error(error);
 
-  
+
   // 메모 수정 API 호출
   const { fetchData } = useFetch<string>(
     `pb/customers/${id}/memo`,
@@ -45,7 +45,7 @@ export default function CustomerInformation() {
         setCustomerData({ ...customerData, memo });
         setIsEditing(false);
       } catch (error) {
-        alert('메모 수정 중 오류가 발생했습니다.');
+        console.error('메모 수정 중 오류가 발생했습니다.', error);
       }
     }
   };
