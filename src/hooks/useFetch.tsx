@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 type TUseFetchResult<T> = {
   data: T | null;
   error: Error | null;
-  fetchData: (overrideBody?: Record<string, any>) => Promise<void>;
+  fetchData: (overrideBody?: Record<string, any>, queryParams?: Record<string, any>) => Promise<void>;
 };
 
 export default function useFetch<T>(
@@ -15,20 +15,30 @@ export default function useFetch<T>(
   const [error, setError] = useState<Error | null>(null);
   const APIKEY = import.meta.env.VITE_API_KEY;
 
-  const fetchData = async (overrideBody?: Record<string, any>) => {
+  // -- (추가) URL에 쿼리 파라미터를 추가하는 함수
+  const appendQueryParams = (url: string, queryParams?: Record<string, any>) => {
+    if (!queryParams) return url;
+    const queryString = new URLSearchParams(queryParams).toString();
+    return `${url}?${queryString}`;
+  };
+  // --
+
+  // -- (추가) queryParams 추가
+  const fetchData = async (overrideBody?: Record<string, any>, queryParams?: Record<string, any>) => {
+  // -- 
     try {
       const fetchHeaders: Record<string, string> = {
         'Content-Type': 'application/json',
       };
 
-      const response = await fetch(`${APIKEY}/${url}`, {
+      // -- (추가) 쿼리 파라미터가 있으면 URL에 추가
+      const fullUrl = appendQueryParams(`${APIKEY}/${url}`, queryParams);
+      // --
+      const response = await fetch(fullUrl, {
         method,
         headers: fetchHeaders,
         credentials: 'include',
-        body:
-          method !== 'GET'
-            ? JSON.stringify(overrideBody || initialBody)
-            : undefined,
+        body: method !== 'GET' ? JSON.stringify(overrideBody || initialBody) : undefined,
       });
 
       if (!response.ok) {
