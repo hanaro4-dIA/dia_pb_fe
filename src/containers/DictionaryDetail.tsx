@@ -14,7 +14,7 @@ export default function DictionaryDetail({
               className='underline underline-offset-4'
               href='https://fine.fss.or.kr/fine/fnctip/fncDicary/list.do?menuNo=900021&pageIndex=54&src=&kind=&searchCnd=1&searchStr='
             >
-              금융소비자 정보포털 파인 FINE의 금융용어사전
+              금융소비자 정보포털 파인 FINE 금융용어사전
             </a>{' '}
             )
           </div>
