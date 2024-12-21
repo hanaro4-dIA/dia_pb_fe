@@ -1,16 +1,9 @@
 import React, { createContext, useState, useContext } from 'react';
 import useFetch from '../hooks/useFetch';
-import { type TConsultingProps } from '../types/dataTypes';
+import { type TConsultationContextType } from '../types/componentTypes';
+import { type TConsultationProps } from '../types/dataTypes';
 
-interface ConsultationContextType {
-  requestedConsultations: TConsultingProps[];
-  approvedConsultations: TConsultingProps[];
-  fetchRequestedConsultations: () => void;
-  fetchApprovedConsultations: () => void;
-  approveConsultation: (id: number) => Promise<void>;
-}
-
-const ConsultationContext = createContext<ConsultationContextType | undefined>(
+const ConsultationContext = createContext<TConsultationContextType | undefined>(
   undefined
 );
 
@@ -20,16 +13,16 @@ export const ConsultationProvider = ({
   children: React.ReactNode;
 }) => {
   const [requestedConsultations, setRequestedConsultations] = useState<
-    TConsultingProps[]
+    TConsultationProps[]
   >([]);
   const [approvedConsultations, setApprovedConsultations] = useState<
-    TConsultingProps[]
+    TConsultationProps[]
   >([]);
 
-  const { fetchData: fetchRequested } = useFetch<TConsultingProps[]>(
+  const { fetchData: fetchRequested } = useFetch<TConsultationProps[]>(
     'pb/reserves?status=false'
   );
-  const { fetchData: fetchApproved } = useFetch<TConsultingProps[]>(
+  const { fetchData: fetchApproved } = useFetch<TConsultationProps[]>(
     'pb/reserves?status=true&type=upcoming'
   );
   const { fetchData: putApprove } = useFetch('pb/reserves', 'PUT');
@@ -49,7 +42,12 @@ export const ConsultationProvider = ({
 
   const fetchApprovedConsultations = async () => {
     try {
-      const result = await fetchApproved();
+      const params: Record<string, string> = {
+        status: 'true',
+        type: 'upcoming',
+      };
+
+      const result = await fetchApproved(params);
       if (Array.isArray(result)) {
         setApprovedConsultations(result);
       } else {
