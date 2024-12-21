@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { TConsultingProps, TKeywordProps } from './dataTypes';
+import { TConsultationProps, type TKeywordProps } from './dataTypes';
 
 // 키워드 DB 리스트 컴포넌트 타입
 export type TDictionaryListProps = {
@@ -52,9 +52,9 @@ export type TSubButtonProp = {
 
 // 전역상태 ConsultationContext 타입
 export type TConsultationContextType = {
-  requestedConsultations: TConsultingProps[];
-  approvedConsultations: TConsultingProps[];
+  requestedConsultations: TConsultationProps[];
+  // approvedConsultations: TConsultingProps[];
   fetchRequestedConsultations: () => void;
-  fetchApprovedConsultations: (customerId?: number) => void;
-  approveConsultation: (id: number) => Promise<void>;
+  // fetchApprovedConsultations: (customerId?: number) => void;
+  // approveConsultation: (id: number) => Promise<void>;
 };

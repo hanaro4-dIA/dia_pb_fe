@@ -1,26 +1,28 @@
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ApprovedConsultationItem } from '../components/ApprovedConsultationItem';
 import Section from '../components/Section';
-import { useConsultationContext } from '../hooks/consultationsContext';
+import useFetch from '../hooks/useFetch';
+import { TConsultationProps } from '../types/dataTypes';
 
 export default function ApprovedConsultationsList({
   customerName,
 }: {
-  customerName: string;
+  customerName?: string;
 }) {
   const { id } = useParams();
+  const { data, error } = useFetch<TConsultationProps[]>(
+    `pb/reserves?status=true&type=upcoming`
+  );
+  console.log('예정된 상담요청 조회 중 발생한 에러: ', error);
 
-  const { approvedConsultations, fetchApprovedConsultations } =
-    useConsultationContext();
+  const [approvedConsultations, setApprovedConsultations] = useState<
+    TConsultationProps[] | []
+  >([]);
 
   useEffect(() => {
-    if (id) {
-      fetchApprovedConsultations(Number(id));
-    } else {
-      fetchApprovedConsultations();
-    }
-  }, [id, fetchApprovedConsultations]);
+    setApprovedConsultations(data || []);
+  }, [data]);
 
   // 손님 한 명에 대한 정보 조회하기 위함
   const filteredConsultations = id

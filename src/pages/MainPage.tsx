@@ -4,7 +4,6 @@ import CustomerList from '../containers/CustomerList';
 import PbCalendar from '../containers/PbCalendar';
 import PbProfile from '../containers/PbProfile';
 import RequestedConsultationsList from '../containers/RequestedConsultationsList';
-import { ConsultationProvider } from '../hooks/consultationsContext';
 
 export default function MainPage() {
   return (

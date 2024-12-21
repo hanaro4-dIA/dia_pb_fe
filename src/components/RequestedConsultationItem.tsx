@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import useFetch from '../hooks/useFetch';
-import { type TConsultingProps } from '../types/dataTypes';
+import { type TConsultationProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
 
 export const RequestedConsultationItem = ({
@@ -11,23 +12,33 @@ export const RequestedConsultationItem = ({
   hopeTime,
   reserveDate,
   reserveTime,
-  // onApprove,
-}: TConsultingProps) => {
+  onApprove, // 부모 컴포넌트로 상태 변경 알리기
+}: TConsultationProps & { onApprove: (id: string) => void }) => {
+  // 상태 관리: 로딩 상태와 에러 메시지
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   // 빠른 상담일 경우
   const getBorderColorClass = (categoryId: number) => {
     return categoryId === 1 ? 'quick-border' : 'border-gray-200';
   };
 
   const { error, fetchData } = useFetch(`pb/reserves?id=${id}`, 'PUT');
+  console.log('들어온 상담요청 승인 중 발생한 에러: ', error);
 
   const approveRequestEvent = async () => {
+    setLoading(true);
+    setErrorMessage(null);
+
     try {
-      if (fetchData) {
-        await fetchData();
-        // onApprove(String(id)); // 부모 컴포넌트에 상태 변경 알리기
-      }
+      await fetchData();
+      onApprove(String(id));
     } catch (err) {
-      console.error('들어온 상담 요청 승인 중 발생한 에러: ', error);
+      setErrorMessage(
+        '상담 요청 처리 중 문제가 발생했습니다. 다시 시도해주세요.'
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,12 +71,16 @@ export const RequestedConsultationItem = ({
           </div>
           <button
             onClick={approveRequestEvent}
-            className='w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg bg-hanaindigo hover:bg-hanagold'
+            disabled={loading} // 로딩 중에는 버튼 비활성화
+            className={`w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg ${loading ? 'bg-gray-400' : 'bg-hanaindigo hover:bg-hanagold'}`}
           >
-            승인대기
+            {loading ? '처리 중...' : '승인대기'}
           </button>
         </div>
       </div>
+      {errorMessage && (
+        <div className='text-red-500 text-sm mt-2'>{errorMessage}</div>
+      )}
     </article>
   );
 };

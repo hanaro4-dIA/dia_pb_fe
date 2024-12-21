@@ -1,6 +1,6 @@
 import { MdOutlineTimer } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { type TConsultingProps } from '../types/dataTypes';
+import { type TConsultationProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
 import Timer from '../utils/remainingTime-util';
 
@@ -11,7 +11,7 @@ export const ApprovedConsultationItem = ({
   title,
   hopeDate,
   hopeTime,
-}: TConsultingProps) => {
+}: TConsultationProps) => {
   // 빠른 상담일 경우
   const getBorderColorClass = (categoryId: number) => {
     return categoryId === 1 ? 'quick-border' : 'border-gray-200';
