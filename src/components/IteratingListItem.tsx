@@ -1,4 +1,5 @@
 import { type TIteratingListItem } from '../types/componentTypes';
+import changeDateFormat from '../utils/changeDateFormat-util';
 
 const IteratingListItem = ({
   title,
@@ -13,12 +14,12 @@ const IteratingListItem = ({
   >
     <div className='flex justify-between items-center mb-2 text-sm'>
       <span className='text-lg'>{title}</span>
-      {date && <span>{date}</span>}
+      {date && <span>{changeDateFormat(date)}</span>}
     </div>
     <div
       className={`${isSelected ? 'bg-hanagold/60' : 'bg-hanagold/40'} text-black p-2 mt-2 rounded-lg`}
     >
-      <div className='truncate' title={content}>
+      <div className='truncate text-sm' title={content}>
         {content}
       </div>
     </div>
