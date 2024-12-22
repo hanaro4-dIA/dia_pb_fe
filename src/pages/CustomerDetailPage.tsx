@@ -35,7 +35,7 @@ export default function CustomerDetailPage() {
       </div>
 
       <div className='flex flex-col flex-grow w-1/4 h-full'>
-        <ConsultationJournalList />
+        <ConsultationJournalList customerId={Number(id)} />
       </div>
     </div>
   );
