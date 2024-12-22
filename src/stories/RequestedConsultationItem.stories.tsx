@@ -7,12 +7,13 @@ const meta: Meta<typeof RequestedConsultationItem> = {
   tags: ['autodocs'],
   argTypes: {
     id: { control: 'number' },
-    customer_id: { control: 'number' },
-    category_id: { control: 'number' },
+    customerId: { control: 'number' },
+    categoryId: { control: 'number' },
     title: { control: 'text' },
-    hope_date: { control: 'text' },
-    hope_time: { control: 'text' },
-    reserve_date: { control: 'text' },
+    hopeDate: { control: 'text' },
+    hopeTime: { control: 'text' },
+    reserveDate: { control: 'text' },
+    reserveTime: { control: 'text' },
     approve: { control: 'boolean' },
     onApprove: { control: 'check' },
   },
@@ -24,20 +25,26 @@ type Story = StoryObj<typeof RequestedConsultationItem>;
 export const Default: Story = {
   args: {
     id: 1,
-    customer_id: 1,
-    category_id: 2,
+    customerId: 1,
+    categoryId: 2,
     title: '주택담보대출 금리 조정 상담',
-    hope_date: '2024.10.25',
-    hope_time: '13:00',
+    hopeDate: '2024.10.25',
+    hopeTime: '13:00',
+    reserveDate: '2024.10.20',
+    reserveTime: '10:00',
+    approve: true,
   },
 };
 
 export const isQuick: Story = {
   args: {
     id: 1,
-    customer_id: 1,
-    category_id: 1,
-    hope_date: '2024.12.30',
-    hope_time: '18:00',
+    customerId: 1,
+    categoryId: 1,
+    hopeDate: '2024.12.30',
+    hopeTime: '16:00',
+    reserveDate: '2024.10.30',
+    reserveTime: '16:00',
+    approve: true,
   },
 };

@@ -4,6 +4,7 @@ import {
   type TNotificationProps,
   type TCustomerProps,
 } from '../types/dataTypes';
+import changeDateFormat from '../utils/changeDateFormat-util';
 
 export default function NotificationDetailsWindow({
   title,
@@ -63,7 +64,7 @@ export default function NotificationDetailsWindow({
                   className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                   style={{ fontFamily: 'noto-bold, sans-serif' }}
                 >
-                  {date}
+                  {changeDateFormat(date)}
                 </div>
               </div>
             </div>
@@ -74,7 +75,7 @@ export default function NotificationDetailsWindow({
             <span className='text-xs mb-2'>[쪽지 내용]</span>
             <textarea
               value={content}
-              className='w-full h-full p-5 border resize-none overflow-y-auto focuse:outline-none'
+              className='w-full h-full p-5 border resize-none overflow-y-auto focuse:outline-none outline-none'
             />
           </div>
         </div>

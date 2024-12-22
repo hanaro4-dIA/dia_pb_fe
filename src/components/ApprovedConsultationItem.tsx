@@ -6,7 +6,6 @@ import Timer from '../utils/remainingTime-util';
 
 export const ApprovedConsultationItem = ({
   id,
-  // customerId 정보 필요!!!!!!!!!!!!!!!!!!
   customerId,
   customerName,
   categoryId,
@@ -21,11 +20,8 @@ export const ApprovedConsultationItem = ({
 
   const navigate = useNavigate();
 
-  const moveToConsultingPageEvent = (
-    consultingId: number,
-    customerId: number
-  ) => {
-    navigate(`/consulting/${consultingId}`, {
+  const moveToConsultingPageEvent = (id: number, customerId: number) => {
+    navigate(`/consulting/${id}`, {
       state: { customerId },
     });
   };
@@ -67,3 +63,5 @@ export const ApprovedConsultationItem = ({
     </div>
   );
 };
+
+//

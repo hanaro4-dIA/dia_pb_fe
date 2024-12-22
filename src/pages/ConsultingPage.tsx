@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Button } from '../components/ui/button';
 import ConsultationJournalList from '../containers/ConsultationJournalList';
@@ -10,19 +10,18 @@ import { type TCustomerProps } from '../types/dataTypes';
 
 export default function ConsultingPage() {
   const location = useLocation();
-  const { customerName, customerId } = location.state || {};
-  console.log('customerName: ', customerName);
+  const { customerId } = location.state || {};
 
   const { data, error } = useFetch<TCustomerProps>(
     `pb/customers/list/${customerId}`
   );
+
   const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
 
   useEffect(() => {
     if (data) setCustomerData(data);
   }, [data]);
   console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
-  console.log('customerData: ', customerData);
 
   return (
     <>
@@ -34,7 +33,7 @@ export default function ConsultingPage() {
               className='text-2xl text-hanagold'
               style={{ fontFamily: 'noto-bold, sans-serif' }}
             >
-              {customerName} 손님
+              {customerData?.name} 손님
             </div>
             <div>
               <Button className='border border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white'>
@@ -45,7 +44,7 @@ export default function ConsultingPage() {
 
           {/* 손님 정보 */}
           <div className='h-fit'>
-            <CustomerInformation customerData={customerData} />{' '}
+            <CustomerInformation customerData={customerData} />
           </div>
 
           {/* 상담일지 리스트 */}
