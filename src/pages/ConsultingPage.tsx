@@ -10,7 +10,7 @@ import { type TCustomerProps } from '../types/dataTypes';
 
 export default function ConsultingPage() {
   const location = useLocation();
-  const { customerName, customerId } = location.state || {};
+  const { customerId } = location.state || {};
 
   const { data, error } = useFetch<TCustomerProps>(
     `pb/customers/list/${customerId}`
@@ -33,7 +33,7 @@ export default function ConsultingPage() {
               className='text-2xl text-hanagold'
               style={{ fontFamily: 'noto-bold, sans-serif' }}
             >
-              {customerName} 손님
+              {customerData?.name} 손님
             </div>
             <div>
               <Button className='border border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white'>

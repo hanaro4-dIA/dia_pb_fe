@@ -20,13 +20,9 @@ export const ApprovedConsultationItem = ({
 
   const navigate = useNavigate();
 
-  const moveToConsultingPageEvent = (
-    id: number,
-    customerId: number,
-    customerName: string
-  ) => {
+  const moveToConsultingPageEvent = (id: number, customerId: number) => {
     navigate(`/consulting/${id}`, {
-      state: { customerId, customerName },
+      state: { customerId },
     });
   };
 
@@ -59,9 +55,7 @@ export const ApprovedConsultationItem = ({
         </span>
         <button
           className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-          onClick={() =>
-            moveToConsultingPageEvent(id, customerId, customerName)
-          }
+          onClick={() => moveToConsultingPageEvent(id, customerId)}
         >
           상담하기
         </button>
