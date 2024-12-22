@@ -2,10 +2,12 @@ import { createRoot } from 'react-dom/client';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 import RequestContentPage from '../pages/RequestContentPage';
+import { useParams } from 'react-router-dom';
 
 export default function MakeJournal() {
+  const { id } = useParams();
   // 요청내용 상세보기
-  const openNewWindow = () => {
+  const openNewWindow = (id: string) => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
 
     if (newWindow) {
@@ -40,7 +42,7 @@ export default function MakeJournal() {
       const rootElement = newWindow.document.getElementById('dictionary-root');
       if (rootElement) {
         const root = createRoot(rootElement);
-        root.render(<RequestContentPage />);
+        root.render(<RequestContentPage id={id} />);
       }
     }
   };
@@ -60,7 +62,7 @@ export default function MakeJournal() {
                 className='text-sm flex-grow focus:outline-none'
               />
               <button
-                onClick={openNewWindow}
+                onClick={() => openNewWindow(id!)}
                 className='border border-hanaindigo px-2 py-1 rounded text-xs'
               >
                 자세히보기
