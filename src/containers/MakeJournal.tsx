@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import JournalProductInputArea from '../components/JournalProductInputArea';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 import useFetch from '../hooks/useFetch';
@@ -190,7 +191,7 @@ export default function MakeJournal() {
             </div>
             <div className='h-2/5'>
               <div className='text-sm mb-3'>[PB의 추천 상품]</div>
-              <textarea className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver' />
+              <JournalProductInputArea />
             </div>
           </div>
         </div>
