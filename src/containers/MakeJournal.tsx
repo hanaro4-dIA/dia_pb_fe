@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import RequestContentPage from '../pages/RequestContentPage';
 import { useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
-import { TConsultationProps } from '../types/dataTypes';
+import { type TConsultationProps } from '../types/dataTypes';
 const APIKEY = import.meta.env.VITE_API_KEY;
 
 export default function MakeJournal() {
@@ -23,6 +23,7 @@ export default function MakeJournal() {
 
   const [day, setDay] = useState<string>();
   const [time, setTime] = useState<string>();
+  
   useEffect(() => {
     if (data) {
       const selectedConsultation = data.find((consultation) => consultation.id === Number(id));
@@ -36,7 +37,7 @@ export default function MakeJournal() {
   }, [data, id]); 
 
   const openNewWindow = (id: string) => {
-    const newWindow = window.open('', '_blank', 'width=800,height=600');
+    const newWindow = window.open('', '_blank', 'width=800, height=600');
     if (newWindow) {
       const styles = Array.from(document.styleSheets)
         .map((styleSheet) => {
@@ -50,6 +51,7 @@ export default function MakeJournal() {
           }
         })
         .join('');
+      
       newWindow.document.write(`
         <html lang="en">
         <head>
@@ -147,7 +149,7 @@ export default function MakeJournal() {
                   className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                   style={{ fontFamily: 'noto-bold, sans-serif' }}
                 >
-                  손흥민 PB
+                  {PB 이름} PB
                 </div>
               </div>
               <div className='flex items-center space-x-3 w-1/3'>
@@ -156,7 +158,8 @@ export default function MakeJournal() {
                   className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                   style={{ fontFamily: 'noto-bold, sans-serif' }}
                 >
-                  {day}  {time}
+                  // changeDateFormat 함수 감쌀 것
+                  {day} {time}
                 </div>
               </div>
             </div>
