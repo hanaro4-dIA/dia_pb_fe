@@ -45,7 +45,6 @@ export default function ConsultationJournalList() {
   const openNewWindow = (consultation: TJournalsProps) => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
     if (newWindow) {
-      // 현재 페이지의 스타일을 새 창에 적용
       const styles = Array.from(document.styleSheets)
         .map((styleSheet) => {
           try {
@@ -88,7 +87,6 @@ export default function ConsultationJournalList() {
   return (
     <Section title='상담일지 리스트' layoutClassName='h-full'>
       <div className='sticky top-0 z-10 w-full bg-white'>
-        {/* 검색창 */}
         <SearchField
           placeholder='상담일지 검색'
           value={searchTerm}
@@ -97,7 +95,6 @@ export default function ConsultationJournalList() {
       </div>
 
       <div className='p-4'>
-        {/* 필터링된 상담일지를 표시 */}
         {filteredJournalsList.length ? (
           filteredJournalsList.map((consultation, index) => {
             return (

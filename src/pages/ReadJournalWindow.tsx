@@ -14,7 +14,7 @@ export default function ReadJournalWindow({
     categoryName,
     consultDate,
     contents,
-    journalProduct,
+    journalProducts,
   } = consultation;
 
   const {
@@ -61,37 +61,37 @@ export default function ReadJournalWindow({
           </div>
           <div className='flex flex-col space-y-5'>
             <div>
-              <span className='text-sm mb-3'>[PB의 기록]</span>
-              <div className='w-full h-40 p-2 border resize-none overflow-y-auto'>
+              <div className='text-sm mb-2'>[PB의 기록]</div>
+              <div className='w-full h-40 p-2 border resize-none overflow-y-auto text-sm'>
                 {contents}
               </div>
             </div>
             <div>
-              <span className='text-sm mb-3'>[PB의 추천 상품]</span>
+              <div className='text-sm mb-2'>[PB의 추천 상품]</div>
               <div className='w-full h-40 p-2 border resize-none overflow-y-auto'>
-                {journalProduct.map((product, index) => (
+                {journalProducts?.map((product, index) => (
                   <div key={index} className='flex space-x-4 mb-2'>
-                    <img
-                      src={product.imageUrl}
-                      alt={product.name}
-                      className='w-16 h-16 object-cover'
-                    />
-                    <div className='flex flex-col justify-center'>
-                      <a
-                        href={product.productUrl}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='text-blue-500 text-sm'
-                      >
-                        {product.name}
-                      </a>
-                    </div>
+                    <a
+                      href={product.productUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-blue-500 text-sm flex space-x-2'
+                    >
+                      <img
+                        src={product.productImageUrl}
+                        alt={product.productName}
+                        className='w-30 h-16 object-cover'
+                      />
+                      <div className='flex flex-col justify-center'>
+                        {product.productName}
+                      </div>
+                    </a>
                   </div>
                 ))}
               </div>
             </div>
             <div>
-              <span className='text-sm mb-3'>[상담 스크립트]</span>
+              <div className='text-sm mb-2'>[상담 스크립트]</div>
               <div className='chat-container w-full p-4 border rounded-lg overflow-y-auto space-y-3 bg-gray-100'>
                 {scriptData?.scriptResponseDTOList ? (
                   scriptData.scriptResponseDTOList.map((script) => (
