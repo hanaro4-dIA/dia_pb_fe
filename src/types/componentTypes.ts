@@ -1,8 +1,7 @@
 import { ReactNode } from 'react';
 import {
-  TConsultationProps,
-  TJournalsProps,
-  TScriptProps,
+  type TJournalsProps,
+  type TScriptProps,
   type TKeywordProps,
 } from './dataTypes';
 
