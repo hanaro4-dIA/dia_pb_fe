@@ -12,9 +12,8 @@ export const RequestedConsultationItem = ({
   hopeTime,
   reserveDate,
   reserveTime,
-  onApprove, // 부모 컴포넌트로 상태 변경 알리기
+  onApprove,
 }: TConsultationProps & { onApprove: (id: string) => void }) => {
-  // 상태 관리: 로딩 상태와 에러 메시지
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

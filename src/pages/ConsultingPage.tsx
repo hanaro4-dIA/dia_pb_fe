@@ -44,7 +44,7 @@ export default function ConsultingPage() {
 
           {/* 손님 정보 */}
           <div className='h-fit'>
-            <CustomerInformation customerData={customerData} />{' '}
+            <CustomerInformation customerData={customerData} />
           </div>
 
           {/* 상담일지 리스트 */}

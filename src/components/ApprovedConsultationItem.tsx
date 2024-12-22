@@ -6,7 +6,6 @@ import Timer from '../utils/remainingTime-util';
 
 export const ApprovedConsultationItem = ({
   id,
-  // customerId 정보 필요!!!!!!!!!!!!!!!!!!
   customerId,
   customerName,
   categoryId,
@@ -22,11 +21,12 @@ export const ApprovedConsultationItem = ({
   const navigate = useNavigate();
 
   const moveToConsultingPageEvent = (
-    consultingId: number,
-    customerId: number
+    id: number,
+    customerId: number,
+    customerName: string
   ) => {
-    navigate(`/consulting/${consultingId}`, {
-      state: { customerId },
+    navigate(`/consulting/${id}`, {
+      state: { customerId, customerName },
     });
   };
 
@@ -59,7 +59,9 @@ export const ApprovedConsultationItem = ({
         </span>
         <button
           className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-          onClick={() => moveToConsultingPageEvent(id, customerId)}
+          onClick={() =>
+            moveToConsultingPageEvent(id, customerId, customerName)
+          }
         >
           상담하기
         </button>
@@ -67,3 +69,5 @@ export const ApprovedConsultationItem = ({
     </div>
   );
 };
+
+//
