@@ -14,7 +14,7 @@ export default function ApprovedConsultationsList({
   const { data, error } = useFetch<TConsultationProps[]>(
     `pb/reserves?status=true&type=upcoming`
   );
-  console.log('예정된 상담요청 조회 중 발생한 에러: ', error);
+  console.error('예정된 상담요청 조회 중 발생한 에러: ', error);
 
   const [approvedConsultations, setApprovedConsultations] = useState<
     TConsultationProps[] | []
