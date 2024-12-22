@@ -10,30 +10,33 @@ import ReadJournalWindow from '../pages/ReadJournalWindow';
 import { type TJournalsProps } from '../types/dataTypes';
 
 export default function ConsultationJournalList() {
+  // customerId
   const { id } = useParams();
 
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
+  // PB의 모든 상담일지 조회
   const { data: consultationData, error: consultationError } =
     useFetch<TJournalsProps[]>('pb/journals');
   console.error('상담일지 리스트 조회 중 발생한 에러: ', consultationError);
 
-  const [filteredConsultationData, setConsultationData] = useState<
+  // 한 손님의 모든 상담일지 조회
+  const [customerJournalsListData, setCustomerJournalsListData] = useState<
     TJournalsProps[]
   >([]);
 
   useEffect(() => {
     if (consultationData) {
-      const filteredData = consultationData.filter(
+      const customerJournalsList = consultationData.filter(
         (consultation) => consultation.customerId === Number(id)
       );
-      setConsultationData(filteredData);
+      setCustomerJournalsListData(customerJournalsList);
     }
   }, [consultationData, id]);
 
-  // 상담일지 검색
-  const filteredJournal = filteredConsultationData.filter(
+  // 한 손님의 모든 상담일지 중 검색
+  const filteredJournalsList = customerJournalsListData.filter(
     ({ consultTitle }) =>
       consultTitle && consultTitle.includes(debouncedSearchTerm)
   );
@@ -42,7 +45,6 @@ export default function ConsultationJournalList() {
   const openNewWindow = (consultation: TJournalsProps) => {
     const newWindow = window.open('', '_blank', 'width=800,height=600');
     if (newWindow) {
-      // 현재 페이지의 스타일을 새 창에 적용
       const styles = Array.from(document.styleSheets)
         .map((styleSheet) => {
           try {
@@ -85,7 +87,6 @@ export default function ConsultationJournalList() {
   return (
     <Section title='상담일지 리스트' layoutClassName='h-full'>
       <div className='sticky top-0 z-10 w-full bg-white'>
-        {/* 검색창 */}
         <SearchField
           placeholder='상담일지 검색'
           value={searchTerm}
@@ -94,9 +95,8 @@ export default function ConsultationJournalList() {
       </div>
 
       <div className='p-4'>
-        {/* 필터링된 상담일지를 표시 */}
-        {filteredJournal.length ? (
-          filteredJournal.map((consultation, index) => {
+        {filteredJournalsList.length ? (
+          filteredJournalsList.map((consultation, index) => {
             return (
               <ConsultationJournalListItem
                 key={index}

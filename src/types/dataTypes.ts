@@ -10,16 +10,15 @@ export type TJournalsProps = {
   consultDate: string;
   contents: string;
   categoryName: string;
-  journalProduct?: TJournalProduct[];
+  journalProducts?: TJournalProduct[];
 };
 
 // 추천 상품 타입
 type TJournalProduct = {
   id: number | null;
-  name: string;
+  productName: string;
   productUrl: string;
-  imageUrl: string;
-  journalProduct: any[];
+  productImageUrl: string;
 };
 
 // 스크립트 타입
