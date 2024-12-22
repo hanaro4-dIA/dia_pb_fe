@@ -6,7 +6,9 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import React from 'react';
+import useFetch from '../hooks/useFetch';
 import { type TConsultationProps } from '../types/dataTypes';
+import changeDateFormat from '../utils/changeDateFormat-util';
 
 type DateTile = Date | null;
 type SelectedDate = DateTile | [DateTile, DateTile];
@@ -19,15 +21,21 @@ export default function PbCalendar() {
     TConsultationProps[]
   >([]);
   const [accordian, setAccordian] = useState<number | null>(null);
-
   const modalExternal = useRef<HTMLDivElement>(null);
+
+  const { data, error } = useFetch<TConsultationProps[]>(
+    `pb/reserves?status=true&type=upcoming`
+  );
+  if (error) {
+    console.error('승인된 상담 일정 조회 중 발생한 에러: ', error);
+  }
 
   useEffect(() => {
     const fetchConsultings = async () => {
       try {
-        const response = await fetch('/data/Consultings.json');
-        const consultingData = await response.json();
-        setSchedule(consultingData);
+        if (data) {
+          setSchedule(data);
+        }
       } catch (error) {
         console.error(
           '확정된 과거 및 미래 상담 일정 조회 중 발생한 에러: ',
@@ -36,13 +44,14 @@ export default function PbCalendar() {
       }
     };
     fetchConsultings();
-  }, []);
+  }, [data]);
 
   const getScheduledDate = (date: Date) => {
     const scheduledDate = format(date, 'yyyy.MM.dd');
     const hasEvent = schedule.some(
       (consultings) =>
-        consultings.approve && consultings.hopeDate === scheduledDate
+        consultings.approve &&
+        changeDateFormat(consultings.hopeDate) === scheduledDate
     );
     return hasEvent ? <div className='dot'></div> : null;
   };
@@ -51,7 +60,8 @@ export default function PbCalendar() {
     const scheduledDate = format(date, 'yyyy.MM.dd');
     const schedules = schedule.filter(
       (consultings) =>
-        consultings.approve && consultings.hopeDate === scheduledDate
+        consultings.approve &&
+        changeDateFormat(consultings.hopeDate) === scheduledDate
     );
     setSelectedSchedules(schedules);
     setDateModal(true);
