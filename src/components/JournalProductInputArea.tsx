@@ -2,37 +2,51 @@ import { useState, useRef, useEffect } from 'react';
 import useDebounce from '../hooks/useDebounce';
 import useFetch from '../hooks/useFetch';
 
-export default function JournalProductInputArea() {
+type TJournalProductInputAreaProps = {
+  recommendedProductsKeys: number[];
+  setRecommendedProductsKeys: React.Dispatch<React.SetStateAction<number[]>>;
+};
+
+export default function JournalProductInputArea({
+  recommendedProductsKeys,
+  setRecommendedProductsKeys,
+}: TJournalProductInputAreaProps) {
   const [inputValue, setInputValue] = useState('');
   const debouncedSearchTerm = useDebounce(inputValue, 300);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const listRef = useRef<HTMLUListElement | null>(null);
 
-  const { data: productList, error } = useFetch<
-    { id: number; productName: string }[]
-  >(debouncedSearchTerm && `pb/journals/products?tag=${debouncedSearchTerm}`);
+  const { data: productList } = useFetch<{ id: number; productName: string }[]>(
+    debouncedSearchTerm && `pb/journals/products?tag=${debouncedSearchTerm}`
+  );
 
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
-  const [recommendedProductsKeys, setRecommendedProductsKeys] = useState<
-    number[]
-  >([]);
   const [isListVisible, setIsListVisible] = useState(false);
+
+  // const handleProductSelect = (productName: string, productId: number) => {
+  //   if (!selectedProducts.includes(productName)) {
+  //     setSelectedProducts((prev) => [...prev, productName]);
+  //     setRecommendedProductsKeys((prev) => [...prev, productId]);
+  //   }
+  //   setInputValue('');
+  //   setIsListVisible(false);
+  // };
+  // // console.log('recommendedProductsKeys: ', recommendedProductsKeys);
 
   const handleProductSelect = (productName: string, productId: number) => {
     if (!selectedProducts.includes(productName)) {
       setSelectedProducts((prev) => [...prev, productName]);
-      setRecommendedProductsKeys((prev) => [...prev, productId]);
+      setRecommendedProductsKeys((prev) => [...prev, productId]); // 부모 상태 업데이트
     }
     setInputValue('');
     setIsListVisible(false);
   };
-  // console.log('recommendedProductsKeys: ', recommendedProductsKeys);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    e.preventDefault();
     if (e.key === 'Enter' && productList && productList.length > 0) {
       const firstProduct = productList[0];
       handleProductSelect(firstProduct.productName, firstProduct.id);
+      e.preventDefault();
     }
   };
 

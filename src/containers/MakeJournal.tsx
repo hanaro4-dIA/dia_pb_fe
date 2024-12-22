@@ -84,6 +84,7 @@ export default function MakeJournal() {
     }
   };
 
+  // 상담일지 전송
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -188,7 +189,10 @@ export default function MakeJournal() {
             </div>
             <div className='h-2/5'>
               <div className='text-sm mb-3'>[PB의 추천 상품]</div>
-              <JournalProductInputArea />
+              <JournalProductInputArea
+                recommendedProductsKeys={recommendedProductsKeys}
+                setRecommendedProductsKeys={setRecommendedProductsKeys}
+              />
             </div>
           </div>
         </div>
