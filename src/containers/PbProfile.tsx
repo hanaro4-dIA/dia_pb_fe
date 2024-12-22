@@ -5,7 +5,7 @@ import useFetch from '../hooks/useFetch';
 import { type TPbDataProps } from '../types/dataTypes';
 
 export default function PbProfile() {
-  const { data, error } = useFetch<TPbDataProps>('pb/profile');
+  const { data, error } = useFetch<TPbDataProps>('profile');
   const [pbData, setPbData] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);

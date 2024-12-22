@@ -24,7 +24,7 @@ export default function PbCalendar() {
   const modalExternal = useRef<HTMLDivElement>(null);
 
   const { data, error } = useFetch<TConsultationProps[]>(
-    `pb/reserves?status=true&type=upcoming`
+    `reserves?status=true&type=upcoming`
   );
   if (error) {
     console.error('승인된 상담 일정 조회 중 발생한 에러: ', error);

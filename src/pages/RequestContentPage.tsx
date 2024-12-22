@@ -10,7 +10,7 @@ export default function RequestContentPage({ id }: { id: string }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${APIKEY}/pb/journals/reserves/${id}/content`
+          `${APIKEY}journals/reserves/${id}/content`
         );
         const data = await response.text();
         setContent(data);

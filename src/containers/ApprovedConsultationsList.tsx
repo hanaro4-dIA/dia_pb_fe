@@ -12,7 +12,7 @@ export default function ApprovedConsultationsList({
 }) {
   const { id } = useParams();
   const { data, error } = useFetch<TConsultationProps[]>(
-    `pb/reserves?status=true&type=upcoming`
+    `reserves?status=true&type=upcoming`
   );
   console.error('예정된 상담요청 조회 중 발생한 에러: ', error);
 
@@ -27,7 +27,9 @@ export default function ApprovedConsultationsList({
   // 손님 한 명에 대한 정보 조회하기 위함
   const filteredConsultations = id
     ? approvedConsultations.filter(
-        (consultation) => consultation.customerName === customerName
+        (consultation) =>
+          consultation.customerName.toLowerCase() ===
+          customerName?.toLowerCase()
       )
     : approvedConsultations;
 

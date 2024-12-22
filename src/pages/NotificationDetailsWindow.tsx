@@ -16,7 +16,7 @@ export default function NotificationDetailsWindow({
 
   // 고객 데이터 불러오기
   const { data: customersData, error: customersError } =
-    useFetch<TCustomerProps[]>(`pb/customers/list`);
+    useFetch<TCustomerProps[]>(`customers/list`);
 
   useEffect(() => {
     if (customersData) {

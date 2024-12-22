@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
-import { type TPbDataProps } from '../types/dataTypes';
+import React, { createContext, useContext } from 'react';
 
 type SessionContextType = {
   handleLogoutEvent: () => void;
@@ -14,13 +13,28 @@ export const SessionProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [_, setPbData] = useState<TPbDataProps | null>(null);
+  const handleLogoutEvent = async () => {
+    try {
+      const baseUrl = import.meta.env.VITE_API_KEY;
+      const response = await fetch(`${baseUrl}logout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
 
-  const handleLogoutEvent = () => {
-    setPbData(null);
-    localStorage.removeItem('loginPB');
-    alert('오늘 하루도 고생하셨습니다!😊🎉');
-    window.location.reload();
+      if (!response.ok) {
+        throw new Error('로그아웃에 실패했습니다.');
+      }
+
+      localStorage.removeItem('loginPB');
+      alert('오늘 하루도 고생하셨습니다!😊🎉');
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      alert('로그아웃 중 오류가 발생했습니다.');
+    }
   };
 
   return (

@@ -41,7 +41,7 @@ export default function useFetch<T>(
       };
 
       // -- (추가) 쿼리 파라미터가 있으면 URL에 추가
-      const fullUrl = appendQueryParams(`${APIKEY}/${url}`, queryParams);
+      const fullUrl = appendQueryParams(`${APIKEY}${url}`, queryParams);
       // --
       const response = await fetch(fullUrl, {
         method,

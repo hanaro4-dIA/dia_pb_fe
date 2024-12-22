@@ -16,7 +16,7 @@ export default function Login() {
     const password = passwordRef.current?.value || '';
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_KEY}/pb/login`, {
+      const response = await fetch(`${import.meta.env.VITE_API_KEY}login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

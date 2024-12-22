@@ -16,7 +16,7 @@ export default function CustomerList() {
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const { data: initialData, error: initialError } =
-    useFetch<TCustomerProps[]>(`pb/customers/list`);
+    useFetch<TCustomerProps[]>(`customers/list`);
 
   const { data: searchData, error: searchError } = useFetch<TCustomerProps[]>(
     debouncedSearchTerm && `pb/customers/search?name=${debouncedSearchTerm}`

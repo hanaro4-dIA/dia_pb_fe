@@ -17,26 +17,16 @@ export default function JournalProductInputArea({
   const listRef = useRef<HTMLUListElement | null>(null);
 
   const { data: productList } = useFetch<{ id: number; productName: string }[]>(
-    debouncedSearchTerm && `pb/journals/products?tag=${debouncedSearchTerm}`
+    debouncedSearchTerm && `journals/products?tag=${debouncedSearchTerm}`
   );
 
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [isListVisible, setIsListVisible] = useState(false);
 
-  // const handleProductSelect = (productName: string, productId: number) => {
-  //   if (!selectedProducts.includes(productName)) {
-  //     setSelectedProducts((prev) => [...prev, productName]);
-  //     setRecommendedProductsKeys((prev) => [...prev, productId]);
-  //   }
-  //   setInputValue('');
-  //   setIsListVisible(false);
-  // };
-  // // console.log('recommendedProductsKeys: ', recommendedProductsKeys);
-
   const handleProductSelect = (productName: string, productId: number) => {
     if (!selectedProducts.includes(productName)) {
       setSelectedProducts((prev) => [...prev, productName]);
-      setRecommendedProductsKeys((prev) => [...prev, productId]); // 부모 상태 업데이트
+      setRecommendedProductsKeys((prev) => [...prev, productId]);
     }
     setInputValue('');
     setIsListVisible(false);
