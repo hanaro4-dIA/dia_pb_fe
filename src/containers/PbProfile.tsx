@@ -4,8 +4,10 @@ import Section from '../components/Section';
 import useFetch from '../hooks/useFetch';
 import { type TPbDataProps } from '../types/dataTypes';
 
+const APIKEY = import.meta.env.VITE_API_KEY;
+
 export default function PbProfile() {
-  const { data, error } = useFetch<TPbDataProps>('pb/profile');
+  const { data, error, fetchData } = useFetch<TPbDataProps>('pb/profile');
   const [pbData, setPbData] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
@@ -74,14 +76,32 @@ export default function PbProfile() {
     );
   };
 
-  const handleTagSubmit = () => {
-    if (pbData?.hashtagList.some((tag) => tag.trim() === '')) {
-      alert('tag가 비어있습니다!');
-      return;
+  const handleTagSubmit = async () => {
+    if (!pbData) return;
+
+    const { introduce, hashtagList } = pbData;
+
+    const formData = new FormData();
+    if (fileInput.current?.files?.[0]) {
+      formData.append('file', fileInput.current.files[0]);
     }
-    setIsEditing(false);
+    formData.append('introduce', introduce || '');
+    hashtagList.forEach(tag => formData.append('hashtags', tag));
+
+    try {
+      await fetch(`${APIKEY}/pb/profile`, {
+        method: 'PUT',
+        body: formData,
+      });
+      // 리팩토링 PUT에 대한 커스텀훅을 써야함(위에서 GET으로 이미 받는데 어떻게 해야하나 고민..)
+      setIsEditing(false);
+    }
+    catch (error) {
+      console.error(error);
+    }
   };
 
+  // 사진쪽도 url로 하는지, 업로드로 하는지 의문.
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -93,7 +113,7 @@ export default function PbProfile() {
     };
     reader.readAsDataURL(file);
   };
-
+  
   return (
     <Section
       title='내 프로필'
