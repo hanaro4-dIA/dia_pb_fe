@@ -12,22 +12,34 @@ export default function CustomerList() {
   const params = useParams();
   const selectedId = Number(params.id);
   const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 500);
-
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const { data, error } = useFetch<TCustomerProps[]>(`pb/customers/list`);
+  const { data: initialData, error: initialError } =
+    useFetch<TCustomerProps[]>(`pb/customers/list`);
+
+  const { data: searchData, error: searchError } = useFetch<TCustomerProps[]>(
+    debouncedSearchTerm && `pb/customers/search?name=${debouncedSearchTerm}`
+  );
 
   const [customersList, setCustomersList] = useState<TCustomerProps[] | []>([]);
 
   useEffect(() => {
-    setCustomersList(data || []);
-  }, [data]);
-  console.error('손님 목록 조회 중 발생한 에러: ', error);
+    if (debouncedSearchTerm && searchData) {
+      setCustomersList(searchData);
+    } else if (!debouncedSearchTerm && initialData) {
+      setCustomersList(initialData);
+    }
+  }, [debouncedSearchTerm, searchData, initialData]);
 
-  const filteredCustomers = customersList?.filter(({ name }) =>
-    name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    if (initialError) {
+      console.error('손님 목록 조회 중 발생한 에러: ', initialError);
+    }
+    if (searchError) {
+      console.error('손님 검색 중 발생한 에러: ', searchError);
+    }
+  }, [initialError, searchError]);
 
   // 선택된 항목에 대해 scrollIntoView 호출
   if (selectedId) {
@@ -59,8 +71,8 @@ export default function CustomerList() {
       </div>
 
       <div className='w-full h-fit p-4'>
-        {filteredCustomers && filteredCustomers.length > 0 ? (
-          filteredCustomers.map(({ id, name, memo }, index) => (
+        {customersList && customersList.length > 0 ? (
+          customersList.map(({ id, name, memo }, index) => (
             <div ref={(el) => (listRefs.current[index] = el)} key={id}>
               <IteratingListItem
                 id={id}
