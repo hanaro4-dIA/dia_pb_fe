@@ -6,7 +6,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import React from 'react';
-import { type TConsultingProps } from '../types/dataTypes';
+import { type TConsultationProps } from '../types/dataTypes';
 
 type DateTile = Date | null;
 type SelectedDate = DateTile | [DateTile, DateTile];
@@ -14,9 +14,9 @@ type SelectedDate = DateTile | [DateTile, DateTile];
 export default function PbCalendar() {
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
   const [dateModal, setDateModal] = useState(false);
-  const [schedule, setSchedule] = useState<TConsultingProps[]>([]);
+  const [schedule, setSchedule] = useState<TConsultationProps[]>([]);
   const [selectedSchedules, setSelectedSchedules] = useState<
-    TConsultingProps[]
+    TConsultationProps[]
   >([]);
   const [accordian, setAccordian] = useState<number | null>(null);
 
@@ -29,7 +29,10 @@ export default function PbCalendar() {
         const consultingData = await response.json();
         setSchedule(consultingData);
       } catch (error) {
-        console.error('Error fetching ConsultingData: ', error);
+        console.error(
+          '확정된 과거 및 미래 상담 일정 조회 중 발생한 에러: ',
+          error
+        );
       }
     };
     fetchConsultings();

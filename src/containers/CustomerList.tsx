@@ -16,19 +16,14 @@ export default function CustomerList() {
 
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const pbId = 1;
-  const { data, error } = useFetch<TCustomerProps[]>(
-    `pb/customers/list?pbId=${pbId}`
-  );
+  const { data, error } = useFetch<TCustomerProps[]>(`pb/customers/list`);
 
-  const [customersList, setCustomersList] = useState<TCustomerProps[] | null>(
-    []
-  );
+  const [customersList, setCustomersList] = useState<TCustomerProps[] | []>([]);
 
   useEffect(() => {
-    setCustomersList(data);
+    setCustomersList(data || []);
   }, [data]);
-  console.error(error);
+  console.error('손님 목록 조회 중 발생한 에러: ', error);
 
   const filteredCustomers = customersList?.filter(({ name }) =>
     name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
@@ -48,6 +43,9 @@ export default function CustomerList() {
         block: 'center',
       });
     }
+  }
+  if (customersList.length === 0) {
+    return <div>손님 목록을 불러오는 중입니다...</div>;
   }
 
   return (

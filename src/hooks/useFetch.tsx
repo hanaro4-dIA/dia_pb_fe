@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react';
 type TUseFetchResult<T> = {
   data: T | null;
   error: Error | null;
-  fetchData: (overrideBody?: Record<string, any>, queryParams?: Record<string, any>) => Promise<void>;
+  fetchData: (
+    overrideBody?: Record<string, any>,
+    queryParams?: Record<string, any>
+  ) => Promise<void>;
 };
 
 export default function useFetch<T>(
@@ -16,7 +19,10 @@ export default function useFetch<T>(
   const APIKEY = import.meta.env.VITE_API_KEY;
 
   // -- (추가) URL에 쿼리 파라미터를 추가하는 함수
-  const appendQueryParams = (url: string, queryParams?: Record<string, any>) => {
+  const appendQueryParams = (
+    url: string,
+    queryParams?: Record<string, any>
+  ) => {
     if (!queryParams) return url;
     const queryString = new URLSearchParams(queryParams).toString();
     return `${url}?${queryString}`;
@@ -24,8 +30,11 @@ export default function useFetch<T>(
   // --
 
   // -- (추가) queryParams 추가
-  const fetchData = async (overrideBody?: Record<string, any>, queryParams?: Record<string, any>) => {
-  // -- 
+  const fetchData = async (
+    overrideBody?: Record<string, any>,
+    queryParams?: Record<string, any>
+  ) => {
+    // --
     try {
       const fetchHeaders: Record<string, string> = {
         'Content-Type': 'application/json',
@@ -38,7 +47,10 @@ export default function useFetch<T>(
         method,
         headers: fetchHeaders,
         credentials: 'include',
-        body: method !== 'GET' ? JSON.stringify(overrideBody || initialBody) : undefined,
+        body:
+          method !== 'GET'
+            ? JSON.stringify(overrideBody || initialBody)
+            : undefined,
       });
 
       // 302 리디렉션 처리

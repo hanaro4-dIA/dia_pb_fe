@@ -1,17 +1,19 @@
 import { MdOutlineTimer } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { type TConsultingProps } from '../types/dataTypes';
+import { type TConsultationProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
 import Timer from '../utils/remainingTime-util';
 
 export const ApprovedConsultationItem = ({
   id,
+  // customerId 정보 필요!!!!!!!!!!!!!!!!!!
+  customerId,
   customerName,
   categoryId,
   title,
   hopeDate,
   hopeTime,
-}: TConsultingProps) => {
+}: TConsultationProps) => {
   // 빠른 상담일 경우
   const getBorderColorClass = (categoryId: number) => {
     return categoryId === 1 ? 'quick-border' : 'border-gray-200';
@@ -19,8 +21,13 @@ export const ApprovedConsultationItem = ({
 
   const navigate = useNavigate();
 
-  const moveToConsultingPageEvent = (consultingId: number) => {
-    navigate(`/consulting/${consultingId}`);
+  const moveToConsultingPageEvent = (
+    consultingId: number,
+    customerId: number
+  ) => {
+    navigate(`/consulting/${consultingId}`, {
+      state: { customerId },
+    });
   };
 
   return (
@@ -52,7 +59,7 @@ export const ApprovedConsultationItem = ({
         </span>
         <button
           className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-          onClick={() => moveToConsultingPageEvent(id)}
+          onClick={() => moveToConsultingPageEvent(id, customerId)}
         >
           상담하기
         </button>

@@ -1,5 +1,10 @@
 import { ReactNode } from 'react';
-import { TKeywordProps } from './dataTypes';
+import {
+  TConsultationProps,
+  TJournalsProps,
+  TScriptProps,
+  type TKeywordProps,
+} from './dataTypes';
 
 // 키워드 DB 리스트 컴포넌트 타입
 export type TDictionaryListProps = {
@@ -48,4 +53,14 @@ export type TSubButtonProp = {
   path?: string;
   target?: string;
   onClick?: () => void;
+};
+
+// ReadJournalWindow 상담일지 자세히보기 윈도우 컴포넌트 타입
+export type ReadJournalWindowProps = {
+  consultation: TJournalsProps;
+};
+
+// 스크립트 응답 데이터 타입
+export type TScriptResponseProps = {
+  scriptResponseDTOList: TScriptProps[];
 };

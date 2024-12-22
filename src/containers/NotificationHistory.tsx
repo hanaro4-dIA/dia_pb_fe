@@ -1,42 +1,43 @@
+import { createRoot } from 'react-dom/client';
 import { useState, useEffect, useRef } from 'react';
-import { type TNotificationProps } from '../types/dataTypes';
-import { type TCustomerProps } from '../types/dataTypes';
-import useFetch from '../hooks/useFetch';
 import IteratingListItem from '../components/IteratingListItem';
 import Section from '../components/Section';
+import useFetch from '../hooks/useFetch';
 import NotificationDetailsWindow from '../pages/NotificationDetailsWindow';
-import { createRoot } from 'react-dom/client';
+import { type TNotificationProps } from '../types/dataTypes';
+import { type TCustomerProps } from '../types/dataTypes';
 
 export default function NotificationHistory() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedCustomers, setSelectedCustomers] = useState<TCustomerProps[]>([]);
+  const [selectedCustomers, setSelectedCustomers] = useState<TCustomerProps[]>(
+    []
+  );
 
   // 쪽지 연결
   const [notifications, setNotifications] = useState<TNotificationProps[]>([]);
-  const { data: notificationsData, error: notificationsError } = useFetch<TNotificationProps[]>('pb/notifications');
+  const { data: notificationsData, error: notificationsError } =
+    useFetch<TNotificationProps[]>('pb/notifications');
 
   // 고객 연결
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
-  const pbId = 1;
-  const { data: customersData, error: customersError } = useFetch<TCustomerProps[]>(`pb/customers/list?pbId=${pbId}`);
+  const { data: customersData, error: customersError } =
+    useFetch<TCustomerProps[]>(`pb/customers/list`);
 
   useEffect(() => {
     if (notificationsData) {
       setNotifications(notificationsData);
     }
   }, [notificationsData]);
-  console.error(notificationsError);
-  
+  console.error('쪽지 전체 목록 조회 중 발생한 에러: ', notificationsError);
 
   useEffect(() => {
     if (customersData) {
       setCustomers(customersData);
     }
   }, [customersData]);
-  console.error(customersError);
-
+  console.error('손님 전체 목록 조회 중 발생한 에러: ', customersError);
 
   // 체크박스 필터링용
   const filteredCustomers = customers.filter((customer) =>
@@ -58,13 +59,12 @@ export default function NotificationHistory() {
     setSearchTerm(e.target.value);
   };
 
-
   // 전체 선택
   const handleSelectAll = () => {
     if (selectedCustomers.length === filteredCustomers.length) {
-      setSelectedCustomers([]); 
+      setSelectedCustomers([]);
     } else {
-      setSelectedCustomers(filteredCustomers); 
+      setSelectedCustomers(filteredCustomers);
     }
   };
 
@@ -73,11 +73,13 @@ export default function NotificationHistory() {
     setSelectedCustomers((prev) => prev.filter((c) => c.id !== customerId));
   };
 
-  
   // 드롭박스 밖 클릭 시 닫기 기능
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setShowDropdown(false);
       }
     };
@@ -88,7 +90,6 @@ export default function NotificationHistory() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  
 
   const selectedIds = selectedCustomers.map((customer) => customer.id);
   const searchParams = new URLSearchParams();
@@ -99,11 +100,13 @@ export default function NotificationHistory() {
   }
 
   // 동적으로 생성된 URL
-  const searchUrl = selectedIds.length > 0 
-    ? `pb/notifications/search?${searchParams.toString()}` 
-    : 'pb/notifications';
+  const searchUrl =
+    selectedIds.length > 0
+      ? `pb/notifications/search?${searchParams.toString()}`
+      : 'pb/notifications';
 
-  const { data: filteredNotifications, error: filteredNotificationsError } = useFetch<TNotificationProps[]>(searchUrl);
+  const { data: filteredNotifications, error: filteredNotificationsError } =
+    useFetch<TNotificationProps[]>(searchUrl);
   console.log(filteredNotificationsError);
 
   useEffect(() => {
@@ -113,34 +116,34 @@ export default function NotificationHistory() {
   }, [filteredNotifications]);
 
   const openNewWindow = async (notificationId: number) => {
-  try {
-    const baseUrl = import.meta.env.VITE_API_KEY;
-    const url = `${baseUrl}/pb/notifications/${notificationId}`;
+    try {
+      const baseUrl = import.meta.env.VITE_API_KEY;
+      const url = `${baseUrl}/pb/notifications/${notificationId}`;
 
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    const notification = await response.json();
+      const notification = await response.json();
 
-    const newWindow = window.open('', '_blank', 'width=800,height=600');
+      const newWindow = window.open('', '_blank', 'width=800,height=600');
 
-    if (newWindow) {
-      const styles = Array.from(document.styleSheets)
-        .map((styleSheet) => {
-          try {
-            return Array.from(styleSheet.cssRules)
-              .map((rule) => rule.cssText)
-              .join('');
-          } catch (e) {
-            console.warn('Failed to load some CSS rules:', e);
-            return '';
-          }
-        })
-        .join('');
+      if (newWindow) {
+        const styles = Array.from(document.styleSheets)
+          .map((styleSheet) => {
+            try {
+              return Array.from(styleSheet.cssRules)
+                .map((rule) => rule.cssText)
+                .join('');
+            } catch (e) {
+              console.warn('Failed to load some CSS rules:', e);
+              return '';
+            }
+          })
+          .join('');
 
-      newWindow.document.write(`
+        newWindow.document.write(`
         <html lang='en'>
           <head>
             <meta charset='UTF-8' />
@@ -153,20 +156,19 @@ export default function NotificationHistory() {
           </body>
         </html>
       `);
-      newWindow.document.close();
+        newWindow.document.close();
 
-      const rootElement = newWindow.document.getElementById('dictionary-root');
-          if (rootElement) {
-            const root = createRoot(rootElement);
-            root.render(<NotificationDetailsWindow {...notification} />);
-          }
+        const rootElement =
+          newWindow.document.getElementById('dictionary-root');
+        if (rootElement) {
+          const root = createRoot(rootElement);
+          root.render(<NotificationDetailsWindow {...notification} />);
         }
-      } catch (error) {
-        console.error('Error fetching notification details:', error);
-        alert('쪽지 상세 정보를 불러오는 중 오류가 발생했습니다.');
-        }
-      };
-
+      }
+    } catch (error) {
+      console.error('쪽지 상세 정보 조회 중 발생한 에러: ', error);
+    }
+  };
 
   return (
     <Section title='이전에 전송한 쪽지' layoutClassName='h-full'>
@@ -178,10 +180,16 @@ export default function NotificationHistory() {
               <div className='flex-none'>수신인</div>
             </div>
 
-            <div className='flex items-center gap-2 cursor-pointer' onClick={handleSelectAll}>
+            <div
+              className='flex items-center gap-2 cursor-pointer'
+              onClick={handleSelectAll}
+            >
               <input
                 type='checkbox'
-                checked={selectedCustomers.length === filteredCustomers.length && filteredCustomers.length > 0}
+                checked={
+                  selectedCustomers.length === filteredCustomers.length &&
+                  filteredCustomers.length > 0
+                }
                 onChange={handleSelectAll}
                 className='w-4 h-4'
               />
@@ -202,15 +210,23 @@ export default function NotificationHistory() {
                 {showDropdown && (
                   <div className='absolute z-10 w-full mt-1 bg-white/80 border border-gray-200 rounded-lg shadow-lg overflow-y-scroll'>
                     {filteredCustomers.map((customer) => (
-                      <div key={customer.id} className='flex items-center px-4 py-2 hover:bg-gray-200'>
+                      <div
+                        key={customer.id}
+                        className='flex items-center px-4 py-2 hover:bg-gray-200'
+                      >
                         <input
                           type='checkbox'
                           id={`customer-${customer.id}`}
-                          checked={selectedCustomers.some((c) => c.id === customer.id)}
+                          checked={selectedCustomers.some(
+                            (c) => c.id === customer.id
+                          )}
                           onChange={() => handleCustomerSelect(customer)}
                           className='w-4 h-4 mr-2'
                         />
-                        <label htmlFor={`customer-${customer.id}`} className='cursor-pointer'>
+                        <label
+                          htmlFor={`customer-${customer.id}`}
+                          className='cursor-pointer'
+                        >
                           {customer.name} 손님
                         </label>
                       </div>
@@ -224,9 +240,15 @@ export default function NotificationHistory() {
           {/* 선택된 고객 태그 */}
           <div className='flex flex-wrap gap-2 mt-2'>
             {selectedCustomers.map(({ id, name }) => (
-              <div key={id} className='flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm'>
+              <div
+                key={id}
+                className='flex items-center bg-hanagold/40 rounded-full px-3 py-1 text-sm'
+              >
                 <span>{name} 손님</span>
-                <button onClick={() => handleRemoveTag(id)} className='ml-2 text-gray-500 hover:text-gray-700 focus:outline-none'>
+                <button
+                  onClick={() => handleRemoveTag(id)}
+                  className='ml-2 text-gray-500 hover:text-gray-700 focus:outline-none'
+                >
                   ×
                 </button>
               </div>
@@ -238,9 +260,13 @@ export default function NotificationHistory() {
         <div className='flex flex-col overflow-y-scroll px-4 flex-grow'>
           {notifications.length > 0 ? (
             notifications
-              .filter((notification) => customers.some((c) => c.id === notification.customerId)) // customer가 존재하는지 필터링
+              .filter((notification) =>
+                customers.some((c) => c.id === notification.customerId)
+              ) // customer가 존재하는지 필터링
               .map((notification: TNotificationProps) => {
-                const customer = customers.find((c) => c.id === notification.customerId);
+                const customer = customers.find(
+                  (c) => c.id === notification.customerId
+                );
 
                 return (
                   <IteratingListItem
@@ -255,7 +281,9 @@ export default function NotificationHistory() {
               })
           ) : (
             <div className='flex items-center justify-center h-full'>
-              <p className='text-center text-hanaindigo text-xl'>검색어에 해당하는 쪽지가 없습니다.</p>
+              <p className='text-center text-hanaindigo text-xl'>
+                검색어에 해당하는 쪽지가 없습니다.
+              </p>
             </div>
           )}
         </div>

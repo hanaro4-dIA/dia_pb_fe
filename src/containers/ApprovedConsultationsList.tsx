@@ -1,38 +1,46 @@
 import { useParams } from 'react-router-dom';
-import { useCallback, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ApprovedConsultationItem } from '../components/ApprovedConsultationItem';
 import Section from '../components/Section';
-import { useConsultationContext } from '../hooks/consultationsContext';
+import useFetch from '../hooks/useFetch';
+import { TConsultationProps } from '../types/dataTypes';
 
-export default function ApprovedConsultationsList() {
+export default function ApprovedConsultationsList({
+  customerName,
+}: {
+  customerName?: string;
+}) {
   const { id } = useParams();
-  const { approvedConsultations, fetchApprovedConsultations } =
-    useConsultationContext();
+  const { data, error } = useFetch<TConsultationProps[]>(
+    `pb/reserves?status=true&type=upcoming`
+  );
+  console.log('예정된 상담요청 조회 중 발생한 에러: ', error);
+
+  const [approvedConsultations, setApprovedConsultations] = useState<
+    TConsultationProps[] | []
+  >([]);
 
   useEffect(() => {
-    fetchApprovedConsultations();
-  }, []);
+    setApprovedConsultations(data || []);
+  }, [data]);
 
-  const memoizedFetchApprovedConsultations = useCallback(() => {
-    fetchApprovedConsultations();
-  }, []);
-
-  useEffect(() => {
-    memoizedFetchApprovedConsultations();
-  }, [memoizedFetchApprovedConsultations, approvedConsultations]);
-
+  // 손님 한 명에 대한 정보 조회하기 위함
   const filteredConsultations = id
     ? approvedConsultations.filter(
-        (consultation) => consultation.id !== Number(id)
+        (consultation) => consultation.customerName === customerName
       )
     : approvedConsultations;
 
   return (
     <Section
-      title={id ? `${id} 손님의 예정된 상담 일정` : '예정된 상담 일정'}
+      title={
+        customerName
+          ? `${customerName} 손님의 예정된 상담 일정`
+          : '예정된 상담 일정'
+      }
       layoutClassName='h-full'
     >
-      <div className='w-full p-4 '>
+      <div className='w-full p-4'>
         {filteredConsultations.length > 0 ? (
           filteredConsultations.map((consultationData) => (
             <ApprovedConsultationItem

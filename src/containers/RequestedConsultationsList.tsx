@@ -1,20 +1,29 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import clearAllRequests from '../assets/clearAllRequests.gif';
 import { RequestedConsultationItem } from '../components/RequestedConsultationItem';
 import Section from '../components/Section';
-import { useConsultationContext } from '../hooks/consultationsContext';
+import useFetch from '../hooks/useFetch';
+import { TConsultationProps } from '../types/dataTypes';
 
 export default function RequestedConsultationsList() {
-  const { requestedConsultations, fetchRequestedConsultations } =
-    useConsultationContext();
+  const { data, error } = useFetch<TConsultationProps[]>(
+    `pb/reserves?status=false`
+  );
 
-  const memoizedFetchRequestedConsultations = useCallback(() => {
-    fetchRequestedConsultations();
-  }, []);
+  const [requestedConsultations, setRequestedConsultations] = useState<
+    TConsultationProps[] | []
+  >([]);
 
   useEffect(() => {
-    memoizedFetchRequestedConsultations();
-  }, [, requestedConsultations]);
+    setRequestedConsultations(data || []);
+  }, [data]);
+
+  const handleApprove = (id: string) => {
+    setRequestedConsultations((prev) =>
+      prev.filter((consultation) => consultation.id !== Number(id))
+    );
+  };
+  console.error('들어온 상담 요청 조회 중 발생한 에러: ', error);
 
   return (
     <Section title='들어온 상담 요청' layoutClassName='h-full'>
@@ -24,6 +33,7 @@ export default function RequestedConsultationsList() {
             <RequestedConsultationItem
               key={consultation.id}
               {...consultation}
+              onApprove={handleApprove} // Pass handleApprove here
             />
           ))}
         </div>
