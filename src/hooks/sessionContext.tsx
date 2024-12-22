@@ -15,11 +15,13 @@ export const SessionProvider = ({
 }) => {
   const handleLogoutEvent = async () => {
     try {
-      const response = await fetch('pb/logout', {
+      const baseUrl = import.meta.env.VITE_API_KEY;
+      const response = await fetch(`${baseUrl}logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -28,6 +30,7 @@ export const SessionProvider = ({
 
       localStorage.removeItem('loginPB');
       alert('오늘 하루도 고생하셨습니다!😊🎉');
+      window.location.reload();
     } catch (error) {
       console.error(error);
       alert('로그아웃 중 오류가 발생했습니다.');
