@@ -10,7 +10,7 @@ export type TJournalsProps = {
   consultDate: string;
   contents: string;
   categoryName: string;
-  journalProduct: TJournalProduct[];
+  journalProduct?: TJournalProduct[];
 };
 
 // 추천 상품 타입

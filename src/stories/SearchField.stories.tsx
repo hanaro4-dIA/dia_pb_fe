@@ -21,3 +21,10 @@ export const Default: Story = {
     value: '',
   },
 };
+
+export const deleteInput: Story = {
+  args: {
+    placeholder: '검색어를 입력하세요.',
+    value: '우측 삭제 버튼 클릭 시 검색어 한번에 삭제',
+  },
+};
