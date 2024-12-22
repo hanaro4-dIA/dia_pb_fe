@@ -74,7 +74,7 @@ export default function WriteNotification() {
 
   // 새로운 쪽지 전송하기 POST
   const { fetchData } = useFetch<{ message: string }>(
-    'pb/notifications/send',
+    'notifications/send',
     'POST'
   );
 

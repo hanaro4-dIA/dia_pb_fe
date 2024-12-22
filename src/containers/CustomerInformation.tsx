@@ -14,7 +14,7 @@ export default function CustomerInformation({
   const [memoData, setMemoData] = useState<string>(customerData?.memo || '');
 
   const { fetchData } = useFetch<string>(
-    `pb/customers/${customerData?.id}/memo`,
+    `customers/${customerData?.id}/memo`,
     'POST'
   );
 

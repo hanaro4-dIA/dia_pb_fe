@@ -13,7 +13,7 @@ export default function ConsultingPage() {
   const { customerId } = location.state || {};
 
   const { data, error } = useFetch<TCustomerProps>(
-    `pb/customers/list/${customerId}`
+    `customers/list/${customerId}`
   );
 
   const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
@@ -49,7 +49,7 @@ export default function ConsultingPage() {
 
           {/* 상담일지 리스트 */}
           <div className='flex-grow overflow-y-auto'>
-            <ConsultationJournalList />
+            <ConsultationJournalList customerId={customerData?.id || 0} />
           </div>
         </div>
 

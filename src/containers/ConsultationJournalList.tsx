@@ -9,16 +9,17 @@ import useFetch from '../hooks/useFetch';
 import ReadJournalWindow from '../pages/ReadJournalWindow';
 import { type TJournalsProps } from '../types/dataTypes';
 
-export default function ConsultationJournalList() {
-  // customerId
-  const { id } = useParams();
-
+export default function ConsultationJournalList({
+  customerId,
+}: {
+  customerId: number;
+}) {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   // PB의 모든 상담일지 조회
   const { data: consultationData, error: consultationError } =
-    useFetch<TJournalsProps[]>('pb/journals');
+    useFetch<TJournalsProps[]>('journals');
   console.error('상담일지 리스트 조회 중 발생한 에러: ', consultationError);
 
   // 한 손님의 모든 상담일지 조회
@@ -29,11 +30,11 @@ export default function ConsultationJournalList() {
   useEffect(() => {
     if (consultationData) {
       const customerJournalsList = consultationData.filter(
-        (consultation) => consultation.customerId === Number(id)
+        (consultation) => consultation.customerId === customerId
       );
       setCustomerJournalsListData(customerJournalsList);
     }
-  }, [consultationData, id]);
+  }, [consultationData, customerId]);
 
   // 한 손님의 모든 상담일지 중 검색
   const filteredJournalsList = customerJournalsListData.filter(

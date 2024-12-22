@@ -20,7 +20,7 @@ export default function ReadJournalWindow({
   const {
     data: scriptData = { scriptResponseDTOList: [] },
     error: scriptError,
-  } = useFetch<TScriptResponseProps>(`pb/journals/${id}/scripts`);
+  } = useFetch<TScriptResponseProps>(`journals/${id}/scripts`);
   console.error('스크립트 데이터 조회 중 발생한 에러: ', scriptError);
 
   return (

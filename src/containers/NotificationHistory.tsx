@@ -18,12 +18,12 @@ export default function NotificationHistory() {
   // 쪽지 연결
   const [notifications, setNotifications] = useState<TNotificationProps[]>([]);
   const { data: notificationsData, error: notificationsError } =
-    useFetch<TNotificationProps[]>('pb/notifications');
+    useFetch<TNotificationProps[]>('notifications');
 
   // 고객 연결
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const { data: customersData, error: customersError } =
-    useFetch<TCustomerProps[]>(`pb/customers/list`);
+    useFetch<TCustomerProps[]>(`customers/list`);
 
   useEffect(() => {
     if (notificationsData) {
@@ -102,8 +102,8 @@ export default function NotificationHistory() {
   // 동적으로 생성된 URL
   const searchUrl =
     selectedIds.length > 0
-      ? `pb/notifications/search?${searchParams.toString()}`
-      : 'pb/notifications';
+      ? `notifications/search?${searchParams.toString()}`
+      : 'notifications';
 
   const { data: filteredNotifications, error: filteredNotificationsError } =
     useFetch<TNotificationProps[]>(searchUrl);
@@ -118,13 +118,11 @@ export default function NotificationHistory() {
   const openNewWindow = async (notificationId: number) => {
     try {
       const baseUrl = import.meta.env.VITE_API_KEY;
-      const url = `${baseUrl}/pb/notifications/${notificationId}`;
+      const url = `${baseUrl}notifications/${notificationId}`;
 
-      const response = await fetch(url,
-      {
-        credentials: 'include',  
-      }
-      );
+      const response = await fetch(url, {
+        credentials: 'include',
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

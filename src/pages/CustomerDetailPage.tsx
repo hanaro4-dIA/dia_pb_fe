@@ -9,7 +9,7 @@ import { type TCustomerProps } from '../types/dataTypes';
 
 export default function CustomerDetailPage() {
   const { id } = useParams();
-  const { data, error } = useFetch<TCustomerProps>(`pb/customers/list/${id}`);
+  const { data, error } = useFetch<TCustomerProps>(`customers/list/${id}`);
   const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
 
   useEffect(() => {

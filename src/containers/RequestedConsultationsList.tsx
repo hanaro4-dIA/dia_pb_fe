@@ -7,7 +7,7 @@ import { TConsultationProps } from '../types/dataTypes';
 
 export default function RequestedConsultationsList() {
   const { data, error } = useFetch<TConsultationProps[]>(
-    `pb/reserves?status=false`
+    `reserves?status=false`
   );
 
   const [requestedConsultations, setRequestedConsultations] = useState<

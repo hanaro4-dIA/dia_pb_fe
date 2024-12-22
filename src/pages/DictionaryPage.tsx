@@ -13,7 +13,7 @@ export default function DictionaryPage() {
     TKeywordProps[] | null
   >([]);
 
-  const { data } = useFetch<TKeywordProps[]>('pb/keywords');
+  const { data } = useFetch<TKeywordProps[]>('keywords');
 
   useEffect(() => {
     setKeyWordsListData(data);

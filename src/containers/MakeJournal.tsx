@@ -16,7 +16,7 @@ export default function MakeJournal() {
   const pbName = JSON.parse(localStorage.getItem('loginPB') || '{}').name;
 
   const { data, error } = useFetch<TConsultationProps[]>(
-    `pb/reserves?status=true&type=upcoming`
+    `reserves?status=true&type=upcoming`
   );
 
   const [categoryId, setCategoryId] = useState<number>(1);
