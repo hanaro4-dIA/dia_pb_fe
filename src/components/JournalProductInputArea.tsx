@@ -26,7 +26,7 @@ export default function JournalProductInputArea() {
     setInputValue('');
     setIsListVisible(false);
   };
-  console.log('recommendedProductsKeys: ', recommendedProductsKeys);
+  // console.log('recommendedProductsKeys: ', recommendedProductsKeys);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
@@ -94,11 +94,6 @@ export default function JournalProductInputArea() {
             </li>
           ))}
         </ul>
-      )}
-
-      {/* 에러 메시지 */}
-      {debouncedSearchTerm && error && (
-        <div className='text-red-500 text-sm mt-2'>검색결과가 없습니다.</div>
       )}
 
       {/* 선택된 상품 리스트 */}

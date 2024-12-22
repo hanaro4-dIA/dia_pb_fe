@@ -18,9 +18,6 @@ export default function MakeJournal() {
   const { data, error } = useFetch<TConsultationProps[]>(
     `pb/reserves?status=true&type=upcoming`
   );
-  if (error) {
-    console.error(error);
-  }
 
   const [categoryId, setCategoryId] = useState<number>(1);
   const [consultingTitle, setConsultingTitle] = useState<string | undefined>(
