@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Button } from '../components/ui/button';
 import ConsultationJournalList from '../containers/ConsultationJournalList';
@@ -11,18 +11,17 @@ import { type TCustomerProps } from '../types/dataTypes';
 export default function ConsultingPage() {
   const location = useLocation();
   const { customerName, customerId } = location.state || {};
-  console.log('customerName: ', customerName);
 
   const { data, error } = useFetch<TCustomerProps>(
     `pb/customers/list/${customerId}`
   );
+
   const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
 
   useEffect(() => {
     if (data) setCustomerData(data);
   }, [data]);
   console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
-  console.log('customerData: ', customerData);
 
   return (
     <>
