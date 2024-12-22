@@ -63,7 +63,7 @@ export default function CustomerInformation({
         <div className='bg-white rounded-lg p-2 mb-2 shadow-lg border border-gray-200'>
           <div className='flex items-center px-3 justify-between text-[1rem]'>
             <span className='text-sm'>상담 횟수</span>
-            <span className='text-sm'>{customerData?.count}</span>
+            <span className='text-sm'>{customerData?.count} 회</span>
           </div>
         </div>
 

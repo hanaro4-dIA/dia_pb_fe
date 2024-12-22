@@ -26,7 +26,7 @@ export const SearchField = ({ placeholder, value, onChange }: TSearchField) => {
         {value ? (
           <TiDeleteOutline
             onClick={deleteInputAllEvent}
-            className='absolute right-4 top-1/2 transform -translate-y-1/2 text-hanaindigo'
+            className='absolute right-4 top-1/2 transform -translate-y-1/2 text-hanaindigo cursor-pointer'
           />
         ) : (
           <IoMdSearch className='absolute right-4 top-1/2 transform -translate-y-1/2 text-hanaindigo' />
