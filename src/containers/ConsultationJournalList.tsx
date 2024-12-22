@@ -39,7 +39,8 @@ export default function ConsultationJournalList({
   // 한 손님의 모든 상담일지 중 검색
   const filteredJournalsList = customerJournalsListData.filter(
     ({ consultTitle }) =>
-      consultTitle && consultTitle.includes(debouncedSearchTerm)
+      consultTitle &&
+      consultTitle.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
 
   // 상담일지를 새 창에서 자세히 보기

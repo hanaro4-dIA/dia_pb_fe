@@ -27,7 +27,9 @@ export default function ApprovedConsultationsList({
   // 손님 한 명에 대한 정보 조회하기 위함
   const filteredConsultations = id
     ? approvedConsultations.filter(
-        (consultation) => consultation.customerName === customerName
+        (consultation) =>
+          consultation.customerName.toLowerCase() ===
+          customerName?.toLowerCase()
       )
     : approvedConsultations;
 
