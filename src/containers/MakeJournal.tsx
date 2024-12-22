@@ -1,40 +1,51 @@
-import { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
-import RequestContentPage from '../pages/RequestContentPage';
-import { useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
+import RequestContentPage from '../pages/RequestContentPage';
 import { type TConsultationProps } from '../types/dataTypes';
+import changeDateFormat from '../utils/changeDateFormat-util';
+
 const APIKEY = import.meta.env.VITE_API_KEY;
 
 export default function MakeJournal() {
   const { id } = useParams();
+  const pbName = JSON.parse(localStorage.getItem('loginPB') || '{}').name;
 
-  const { data, error } = useFetch<TConsultationProps[]>(`pb/reserves?status=true&type=upcoming`);
-  if (error){
+  const { data, error } = useFetch<TConsultationProps[]>(
+    `pb/reserves?status=true&type=upcoming`
+  );
+  if (error) {
     console.error(error);
   }
 
   const [categoryId, setCategoryId] = useState<number>(1);
-  const [consultingTitle, setConsultingTitle] = useState<string | undefined>(undefined);
+  const [consultingTitle, setConsultingTitle] = useState<string | undefined>(
+    undefined
+  );
   const [journalContents, setJournalContents] = useState<string>();
-  const [recommendedProductsKeys, setRecommendedProductsKeys] = useState<number[]>([]);
+  const [recommendedProductsKeys, setRecommendedProductsKeys] = useState<
+    number[]
+  >([]);
 
   const [day, setDay] = useState<string>();
   const [time, setTime] = useState<string>();
-  
+
   useEffect(() => {
     if (data) {
-      const selectedConsultation = data.find((consultation) => consultation.id === Number(id));
+      const selectedConsultation = data.find(
+        (consultation) => consultation.id === Number(id)
+      );
       if (selectedConsultation) {
         setConsultingTitle(selectedConsultation.title);
         setCategoryId(selectedConsultation.categoryId);
-        setDay(selectedConsultation.hopeDate);
-        setTime(selectedConsultation.hopeTime?.slice(0, -3));
+        setDay(changeDateFormat(selectedConsultation.hopeDate));
+        setTime(selectedConsultation.hopeTime);
       }
     }
-  }, [data, id]); 
+  }, [data, id]);
 
   const openNewWindow = (id: string) => {
     const newWindow = window.open('', '_blank', 'width=800, height=600');
@@ -51,7 +62,7 @@ export default function MakeJournal() {
           }
         })
         .join('');
-      
+
       newWindow.document.write(`
         <html lang="en">
         <head>
@@ -66,7 +77,7 @@ export default function MakeJournal() {
         </html>
       `);
       newWindow.document.close();
-      
+
       const rootElement = newWindow.document.getElementById('dictionary-root');
       if (rootElement) {
         const root = createRoot(rootElement);
@@ -77,6 +88,7 @@ export default function MakeJournal() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const requestBody = {
       consultingId: id,
       categoryId,
@@ -96,7 +108,7 @@ export default function MakeJournal() {
 
       if (response.ok) {
         alert('상담 일지가 전송되었습니다.');
-      } 
+      }
     } catch (error) {
       console.error(error);
     }
@@ -118,12 +130,14 @@ export default function MakeJournal() {
                 maxLength={50}
                 className='text-sm flex-grow focus:outline-none'
               />
-              <button
-                onClick={() => openNewWindow(id!)}
-                className='border border-hanaindigo px-2 py-1 rounded text-xs'
-              >
-                자세히보기
-              </button>
+              {categoryId !== 1 && (
+                <button
+                  onClick={() => openNewWindow(id!)}
+                  className='border border-hanaindigo px-2 py-1 rounded text-xs'
+                >
+                  자세히보기
+                </button>
+              )}
             </div>
 
             <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
@@ -143,22 +157,21 @@ export default function MakeJournal() {
                   <option value={5}>라이프</option>
                 </select>
               </div>
-              <div className='flex items-center space-x-3 w-1/3'>
+              <div className='flex justify-center items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[담당PB]</label>
                 <div
-                  className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
+                  className='text-sm px-2 focus:outline-none rounded-xl'
                   style={{ fontFamily: 'noto-bold, sans-serif' }}
                 >
-                  {PB 이름} PB
+                  {pbName} PB
                 </div>
               </div>
-              <div className='flex items-center space-x-3 w-1/3'>
+              <div className='flex justify-center items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[상담일시]</label>
                 <div
                   className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                   style={{ fontFamily: 'noto-bold, sans-serif' }}
                 >
-                  // changeDateFormat 함수 감쌀 것
                   {day} {time}
                 </div>
               </div>
@@ -177,9 +190,7 @@ export default function MakeJournal() {
             </div>
             <div className='h-2/5'>
               <div className='text-sm mb-3'>[PB의 추천 상품]</div>
-              <textarea
-                className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver'
-              />
+              <textarea className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver' />
             </div>
           </div>
         </div>
@@ -192,8 +203,11 @@ export default function MakeJournal() {
             </Button>
           </div>
           <div>
-            <form id="journalForm" onSubmit={handleSubmit}>
-              <Button type="submit" className='bg-hanaindigo w-20 px-2 rounded-xl'>
+            <form id='journalForm' onSubmit={handleSubmit}>
+              <Button
+                type='submit'
+                className='bg-hanaindigo w-20 px-2 rounded-xl'
+              >
                 전송
               </Button>
             </form>
