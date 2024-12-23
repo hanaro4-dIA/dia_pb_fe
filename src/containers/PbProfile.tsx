@@ -4,8 +4,11 @@ import Section from '../components/Section';
 import useFetch from '../hooks/useFetch';
 import { type TPbDataProps } from '../types/dataTypes';
 
+const APIKEY = import.meta.env.VITE_API_KEY;
+
 export default function PbProfile() {
-  const { data, error } = useFetch<TPbDataProps>('profile');
+  const { data, error, fetchData } = useFetch<TPbDataProps>('profile');
+
   const [pbData, setPbData] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);
@@ -19,16 +22,16 @@ export default function PbProfile() {
   }, [data]);
 
   useEffect(() => {
+    if (error) {
+      console.error('PB 프로필 조회 중 발생한 에러: ', error);
+    }
+  }, [error]);
+
+  useEffect(() => {
     if (pbData) {
       localStorage.setItem('loginPB', JSON.stringify(pbData));
     }
   }, [pbData]);
-
-  useEffect(() => {
-    if (error) {
-      console.error('PB 프로필 조회 중 발생한 에러: ', error);
-    }
-  });
 
   if (!pbData) {
     return <div>프로필 데이터를 불러오는 중입니다...</div>;
@@ -76,12 +79,33 @@ export default function PbProfile() {
     );
   };
 
-  const handleTagSubmit = () => {
-    if (pbData?.hashtagList.some((tag) => tag.trim() === '')) {
-      alert('tag가 비어있습니다!');
-      return;
+  const handleTagSubmit = async () => {
+    if (!pbData) return;
+
+    const { introduce, hashtagList } = pbData;
+
+    const formData = new FormData();
+    if (fileInput.current?.files?.[0]) {
+      formData.append('file', fileInput.current.files[0]);
     }
-    setIsEditing(false);
+
+    formData.append('introduce', introduce || '');
+
+    hashtagList.forEach(tag => formData.append('hashtags', tag));
+
+    try {
+      await fetch(`${APIKEY}profile`, {
+        method: 'PUT',
+        body: formData,
+        credentials: 'include',
+      });
+      
+      // 리팩토링 PUT에 대한 커스텀훅을 써야함(위에서 GET으로 이미 받는데 어떻게 해야하나 고민..)
+      setIsEditing(false);
+    }
+    catch (error) {
+      console.error(error);
+    }
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +119,7 @@ export default function PbProfile() {
     };
     reader.readAsDataURL(file);
   };
-
+  
   return (
     <Section
       title='내 프로필'

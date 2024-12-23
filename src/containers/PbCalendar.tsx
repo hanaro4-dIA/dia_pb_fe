@@ -26,6 +26,7 @@ export default function PbCalendar() {
   const { data, error } = useFetch<TConsultationProps[]>(
     `reserves?status=true&type=upcoming`
   );
+  
   useEffect(() => {
     if (error) {
       console.error('승인된 상담 일정 조회 중 발생한 에러: ', error);

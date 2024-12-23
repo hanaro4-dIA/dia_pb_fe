@@ -11,6 +11,7 @@ import { type TCustomerProps } from '../types/dataTypes';
 export default function ConsultingPage() {
   const location = useLocation();
   const { customerId } = location.state || {};
+  const { consultingId } = location.state || {};
 
   const { data, error } = useFetch<TCustomerProps>(
     `customers/list/${customerId}`
@@ -60,7 +61,7 @@ export default function ConsultingPage() {
 
         {/* 두번째 열: STT 자동 작성란 */}
         <div className='flex flex-col w-1/4 h-full'>
-          <ConsultationScript />
+          <ConsultationScript consultingId={consultingId} />
         </div>
 
         {/* 세번째 열: 상담일지 작성하기 */}

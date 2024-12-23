@@ -10,7 +10,10 @@ export default function RequestContentPage({ id }: { id: string }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${APIKEY}journals/reserves/${id}/content`
+          `${APIKEY}journals/reserves/${id}/content`,
+          {
+            credentials: 'include',
+          }
         );
         const data = await response.text();
         setContent(data);
@@ -18,7 +21,6 @@ export default function RequestContentPage({ id }: { id: string }) {
         console.error('상담요청 내용 자세히 보기 중 발생한 에러: ', err);
       }
     };
-
     fetchData();
   }, [id]);
 
