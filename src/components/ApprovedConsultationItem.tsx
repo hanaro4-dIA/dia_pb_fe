@@ -47,18 +47,20 @@ export const ApprovedConsultationItem = ({
           </span>
         </div>
 
-        <span className='flex justify-center items-center gap-1'>
-          {categoryId === 1 && <MdOutlineTimer className='text-hanared' />}{' '}
-          {categoryId === 1 && (
-            <Timer hope_date={hopeDate} hope_time={hopeTime} />
-          )}{' '}
-        </span>
-        <button
-          className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
-          onClick={() => moveToConsultingPageEvent(id, customerId)}
-        >
-          상담하기
-        </button>
+        <div className='flex justify-between w-[40%]'>
+          <span className='flex justify-center items-center'>
+            {categoryId === 1 && <MdOutlineTimer className='text-hanared' />}
+            {categoryId === 1 && (
+              <Timer hopeDate={hopeDate} hopeTime={hopeTime} />
+            )}
+          </span>
+          <button
+            className='border border-hanaindigo rounded-md px-2 py-1 text-[0.8rem] text-white bg-hanadeepgreen'
+            onClick={() => moveToConsultingPageEvent(id, customerId)}
+          >
+            상담하기
+          </button>
+        </div>
       </div>
     </div>
   );

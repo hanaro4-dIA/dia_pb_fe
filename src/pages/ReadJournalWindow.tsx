@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import useFetch from '../hooks/useFetch';
 import {
   ReadJournalWindowProps,
@@ -21,7 +22,12 @@ export default function ReadJournalWindow({
     data: scriptData = { scriptResponseDTOList: [] },
     error: scriptError,
   } = useFetch<TScriptResponseProps>(`journals/${id}/scripts`);
-  console.error('스크립트 데이터 조회 중 발생한 에러: ', scriptError);
+
+  useEffect(() => {
+    if (scriptError) {
+      console.error('스크립트 데이터 조회 중 발생한 에러: ', scriptError);
+    }
+  }, [scriptError]);
 
   return (
     <div className='flex items-start justify-center w-full h-full space-x-4 overflow-y-auto'>

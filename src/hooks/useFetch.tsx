@@ -10,7 +10,7 @@ type TUseFetchResult<T> = {
 };
 
 export default function useFetch<T>(
-  url: string,
+  url: string | null,
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' = 'GET',
   initialBody?: Record<string, any>
 ): TUseFetchResult<T> {
@@ -18,7 +18,6 @@ export default function useFetch<T>(
   const [error, setError] = useState<Error | null>(null);
   const APIKEY = import.meta.env.VITE_API_KEY;
 
-  // -- (추가) URL에 쿼리 파라미터를 추가하는 함수
   const appendQueryParams = (
     url: string,
     queryParams?: Record<string, any>
@@ -27,22 +26,19 @@ export default function useFetch<T>(
     const queryString = new URLSearchParams(queryParams).toString();
     return `${url}?${queryString}`;
   };
-  // --
 
-  // -- (추가) queryParams 추가
   const fetchData = async (
     overrideBody?: Record<string, any>,
     queryParams?: Record<string, any>
   ) => {
-    // --
+    if (!url) return;
+
     try {
       const fetchHeaders: Record<string, string> = {
         'Content-Type': 'application/json',
       };
 
-      // -- (추가) 쿼리 파라미터가 있으면 URL에 추가
       const fullUrl = appendQueryParams(`${APIKEY}${url}`, queryParams);
-      // --
       const response = await fetch(fullUrl, {
         method,
         headers: fetchHeaders,
@@ -55,7 +51,7 @@ export default function useFetch<T>(
 
       // 302 리디렉션 처리
       if (response.status === 302) {
-        throw new Error('Redirect error! The resource has moved.');
+        throw new Error('302: Redirect error');
       }
 
       if (!response.ok) {
@@ -70,9 +66,10 @@ export default function useFetch<T>(
       throw err;
     }
   };
+  if (!url) return { data, error, fetchData };
 
   useEffect(() => {
-    if (method === 'GET') {
+    if (method === 'GET' && url) {
       fetchData();
     }
   }, [url, method, initialBody]);

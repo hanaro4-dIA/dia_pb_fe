@@ -15,7 +15,12 @@ export default function CustomerDetailPage() {
   useEffect(() => {
     if (data) setCustomerData(data);
   }, [data]);
-  console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
+
+  useEffect(() => {
+    if (error) {
+      console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
+    }
+  }, [error]);
 
   return (
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>

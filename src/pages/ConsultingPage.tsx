@@ -22,7 +22,12 @@ export default function ConsultingPage() {
   useEffect(() => {
     if (data) setCustomerData(data);
   }, [data]);
-  console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
+
+  useEffect(() => {
+    if (error) {
+      console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
+    }
+  }, [error]);
 
   return (
     <>

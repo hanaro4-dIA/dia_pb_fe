@@ -30,14 +30,24 @@ export default function NotificationHistory() {
       setNotifications(notificationsData);
     }
   }, [notificationsData]);
-  console.error('쪽지 전체 목록 조회 중 발생한 에러: ', notificationsError);
+
+  useEffect(() => {
+    if (notificationsError) {
+      console.error('쪽지 전체 목록 조회 중 발생한 에러: ', notificationsError);
+    }
+  }, [notificationsError]);
 
   useEffect(() => {
     if (customersData) {
       setCustomers(customersData);
     }
   }, [customersData]);
-  console.error('손님 전체 목록 조회 중 발생한 에러: ', customersError);
+
+  useEffect(() => {
+    if (customersError) {
+      console.error('손님 전체 목록 조회 중 발생한 에러: ', customersError);
+    }
+  }, [customersError]);
 
   // 체크박스 필터링용
   const filteredCustomers = customers.filter((customer) =>
@@ -107,7 +117,12 @@ export default function NotificationHistory() {
 
   const { data: filteredNotifications, error: filteredNotificationsError } =
     useFetch<TNotificationProps[]>(searchUrl);
-  console.log(filteredNotificationsError);
+
+  useEffect(() => {
+    if (filteredNotificationsError) {
+      console.error(filteredNotificationsError);
+    }
+  }, [filteredNotificationsError]);
 
   useEffect(() => {
     if (filteredNotifications) {

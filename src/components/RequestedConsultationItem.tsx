@@ -1,19 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import { type TConsultationProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
 
 export const RequestedConsultationItem = ({
-  id,
-  customerName,
-  categoryId,
-  title,
-  hopeDate,
-  hopeTime,
-  reserveDate,
-  reserveTime,
+  consultation,
+  setApprove,
   onApprove,
-}: TConsultationProps & { onApprove: (id: string) => void }) => {
+}: {
+  consultation: TConsultationProps;
+  setApprove: (consultation: TConsultationProps) => void;
+} & {
+  onApprove: (id: string) => void;
+}) => {
+  const {
+    id,
+    customerName,
+    categoryId,
+    title,
+    hopeDate,
+    hopeTime,
+    reserveDate,
+    reserveTime,
+  } = consultation;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -23,11 +32,18 @@ export const RequestedConsultationItem = ({
   };
 
   const { error, fetchData } = useFetch(`reserves?id=${id}`, 'PUT');
-  console.log('들어온 상담요청 승인 중 발생한 에러: ', error);
+
+  useEffect(() => {
+    if (error) {
+      console.error('들어온 상담요청 승인 중 발생한 에러: ', error);
+    }
+  }, [error]);
 
   const approveRequestEvent = async () => {
     setLoading(true);
     setErrorMessage(null);
+
+    setApprove(consultation);
 
     try {
       await fetchData();
@@ -70,10 +86,10 @@ export const RequestedConsultationItem = ({
           </div>
           <button
             onClick={approveRequestEvent}
-            disabled={loading} // 로딩 중에는 버튼 비활성화
-            className={`w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg ${loading ? 'bg-gray-400' : 'bg-hanaindigo hover:bg-hanagold'}`}
+            disabled={loading}
+            className={`text-[0.8rem] px-3 py-2 text-white rounded-lg ${loading ? 'bg-gray-400' : 'bg-hanaindigo hover:bg-hanagold'}`}
           >
-            {loading ? '처리 중...' : '승인대기'}
+            승인대기
           </button>
         </div>
       </div>

@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
+import changeDateFormat from './changeDateFormat-util';
 
 type TimerProps = {
-  hope_date: string;
-  hope_time: string;
+  hopeDate: string;
+  hopeTime: string;
 };
 
 // (빠른 상담일 경우) hope_time ( === reserve_time) + 15분 까지 남은 시간
-const Timer = ({ hope_date, hope_time }: TimerProps) => {
+const Timer = ({ hopeDate, hopeTime }: TimerProps) => {
   const [remainingTime, setRemainingTime] = useState<string>('');
 
   useEffect(() => {
     const calculateRemainingTime = () => {
       const now = new Date();
-      const [year, month, day] = hope_date.split('.').map(Number);
-      const [hours, minutes] = hope_time.split(':').map(Number);
-      const targetTime = new Date(year, month - 1, day, hours, minutes);
+      const [year, month, day] = changeDateFormat(hopeDate)
+        .split('.')
+        .map(Number);
+      const [hours, minutes] = hopeTime.split(':').map(Number);
 
-      // hope_time에 15분 추가
+      const targetTime = new Date(year, month - 1, day, hours, minutes);
+      // hopeTime에 15분 추가
       targetTime.setMinutes(targetTime.getMinutes() + 15);
 
       const difference = targetTime.getTime() - now.getTime();
@@ -37,7 +40,7 @@ const Timer = ({ hope_date, hope_time }: TimerProps) => {
     const timer = setInterval(calculateRemainingTime, 1000);
 
     return () => clearInterval(timer);
-  }, [hope_date, hope_time]);
+  }, [hopeDate, hopeTime]);
 
   return (
     <span

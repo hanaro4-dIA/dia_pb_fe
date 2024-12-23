@@ -28,6 +28,14 @@ export default function MakeJournal() {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (error)
+      console.error(
+        '상담페이지에서 해당 상담 불러오기 중 발생한 에러: ',
+        error
+      );
+  }, [error]);
+
   const [categoryId, setCategoryId] = useState<number>(1);
   const [consultingTitle, setConsultingTitle] = useState<string | undefined>(
     undefined
@@ -203,6 +211,8 @@ export default function MakeJournal() {
       console.error('상담일지 임시 저장 오류', error);
     }
   };
+
+  console.log('recommendedProductsKeys: ', recommendedProductsKeys);
 
   return (
     <Section title='상담일지 작성하기' layoutClassName='h-full'>
