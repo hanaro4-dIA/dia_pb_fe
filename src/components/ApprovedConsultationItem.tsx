@@ -22,7 +22,7 @@ export const ApprovedConsultationItem = ({
 
   const moveToConsultingPageEvent = (id: number, customerId: number) => {
     navigate(`/consulting/${id}`, {
-      state: { customerId },
+      state: { customerId: customerId, consultingId: id },
     });
   };
 
