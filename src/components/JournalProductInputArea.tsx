@@ -2,12 +2,16 @@ import { useState, useRef, useEffect } from 'react';
 import useDebounce from '../hooks/useDebounce';
 import useFetch from '../hooks/useFetch';
 
+const APIKEY = import.meta.env.VITE_API_KEY;
+
 type TJournalProductInputAreaProps = {
+  recommendedProducts: { id: number; productName: string }[];
   recommendedProductsKeys: number[];
   setRecommendedProductsKeys: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
 export default function JournalProductInputArea({
+  recommendedProducts,
   recommendedProductsKeys,
   setRecommendedProductsKeys,
 }: TJournalProductInputAreaProps) {
@@ -24,7 +28,7 @@ export default function JournalProductInputArea({
   const [isListVisible, setIsListVisible] = useState(false);
 
   const handleProductSelect = (productName: string, productId: number) => {
-    if (!selectedProducts.includes(productName)) {
+    if (!recommendedProductsKeys.includes(productId)) {
       setSelectedProducts((prev) => [...prev, productName]);
       setRecommendedProductsKeys((prev) => [...prev, productId]);
     }
@@ -48,6 +52,13 @@ export default function JournalProductInputArea({
     }
   }, [debouncedSearchTerm]);
 
+  useEffect(() => {
+    if (recommendedProducts.length > 0) {
+      setSelectedProducts(recommendedProducts.map((p) => p.productName));
+      setRecommendedProductsKeys(recommendedProducts.map((p) => p.id));
+    }
+  }, [recommendedProducts, setRecommendedProductsKeys]);
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       listRef.current &&
@@ -65,6 +76,36 @@ export default function JournalProductInputArea({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchSelectedProductNames = async () => {
+      try {
+        const response = await fetch(
+          `${APIKEY}journals/products`,
+          {
+            method: 'GET',
+            credentials: 'include',
+          }
+        );
+
+        if (response.ok) {
+          const allProducts = await response.json();
+          const selected = recommendedProductsKeys.map((key) => {
+            const product = allProducts.find((p: { id: number }) => p.id === key);
+            return product ? product.productName : null;
+          });
+          setSelectedProducts(selected.filter(Boolean) as string[]);
+        }
+      } catch (error) {
+        console.error('상품 정보를 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    if (recommendedProductsKeys.length > 0) {
+      fetchSelectedProductNames();
+    }
+  }, [recommendedProductsKeys]);
+
 
   return (
     <div className='relative w-full'>

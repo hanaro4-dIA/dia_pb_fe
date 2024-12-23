@@ -21,18 +21,63 @@ export default function MakeJournal() {
     console.error(error);
   }
 
+  useEffect(() => {
+    if (error) {
+      console.error("예약된 상담요청 가져오기 오류", error);
+    }
+  }, [error]);
+
   const [categoryId, setCategoryId] = useState<number>(1);
   const [consultingTitle, setConsultingTitle] = useState<string | undefined>(
     undefined
   );
-  const [journalContents, setJournalContents] = useState<string>();
+  const [journalContents, setJournalContents] = useState<string>('');
   const [recommendedProductsKeys, setRecommendedProductsKeys] = useState<
     number[]
   >([]);
 
-  const [day, setDay] = useState<string>();
-  const [time, setTime] = useState<string>();
+  const [day, setDay] = useState<string>('');
+  const [time, setTime] = useState<string>('');
 
+  const [recommendedProducts, setRecommendedProducts] = useState<
+  { id: number; productName: string }[]>([]);
+
+  useEffect(() => {
+    const fetchTemporaryData = async () => {
+      try {
+        const response = await fetch(
+          `${APIKEY}journals/${id}/status?complete=false`,
+          {
+            method: 'GET',
+            credentials: 'include',
+          }
+        );
+
+        if (response.ok) {
+          const tempData = await response.json();
+
+          setJournalContents(tempData.journalContents || '');
+          const products = tempData.recommendedProduct?.map(
+            (product: { id: number; productName: string }) => ({
+              id: product.id,
+              productName: product.productName,
+            })
+          );
+          setRecommendedProducts(products || []);
+          setRecommendedProductsKeys(
+            products?.map((p: { id: number }) => p.id) || []
+          );
+        } else {
+          console.error('임시 저장된 데이터를 가져오는 데 실패했습니다.');
+        }
+      } catch (error) {
+        console.error('임시 저장된 데이터 요청 오류:', error);
+      }
+    };
+
+    fetchTemporaryData();
+  }, [id]);
+  
   useEffect(() => {
     if (data) {
       const selectedConsultation = data.find(
@@ -86,9 +131,51 @@ export default function MakeJournal() {
     }
   };
 
-  // 상담일지 전송
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const isConfirmed = window.confirm('상담 스크립트를 적용하셨습니까?');
+    if (!isConfirmed) {
+      alert('상담 스크립트를 적용해주세요.');
+      return;
+    }
+
+    const uniqueRecommendedProductsKeys = [...new Set(recommendedProductsKeys)];
+
+    const requestBody = {
+      consultingId: id,
+      categoryId,
+      consultingTitle,
+      journalContents,
+      recommendedProductsKeys: uniqueRecommendedProductsKeys,
+    };
+
+    try {
+      const response = await fetch(`${APIKEY}journals/transfer`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        alert('상담 일지가 전송되었습니다.');
+      }
+    } catch (error) {
+      console.error('상담일지 전송 오류', error);
+    }
+  };
+
+  const handleTemporarySave = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const isConfirmed = window.confirm('상담 스크립트를 적용하셨습니까?');
+    if (!isConfirmed) {
+      alert('상담 스크립트를 적용해주세요.');
+      return;
+    }
 
     const requestBody = {
       consultingId: id,
@@ -99,19 +186,20 @@ export default function MakeJournal() {
     };
 
     try {
-      const response = await fetch(`${APIKEY}/pb/journals/transfer`, {
+      const response = await fetch(`${APIKEY}journals`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(requestBody),
       });
 
       if (response.ok) {
-        alert('상담 일지가 전송되었습니다.');
+        alert('상담 일지가 임시 저장되었습니다.');
       }
     } catch (error) {
-      console.error(error);
+      console.error('상담일지 임시 저장 오류', error);
     }
   };
 
@@ -119,7 +207,6 @@ export default function MakeJournal() {
     <Section title='상담일지 작성하기' layoutClassName='h-full'>
       <div className='p-3 h-full flex flex-col justify-between'>
         <div className='flex flex-col h-[90%] space-y-4'>
-          {/* 상담요청 내용 관련 데이터 */}
           <div className='mb-3'>
             <div className='w-full flex items-center space-x-3 border-b border-black py-1'>
               <label className='text-xs'>[상담 제목]</label>
@@ -140,7 +227,6 @@ export default function MakeJournal() {
                 </button>
               )}
             </div>
-
             <div className='flex justify-start items-center border-b border-black py-1 space-x-2'>
               <div className='flex items-center space-x-3 w-1/3'>
                 <label className='text-xs'>[카테고리]</label>
@@ -178,8 +264,6 @@ export default function MakeJournal() {
               </div>
             </div>
           </div>
-
-          {/* 작성란 */}
           <div className='flex flex-col space-y-10 h-full'>
             <div className='h-2/5 mb-4'>
               <div className='text-sm mb-3'>[PB의 기록]</div>
@@ -191,17 +275,22 @@ export default function MakeJournal() {
             </div>
             <div className='h-2/5'>
               <div className='text-sm mb-3'>[PB의 추천 상품]</div>
-              <textarea className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver' />
+              <JournalProductInputArea
+                recommendedProducts={recommendedProducts}
+                recommendedProductsKeys={recommendedProductsKeys}
+                setRecommendedProductsKeys={setRecommendedProductsKeys}
+              />
+              //<textarea className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver' />
             </div>
           </div>
         </div>
-
-        {/* 최하단 버튼 */}
         <div className='flex justify-end'>
           <div>
-            <Button className='bg-hanasilver w-20 mr-5 px-2 rounded-xl'>
-              임시저장
-            </Button>
+            <form id='temporarySaveForm' onSubmit={handleTemporarySave}>
+              <Button className='bg-hanasilver w-20 mr-5 px-2 rounded-xl'>
+                임시저장
+              </Button>
+            </form>
           </div>
           <div>
             <form id='journalForm' onSubmit={handleSubmit}>
