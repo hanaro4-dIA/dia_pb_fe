@@ -59,6 +59,7 @@ export default function useFetch<T>(
       }
 
       if (!response.ok) {
+        console.log('****>>', fullUrl, url, method);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -70,6 +71,7 @@ export default function useFetch<T>(
       throw err;
     }
   };
+  if (!url) return { data, error, fetchData };
 
   useEffect(() => {
     if (method === 'GET') {

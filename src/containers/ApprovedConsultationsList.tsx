@@ -6,13 +6,15 @@ import useFetch from '../hooks/useFetch';
 import { type TConsultationProps } from '../types/dataTypes';
 
 export default function ApprovedConsultationsList({
+  isRefetch,
   customerName,
 }: {
+  isRefetch?: boolean;
   customerName?: string;
 }) {
   const { id } = useParams();
   const { data, error } = useFetch<TConsultationProps[]>(
-    `reserves?status=true&type=upcoming`
+    `reserves?status=true&type=upcoming&refetch=${isRefetch}`
   );
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function ApprovedConsultationsList({
 
   useEffect(() => {
     setApprovedConsultations(data || []);
-  }, [data]);
+  }, [data, isRefetch]);
 
   // 손님 한 명에 대한 정보 조회하기 위함
   const filteredConsultations = id

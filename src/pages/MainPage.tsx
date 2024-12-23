@@ -1,3 +1,4 @@
+import { useReducer } from 'react';
 import Section from '../components/Section';
 import ApprovedConsultationsList from '../containers/ApprovedConsultationsList';
 import CustomerList from '../containers/CustomerList';
@@ -6,6 +7,7 @@ import PbProfile from '../containers/PbProfile';
 import RequestedConsultationsList from '../containers/RequestedConsultationsList';
 
 export default function MainPage() {
+  const [isRefetch, toggleRefetch] = useReducer((pre) => !pre, false);
   return (
     <div className='flex flex-row justify-between w-full h-screen p-5 gap-5'>
       {/* 첫 번째 열 */}
@@ -15,7 +17,7 @@ export default function MainPage() {
         </div>
         {/* 들어온 상담 요청 */}
         <div className='flex flex-col h-full flex-grow overflow-y-auto'>
-          <RequestedConsultationsList />
+          <RequestedConsultationsList toggleRefetch={toggleRefetch} />
         </div>
       </div>
 
@@ -28,7 +30,7 @@ export default function MainPage() {
 
         {/* 예정된 상담 일정 */}
         <div className='flex flex-col h-full flex-grow overflow-y-auto'>
-          <ApprovedConsultationsList />
+          <ApprovedConsultationsList isRefetch={isRefetch} />
         </div>
       </div>
 

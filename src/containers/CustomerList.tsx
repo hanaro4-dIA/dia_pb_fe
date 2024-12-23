@@ -19,7 +19,7 @@ export default function CustomerList() {
     useFetch<TCustomerProps[]>(`customers/list`);
 
   const { data: searchData, error: searchError } = useFetch<TCustomerProps[]>(
-    debouncedSearchTerm && `pb/customers/search?name=${debouncedSearchTerm}`
+    debouncedSearchTerm && `customers/search?name=${debouncedSearchTerm}`
   );
 
   const [customersList, setCustomersList] = useState<TCustomerProps[] | []>([]);
@@ -56,6 +56,7 @@ export default function CustomerList() {
       });
     }
   }
+
   if (customersList.length === 0) {
     return <div>손님 목록을 불러오는 중입니다...</div>;
   }

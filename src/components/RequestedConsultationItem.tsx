@@ -4,16 +4,25 @@ import { type TConsultationProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
 
 export const RequestedConsultationItem = ({
-  id,
-  customerName,
-  categoryId,
-  title,
-  hopeDate,
-  hopeTime,
-  reserveDate,
-  reserveTime,
+  consultation,
+  setApprove,
   onApprove,
-}: TConsultationProps & { onApprove: (id: string) => void }) => {
+}: {
+  consultation: TConsultationProps;
+  setApprove: (consultation: TConsultationProps) => void;
+} & {
+  onApprove: (id: string) => void;
+}) => {
+  const {
+    id,
+    customerName,
+    categoryId,
+    title,
+    hopeDate,
+    hopeTime,
+    reserveDate,
+    reserveTime,
+  } = consultation;
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -33,6 +42,8 @@ export const RequestedConsultationItem = ({
   const approveRequestEvent = async () => {
     setLoading(true);
     setErrorMessage(null);
+
+    setApprove(consultation);
 
     try {
       await fetchData();
