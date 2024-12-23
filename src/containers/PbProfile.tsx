@@ -21,14 +21,16 @@ export default function PbProfile() {
   }, [data]);
 
   useEffect(() => {
+    if (error) {
+      console.error('PB 프로필 조회 중 발생한 에러: ', error);
+    }
+  }, [error]);
+
+  useEffect(() => {
     if (pbData) {
       localStorage.setItem('loginPB', JSON.stringify(pbData));
     }
   }, [pbData]);
-
-  if (error) {
-    console.error('PB 프로필 조회 중 발생한 에러: ', error);
-  }
 
   if (!pbData) {
     return <div>프로필 데이터를 불러오는 중입니다...</div>;
