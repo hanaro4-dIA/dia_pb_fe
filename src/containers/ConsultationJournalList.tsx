@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client';
-import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { ConsultationJournalListItem } from '../components/ConsultationJournalListItem';
 import { SearchField } from '../components/SearchField';
@@ -20,7 +19,12 @@ export default function ConsultationJournalList({
   // PB의 모든 상담일지 조회
   const { data: consultationData, error: consultationError } =
     useFetch<TJournalsProps[]>('journals');
-  console.error('상담일지 리스트 조회 중 발생한 에러: ', consultationError);
+
+  useEffect(() => {
+    if (consultationError) {
+      console.error('손님 한 명 정보 조회 중 발생한 에러: ', consultationError);
+    }
+  }, [consultationError]);
 
   // 한 손님의 모든 상담일지 조회
   const [customerJournalsListData, setCustomerJournalsListData] = useState<

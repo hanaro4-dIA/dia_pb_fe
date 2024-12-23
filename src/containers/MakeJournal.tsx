@@ -19,6 +19,14 @@ export default function MakeJournal() {
     `reserves?status=true&type=upcoming`
   );
 
+  useEffect(() => {
+    if (error)
+      console.error(
+        '상담페이지에서 해당 상담 불러오기 중 발생한 에러: ',
+        error
+      );
+  }, [error]);
+
   const [categoryId, setCategoryId] = useState<number>(1);
   const [consultingTitle, setConsultingTitle] = useState<string | undefined>(
     undefined
@@ -113,6 +121,8 @@ export default function MakeJournal() {
     }
   };
 
+  console.log('recommendedProductsKeys: ', recommendedProductsKeys);
+
   return (
     <Section title='상담일지 작성하기' layoutClassName='h-full'>
       <div className='p-3 h-full flex flex-col justify-between'>
@@ -190,7 +200,6 @@ export default function MakeJournal() {
             <div className='h-2/5'>
               <div className='text-sm mb-3'>[PB의 추천 상품]</div>
               <JournalProductInputArea
-                recommendedProductsKeys={recommendedProductsKeys}
                 setRecommendedProductsKeys={setRecommendedProductsKeys}
               />
             </div>

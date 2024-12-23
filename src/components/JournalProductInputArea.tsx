@@ -3,12 +3,10 @@ import useDebounce from '../hooks/useDebounce';
 import useFetch from '../hooks/useFetch';
 
 type TJournalProductInputAreaProps = {
-  recommendedProductsKeys: number[];
   setRecommendedProductsKeys: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
 export default function JournalProductInputArea({
-  recommendedProductsKeys,
   setRecommendedProductsKeys,
 }: TJournalProductInputAreaProps) {
   const [inputValue, setInputValue] = useState('');

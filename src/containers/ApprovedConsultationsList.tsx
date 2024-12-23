@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ApprovedConsultationItem } from '../components/ApprovedConsultationItem';
 import Section from '../components/Section';
 import useFetch from '../hooks/useFetch';
-import { TConsultationProps } from '../types/dataTypes';
+import { type TConsultationProps } from '../types/dataTypes';
 
 export default function ApprovedConsultationsList({
   customerName,
@@ -14,7 +14,12 @@ export default function ApprovedConsultationsList({
   const { data, error } = useFetch<TConsultationProps[]>(
     `reserves?status=true&type=upcoming`
   );
-  console.error('예정된 상담요청 조회 중 발생한 에러: ', error);
+
+  useEffect(() => {
+    if (error) {
+      console.error('예정된 상담요청 조회 중 발생한 에러: ', error);
+    }
+  }, [error]);
 
   const [approvedConsultations, setApprovedConsultations] = useState<
     TConsultationProps[] | []

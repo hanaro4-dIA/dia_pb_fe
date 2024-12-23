@@ -23,7 +23,12 @@ export default function RequestedConsultationsList() {
       prev.filter((consultation) => consultation.id !== Number(id))
     );
   };
-  console.error('들어온 상담 요청 조회 중 발생한 에러: ', error);
+
+  useEffect(() => {
+    if (error) {
+      console.error('들어온 상담 요청 조회 중 발생한 에러: ', error);
+    }
+  }, [error]);
 
   return (
     <Section title='들어온 상담 요청' layoutClassName='h-full'>

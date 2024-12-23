@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import { type TConsultationProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
@@ -23,7 +23,12 @@ export const RequestedConsultationItem = ({
   };
 
   const { error, fetchData } = useFetch(`reserves?id=${id}`, 'PUT');
-  console.log('들어온 상담요청 승인 중 발생한 에러: ', error);
+
+  useEffect(() => {
+    if (error) {
+      console.error('들어온 상담요청 승인 중 발생한 에러: ', error);
+    }
+  }, [error]);
 
   const approveRequestEvent = async () => {
     setLoading(true);
