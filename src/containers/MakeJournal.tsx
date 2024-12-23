@@ -19,6 +19,12 @@ export default function MakeJournal() {
     `reserves?status=true&type=upcoming`
   );
 
+  useEffect(() => {
+    if (error) {
+      console.error("예약된 상담요청 가져오기 오류",error);
+    }
+  }, [error]);
+
   const [categoryId, setCategoryId] = useState<number>(1);
   const [consultingTitle, setConsultingTitle] = useState<string | undefined>(
     undefined
@@ -102,6 +108,7 @@ export default function MakeJournal() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(requestBody),
       });
 
@@ -109,7 +116,7 @@ export default function MakeJournal() {
         alert('상담 일지가 전송되었습니다.');
       }
     } catch (error) {
-      console.error(error);
+      console.error("상담일지 전송 오류",error);
     }
   };
 

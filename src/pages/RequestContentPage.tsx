@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-//커스텀훅을 빼고, 바로 넣었음. 추후에 수정 가능성 유
 const APIKEY = import.meta.env.VITE_API_KEY;
 
 export default function RequestContentPage({ id }: { id: string }) {
@@ -10,13 +9,17 @@ export default function RequestContentPage({ id }: { id: string }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${APIKEY}journals/reserves/${id}/content`
+          `${APIKEY}journals/reserves/${id}/content`,
+          {
+            credentials: 'include',
+          }
         );
         const data = await response.text();
         setContent(data);
-      } catch (err) {}
+      } catch (error) {
+        console.error("요청내용불러오기", error);
+      }
     };
-
     fetchData();
   }, [id]);
 
