@@ -8,6 +8,7 @@ const APIKEY = import.meta.env.VITE_API_KEY;
 
 export default function PbProfile() {
   const { data, error, fetchData } = useFetch<TPbDataProps>('profile');
+
   const [pbData, setPbData] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isAvailable, setIsAvailable] = useState(false);

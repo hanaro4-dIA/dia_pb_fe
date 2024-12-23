@@ -15,9 +15,18 @@ import MainPage from './pages/MainPage';
 import NotFoundPage from './pages/NotFoundPage';
 import NotificationPage from './pages/NotificationPage';
 
+// const getCookie = (name: string) => {
+//   const value = `; ${document.cookie}`;
+//   const parts = value.split(`; ${name}=`);
+//   if (parts.length === 2) return parts.pop()?.split(';').shift();
+//   return undefined;
+// };
+
 const ProtectedLayout = () => {
   const navigate = useNavigate();
   const isLogin = localStorage.getItem('loginPB');
+  // const navigate = useNavigate();
+  // const isLogin = getCookie('JSESSIONID');
 
   useEffect(() => {
     if (!isLogin) {

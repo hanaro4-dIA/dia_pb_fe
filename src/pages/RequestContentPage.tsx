@@ -10,18 +10,15 @@ export default function RequestContentPage({ id }: { id: string }) {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${APIKEY}/pb/journals/reserves/${id}/content`
+          `${APIKEY}journals/reserves/${id}/content`
         );
-        const data = await response.text(); 
+        const data = await response.text();
         setContent(data);
-      } catch (err) {
-        
-      } 
+      } catch (err) {}
     };
 
     fetchData();
   }, [id]);
-
 
   return (
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
@@ -32,9 +29,15 @@ export default function RequestContentPage({ id }: { id: string }) {
         </div>
 
         {/* 상세 내용 표시 */}
-        <div className='h-full p-10 overflow-y-auto space-y-4 border-x border-b border-gray-200 text-hanaindigo text-xl '>
-          {content}
-        </div>
+        {content ? (
+          <div className='h-full p-10 overflow-y-auto space-y-4 border-x border-b border-gray-200 text-hanaindigo'>
+            {content}
+          </div>
+        ) : (
+          <div className='h-full p-10 overflow-y-auto space-y-4 border-x border-b border-gray-200 text-hanaindigo text-sm'>
+            요청 내용이 없습니다.
+          </div>
+        )}
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import { type TCustomerProps } from '../types/dataTypes';
 
 export default function CustomerDetailPage() {
   const { id } = useParams();
-  const { data, error } = useFetch<TCustomerProps>(`pb/customers/list/${id}`);
+  const { data, error } = useFetch<TCustomerProps>(`customers/list/${id}`);
   const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function CustomerDetailPage() {
       </div>
 
       <div className='flex flex-col flex-grow w-1/4 h-full'>
-        <ConsultationJournalList />
+        <ConsultationJournalList customerId={Number(id)} />
       </div>
     </div>
   );

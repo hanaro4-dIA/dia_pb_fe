@@ -22,7 +22,7 @@ export const RequestedConsultationItem = ({
     return categoryId === 1 ? 'quick-border' : 'border-gray-200';
   };
 
-  const { error, fetchData } = useFetch(`pb/reserves?id=${id}`, 'PUT');
+  const { error, fetchData } = useFetch(`reserves?id=${id}`, 'PUT');
   console.log('들어온 상담요청 승인 중 발생한 에러: ', error);
 
   const approveRequestEvent = async () => {
