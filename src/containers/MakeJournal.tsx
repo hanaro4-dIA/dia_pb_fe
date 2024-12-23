@@ -94,6 +94,14 @@ export default function MakeJournal() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // 스크립트 전송했는지, 확인하게끔 전송창
+    const isConfirmed = window.confirm("상담 스크립트를 적용하셨습니까?");
+
+    if (!isConfirmed) {
+      alert("상담 스크립트를 적용해주세요.");
+      return;
+    }
+
     const requestBody = {
       consultingId: id,
       categoryId,
@@ -119,6 +127,45 @@ export default function MakeJournal() {
       console.error("상담일지 전송 오류",error);
     }
   };
+
+  // 상담일지 임시 저장
+  const handleTemporarySave = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // 스크립트 전송했는지, 확인하게끔 전송창
+    const isConfirmed = window.confirm("상담 스크립트를 적용하셨습니까?");
+
+    if (!isConfirmed) {
+      alert("상담 스크립트를 적용해주세요.");
+      return;
+    }
+
+      const requestBody = {
+        consultingId: id,
+        categoryId,
+        consultingTitle,
+        journalContents,
+        recommendedProductsKeys,
+      };
+
+      try {
+        const response = await fetch(`${APIKEY}journals`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(requestBody),
+        });
+
+        if (response.ok) {
+          alert('상담 일지가 임시 저장되었습니다.');
+        }
+      } catch (error) {
+        console.error("상담일지 임시 저장 오류", error);
+      }
+    };
+
 
   return (
     <Section title='상담일지 작성하기' layoutClassName='h-full'>
@@ -207,9 +254,11 @@ export default function MakeJournal() {
         {/* 최하단 버튼 */}
         <div className='flex justify-end'>
           <div>
+            <form id='temporarySaveForm' onSubmit={handleTemporarySave}>
             <Button className='bg-hanasilver w-20 mr-5 px-2 rounded-xl'>
               임시저장
             </Button>
+          </form>
           </div>
           <div>
             <form id='journalForm' onSubmit={handleSubmit}>
