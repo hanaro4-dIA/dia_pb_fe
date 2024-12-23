@@ -51,12 +51,18 @@ export default function ApprovedConsultationsList({
     >
       <div className='w-full p-4'>
         {filteredConsultations.length > 0 ? (
-          filteredConsultations.map((consultationData) => (
-            <ApprovedConsultationItem
-              key={consultationData.id}
-              {...consultationData}
-            />
-          ))
+          filteredConsultations
+            .sort((a, b) => {
+              if (a.categoryId === 1 && b.categoryId !== 1) return -1;
+              if (a.categoryId !== 1 && b.categoryId === 1) return 1;
+              return 0;
+            })
+            .map((consultationData) => (
+              <ApprovedConsultationItem
+                key={consultationData.id}
+                {...consultationData}
+              />
+            ))
         ) : (
           <div className='text-center text-hanaindigo text-sm'>
             일정이 없습니다.

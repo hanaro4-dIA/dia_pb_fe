@@ -47,6 +47,12 @@ export default function RequestedConsultationsList({
       {requestedConsultations.length > 0 ? (
         <div className='w-full h-fit p-4'>
           {requestedConsultations
+            .sort((a, b) => {
+              // 빠른상담일 경우 최상단에 위치
+              if (a.categoryId === 1 && b.categoryId !== 1) return -1;
+              if (a.categoryId !== 1 && b.categoryId === 1) return 1;
+              return 0;
+            })
             .filter((consult) => !consult.approve)
             .map((consultation) => (
               <RequestedConsultationItem

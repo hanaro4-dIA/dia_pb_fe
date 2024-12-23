@@ -54,7 +54,7 @@ export const ApprovedConsultationItem = ({
           )}{' '}
         </span>
         <button
-          className='border border-hanaindigo rounded-md px-1 text-[0.8rem] text-white bg-hanadeepgreen'
+          className='border border-hanaindigo rounded-md px-2 py-1 text-[0.8rem] text-white bg-hanadeepgreen'
           onClick={() => moveToConsultingPageEvent(id, customerId)}
         >
           상담하기

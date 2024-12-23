@@ -86,10 +86,10 @@ export const RequestedConsultationItem = ({
           </div>
           <button
             onClick={approveRequestEvent}
-            disabled={loading} // 로딩 중에는 버튼 비활성화
-            className={`w-[6rem] h-[2rem] text-white text-[1rem] rounded-lg ${loading ? 'bg-gray-400' : 'bg-hanaindigo hover:bg-hanagold'}`}
+            disabled={loading}
+            className={`text-[0.8rem] px-3 py-2 text-white rounded-lg ${loading ? 'bg-gray-400' : 'bg-hanaindigo hover:bg-hanagold'}`}
           >
-            {loading ? '처리 중...' : '승인대기'}
+            승인대기
           </button>
         </div>
       </div>
