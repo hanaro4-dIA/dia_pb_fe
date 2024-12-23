@@ -103,7 +103,7 @@ export default function MakeJournal() {
     };
 
     try {
-      const response = await fetch(`${APIKEY}/pb/journals/transfer`, {
+      const response = await fetch(`${APIKEY}journals/transfer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
