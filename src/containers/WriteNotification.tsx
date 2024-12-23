@@ -19,14 +19,19 @@ export default function WriteNotification() {
   // 고객 연결
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const { data: customersData, error: customersError } =
-    useFetch<TCustomerProps[]>(`pb/customers/list`);
+    useFetch<TCustomerProps[]>(`customers/list`);
 
   useEffect(() => {
     if (customersData) {
       setCustomers(customersData);
     }
   }, [customersData]);
-  console.error('손님 전체 목록 조회 중 발생한 에러: ', customersError);
+
+  useEffect(() => {
+    if (customersError) {
+      console.error('손님 전체 목록 조회 중 발생한 에러: ', customersError);
+    }
+  }, [customersError]);
 
   // 필터링된 고객 리스트
   const filteredCustomers = customers.filter((customer) =>
