@@ -1,7 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import JournalProductInputArea from '../components/JournalProductInputArea';
+import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 import useFetch from '../hooks/useFetch';
@@ -16,8 +15,11 @@ export default function MakeJournal() {
   const pbName = JSON.parse(localStorage.getItem('loginPB') || '{}').name;
 
   const { data, error } = useFetch<TConsultationProps[]>(
-    `reserves?status=true&type=upcoming`
+    `pb/reserves?status=true&type=upcoming`
   );
+  if (error) {
+    console.error(error);
+  }
 
   useEffect(() => {
     if (error) {
@@ -257,7 +259,7 @@ export default function MakeJournal() {
                   className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                   style={{ fontFamily: 'noto-bold, sans-serif' }}
                 >
-                  {day} {time}
+                  // changeDateFormat 함수 감쌀 것{day} {time}
                 </div>
               </div>
             </div>
@@ -278,6 +280,7 @@ export default function MakeJournal() {
                 recommendedProductsKeys={recommendedProductsKeys}
                 setRecommendedProductsKeys={setRecommendedProductsKeys}
               />
+              //<textarea className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver' />
             </div>
           </div>
         </div>
