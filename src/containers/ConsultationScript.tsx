@@ -33,6 +33,21 @@ export default function ConsultationScript({
     fetchScripts();
   }, [data]);
 
+  const handleContentChange = (scriptId: number, newContent: string) => {
+    setScripts((prevScript) =>
+      prevScript.map((item) =>
+        item.scriptId === scriptId ? { ...item, content: newContent } : item
+      )
+    );
+  };
+
+  const handleInputResize = (textarea: HTMLTextAreaElement) => {
+    if (textarea) {
+      textarea.style.height = 'auto'; // 높이를 초기화
+      textarea.style.height = `${textarea.scrollHeight}px`; // 텍스트 크기에 맞게 설정
+    }
+  };
+
   return (
     <Section title='상담 스크립트' layoutClassName='h-full'>
       <div className='h-full p-2 flex flex-col justify-between'>
@@ -46,13 +61,22 @@ export default function ConsultationScript({
               }`}
             >
               <div
-                className={`rounded-lg p-2 max-w-[60%] ${item.speaker === 'VIP' ? 'bg-blue-100' : 'bg-gray-100'}`}
+                className={`rounded-lg p-2 ${item.speaker === 'VIP' ? 'bg-blue-100' : 'bg-gray-100'}`}
               >
-                <input
-                  type='text'
-                  className='w-full bg-transparent outline-none'
+                <textarea
+                  className='w-full bg-transparent outline-none resize-none overflow-hidden text-sm'
+                  rows={1}
                   placeholder='메시지를 입력하세요'
                   value={item.content}
+                  onChange={(e) => {
+                    handleContentChange(item.scriptId, e.target.value);
+                    handleInputResize(e.target);
+                  }}
+                  ref={(textarea) => {
+                    if (textarea) {
+                      handleInputResize(textarea);
+                    }
+                  }}
                 />
               </div>
             </div>
