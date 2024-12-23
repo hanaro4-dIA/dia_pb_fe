@@ -14,7 +14,7 @@ export default function ApprovedConsultationsList({
 }) {
   const { id } = useParams();
   const { data, error } = useFetch<TConsultationProps[]>(
-    `reserves?status=true&type=upcoming&refetch=${isRefetch}`
+    `reserves?status=true&type=notcompleted&refetch=${isRefetch}`
   );
 
   useEffect(() => {

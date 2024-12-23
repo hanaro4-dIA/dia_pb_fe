@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-//커스텀훅을 빼고, 바로 넣었음. 추후에 수정 가능성 유
+// 커스텀훅을 빼고, 바로 넣었음. 추후에 수정 가능성 유
 const APIKEY = import.meta.env.VITE_API_KEY;
 
 export default function RequestContentPage({ id }: { id: string }) {
@@ -14,7 +14,9 @@ export default function RequestContentPage({ id }: { id: string }) {
         );
         const data = await response.text();
         setContent(data);
-      } catch (err) {}
+      } catch (err) {
+        console.error('상담요청 내용 자세히 보기 중 발생한 에러: ', err);
+      }
     };
 
     fetchData();
