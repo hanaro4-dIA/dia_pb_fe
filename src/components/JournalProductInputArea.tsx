@@ -14,8 +14,10 @@ export default function JournalProductInputArea({
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const listRef = useRef<HTMLUListElement | null>(null);
 
+  if (debouncedSearchTerm) {
+  }
   const { data: productList } = useFetch<{ id: number; productName: string }[]>(
-    debouncedSearchTerm && `journals/products?tag=${debouncedSearchTerm}`
+    debouncedSearchTerm ? `journals/products?tag=${debouncedSearchTerm}` : null
   );
 
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);

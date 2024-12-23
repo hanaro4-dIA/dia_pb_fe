@@ -21,10 +21,8 @@ const Timer = ({ hopeDate, hopeTime }: TimerProps) => {
       const targetTime = new Date(year, month - 1, day, hours, minutes);
       // hopeTime에 15분 추가
       targetTime.setMinutes(targetTime.getMinutes() + 15);
-      console.log('타겟!!!!', targetTime);
 
       const difference = targetTime.getTime() - now.getTime();
-      console.log('difference: ', difference);
 
       if (difference > 0) {
         const totalMinutes = Math.floor(difference / 60000);

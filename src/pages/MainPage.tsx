@@ -8,7 +8,6 @@ import RequestedConsultationsList from '../containers/RequestedConsultationsList
 
 export default function MainPage() {
   const [isRefetch, toggleRefetch] = useReducer((pre) => !pre, false);
-  console.log('**>>', isRefetch);
   return (
     <div className='flex flex-row justify-between w-full h-screen p-5 gap-5'>
       {/* 첫 번째 열 */}
