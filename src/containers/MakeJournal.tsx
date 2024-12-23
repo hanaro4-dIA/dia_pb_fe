@@ -7,6 +7,7 @@ import useFetch from '../hooks/useFetch';
 import RequestContentPage from '../pages/RequestContentPage';
 import { type TConsultationProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
+import JournalProductInputArea from '../components/JournalProductInputArea';
 
 const APIKEY = import.meta.env.VITE_API_KEY;
 
@@ -15,7 +16,7 @@ export default function MakeJournal() {
   const pbName = JSON.parse(localStorage.getItem('loginPB') || '{}').name;
 
   const { data, error } = useFetch<TConsultationProps[]>(
-    `pb/reserves?status=true&type=upcoming`
+    `reserves?status=true&type=upcoming`
   );
   if (error) {
     console.error(error);
@@ -259,7 +260,7 @@ export default function MakeJournal() {
                   className='text-sm w-2/3 px-2 focus:outline-none rounded-xl'
                   style={{ fontFamily: 'noto-bold, sans-serif' }}
                 >
-                  // changeDateFormat 함수 감쌀 것{day} {time}
+                  {day} {time}
                 </div>
               </div>
             </div>
@@ -280,7 +281,6 @@ export default function MakeJournal() {
                 recommendedProductsKeys={recommendedProductsKeys}
                 setRecommendedProductsKeys={setRecommendedProductsKeys}
               />
-              //<textarea className='w-full h-full p-2 border resize-none text-sm overflow-y-auto focus:outline-hanasilver' />
             </div>
           </div>
         </div>
