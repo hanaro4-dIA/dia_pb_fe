@@ -1,8 +1,7 @@
 // @ts-ignore
 import MicRecorder from 'mic-recorder-to-mp3';
 import { useLocation } from 'react-router-dom';
-import { useEffect, useReducer, useState } from 'react';
-import { Button } from '../components/ui/button';
+import { useEffect, useState } from 'react';
 import ConsultationJournalList from '../containers/ConsultationJournalList';
 import ConsultationScript from '../containers/ConsultationScript';
 import CustomerInformation from '../containers/CustomerInformation';
@@ -34,10 +33,8 @@ export default function ConsultingPage() {
   // 통화 녹음
   const [isRefetch, setRefetch] = useState(false);
   const [fetchFinished, setFetchFinished] = useState(false); // fetchFinished가 true이면 전화버튼 비활성화
-  console.log('isRefetch: ', isRefetch);
-  console.log('fetchFinished: ', fetchFinished);
   const [file, setFile] = useState<File | null>(null);
-  const [uploadStatus, setUploadStatus] = useState<string>('');
+  const [_, setUploadStatus] = useState<string>('');
 
   // 파일 선택 핸들러
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +63,7 @@ export default function ConsultingPage() {
     const formData = new FormData();
     formData.append('uploadFile', file);
     try {
-      setUploadStatus('업로드 중...');
+      setUploadStatus('loading...');
 
       // fetch를 사용하여 파일 업로드
       const response = await fetch(
@@ -79,22 +76,16 @@ export default function ConsultingPage() {
       );
 
       if (response.ok) {
-        setUploadStatus('업로드 성공!');
+        setUploadStatus('success!');
         setRefetch(true);
-        console.log('서버 응답:>>>>>', data);
       } else {
         throw new Error(`서버 에러: ${response.status}`);
       }
     } catch (error) {
       console.error('업로드 실패:', error);
-      setUploadStatus('업로드 실패.');
+      setUploadStatus('failed...');
     }
   };
-
-  useEffect(() => {
-    console.log('업로드 상태>>', uploadStatus);
-    console.log('응답받고 난 후>>>', isRefetch);
-  }, [uploadStatus, isRefetch]);
 
   const handleCallCustomer = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleFileChange(e);
@@ -156,7 +147,6 @@ export default function ConsultingPage() {
         <div className='flex flex-col w-1/4 h-full'>
           <ConsultationScript
             consultingId={consultingId}
-            uploadStatus={uploadStatus}
             isRefetch={isRefetch}
             fetchFinished={fetchFinished}
             setFetchFinished={setFetchFinished}

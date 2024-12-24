@@ -6,13 +6,10 @@ import { TScriptProps } from '../types/dataTypes';
 
 export default function ConsultationScript({
   consultingId,
-  uploadStatus,
   isRefetch,
-  fetchFinished,
   setFetchFinished,
 }: {
   consultingId: number;
-  uploadStatus: string;
   isRefetch: boolean;
   fetchFinished: boolean;
   setFetchFinished: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,42 +20,17 @@ export default function ConsultationScript({
   );
 
   useEffect(() => {
-    if (isRefetch) {
-      console.log('isRefetch 상태가 true로 변경됨.');
-    }
-  }, [isRefetch]);
-
-  useEffect(() => {
     if (error) {
       console.error(error);
     }
   }, [error]);
 
-  console.log('ddddd>>', data);
   useEffect(() => {
     if (data && data.scriptResponseDTOList?.length) {
       setScripts(data.scriptResponseDTOList);
       if (setFetchFinished) setFetchFinished(true);
     }
-
-    // const fetchScripts = async () => {
-    //   try {
-    //     if (data) {
-    //       setScripts(data.scriptResponseDTOList);
-    //     }
-    //   } catch (error) {
-    //     console.error('상담 스크립트 불러오기 중 에러 발생: ', error);
-    //   }
-    // };
-    // if (isRefetch && data?.scriptResponseDTOList.length !== 0) {
-    //   fetchScripts();
-    //   setFetchFinished(true);
-    // }
   }, [data, isRefetch, setFetchFinished]);
-
-  useEffect(() => {
-    console.log('GET 한번 가져옴!! >>> ', fetchFinished);
-  }, [fetchFinished]);
 
   const handleContentChange = (scriptId: number, newContent: string) => {
     setScripts((prevScript) =>
@@ -80,39 +52,36 @@ export default function ConsultationScript({
       <div className='h-full p-2 flex flex-col justify-between'>
         {/* 텍스트 입력 영역 (말풍선 형식) speaker에 따라 justify css 다르게 적용*/}
         <div className='relative flex flex-col overflow-y-auto space-y-2'>
-          {uploadStatus === '업로드 중... ' ? (
-            <div>loading...</div>
-          ) : (
-            <div>finished</div>
-          )}
-          {script.map((item) => (
-            <div
-              key={item.scriptId}
-              className={`flex items-center ${
-                item.speaker === 'VIP' ? 'justify-start' : 'justify-end'
-              }`}
-            >
+          <div className='relative flex flex-col overflow-y-auto space-y-2'>
+            {script.map((item) => (
               <div
-                className={`rounded-lg p-2 ${item.speaker === 'VIP' ? 'bg-blue-100' : 'bg-gray-100'}`}
+                key={item.scriptId}
+                className={`flex items-center ${
+                  item.speaker === 'VIP' ? 'justify-start' : 'justify-end'
+                }`}
               >
-                <textarea
-                  className='w-full bg-transparent outline-none resize-none overflow-hidden text-sm'
-                  rows={1}
-                  placeholder='메시지를 입력하세요'
-                  value={item.content}
-                  onChange={(e) => {
-                    handleContentChange(item.scriptId, e.target.value);
-                    handleInputResize(e.target);
-                  }}
-                  ref={(textarea) => {
-                    if (textarea) {
-                      handleInputResize(textarea);
-                    }
-                  }}
-                />
+                <div
+                  className={`rounded-lg p-2 ${item.speaker === 'VIP' ? 'bg-blue-100' : 'bg-gray-100'}`}
+                >
+                  <textarea
+                    className='w-full bg-transparent outline-none resize-none overflow-hidden text-sm'
+                    rows={1}
+                    placeholder='메시지를 입력하세요'
+                    value={item.content}
+                    onChange={(e) => {
+                      handleContentChange(item.scriptId, e.target.value);
+                      handleInputResize(e.target);
+                    }}
+                    ref={(textarea) => {
+                      if (textarea) {
+                        handleInputResize(textarea);
+                      }
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* 적용 버튼 */}
