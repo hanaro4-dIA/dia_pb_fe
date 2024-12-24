@@ -48,6 +48,16 @@ export default function ConsultationScript({
     }
   };
 
+  const deleteScript = async (scriptId: number, scriptSequence: number) => {
+    await fetch(
+      `${APIKEY}journals/${consultingId}/script?scriptId=${scriptId}&scriptSequence=${scriptSequence}`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+      }
+    );
+  };
+
   const transScript = async (script: TScriptProps[]) => {
     const scriptRequestDTOList = script.map((item) => ({
       scriptId: item.scriptId,
@@ -84,15 +94,19 @@ export default function ConsultationScript({
           {script.map((item) => (
             <div
               key={item.scriptId}
-              className={`flex items-center ${
+              className={`group flex items-center ${
                 item.speaker === 'VIP' ? 'justify-start' : 'justify-end'
               }`}
             >
               <div
-                className={`rounded-lg p-2 ${item.speaker === 'VIP' ? 'bg-blue-100' : 'bg-gray-100'}`}
+                className={`flex items-center space-x-2 ${
+                  item.speaker === 'VIP' ? 'flex-row' : 'flex-row-reverse'
+                }`}
               >
                 <textarea
-                  className='w-full bg-transparent outline-none resize-none overflow-hidden text-sm'
+                  className={`w-full p-2 rounded-sm text-white ${
+                    item.speaker === 'VIP' ? 'bg-hanagold' : 'bg-hanagreen ml-2'
+                  } outline-none resize-none overflow-hidden text-sm`}
                   rows={1}
                   placeholder='메시지를 입력하세요'
                   value={item.content}
@@ -106,6 +120,15 @@ export default function ConsultationScript({
                     }
                   }}
                 />
+
+                <button
+                  className='opacity-0 group-hover:opacity-100 transition-opacity duration-400 text-red-600 mt-3'
+                  onClick={() =>
+                    deleteScript(item.scriptId, item.scriptSequence)
+                  }
+                >
+                  x
+                </button>
               </div>
             </div>
           ))}
