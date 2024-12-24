@@ -13,14 +13,56 @@ export default function RequestedConsultationsList({
   const { data, error } = useFetch<TConsultationProps[]>(
     `reserves?status=false`
   );
-
   const [requestedConsultations, setRequestedConsultations] = useState<
     TConsultationProps[] | []
   >([]);
 
+  // useFetch로 가져온 초기 데이터 설정
   useEffect(() => {
     setRequestedConsultations(data || []);
   }, [data]);
+
+  // WebSocket 연결
+  useEffect(() => {
+    const socket = new WebSocket('ws://localhost:8080/ws/consultation'); //spring
+
+    socket.onopen = () => {
+      console.log('WebSocket 연결 성공');
+    };
+
+    socket.onmessage = (e) => {
+      try {
+        const rawData = JSON.parse(e.data);
+
+        const newConsultation: TConsultationProps = {
+          ...rawData,
+          hopeDate: rawData.hopeDate.join('-'), // [2024, 12, 24] -> "2024-12-24"
+          hopeTime: rawData.hopeTime.join(':'), // [12, 0] -> "12:00"
+          reserveDate: rawData.reserveDate.join('-'), // [2024, 12, 24] -> "2024-12-24"
+          reserveTime: rawData.reserveTime.slice(0, 2).join(':'), // [9, 47, ...] -> "9:47"
+        };
+
+        console.log('새로운 상담 요청 수신:', newConsultation);
+
+        // 상태 업데이트
+        setRequestedConsultations((prev) => [...prev, newConsultation]);
+      } catch (error) {
+        console.error('WebSocket 메시지 처리 중 오류 발생:', error);
+      }
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket 에러:', error);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket 연결 종료');
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
 
   const handleApprove = (id: string) => {
     setRequestedConsultations((prev) =>
@@ -48,7 +90,7 @@ export default function RequestedConsultationsList({
         <div className='w-full h-fit p-4'>
           {requestedConsultations
             .sort((a, b) => {
-              // 빠른상담일 경우 최상단에 위치
+              // 빠른 상담 요청은 최상단에 배치
               if (a.categoryId === 1 && b.categoryId !== 1) return -1;
               if (a.categoryId !== 1 && b.categoryId === 1) return 1;
               return 0;
