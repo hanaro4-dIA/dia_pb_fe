@@ -1,3 +1,4 @@
+import { Form } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
@@ -9,10 +10,18 @@ export default function ConsultationScript({
 }: {
   consultingId: number;
 }) {
+  const APIKEY = import.meta.env.VITE_API_KEY;
   const [script, setScripts] = useState<TScriptProps[]>([]);
   const { data, error } = useFetch<{ scriptResponseDTOList: TScriptProps[] }>(
     `journals/${consultingId}/scripts`
   );
+  const handleContentChange = async (scriptId: number, newContent: string) => {
+    setScripts((prevScript) =>
+      prevScript.map((item) =>
+        item.scriptId === scriptId ? { ...item, content: newContent } : item
+      )
+    );
+  };
 
   useEffect(() => {
     if (error) {
@@ -31,20 +40,43 @@ export default function ConsultationScript({
       }
     };
     fetchScripts();
-  }, [data]);
-
-  const handleContentChange = (scriptId: number, newContent: string) => {
-    setScripts((prevScript) =>
-      prevScript.map((item) =>
-        item.scriptId === scriptId ? { ...item, content: newContent } : item
-      )
-    );
-  };
+  }, [data, error]);
 
   const handleInputResize = (textarea: HTMLTextAreaElement) => {
     if (textarea) {
       textarea.style.height = 'auto'; // 높이를 초기화
       textarea.style.height = `${textarea.scrollHeight}px`; // 텍스트 크기에 맞게 설정
+    }
+  };
+
+  const transScript = async (script: TScriptProps[]) => {
+    console.log('script>>', script);
+    console.log('API URL:', `${APIKEY}journals/${consultingId}/transcripts`);
+
+    const scriptRequestDTOList = script.map((item) => ({
+      scriptId: item.scriptId,
+      scriptSequence: item.scriptSequence,
+      speaker: item.speaker,
+      content: item.content,
+    }));
+
+    const response = await fetch(
+      `${APIKEY}journals/${consultingId}/transcripts`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({ scriptRequestDTOList }),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const responseBody = await response.json(); // JSON 응답 읽기
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed with status ${response.status}: ${responseBody.message}`
+      );
     }
   };
 
@@ -85,7 +117,14 @@ export default function ConsultationScript({
 
         {/* 적용 버튼 */}
         <div className='flex justify-end'>
-          <Button className='bg-hanaindigo w-20 px-2 rounded-xl'>적용</Button>
+          <Button
+            className='bg-hanaindigo w-20 px-2 rounded-xl'
+            onClick={() => {
+              transScript(script);
+            }}
+          >
+            적용
+          </Button>
         </div>
       </div>
     </Section>
