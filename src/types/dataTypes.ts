@@ -34,7 +34,8 @@ export type TConsultationProps = {
   id: number;
   customerId: number;
   customerName: string;
-  categoryId: number;
+  categoryId?: number;
+  categoryName?: string;
   title: string;
   content: string;
   hopeDate: string;
