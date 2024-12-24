@@ -91,10 +91,14 @@ export default function ConsultingPage() {
     console.log('업로드 상태>>', uploadStatus);
   }, [uploadStatus]);
 
-  // const handleCallCustomer = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   handleFileChange(e); // 파일 선택 핸들러 호출
-  //   handleUpload(); // 파일 업로드 핸들러 호출
-  // };
+  const handleCallCustomer = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleFileChange(e);
+  };
+  useEffect(() => {
+    if (file) {
+      handleUpload();
+    }
+  }, [file]);
 
   return (
     <>
@@ -112,9 +116,9 @@ export default function ConsultingPage() {
               type='file'
               className='text-xs border border-purple-700 w-15'
               accept='.m-3,audio/mp3'
-              onChange={handleFileChange}
+              onChange={handleCallCustomer}
             />
-            <div className='border border-blue-400'>
+            {/* <div className='border border-blue-400'>
               <Button
                 onClick={handleUpload}
                 disabled={!file}
@@ -122,7 +126,7 @@ export default function ConsultingPage() {
               >
                 전화
               </Button>
-            </div>
+            </div> */}
           </div>
 
           {/* 손님 정보 */}
