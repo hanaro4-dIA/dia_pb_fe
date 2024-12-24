@@ -30,9 +30,9 @@ export default function RequestedConsultationsList({
       console.log('WebSocket 연결 성공');
     };
 
-    socket.onmessage = (event) => {
+    socket.onmessage = (e) => {
       try {
-        const rawData = JSON.parse(event.data);
+        const rawData = JSON.parse(e.data);
 
         const newConsultation: TConsultationProps = {
           ...rawData,
