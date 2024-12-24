@@ -7,7 +7,7 @@ import { type TPbDataProps } from '../types/dataTypes';
 const APIKEY = import.meta.env.VITE_API_KEY;
 
 export default function PbProfile() {
-  const { data, error, fetchData } = useFetch<TPbDataProps>('profile');
+  const { data, error } = useFetch<TPbDataProps>('profile');
 
   const [pbData, setPbData] = useState<TPbDataProps | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -91,7 +91,7 @@ export default function PbProfile() {
 
     formData.append('introduce', introduce || '');
 
-    hashtagList.forEach(tag => formData.append('hashtags', tag));
+    hashtagList.forEach((tag) => formData.append('hashtags', tag));
 
     try {
       await fetch(`${APIKEY}profile`, {
@@ -99,11 +99,10 @@ export default function PbProfile() {
         body: formData,
         credentials: 'include',
       });
-      
+
       // 리팩토링 PUT에 대한 커스텀훅을 써야함(위에서 GET으로 이미 받는데 어떻게 해야하나 고민..)
       setIsEditing(false);
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
     }
   };
@@ -119,7 +118,7 @@ export default function PbProfile() {
     };
     reader.readAsDataURL(file);
   };
-  
+
   return (
     <Section
       title='내 프로필'
