@@ -6,8 +6,10 @@ import { TScriptProps } from '../types/dataTypes';
 
 export default function ConsultationScript({
   consultingId,
+  uploadStatus,
 }: {
   consultingId: number;
+  uploadStatus: string;
 }) {
   const [script, setScripts] = useState<TScriptProps[]>([]);
   const { data, error } = useFetch<{ scriptResponseDTOList: TScriptProps[] }>(
@@ -53,6 +55,11 @@ export default function ConsultationScript({
       <div className='h-full p-2 flex flex-col justify-between'>
         {/* 텍스트 입력 영역 (말풍선 형식) speaker에 따라 justify css 다르게 적용*/}
         <div className='relative flex flex-col overflow-y-auto space-y-2'>
+          {uploadStatus === '업로드 중... ' ? (
+            <div>loading...</div>
+          ) : (
+            <div>finished</div>
+          )}
           {script.map((item) => (
             <div
               key={item.scriptId}
