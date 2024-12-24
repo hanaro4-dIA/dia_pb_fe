@@ -1,18 +1,19 @@
 import { createRoot } from 'react-dom/client';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import JournalProductInputArea from '../components/JournalProductInputArea';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 import useFetch from '../hooks/useFetch';
 import RequestContentPage from '../pages/RequestContentPage';
 import { type TConsultationProps } from '../types/dataTypes';
 import changeDateFormat from '../utils/changeDateFormat-util';
-import JournalProductInputArea from '../components/JournalProductInputArea';
 
 const APIKEY = import.meta.env.VITE_API_KEY;
 
-export default function MakeJournal() {
+export default function MakeJournal({ customerId }: { customerId: number }) {
   const { id } = useParams();
+  const navigate = useNavigate();
   const pbName = JSON.parse(localStorage.getItem('loginPB') || '{}').name;
 
   const { data, error } = useFetch<TConsultationProps[]>(
@@ -24,7 +25,7 @@ export default function MakeJournal() {
 
   useEffect(() => {
     if (error) {
-      console.error("예약된 상담요청 가져오기 오류", error);
+      console.error('예약된 상담요청 가져오기 오류', error);
     }
   }, [error]);
 
@@ -49,7 +50,8 @@ export default function MakeJournal() {
   const [time, setTime] = useState<string>('');
 
   const [recommendedProducts, setRecommendedProducts] = useState<
-  { id: number; productName: string }[]>([]);
+    { id: number; productName: string }[]
+  >([]);
 
   useEffect(() => {
     const fetchTemporaryData = async () => {
@@ -86,7 +88,7 @@ export default function MakeJournal() {
 
     fetchTemporaryData();
   }, [id]);
-  
+
   useEffect(() => {
     if (data) {
       const selectedConsultation = data.find(
@@ -171,6 +173,7 @@ export default function MakeJournal() {
 
       if (response.ok) {
         alert('상담 일지가 전송되었습니다.');
+        navigate(`/customerDetail/${customerId}`);
       }
     } catch (error) {
       console.error('상담일지 전송 오류', error);
@@ -211,8 +214,6 @@ export default function MakeJournal() {
       console.error('상담일지 임시 저장 오류', error);
     }
   };
-
-  console.log('recommendedProductsKeys: ', recommendedProductsKeys);
 
   return (
     <Section title='상담일지 작성하기' layoutClassName='h-full'>

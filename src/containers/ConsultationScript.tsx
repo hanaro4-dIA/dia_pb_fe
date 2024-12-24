@@ -6,21 +6,19 @@ import { type TScriptProps } from '../types/dataTypes';
 
 export default function ConsultationScript({
   consultingId,
+  isRefetch,
+  setFetchFinished,
 }: {
   consultingId: number;
+  isRefetch: boolean;
+  fetchFinished: boolean;
+  setFetchFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const APIKEY = import.meta.env.VITE_API_KEY;
   const [script, setScripts] = useState<TScriptProps[]>([]);
   const { data, error } = useFetch<{ scriptResponseDTOList: TScriptProps[] }>(
-    `journals/${consultingId}/scripts`
+    `journals/${consultingId}/scripts?x=${isRefetch}`
   );
-  const handleContentChange = async (scriptId: number, newContent: string) => {
-    setScripts((prevScript) =>
-      prevScript.map((item) =>
-        item.scriptId === scriptId ? { ...item, content: newContent } : item
-      )
-    );
-  };
 
   useEffect(() => {
     if (error) {
@@ -29,17 +27,19 @@ export default function ConsultationScript({
   }, [error]);
 
   useEffect(() => {
-    const fetchScripts = async () => {
-      try {
-        if (data) {
-          setScripts(data.scriptResponseDTOList);
-        }
-      } catch (error) {
-        console.error('상담 스크립트 불러오기 중 에러 발생: ', error);
-      }
-    };
-    fetchScripts();
-  }, [data, error]);
+    if (data && data.scriptResponseDTOList?.length) {
+      setScripts(data.scriptResponseDTOList);
+      if (setFetchFinished) setFetchFinished(true);
+    }
+  }, [data, isRefetch, setFetchFinished]);
+
+  const handleContentChange = (scriptId: number, newContent: string) => {
+    setScripts((prevScript) =>
+      prevScript.map((item) =>
+        item.scriptId === scriptId ? { ...item, content: newContent } : item
+      )
+    );
+  };
 
   const handleInputResize = (textarea: HTMLTextAreaElement) => {
     if (textarea) {
@@ -120,7 +120,6 @@ export default function ConsultationScript({
                     }
                   }}
                 />
-
                 <button
                   className='opacity-0 group-hover:opacity-100 transition-opacity duration-400 text-red-600 mt-3'
                   onClick={() =>
@@ -133,7 +132,6 @@ export default function ConsultationScript({
             </div>
           ))}
         </div>
-
         {/* 적용 버튼 */}
         <div className='flex justify-end'>
           <Button

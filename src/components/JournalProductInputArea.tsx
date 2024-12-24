@@ -23,7 +23,7 @@ export default function JournalProductInputArea({
   if (debouncedSearchTerm) {
   }
   const { data: productList } = useFetch<{ id: number; productName: string }[]>(
-    debouncedSearchTerm ? `journals/products?tag=${debouncedSearchTerm}` : null
+    `journals/products?tag=${debouncedSearchTerm || ''}`
   );
 
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
@@ -82,18 +82,17 @@ export default function JournalProductInputArea({
   useEffect(() => {
     const fetchSelectedProductNames = async () => {
       try {
-        const response = await fetch(
-          `${APIKEY}journals/products`,
-          {
-            method: 'GET',
-            credentials: 'include',
-          }
-        );
+        const response = await fetch(`${APIKEY}journals/products`, {
+          method: 'GET',
+          credentials: 'include',
+        });
 
         if (response.ok) {
           const allProducts = await response.json();
           const selected = recommendedProductsKeys.map((key) => {
-            const product = allProducts.find((p: { id: number }) => p.id === key);
+            const product = allProducts.find(
+              (p: { id: number }) => p.id === key
+            );
             return product ? product.productName : null;
           });
           setSelectedProducts(selected.filter(Boolean) as string[]);
@@ -107,7 +106,6 @@ export default function JournalProductInputArea({
       fetchSelectedProductNames();
     }
   }, [recommendedProductsKeys]);
-
 
   return (
     <div className='relative w-full'>
