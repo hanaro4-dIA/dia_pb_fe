@@ -19,13 +19,6 @@ export default function ConsultationScript({
   const { data, error } = useFetch<{ scriptResponseDTOList: TScriptProps[] }>(
     `journals/${consultingId}/scripts?x=${isRefetch}`
   );
-  const handleContentChange = async (scriptId: number, newContent: string) => {
-    setScripts((prevScript) =>
-      prevScript.map((item) =>
-        item.scriptId === scriptId ? { ...item, content: newContent } : item
-      )
-    );
-  };
 
   useEffect(() => {
     if (error) {
@@ -53,6 +46,16 @@ export default function ConsultationScript({
       textarea.style.height = 'auto'; // 높이를 초기화
       textarea.style.height = `${textarea.scrollHeight}px`; // 텍스트 크기에 맞게 설정
     }
+  };
+
+  const deleteScript = async (scriptId: number, scriptSequence: number) => {
+    await fetch(
+      `${APIKEY}journals/${consultingId}/script?scriptId=${scriptId}&scriptSequence=${scriptSequence}`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+      }
+    );
   };
 
   const transScript = async (script: TScriptProps[]) => {
@@ -88,38 +91,47 @@ export default function ConsultationScript({
       <div className='h-full p-2 flex flex-col justify-between'>
         {/* 텍스트 입력 영역 (말풍선 형식) speaker에 따라 justify css 다르게 적용*/}
         <div className='relative flex flex-col overflow-y-auto space-y-2'>
-          <div className='relative flex flex-col overflow-y-auto space-y-2'>
-            {script.map((item) => (
+          {script.map((item) => (
+            <div
+              key={item.scriptId}
+              className={`group flex items-center ${
+                item.speaker === 'VIP' ? 'justify-start' : 'justify-end'
+              }`}
+            >
               <div
-                key={item.scriptId}
-                className={`flex items-center ${
-                  item.speaker === 'VIP' ? 'justify-start' : 'justify-end'
+                className={`flex items-center space-x-2 ${
+                  item.speaker === 'VIP' ? 'flex-row' : 'flex-row-reverse'
                 }`}
               >
-                <div
-                  className={`rounded-lg p-2 ${item.speaker === 'VIP' ? 'bg-blue-100' : 'bg-gray-100'}`}
+                <textarea
+                  className={`w-full p-2 rounded-sm text-white ${
+                    item.speaker === 'VIP' ? 'bg-hanagold' : 'bg-hanagreen ml-2'
+                  } outline-none resize-none overflow-hidden text-sm`}
+                  rows={1}
+                  placeholder='메시지를 입력하세요'
+                  value={item.content}
+                  onChange={(e) => {
+                    handleContentChange(item.scriptId, e.target.value);
+                    handleInputResize(e.target);
+                  }}
+                  ref={(textarea) => {
+                    if (textarea) {
+                      handleInputResize(textarea);
+                    }
+                  }}
+                />
+                <button
+                  className='opacity-0 group-hover:opacity-100 transition-opacity duration-400 text-red-600 mt-3'
+                  onClick={() =>
+                    deleteScript(item.scriptId, item.scriptSequence)
+                  }
                 >
-                  <textarea
-                    className='w-full bg-transparent outline-none resize-none overflow-hidden text-sm'
-                    rows={1}
-                    placeholder='메시지를 입력하세요'
-                    value={item.content}
-                    onChange={(e) => {
-                      handleContentChange(item.scriptId, e.target.value);
-                      handleInputResize(e.target);
-                    }}
-                    ref={(textarea) => {
-                      if (textarea) {
-                        handleInputResize(textarea);
-                      }
-                    }}
-                  />
-                </div>
+                  x
+                </button>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-
         {/* 적용 버튼 */}
         <div className='flex justify-end'>
           <Button
