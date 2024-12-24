@@ -56,6 +56,10 @@ export default function ConsultationScript({
         credentials: 'include',
       }
     );
+
+    setScripts((prevScripts) =>
+      prevScripts.filter((s) => s.scriptId !== scriptId)
+    );
   };
 
   const transScript = async (script: TScriptProps[]) => {
@@ -99,13 +103,13 @@ export default function ConsultationScript({
               }`}
             >
               <div
-                className={`flex items-center space-x-2 ${
+                className={`flex items-center ${
                   item.speaker === 'VIP' ? 'flex-row' : 'flex-row-reverse'
                 }`}
               >
                 <textarea
-                  className={`w-full p-2 rounded-sm text-white ${
-                    item.speaker === 'VIP' ? 'bg-hanagold' : 'bg-hanagreen ml-2'
+                  className={`w-full p-2 rounded-sm text-black ${
+                    item.speaker === 'VIP' ? 'bg-blue-100' : 'bg-gray-100'
                   } outline-none resize-none overflow-hidden text-sm`}
                   rows={1}
                   placeholder='메시지를 입력하세요'
@@ -121,7 +125,7 @@ export default function ConsultationScript({
                   }}
                 />
                 <button
-                  className='opacity-0 group-hover:opacity-100 transition-opacity duration-400 text-red-600 mt-3'
+                  className='flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400 text-red-600'
                   onClick={() =>
                     deleteScript(item.scriptId, item.scriptSequence)
                   }
