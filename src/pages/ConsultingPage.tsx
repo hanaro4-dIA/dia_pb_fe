@@ -32,7 +32,6 @@ export default function ConsultingPage() {
   }, [error]);
 
   // 통화 녹음
-
   const [file, setFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>('');
 
@@ -113,20 +112,19 @@ export default function ConsultingPage() {
               {customerData?.name} 손님
             </div>
             <input
+              id='input-file'
               type='file'
               className='text-xs border border-purple-700 w-15'
               accept='.m-3,audio/mp3'
               onChange={handleCallCustomer}
+              style={{ display: 'none' }}
             />
-            {/* <div className='border border-blue-400'>
-              <Button
-                onClick={handleUpload}
-                disabled={!file}
-                className='border border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white'
-              >
-                전화
-              </Button>
-            </div> */}
+            <label
+              htmlFor='input-file'
+              className='px-3 py-2 cursor-pointer border border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white rounded'
+            >
+              전화
+            </label>
           </div>
 
           {/* 손님 정보 */}
