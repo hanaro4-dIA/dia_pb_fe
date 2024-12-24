@@ -7,14 +7,26 @@ import { TScriptProps } from '../types/dataTypes';
 export default function ConsultationScript({
   consultingId,
   uploadStatus,
+  isRefetch,
+  fetchFinished,
+  setFetchFinished,
 }: {
   consultingId: number;
   uploadStatus: string;
+  isRefetch: boolean;
+  fetchFinished: boolean;
+  setFetchFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [script, setScripts] = useState<TScriptProps[]>([]);
   const { data, error } = useFetch<{ scriptResponseDTOList: TScriptProps[] }>(
-    `journals/${consultingId}/scripts`
+    `journals/${consultingId}/scripts?x=${isRefetch}`
   );
+
+  useEffect(() => {
+    if (isRefetch) {
+      console.log('isRefetch 상태가 true로 변경됨.');
+    }
+  }, [isRefetch]);
 
   useEffect(() => {
     if (error) {
@@ -22,18 +34,31 @@ export default function ConsultationScript({
     }
   }, [error]);
 
+  console.log('ddddd>>', data);
   useEffect(() => {
-    const fetchScripts = async () => {
-      try {
-        if (data) {
-          setScripts(data.scriptResponseDTOList);
-        }
-      } catch (error) {
-        console.error('상담 스크립트 불러오기 중 에러 발생: ', error);
-      }
-    };
-    fetchScripts();
-  }, [data]);
+    if (data && data.scriptResponseDTOList?.length) {
+      setScripts(data.scriptResponseDTOList);
+      if (setFetchFinished) setFetchFinished(true);
+    }
+
+    // const fetchScripts = async () => {
+    //   try {
+    //     if (data) {
+    //       setScripts(data.scriptResponseDTOList);
+    //     }
+    //   } catch (error) {
+    //     console.error('상담 스크립트 불러오기 중 에러 발생: ', error);
+    //   }
+    // };
+    // if (isRefetch && data?.scriptResponseDTOList.length !== 0) {
+    //   fetchScripts();
+    //   setFetchFinished(true);
+    // }
+  }, [data, isRefetch, setFetchFinished]);
+
+  useEffect(() => {
+    console.log('GET 한번 가져옴!! >>> ', fetchFinished);
+  }, [fetchFinished]);
 
   const handleContentChange = (scriptId: number, newContent: string) => {
     setScripts((prevScript) =>

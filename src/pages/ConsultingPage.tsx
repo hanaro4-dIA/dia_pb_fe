@@ -1,7 +1,7 @@
 // @ts-ignore
 import MicRecorder from 'mic-recorder-to-mp3';
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { Button } from '../components/ui/button';
 import ConsultationJournalList from '../containers/ConsultationJournalList';
 import ConsultationScript from '../containers/ConsultationScript';
@@ -32,6 +32,10 @@ export default function ConsultingPage() {
   }, [error]);
 
   // 통화 녹음
+  const [isRefetch, setRefetch] = useState(false);
+  const [fetchFinished, setFetchFinished] = useState(false); // fetchFinished가 true이면 전화버튼 비활성화
+  console.log('isRefetch: ', isRefetch);
+  console.log('fetchFinished: ', fetchFinished);
   const [file, setFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>('');
 
@@ -63,20 +67,21 @@ export default function ConsultingPage() {
     formData.append('uploadFile', file);
     try {
       setUploadStatus('업로드 중...');
+
       // fetch를 사용하여 파일 업로드
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}journals/${consultingId}/transcripts`,
         {
           method: 'POST',
-          body: formData, // FormData를 직접 전송
+          body: formData,
           credentials: 'include',
         }
       );
 
       if (response.ok) {
-        const data = await response.json(); // 서버 응답을 JSON으로 변환
         setUploadStatus('업로드 성공!');
-        console.log('서버 응답:', data);
+        setRefetch(true);
+        console.log('서버 응답:>>>>>', data);
       } else {
         throw new Error(`서버 에러: ${response.status}`);
       }
@@ -88,11 +93,13 @@ export default function ConsultingPage() {
 
   useEffect(() => {
     console.log('업로드 상태>>', uploadStatus);
-  }, [uploadStatus]);
+    console.log('응답받고 난 후>>>', isRefetch);
+  }, [uploadStatus, isRefetch]);
 
   const handleCallCustomer = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleFileChange(e);
   };
+
   useEffect(() => {
     if (file) {
       handleUpload();
@@ -104,9 +111,9 @@ export default function ConsultingPage() {
       <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
         {/* 첫번째 열 */}
         <div className='flex flex-col w-1/4 h-full space-y-4'>
-          <div className='border border-green-500 flex justify-between p-3 items-center border-b border-black'>
+          <div className='flex justify-between p-3 items-center border-b border-black'>
             <div
-              className='border border-red-400 text-2xl text-hanagold'
+              className='text-2xl text-hanagold'
               style={{ fontFamily: 'noto-bold, sans-serif' }}
             >
               {customerData?.name} 손님
@@ -118,10 +125,17 @@ export default function ConsultingPage() {
               accept='.m-3,audio/mp3'
               onChange={handleCallCustomer}
               style={{ display: 'none' }}
+              disabled={fetchFinished}
             />
             <label
               htmlFor='input-file'
-              className='px-3 py-2 cursor-pointer border border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white rounded'
+              className={`px-3 py-2 cursor-pointer border border-hanaindigo bg-white text-black rounded'
+           
+              ${
+                fetchFinished
+                  ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                  : 'border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white'
+              } rounded`}
             >
               전화
             </label>
@@ -143,6 +157,9 @@ export default function ConsultingPage() {
           <ConsultationScript
             consultingId={consultingId}
             uploadStatus={uploadStatus}
+            isRefetch={isRefetch}
+            fetchFinished={fetchFinished}
+            setFetchFinished={setFetchFinished}
           />
         </div>
 
