@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 import useFetch from '../hooks/useFetch';
-import { TScriptProps } from '../types/dataTypes';
+import { type TScriptProps } from '../types/dataTypes';
 
 export default function ConsultationScript({
   consultingId,
