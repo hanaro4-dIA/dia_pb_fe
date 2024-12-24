@@ -1,4 +1,3 @@
-import { Form } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
@@ -50,9 +49,6 @@ export default function ConsultationScript({
   };
 
   const transScript = async (script: TScriptProps[]) => {
-    console.log('script>>', script);
-    console.log('API URL:', `${APIKEY}journals/${consultingId}/transcripts`);
-
     const scriptRequestDTOList = script.map((item) => ({
       scriptId: item.scriptId,
       scriptSequence: item.scriptSequence,
