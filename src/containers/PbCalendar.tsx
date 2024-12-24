@@ -26,7 +26,7 @@ export default function PbCalendar() {
   const { data, error } = useFetch<TConsultationProps[]>(
     `reserves?status=true&type=upcoming`
   );
-  
+
   useEffect(() => {
     if (error) {
       console.error('승인된 상담 일정 조회 중 발생한 에러: ', error);
@@ -129,7 +129,7 @@ export default function PbCalendar() {
                 <tbody>
                   {sortedSchedules.map(
                     (
-                      { hopeTime, customerName, categoryId, title, content },
+                      { hopeTime, customerName, categoryName, title, content },
                       index
                     ) => (
                       <React.Fragment key={index}>
@@ -139,7 +139,7 @@ export default function PbCalendar() {
                         >
                           <td className='p-2 text-center'>{hopeTime}</td>
                           <td className='p-2 text-center'>{customerName}</td>
-                          <td className='p-2 text-center'>{categoryId}</td>
+                          <td className='p-2 text-center'>{categoryName}</td>
                           <td className='p-2 text-center'>{title}</td>
                           <td className='p-2'>
                             {accordian === index ? (

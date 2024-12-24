@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Section from '../components/Section';
 import { Button } from '../components/ui/button';
 import useFetch from '../hooks/useFetch';
-import { TScriptProps } from '../types/dataTypes';
+import { type TScriptProps } from '../types/dataTypes';
 
 export default function ConsultationScript({
   consultingId,
@@ -14,10 +14,18 @@ export default function ConsultationScript({
   fetchFinished: boolean;
   setFetchFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const APIKEY = import.meta.env.VITE_API_KEY;
   const [script, setScripts] = useState<TScriptProps[]>([]);
   const { data, error } = useFetch<{ scriptResponseDTOList: TScriptProps[] }>(
     `journals/${consultingId}/scripts?x=${isRefetch}`
   );
+  const handleContentChange = async (scriptId: number, newContent: string) => {
+    setScripts((prevScript) =>
+      prevScript.map((item) =>
+        item.scriptId === scriptId ? { ...item, content: newContent } : item
+      )
+    );
+  };
 
   useEffect(() => {
     if (error) {
@@ -44,6 +52,34 @@ export default function ConsultationScript({
     if (textarea) {
       textarea.style.height = 'auto'; // 높이를 초기화
       textarea.style.height = `${textarea.scrollHeight}px`; // 텍스트 크기에 맞게 설정
+    }
+  };
+
+  const transScript = async (script: TScriptProps[]) => {
+    const scriptRequestDTOList = script.map((item) => ({
+      scriptId: item.scriptId,
+      scriptSequence: item.scriptSequence,
+      speaker: item.speaker,
+      content: item.content,
+    }));
+
+    const response = await fetch(
+      `${APIKEY}journals/${consultingId}/transcripts`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({ scriptRequestDTOList }),
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    const responseBody = await response.json(); // JSON 응답 읽기
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed with status ${response.status}: ${responseBody.message}`
+      );
     }
   };
 
@@ -86,7 +122,14 @@ export default function ConsultationScript({
 
         {/* 적용 버튼 */}
         <div className='flex justify-end'>
-          <Button className='bg-hanaindigo w-20 px-2 rounded-xl'>적용</Button>
+          <Button
+            className='bg-hanaindigo w-20 px-2 rounded-xl'
+            onClick={() => {
+              transScript(script);
+            }}
+          >
+            적용
+          </Button>
         </div>
       </div>
     </Section>
