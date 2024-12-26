@@ -17,7 +17,7 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
   const pbName = JSON.parse(localStorage.getItem('loginPB') || '{}').name;
 
   const { data, error } = useFetch<TConsultationProps[]>(
-    `reserves?status=true&type=upcoming`
+    `reserves?status=true&type=notcompleted`
   );
 
   useEffect(() => {
