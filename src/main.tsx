@@ -5,9 +5,9 @@ import { SessionProvider } from './hooks/sessionContext.tsx';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <SessionProvider>
-      <App />
-    </SessionProvider>
-  </StrictMode>
+  // <StrictMode>
+  <SessionProvider>
+    <App />
+  </SessionProvider>
+  // </StrictMode>
 );

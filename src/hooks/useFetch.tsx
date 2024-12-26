@@ -39,6 +39,7 @@ export default function useFetch<T>(
       };
 
       const fullUrl = appendQueryParams(`${APIKEY}${url}`, queryParams);
+
       const response = await fetch(fullUrl, {
         method,
         headers: fetchHeaders,

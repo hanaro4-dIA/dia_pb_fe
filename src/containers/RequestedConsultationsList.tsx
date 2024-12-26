@@ -28,9 +28,9 @@ export default function RequestedConsultationsList({
       'wss://diapb.kebhana.topician.com/api/ws/consultation'
     ); //spring
 
-    socket.onopen = () => {
-      console.log('WebSocket 연결 성공');
-    };
+    // socket.onopen = () => {
+    //   console.log('WebSocket 연결 성공');
+    // };
 
     socket.onmessage = (e) => {
       try {

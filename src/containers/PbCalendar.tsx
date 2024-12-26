@@ -23,9 +23,8 @@ export default function PbCalendar() {
   const [accordian, setAccordian] = useState<number | null>(null);
   const modalExternal = useRef<HTMLDivElement>(null);
 
-  const { data, error } = useFetch<TConsultationProps[]>(
-    `reserves?status=true&type=upcoming`
-  );
+  const { data, error } =
+    useFetch<TConsultationProps[]>(`reserves?status=true`);
 
   useEffect(() => {
     if (error) {
