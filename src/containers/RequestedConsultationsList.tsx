@@ -24,7 +24,7 @@ export default function RequestedConsultationsList({
 
   // WebSocket 연결
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:8080/ws/consultation'); //spring
+    const socket = new WebSocket('wss://localhost:8080/wss/consultation'); //spring
 
     socket.onopen = () => {
       console.log('WebSocket 연결 성공');

@@ -96,7 +96,7 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
       );
       if (selectedConsultation) {
         setConsultingTitle(selectedConsultation.title);
-        setCategoryId(selectedConsultation.categoryId);
+        setCategoryId(Number(selectedConsultation.categoryId));
         setDay(changeDateFormat(selectedConsultation.hopeDate));
         setTime(selectedConsultation.hopeTime);
       }

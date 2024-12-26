@@ -63,7 +63,7 @@ export const RequestedConsultationItem = ({
         {changeDateFormat(reserveDate)} {reserveTime}
       </small>
       <div
-        className={`bg-white rounded-lg border ${getBorderColorClass(categoryId)} p-4 shadow-lg w-full`}
+        className={`bg-white rounded-lg border ${getBorderColorClass(Number(categoryId))} p-4 shadow-lg w-full`}
       >
         <div className='flex justify-between items-center'>
           <div className='flex flex-col w-[70%]'>
