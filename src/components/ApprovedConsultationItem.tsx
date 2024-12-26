@@ -28,7 +28,7 @@ export const ApprovedConsultationItem = ({
 
   return (
     <div
-      className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(categoryId)} shadow-lg`}
+      className={`bg-white rounded-lg p-4 mb-4 border ${getBorderColorClass(Number(categoryId))} shadow-lg`}
     >
       <div
         className='flex justify-between text-[1rem]'

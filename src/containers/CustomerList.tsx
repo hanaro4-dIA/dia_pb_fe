@@ -15,31 +15,30 @@ export default function CustomerList() {
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
   const listRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const { data: initialData, error: initialError } =
-    useFetch<TCustomerProps[]>(`customers/list`);
+  const searchUrl = debouncedSearchTerm
+    ? `customers/search?name=${debouncedSearchTerm}`
+    : `customers/list`;
 
-  const { data: searchData, error: searchError } = useFetch<TCustomerProps[]>(
-    debouncedSearchTerm && `customers/search?name=${debouncedSearchTerm}`
-  );
+  const { data: searchData, error: searchError } =
+    useFetch<TCustomerProps[]>(searchUrl);
 
   const [customersList, setCustomersList] = useState<TCustomerProps[] | []>([]);
 
   useEffect(() => {
-    if (debouncedSearchTerm && searchData) {
+    if (searchData) {
       setCustomersList(searchData);
-    } else if (!debouncedSearchTerm && initialData) {
-      setCustomersList(initialData);
     }
-  }, [debouncedSearchTerm, searchData, initialData]);
+  }, [searchData]);
 
   useEffect(() => {
-    if (initialError) {
-      console.error('손님 목록 조회 중 발생한 에러: ', initialError);
-    }
     if (searchError) {
-      console.error('손님 검색 중 발생한 에러: ', searchError);
+      if (searchError.message.includes('404')) {
+        setCustomersList([]);
+      } else {
+        console.error('손님 검색 중 발생한 에러: ', searchError);
+      }
     }
-  }, [initialError, searchError]);
+  }, [searchError]);
 
   // 선택된 항목에 대해 scrollIntoView 호출
   if (selectedId) {
@@ -55,10 +54,6 @@ export default function CustomerList() {
         block: 'center',
       });
     }
-  }
-
-  if (customersList.length === 0) {
-    return <div>손님 목록을 불러오는 중입니다...</div>;
   }
 
   return (
