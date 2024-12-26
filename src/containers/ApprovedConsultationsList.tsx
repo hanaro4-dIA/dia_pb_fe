@@ -48,8 +48,8 @@ export default function ApprovedConsultationsList({
     <Section
       title={
         customerName
-          ? `${customerName} 손님의 예정된 상담 일정`
-          : '예정된 상담 일정'
+          ? `${customerName} 손님의 미완료 상담 일정 및 일지`
+          : '미완료 상담 일정 및 일지'
       }
       layoutClassName='h-full'
     >
