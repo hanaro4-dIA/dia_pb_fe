@@ -13,7 +13,7 @@ export default function ApprovedConsultationsList({
   customerName?: string;
 }) {
   const { id } = useParams();
-  const { data, error } = useFetch<TConsultationProps[]>(
+  const { data, error, fetchData } = useFetch<TConsultationProps[]>(
     `reserves?status=true&type=notcompleted&refetch=${isRefetch}`
   );
 
@@ -29,7 +29,11 @@ export default function ApprovedConsultationsList({
 
   useEffect(() => {
     setApprovedConsultations(data || []);
-  }, [data, isRefetch]);
+  }, [data]);
+
+  useEffect(() => {
+    fetchData();
+  }, [isRefetch]);
 
   // 손님 한 명에 대한 정보 조회하기 위함
   const filteredConsultations = id

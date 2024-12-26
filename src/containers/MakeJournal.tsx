@@ -19,9 +19,6 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
   const { data, error } = useFetch<TConsultationProps[]>(
     `reserves?status=true&type=upcoming`
   );
-  if (error) {
-    console.error(error);
-  }
 
   useEffect(() => {
     if (error) {

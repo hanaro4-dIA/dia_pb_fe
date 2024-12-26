@@ -34,7 +34,7 @@ export default function PbProfile() {
   }, [pbData]);
 
   if (!pbData) {
-    return <div>프로필 데이터를 불러오는 중입니다...</div>;
+    return <div className='text-sm'>프로필 데이터를 불러오는 중입니다...</div>;
   }
 
   const handleAvailabilityChange = async (checked: boolean) => {
