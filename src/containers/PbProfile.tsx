@@ -37,9 +37,44 @@ export default function PbProfile() {
     return <div>프로필 데이터를 불러오는 중입니다...</div>;
   }
 
-  const handleAvailabilityChange = (checked: boolean) => {
-    setIsAvailable(checked);
-    setPbData((prev) => (prev ? { ...prev, availability: checked } : null));
+  const handleAvailabilityChange = async (checked: boolean) => {
+    try {
+      // 로컬 상태 업데이트
+      setIsAvailable(checked);
+      setPbData((prev) => (prev ? { ...prev, availability: checked } : null));
+
+      // API 요청 데이터 구성
+      const requestPayload = {
+        pbId: 1,
+        availability: checked,
+      };
+      console.log('Request Body:', requestPayload);
+
+      // Spring API 호출
+      const response = await fetch(`${APIKEY}availability`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // 세션 포함
+        body: JSON.stringify(requestPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error('서버와의 통신에 실패했습니다.');
+      }
+
+      // 응답 처리 (필요하면 상태 업데이트)
+      const updatedAvailability = await response.json();
+      setPbData((prev) =>
+        prev
+          ? { ...prev, availability: updatedAvailability.availability }
+          : null
+      );
+    } catch (error) {
+      console.error('availability 상태 변경 중 오류 발생: ', error);
+      alert('상태 변경에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   const handleInputChange = (
