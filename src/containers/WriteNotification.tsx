@@ -12,11 +12,9 @@ export default function WriteNotification() {
     []
   );
 
-  // 제목과 내용 상태 추가
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  // 고객 연결
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const { data: customersData, error: customersError } =
     useFetch<TCustomerProps[]>(`customers/list`);
@@ -33,26 +31,32 @@ export default function WriteNotification() {
     }
   }, [customersError]);
 
-  // 필터링된 고객 리스트
   const filteredCustomers = customers.filter((customer) =>
     customer.name.includes(searchTerm)
   );
 
-  // 전체 선택 핸들러
+  const handleCustomerSelect = (customer: TCustomerProps) => {
+    setSelectedCustomers((prev) => {
+      if (prev.some((c) => c.id === customer.id)) {
+        return prev.filter((c) => c.id !== customer.id);
+      } else {
+        return [...prev, customer];
+      }
+    });
+  };
+
   const handleSelectAll = () => {
-    if (selectedCustomers.length === filteredCustomers.length) {
+    if (selectedCustomers.length === customers.length) {
       setSelectedCustomers([]);
     } else {
-      setSelectedCustomers(filteredCustomers);
+      setSelectedCustomers(customers);
     }
   };
 
-  // 태그 제거 핸들러
   const handleRemoveTag = (customerId: number) => {
     setSelectedCustomers((prev) => prev.filter((c) => c.id !== customerId));
   };
 
-  // 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -67,21 +71,18 @@ export default function WriteNotification() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleCustomerSelect = (customer: TCustomerProps) => {
-    setSelectedCustomers((prev) => {
-      if (prev.some((c) => c.id === customer.id)) {
-        return prev.filter((c) => c.id !== customer.id);
-      } else {
-        return [...prev, customer];
-      }
-    });
-  };
 
   // 새로운 쪽지 전송하기 POST
-  const { fetchData } = useFetch<{ message: string }>(
+  const { fetchData, error } = useFetch<{ message: string }>(
     'notifications/send',
     'POST'
   );
+
+  useEffect(() => {
+    if (error) {
+      console.error('새로운 쪽지 전송하기 중 발생한 에러: ', error);
+    }
+  }, [error]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -126,9 +127,7 @@ export default function WriteNotification() {
               <input
                 type='checkbox'
                 checked={
-                  !!customers &&
-                  selectedCustomers.length === customers.length &&
-                  customers.length > 0
+                  selectedCustomers.length === customers.length && customers.length > 0
                 }
                 onChange={handleSelectAll}
                 className='w-4 h-4'
