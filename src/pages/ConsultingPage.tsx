@@ -34,7 +34,7 @@ export default function ConsultingPage() {
   const [isRefetch, setRefetch] = useState(false);
   const [fetchFinished, setFetchFinished] = useState(false); // fetchFinished가 true이면 전화버튼 비활성화
   const [file, setFile] = useState<File | null>(null);
-  const [uploadStatus, setUploadStatus] = useState<string>('');
+  const [_, setUploadStatus] = useState<string>('');
 
   // 파일 선택 핸들러
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
