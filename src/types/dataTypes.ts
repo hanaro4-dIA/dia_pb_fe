@@ -11,6 +11,7 @@ export type TJournalsProps = {
   contents: string;
   categoryName: string;
   journalProducts?: TJournalProduct[];
+  complete: boolean;
 };
 
 // 추천 상품 타입

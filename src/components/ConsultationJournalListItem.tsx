@@ -12,11 +12,14 @@ export const ConsultationJournalListItem = ({
   index,
   openNewWindow,
 }: TConsultationJournalListItemProps) => {
+  if (!consultation.complete) {
+    return ;
+  }
   return (
     <div
       onClick={() => openNewWindow(consultation)}
       className='bg-white rounded-lg p-4 mb-4 shadow-lg flex items-center border justify-around border-gray-200 cursor-pointer'
-    >
+      >
       <div className='w-full flex items-center justify-between'>
         <div className='w-2/3 flex justify-between items-center'>
           <span className='text-hanaindigo mr-4'>{index}</span>
