@@ -24,7 +24,7 @@ export default function RequestedConsultationsList({
 
   // WebSocket 연결
   useEffect(() => {
-    const socket = new WebSocket('wss://localhost:8080/wss/consultation'); //spring
+    const socket = new WebSocket('ws://localhost:8080/ws/consultation'); //spring
 
     socket.onopen = () => {
       console.log('WebSocket 연결 성공');
@@ -42,8 +42,6 @@ export default function RequestedConsultationsList({
           reserveTime: rawData.reserveTime.slice(0, 2).join(':'), // [9, 47, ...] -> "9:47"
         };
 
-        console.log('새로운 상담 요청 수신:', newConsultation);
-
         // 상태 업데이트
         setRequestedConsultations((prev) => [...prev, newConsultation]);
       } catch (error) {
@@ -51,13 +49,13 @@ export default function RequestedConsultationsList({
       }
     };
 
-    socket.onerror = (error) => {
-      console.error('WebSocket 에러:', error);
-    };
+    // socket.onerror = (error) => {
+    //   console.error('WebSocket 에러:', error);
+    // };
 
-    socket.onclose = () => {
-      console.log('WebSocket 연결 종료');
-    };
+    // socket.onclose = () => {
+    //   console.log('WebSocket 연결 종료');
+    // };
 
     return () => {
       socket.close();
