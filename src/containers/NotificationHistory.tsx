@@ -15,12 +15,10 @@ export default function NotificationHistory() {
     []
   );
 
-  // 쪽지 연결
   const [notifications, setNotifications] = useState<TNotificationProps[]>([]);
   const { data: notificationsData, error: notificationsError } =
     useFetch<TNotificationProps[]>('notifications');
 
-  // 고객 연결
   const [customers, setCustomers] = useState<TCustomerProps[]>([]);
   const { data: customersData, error: customersError } =
     useFetch<TCustomerProps[]>(`customers/list`);
@@ -49,12 +47,10 @@ export default function NotificationHistory() {
     }
   }, [customersError]);
 
-  // 체크박스 필터링용
   const filteredCustomers = customers.filter((customer) =>
     customer.name.includes(searchTerm)
   );
 
-  // 필터링 고객 선택 및 검색어 입력 처리
   const handleCustomerSelect = (customer: TCustomerProps) => {
     setSelectedCustomers((prev) => {
       if (prev.some((c) => c.id === customer.id)) {
@@ -69,21 +65,18 @@ export default function NotificationHistory() {
     setSearchTerm(e.target.value);
   };
 
-  // 전체 선택
   const handleSelectAll = () => {
-    if (selectedCustomers.length === filteredCustomers.length) {
+    if (selectedCustomers.length === customers.length) {
       setSelectedCustomers([]);
     } else {
-      setSelectedCustomers(filteredCustomers);
+      setSelectedCustomers(customers);
     }
   };
 
-  // 태그 x로 제거
   const handleRemoveTag = (customerId: number) => {
     setSelectedCustomers((prev) => prev.filter((c) => c.id !== customerId));
   };
 
-  // 드롭박스 밖 클릭 시 닫기 기능
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -104,12 +97,10 @@ export default function NotificationHistory() {
   const selectedIds = selectedCustomers.map((customer) => customer.id);
   const searchParams = new URLSearchParams();
 
-  // 선택된 고객 ID가 있을 경우에만 파라미터 추가
   if (selectedIds.length > 0) {
     selectedIds.forEach((id) => searchParams.append('id', id.toString()));
   }
 
-  // 동적으로 생성된 URL
   const searchUrl =
     selectedIds.length > 0
       ? `notifications/search?${searchParams.toString()}`
@@ -204,8 +195,7 @@ export default function NotificationHistory() {
               <input
                 type='checkbox'
                 checked={
-                  selectedCustomers.length === filteredCustomers.length &&
-                  filteredCustomers.length > 0
+                  selectedCustomers.length === customers.length && customers.length > 0
                 }
                 onChange={handleSelectAll}
                 className='w-4 h-4'
