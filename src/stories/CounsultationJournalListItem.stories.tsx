@@ -27,6 +27,7 @@ const defaultConsultation = {
   consultDate: '2024.10.25',
   contents: '상담 내용 예시',
   categoryName: '빠른 상담',
+  complete: false,
 };
 
 export const Default: Story = {
