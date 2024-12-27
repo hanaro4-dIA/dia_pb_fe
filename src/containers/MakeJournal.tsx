@@ -19,6 +19,45 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
   const { data, error } = useFetch<TConsultationProps[]>(
     `reserves?status=true&type=notcompleted`
   );
+  // WebSocket 연결
+  useEffect(() => {
+    const socket = new WebSocket(`ws://localhost:8080/ws/journalkeyword`);
+    //wss://diapb.kebhana.topician.com/api
+
+    socket.onopen = () => {
+      console.log('WebSocket 연결 성공');
+    };
+
+    socket.onmessage = (event) => {
+      try {
+        const response = JSON.parse(event.data); // JSON 데이터 파싱
+        console.log('받은 데이터:', response);
+
+        // ResponseListJournalKeywordDTO 구조에서 keywordDTOList 가져오기
+        const journalKeywords = response.keywordDTOList;
+
+        // 받은 데이터를 "title: content" 형식으로 변환
+        if (journalKeywords.length > 0) {
+          const formattedContents = journalKeywords
+            .map((keyword: any) => `${keyword.title}: ${keyword.content}`)
+            .join('\n');
+
+          // "PB의 기록"에 반영
+          setJournalContents(formattedContents);
+        }
+      } catch (error) {
+        console.error('WebSocket 메시지 파싱 오류:', error);
+      }
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket 연결 종료');
+    };
+
+    return () => {
+      socket.close(); // 컴포넌트 언마운트 시 WebSocket 연결 종료
+    };
+  }, []); // 'id'를 사용할 필요 없음
 
   useEffect(() => {
     if (error) {
@@ -64,7 +103,7 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
         if (response.ok) {
           const tempData = await response.json();
 
-          setJournalContents(tempData.journalContents || '');
+          //setJournalContents(tempData.journalContents || '');
           const products = tempData.recommendedProduct?.map(
             (product: { id: number; productName: string }) => ({
               id: product.id,
