@@ -25,7 +25,7 @@ export default function RequestedConsultationsList({
   // WebSocket 연결
   useEffect(() => {
     const socket = new WebSocket(
-      'wss://diapb.kebhana.topician.com/api/ws/consultation'
+      'wss://diapb.kebhana.topician.com/api/wss/consultation'
     ); //spring
 
     // socket.onopen = () => {
