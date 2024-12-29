@@ -1,44 +1,52 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import ApprovedConsultationsList from '../containers/ApprovedConsultationsList';
-import ConsultationJournalList from '../containers/ConsultationJournalList';
-import CustomerInformation from '../containers/CustomerInformation';
-import CustomerList from '../containers/CustomerList';
-import useFetch from '../hooks/useFetch';
-import { type TCustomerProps } from '../types/dataTypes';
+import { useState, useEffect } from 'react';
+import ConsultationJournalList from '../components/ConsultationJournalList';
+import CustomerInformation from '../components/CustomerInformation';
+import GuestList from '../components/GuestList';
+import ScheduledConsultationList from '../components/ScheduledConsultationList';
+import { type TCustomersProps } from '../lib/types';
+import { type TRequestedConsultationsProps } from '../lib/types';
 
 export default function CustomerDetailPage() {
+  const [customers, setCustomers] = useState<TCustomersProps[]>([]);
+  const [scheduledConsultations] = useState<TRequestedConsultationsProps[]>([]);
+
   const { id } = useParams();
-  const { data, error } = useFetch<TCustomerProps>(`customers/list/${id}`);
-  const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
 
   useEffect(() => {
-    if (data) setCustomerData(data);
-  }, [data]);
+    const fetchCustomers = async () => {
+      try {
+        const response = await fetch('/data/Customers.json');
+        const data = await response.json();
+        setCustomers(data);
+      } catch (error) {
+        alert('손님 정보를 불러오지 못했습니다.');
+      }
+    };
 
-  useEffect(() => {
-    if (error) {
-      console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
-    }
-  }, [error]);
+    fetchCustomers();
+  }, []);
 
   return (
     <div className='flex items-start justify-center w-full h-screen p-5 space-x-4 overflow-hidden'>
-      <div className='flex flex-col flex-grow w-1/4 h-full overflow-y-auto'>
-        <CustomerList />
+      {/* 첫 번째 열: 손님 목록 */}
+      <div className='flex flex-col flex-grow w-1/4 h-full'>
+        <div className='overflow-y-auto'>
+          <GuestList customers={customers} />
+        </div>
       </div>
 
+      {/* 두 번째 열: 손님 정보와 상담 일정 */}
       <div className='flex flex-col flex-grow w-1/4 h-full space-y-4'>
         <div>
-          <CustomerInformation customerData={customerData} />
+          <CustomerInformation customerId={Number(id)} />
         </div>
-        <div className='flex-grow h-full overflow-y-auto'>
-          {customerData && (
-            <ApprovedConsultationsList customerName={customerData.name} />
-          )}
+        <div className='flex-grow flex-shrink-0 min-h-0 overflow-y-auto'>
+          <ScheduledConsultationList consultations={scheduledConsultations} />
         </div>
       </div>
 
+      {/* 세 번째 열: 상담 일지 */}
       <div className='flex flex-col flex-grow w-1/4 h-full'>
         <ConsultationJournalList customerId={Number(id)} />
       </div>

@@ -1,101 +1,88 @@
-// @ts-ignore
-import MicRecorder from 'mic-recorder-to-mp3';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import ConsultationJournalList from '../containers/ConsultationJournalList';
-import ConsultationScript from '../containers/ConsultationScript';
-import CustomerInformation from '../containers/CustomerInformation';
-import MakeJournal from '../containers/MakeJournal';
-import useFetch from '../hooks/useFetch';
-import { type TCustomerProps } from '../types/dataTypes';
+import ConsultationJournalList from '../components/ConsultationJournalList';
+import CustomerInformation from '../components/CustomerInformation';
+import MakeJournal from '../components/MakeJournal';
+import STT from '../components/Stt';
+import { Button } from '../components/ui/button';
+import { type TCustomersProps } from '../lib/types';
+import { createRoot } from 'react-dom/client';
+import DictionaryPage from './DictionaryPage';
 
 export default function ConsultingPage() {
-  const location = useLocation();
-  const { customerId } = location.state || {};
-  const { consultingId } = location.state || {};
+  const [customerName, setCustomerName] = useState<string>();
+  const { id } = useParams();
 
-  const { data, error } = useFetch<TCustomerProps>(
-    `customers/list/${customerId}`
-  );
-
-  const [customerData, setCustomerData] = useState<TCustomerProps | null>(null);
-
-  useEffect(() => {
-    if (data) setCustomerData(data);
-  }, [data]);
-
-  useEffect(() => {
-    if (error) {
-      console.error('손님 한 명 정보 조회 중 발생한 에러: ', error);
-    }
-  }, [error]);
-
-  // 통화 녹음
-  const [isRefetch, setRefetch] = useState(false);
-  const [fetchFinished, setFetchFinished] = useState(false); // fetchFinished가 true이면 전화버튼 비활성화
-  const [file, setFile] = useState<File | null>(null);
-  const [_, setUploadStatus] = useState<string>('');
-
-  // 파일 선택 핸들러
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFile = e.target.files[0];
-      if (
-        selectedFile.type === 'audio/mp3' ||
-        selectedFile.name.endsWith('.mp3')
-      ) {
-        setFile(selectedFile);
-        setUploadStatus(''); // 상태 초기화
-      } else {
-        alert('오직 .mp3 파일만 업로드할 수 있습니다.');
-        e.target.value = ''; // 파일 선택 초기화
-      }
-    }
-  };
-
-  // 파일 업로드 핸들러
-  const handleUpload = async () => {
-    if (!file) {
-      alert('파일을 선택해주세요.');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('uploadFile', file);
+  // 손님 이름 불러오기 함수
+  const fetchCustomerName = async (customerId: number) => {
     try {
-      setUploadStatus('loading...');
+      const response = await fetch('/data/Customers.json');
+      const customerData: TCustomersProps[] = await response.json();
+      const customer = customerData.find(({ id }) => id === customerId);
 
-      // fetch를 사용하여 파일 업로드
-      const response = await fetch(
-        `${import.meta.env.VITE_API_KEY}journals/${consultingId}/transcripts`,
-        {
-          method: 'POST',
-          body: formData,
-          credentials: 'include',
-        }
-      );
-
-      if (response.ok) {
-        setUploadStatus('success!');
-        setRefetch(true);
+      if (customer) {
+        setCustomerName(customer.name);
       } else {
-        throw new Error(`서버 에러: ${response.status}`);
+        setCustomerName('손님 없음');
       }
     } catch (error) {
-      console.error('업로드 실패:', error);
-      setUploadStatus('failed...');
+      alert('Error fetching customer data:');
+      setCustomerName('데이터 로드 실패');
     }
   };
 
-  const handleCallCustomer = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleFileChange(e);
+  const [selectedText, setSelectedText] = useState('');
+
+  // 첫 번째 컴포넌트에서 호출할 콜백 함수
+  const handleTextSelect = (text: string) => {
+    setSelectedText(text);
   };
 
   useEffect(() => {
-    if (file) {
-      handleUpload();
+    if (id) {
+      fetchCustomerName(Number(id));
     }
-  }, [file]);
+  }, [id]);
+
+  const openNewWindow = () => {
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
+
+    if (newWindow) {
+      const styles = Array.from(document.styleSheets)
+        .map((styleSheet) => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map((rule) => rule.cssText)
+              .join('');
+          } catch (e) {
+            alert('Failed to load some CSS rules:');
+            return '';
+          }
+        })
+        .join('');
+
+      newWindow.document.write(`
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>키워드 DB 목록</title>
+            <style>${styles}</style>
+          </head>
+          <body>
+            <div id="dictionary-root"></div>
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+
+      const rootElement = newWindow.document.getElementById('dictionary-root');
+      if (rootElement) {
+        const root = createRoot(rootElement);
+        root.render(<DictionaryPage />);
+      }
+    }
+  };
 
   return (
     <>
@@ -103,59 +90,43 @@ export default function ConsultingPage() {
         {/* 첫번째 열 */}
         <div className='flex flex-col w-1/4 h-full space-y-4'>
           <div className='flex justify-between p-3 items-center border-b border-black'>
-            <div
-              className='text-2xl text-hanagold'
-              style={{ fontFamily: 'noto-bold, sans-serif' }}
-            >
-              {customerData?.name} 손님
+            <div className='text-2xl font-bold text-hanagold'>
+              {customerName} 손님
             </div>
-            <input
-              id='input-file'
-              type='file'
-              className='text-xs border border-purple-700 w-15'
-              accept='.m-3,audio/mp3'
-              onChange={handleCallCustomer}
-              style={{ display: 'none' }}
-              disabled={fetchFinished}
-            />
-            <label
-              htmlFor='input-file'
-              className={`px-3 py-2 cursor-pointer border border-hanaindigo bg-white text-black rounded'
-           
-              ${
-                fetchFinished
-                  ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                  : 'border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white'
-              } rounded`}
-            >
-              전화
-            </label>
+            <div>
+              <Button className='border border-hanaindigo bg-white text-black hover:bg-hanagold hover:text-white'>
+                전화
+              </Button>
+            </div>
           </div>
 
           {/* 손님 정보 */}
-          <div className='h-fit'>
-            <CustomerInformation customerData={customerData} />
+          <div className=''>
+            <CustomerInformation customerId={Number(id)} />
           </div>
+
+          {/* Dictionary 버튼 */}
+          <Button
+            className='w-full bg-white text-black border border-hanaindigo hover:text-white hover:bg-hanagold'
+            onClick={openNewWindow}
+          >
+            키워드 DB 목록 바로가기
+          </Button>
 
           {/* 상담일지 리스트 */}
           <div className='flex-grow overflow-y-auto'>
-            <ConsultationJournalList customerId={customerData?.id || 0} />
+            <ConsultationJournalList customerId={Number(id)} />
           </div>
         </div>
 
         {/* 두번째 열: STT 자동 작성란 */}
         <div className='flex flex-col w-1/4 h-full'>
-          <ConsultationScript
-            consultingId={consultingId}
-            isRefetch={isRefetch}
-            fetchFinished={fetchFinished}
-            setFetchFinished={setFetchFinished}
-          />
+          <STT onTextSelect={handleTextSelect} />
         </div>
 
         {/* 세번째 열: 상담일지 작성하기 */}
         <div className='flex flex-col w-1/2 h-full'>
-          <MakeJournal customerId={customerData?.id || 0} />
+          <MakeJournal selectedText={selectedText} />
         </div>
       </div>
     </>

@@ -1,10 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 
-interface CustomStorybookConfig extends StorybookConfig {
-  webpackFinal?: (config: any) => Promise<any>;
-}
-
-const config: CustomStorybookConfig = {
+const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-onboarding',
@@ -12,19 +8,10 @@ const config: CustomStorybookConfig = {
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
-    'storybook-addon-react-router-v6',
   ],
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
-  webpackFinal: async (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      'jsdoc-type-pratt-parser': require.resolve('jsdoc-type-pratt-parser'),
-    };
-    return config;
-  },
 };
-
 export default config;

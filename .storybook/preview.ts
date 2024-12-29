@@ -1,8 +1,6 @@
 import type { Preview } from '@storybook/react';
-import { withRouter } from 'storybook-addon-react-router-v6';
-import '../src/index.css';
 
-export const preview: Preview = {
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -12,4 +10,5 @@ export const preview: Preview = {
     },
   },
 };
-export const decorators = [withRouter];
+
+export default preview;
