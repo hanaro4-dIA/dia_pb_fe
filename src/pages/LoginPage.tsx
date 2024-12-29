@@ -1,6 +1,6 @@
 import copyright from '../assets/copyright.png';
-import logo from '../assets/diA_business.png';
-import Login from '../components/Login';
+import logo from '../assets/dIA_business.png';
+import Login from '../containers/Login';
 
 export default function LoginPage() {
   return (
@@ -14,7 +14,7 @@ export default function LoginPage() {
               </div>
               <div className='text-3xl text-hanaindigo mb-4'>LOGIN</div>
               <Login />
-              <div className='flex justify-center '>
+              <div className='flex justify-center'>
                 <img className='w-20' src={copyright} alt='copyright' />
               </div>
             </div>
