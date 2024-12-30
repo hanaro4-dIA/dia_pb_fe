@@ -22,7 +22,7 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   useEffect(() => {
     // WebSocket 연결 생성
-    const newSocket = new WebSocket(`ws://localhost:8080/ws/journalkeyword`);
+    const newSocket = new WebSocket(`ws://localhost:8080/wss/journalkeyword`);
 
     newSocket.onopen = () => {
       console.log('WebSocket 연결 성공');
@@ -45,8 +45,8 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
           setJournalContents(formattedContents);
 
           // 유효한 데이터 수신 후 WebSocket 연결 종료
-          console.log('유효한 데이터 수신, WebSocket 종료');
-          newSocket.close();
+          //console.log('유효한 데이터 수신, WebSocket 종료');
+          //newSocket.close();
         } else {
           // 빈 데이터일 경우 연결 유지
           console.warn('빈 데이터 수신, WebSocket 연결 유지');
