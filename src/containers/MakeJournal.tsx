@@ -19,6 +19,78 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
   const { data, error } = useFetch<TConsultationProps[]>(
     `reserves?status=true&type=notcompleted`
   );
+  const [, setSocket] = useState<WebSocket | null>(null);
+  useEffect(() => {
+    // WebSocket 연결 생성
+    const newSocket = new WebSocket(`ws://localhost:8080/wss/journalkeyword`);
+
+    newSocket.onopen = () => {
+      console.log('WebSocket 연결 성공');
+    };
+
+    newSocket.onmessage = (event) => {
+      try {
+        const response = JSON.parse(event.data);
+        console.log('받은 데이터:', response);
+
+        // ResponseListJournalKeywordDTO 구조에서 keywordDTOList 가져오기
+        const journalKeywords = response.keywordDTOList;
+
+        if (journalKeywords?.length > 0) {
+          // 유효한 데이터 수신 시 처리
+          const formattedContents = journalKeywords
+            .map((keyword: any) => `${keyword.title}: ${keyword.content}`)
+            .join('\n');
+
+          setJournalContents(formattedContents);
+
+          // 유효한 데이터 수신 후 WebSocket 연결 종료
+          //console.log('유효한 데이터 수신, WebSocket 종료');
+          //newSocket.close();
+        } else {
+          // 빈 데이터일 경우 연결 유지
+          console.warn('빈 데이터 수신, WebSocket 연결 유지');
+        }
+      } catch (error) {
+        console.error('WebSocket 메시지 파싱 오류:', error);
+      }
+    };
+
+    newSocket.onclose = (event) => {
+      console.log('WebSocket 연결 종료', event.reason);
+
+      // 서버에서 의도적으로 연결을 닫았을 경우 재연결하지 않음
+      if (!event.wasClean) {
+        console.warn('비정상 종료. WebSocket 재연결 시도');
+        setTimeout(() => {
+          const retrySocket = new WebSocket(
+            `ws://localhost:8080/ws/journalkeyword`
+          );
+          setSocket(retrySocket);
+        }, 3000); // 3초 후 재연결 시도
+      }
+    };
+
+    newSocket.onerror = (error) => {
+      console.error('WebSocket 연결 오류:', error);
+      // 에러 발생 시 연결 재시도
+      setTimeout(() => {
+        const retrySocket = new WebSocket(
+          `ws://localhost:8080/ws/journalkeyword`
+        );
+        setSocket(retrySocket);
+      }, 3000);
+    };
+
+    setSocket(newSocket);
+
+    // 컴포넌트 언마운트 시 WebSocket 연결 종료
+    return () => {
+      if (newSocket.readyState === WebSocket.OPEN) {
+        newSocket.close();
+      }
+    };
+  }, []); // 빈 의존성 배열로 최초 마운트 시 한 번 실행
 
   useEffect(() => {
     if (error) {
@@ -64,7 +136,7 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
         if (response.ok) {
           const tempData = await response.json();
 
-          setJournalContents(tempData.journalContents || '');
+          //setJournalContents(tempData.journalContents || '');
           const products = tempData.recommendedProduct?.map(
             (product: { id: number; productName: string }) => ({
               id: product.id,
