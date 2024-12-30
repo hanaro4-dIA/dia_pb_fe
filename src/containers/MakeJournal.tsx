@@ -19,7 +19,7 @@ export default function MakeJournal({ customerId }: { customerId: number }) {
   const { data, error } = useFetch<TConsultationProps[]>(
     `reserves?status=true&type=notcompleted`
   );
-  const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [, setSocket] = useState<WebSocket | null>(null);
   useEffect(() => {
     // WebSocket 연결 생성
     const newSocket = new WebSocket(`ws://localhost:8080/wss/journalkeyword`);
